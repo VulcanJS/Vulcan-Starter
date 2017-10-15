@@ -57,6 +57,8 @@ Expect other environments to behave differently but, sufficiently similar that, 
 
 ### Step 3 - Prepare your project
 
+    cd ~/projects;
+    
     # Name your new Vulcan project
     export PROJ_NAME="myvulcanproject";
 
@@ -64,7 +66,7 @@ Expect other environments to behave differently but, sufficiently similar that, 
     git clone git@github.com:VulcanJS/Vulcan-Starter.git ${PROJ_NAME}
 
     # Step in your project folder
-    cd ../${PROJ_NAME};
+    cd ${PROJ_NAME};
 
     # Make sure your app uses the same Meteor release as Vulcan
     cp ../Vulcan/.meteor/release ./.meteor
