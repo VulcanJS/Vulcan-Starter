@@ -1,11 +1,61 @@
-# VulcanJS starter repo. Use as a base for your own VulcanJS projects.
+# VulcanJS Starter Kit.
 
-## Steps to install
+This kit gives you all you need to quickly launch your own VulcanJS projects.
 
-These steps were tested Oct 15/2017, on an 8Gb Qemu/KVM virtual machine running Xubuntu Desktop 16.04 LTS.
+## Installation Overview
+
+If you already have Vulcan up & running then use the *Quick Install* version.
+The *Complete Install* steps will get you going on a freshly built Ubuntu desktop machine.
+
+### Quick Install
+
+These steps assume an environment where you have already had Vulcan working.
+
+#### Step 1 - Preparation
+
+Edit these three shell variables to declare installation locations ...
+
+    # Specify where things should go
+    export NEW_PROJECT_NAME="";   # a name for your new project
+    export PROJECTS_DIRECTORY=""; # the installation path for your new project
+    export VULCAN_HOME="";        # the path to the root of your Vulcan installation
+
+Go get the starter kit ...
+
+    # Clone Vulcan starter kit as your named project
+    cd ${PROJECTS_DIRECTORY};
+    git clone git@github.com:VulcanJS/Vulcan-Starter.git ${NEW_PROJECT_NAME}
+
+Initialize it ...
+
+    # Install and pre-cache all of your named app's NodeJS dependencies
+    cd ${NEW_PROJECT_NAME};
+    meteor npm install
+
+Establish a link from your starter kit to Vulcan's packages ...
+
+    # Tell Meteor to refer to Vulcan for the packages that it supplies
+    export METEOR_PACKAGE_DIRS=${VULCAN_HOME}/packages;
+    echo "Vulcan's Meteor packages folder : ${METEOR_PACKAGE_DIRS}.";
+
+#### Step 2 - Running
+
+Do the following, then check it works with a browser at http://localhost:3000 ...
+
+    # Run your Vulcan project
+    [ -f settings.json ] || cp sample_settings.json settings.json;
+    meteor --port 3000 --settings settings.json
+
+Congrats! You just gained a cornucopia of functionality you no longer have to develop yourself.  You've saved yourself months of work!  Take the rest of the day off!
+
+### Complete Install
+
+The steps below assume a machine that has not previously been used for software development.
+
+They were tested Oct 15/2017, on an 8Gb Qemu/KVM virtual machine running a freshly installed Xubuntu Desktop 16.04 LTS.
 Expect other environments to behave differently but, sufficiently similar that, adaptation should not be difficult.
 
-### Step 1 - Preparation
+#### Step 1 - Preparation
 
     # Prepare dependencies
     sudo apt install -y curl;            # Need curl to get the other stuff.
@@ -45,7 +95,7 @@ Expect other environments to behave differently but, sufficiently similar that, 
     # install and pre-cache all of Vulcan's NodeJS dependencies
     meteor npm install;
 
-### Step 2 - Test Vulcan installation
+#### Step 2 - Test Vulcan installation
 
  Check it works with a browser at http://localhost:3033
  then kill it with &lt;ctrl-c>
@@ -55,7 +105,7 @@ Expect other environments to behave differently but, sufficiently similar that, 
     meteor  --port 3033 --settings settings.json;
 
 
-### Step 3 - Prepare your project
+#### Step 3 - Prepare your project
 
     cd ~/projects;
     
@@ -78,7 +128,7 @@ Expect other environments to behave differently but, sufficiently similar that, 
     export METEOR_PACKAGE_DIRS=../Vulcan/packages;
     echo "Vulcan's Meteor packages folder : ${METEOR_PACKAGE_DIRS}.";
 
-### Step 2 - Test your project installation
+#### Step 4 - Test your project installation
 
  Check it works with a browser at http://localhost:3000
  then kill it with &lt;ctrl-c>
