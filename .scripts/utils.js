@@ -70,12 +70,20 @@ const getCpuArchitecture = () => {
   return getCpuWidth() === '64'  ?  "amd64"  :  "i386";
 };
 
+const execDpkg = ( file ) => {
+  exec( `sudo dpkg -i ${file};`, {silent:true}, (code, stdout, stderr) => {
+    code  ?  LG(`\nExit code: ${code}`) : null;
+    stdout  ?  LG(`\nProgram stdout: ${stdout}`) : null;
+    stderr  ?  LG(`\nProgram stderr: ${stderr}`) : null;
+  });
+};
+
 const downloadsDir = `${env['HOME']}/Downloads`;
 const installPackage = ( packageName, installerName, sourceUrl ) => {
   switch( supportedOS() ) {
     case "Ubuntu":
       LG(`Check if ${packageName} is installed`);
-      if ( exec( `dpkg-query -s ${packageName}+'??????????';`, {silent:true} ).stdout.indexOf('install ok installed') < 0 ) {
+      if ( exec( `dpkg-query -s '${packageName}';`, {silent:true} ).stdout.indexOf('install ok installed') < 0 ) {
         LG(`Get ${installerName} from ${sourceUrl}`);
         const filepath = `${downloadsDir}/${installerName}`;
         if ( ! test( '-f', filepath ) ) {
@@ -85,15 +93,12 @@ const installPackage = ( packageName, installerName, sourceUrl ) => {
              .pipe(fs.createWriteStream(filepath))
              .on('finish', () => {
                LG(`* * * Received and executing : ${filepath} * * *  `);
+               execDpkg( filepath );
              });
         } else {
           LG(`Already obtained : ${filepath}`);
+          execDpkg( filepath );
         }
-        exec( `sudo dpkg -i ${filepath};`, (code, stdout, stderr) => {
-          code  ?  LG(`Exit code: ${code}`) : LG(`No exit code`);
-          stdout  ?  LG(`Program stdout: ${stdout}`) : LG(`No stdout`);
-          stderr  ?  LG(`Program stderr: ${stderr}`) : LG(`No stderr`);
-        });
       } else {
         LG( `'${packageName}' already installed` );
       }
