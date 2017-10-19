@@ -87,6 +87,7 @@
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-eslint": "^7.0.0",
+    "curl": "^0.1.4",
     "eslint": "^3.10.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-config-meteor": "0.0.9",
@@ -95,7 +96,11 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-meteor": "^4.0.1",
-    "eslint-plugin-react": "^6.7.1"
+    "eslint-plugin-react": "^6.7.1",
+    "github-api": "^3.0.0",
+    "node.os": "^1.2.4",
+    "shelljs": "^0.7.8",
+    "sudo": "^1.0.3"
   },
   "postcss": {
     "plugins": {

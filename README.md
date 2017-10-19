@@ -23,6 +23,7 @@ Edit these three shell variables to declare installation locations ...
 Go get the starter kit ...
 
     # Clone Vulcan starter kit as your named project
+    mkdir -p ${PROJECTS_DIRECTORY};
     cd ${PROJECTS_DIRECTORY};
     git clone git@github.com:VulcanJS/Vulcan-Starter.git ${NEW_PROJECT_NAME}
 
@@ -38,9 +39,7 @@ Establish a link from your starter kit to Vulcan's packages ...
     export METEOR_PACKAGE_DIRS=${VULCAN_HOME}/packages;
     echo "Vulcan's Meteor packages folder : ${METEOR_PACKAGE_DIRS}.";
 
-#### Step 2 - Running
-
-Do the following, then check it works with a browser at http://localhost:3000 ...
+Check it works with a browser at http://localhost:3000 ...
 
     # Run your Vulcan project
     [ -f settings.json ] || cp sample_settings.json settings.json;
@@ -55,9 +54,14 @@ The steps below assume a machine that has not previously been used for software 
 They were tested Oct 15/2017, on an 8Gb Qemu/KVM virtual machine running a freshly installed Xubuntu Desktop 16.04 LTS.
 Expect other environments to behave differently but, sufficiently similar that, adaptation should not be difficult.
 
+#### Critical prerequisite
+
+Note that, to use the scripts below, you **must already have** SSH access to GitHub.  You'll need that in any case for properly managing version control of your project.  Learn more at [GiHub Bootcamp : Set up git](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+
 #### Step 1 - Preparation
 
     # Prepare dependencies
+    sudo apt install -y git;             # Need git for managing your project's source code.
     sudo apt install -y curl;            # Need curl to get the other stuff.
     sudo apt install -y build-essential; # Need C++ build tools for fast bcrypt installation
 
@@ -136,4 +140,5 @@ Expect other environments to behave differently but, sufficiently similar that, 
     # Run your Vulcan project
     [ -f settings.json ] || cp sample_settings.json settings.json;
     meteor --port 3000 --settings settings.json
+
 
