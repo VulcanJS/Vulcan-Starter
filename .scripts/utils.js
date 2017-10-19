@@ -100,7 +100,7 @@ const installPackage = ( packageName, installerName, sourceUrl ) => {
           execDpkg( filepath );
         }
       } else {
-        LG( `'Found ${packageName}' already installed` );
+        LG( `Found '${packageName}' already installed` );
       }
       return true;
 

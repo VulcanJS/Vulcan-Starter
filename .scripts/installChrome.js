@@ -12,13 +12,16 @@ const installChrome = () => {
     LG( res );
     utils.installUtility('libxss1', ( res ) => {
       LG( res );
-      utils.installUtility('fonts-liberation', ( res ) => {
+      utils.installUtility('libappindicator1', ( res ) => {
         LG( res );
-        utils.installPackage(
-          pkgChrome,
-          chrome_installer,
-          google_downloads
-        );
+        utils.installUtility('fonts-liberation', ( res ) => {
+          LG( res );
+          utils.installPackage(
+            pkgChrome,
+            chrome_installer,
+            google_downloads
+          );
+        });
       });
     });
   });
