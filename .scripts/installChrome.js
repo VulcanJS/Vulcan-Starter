@@ -4,19 +4,27 @@ const LG = console.log;
 
 const installChrome = () => {
 
-  utils.installUtility('curl');
-  utils.installUtility('libxss1');
-  utils.installUtility('fonts-liberation');
-
   const pkgChrome = `google-chrome-stable`;
   const chrome_installer = `${pkgChrome}_current_${utils.getCpuArchitecture()}.deb`;
   const google_downloads = `https://dl.google.com/linux/direct`;
 
-  utils.installPackage(
-    pkgChrome,
-    chrome_installer,
-    google_downloads
-  );
+  utils.installUtility('curl', ( res ) => {
+    LG( res );
+    utils.installUtility('libxss1', ( res ) => {
+      LG( res );
+      utils.installUtility('fonts-liberation', ( res ) => {
+        LG( res );
+        utils.installPackage(
+          pkgChrome,
+          chrome_installer,
+          google_downloads
+        );
+      });
+    });
+  });
+return;
+
+
 
 };
 

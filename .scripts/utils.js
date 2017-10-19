@@ -100,7 +100,7 @@ const installPackage = ( packageName, installerName, sourceUrl ) => {
           execDpkg( filepath );
         }
       } else {
-        LG( `'${packageName}' already installed` );
+        LG( `'Found ${packageName}' already installed` );
       }
       return true;
 
@@ -109,12 +109,16 @@ const installPackage = ( packageName, installerName, sourceUrl ) => {
   }
 };
 
-const installUtility = ( utility ) => {
+const installUtility = ( utility, callback ) => {
 
   switch( supportedOS() ) {
     case "Ubuntu":
       if ( exec( `dpkg-query -s ${utility};`, {silent:true} ).stdout.indexOf('install ok installed') < 0 ) {
-        exec( `sudo apt-get install ${utility}`)
+        exec( `sudo apt-get -y install ${utility}`, {silent:true}, (code, stdout, stderr) => {
+          callback( code == 0  ?  `Installed ${utility} succesfully.`  :  `Could not install ${utility}\n${stderr}` );
+        } );
+      } else {
+        callback( `Found ${utility} already installed.` );
       }
 
     default:

@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 const GitHub = require('github-api');
-const npm = require('npm');
+// const npm = require('npm');
 
 // const env = require('shelljs').env;
 // const exec = require('shelljs').exec;
