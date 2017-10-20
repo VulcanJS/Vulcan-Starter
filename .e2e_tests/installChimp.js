@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 
 const GitHub = require('github-api');
-// const npm = require('npm');
 
 // const env = require('shelljs').env;
 // const exec = require('shelljs').exec;
@@ -14,10 +13,6 @@ const LG = console.log;
 const installChimp = () => {
 
   LG('***** installing chimp ******');
-//   LG(npm);
-
-// LG('|||||| curtailed ||||||');
-// return;
 
   installChrome();
 

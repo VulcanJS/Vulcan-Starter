@@ -4,6 +4,7 @@ const env = require('shelljs').env;
 const exec = require('shelljs').exec;
 const grep = require('shelljs').grep;
 const test = require("shelljs").test;
+
 const got = require('got');
 const fs = require('fs');
 
@@ -16,6 +17,16 @@ const knownOperatingSystems = [ 'linux', 'android', 'win', 'osx', 'ios', 'browse
 const supportedOperatingSystems = [ 'linux', 'android' ];
 const knownPackageManagers = [ 'apt', 'rpm', 'pacman' ];
 const supportedPackageManagers = [ 'apt' ];
+
+const checkForNodePackage = ( spec, callback ) => {
+
+  var globalSwitch = spec.isGlobal  ? ` -g`  : ``;
+  var command = `npm ${globalSwitch} list ${spec.package};`;
+  exec( command, {silent:true}, (code, stdout, stderr) => {
+    callback( code )
+  });
+
+};
 
 const thisOS = os.platform;
 function UnSupportedOSException(message) {
@@ -43,6 +54,7 @@ const supportedOS = () => {
   }
   return distribution;
 };
+
 
 const runAsRoot = ( command ) => {
 
@@ -137,5 +149,6 @@ module.exports = {
   getCpuArchitecture: getCpuArchitecture,
   runAsRoot: runAsRoot,
   installUtility: installUtility,
+  checkForNodePackage: checkForNodePackage,
   installPackage: installPackage
 }
