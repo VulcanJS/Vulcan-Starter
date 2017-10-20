@@ -1,16 +1,19 @@
 #! /usr/bin/env node
 
+const fs = require('fs');
+
+const got = require('got');
+const os = require('node.os');
+
 const env = require('shelljs').env;
 const exec = require('shelljs').exec;
 const grep = require('shelljs').grep;
 const test = require("shelljs").test;
 
-const got = require('got');
-const fs = require('fs');
-
+const semver = require('semver');
 const sudo = require('sudo');
-const which = require('which');
-const os = require('node.os');
+//const which = require('which');
+
 const LG = console.log;
 
 const knownOperatingSystems = [ 'linux', 'android', 'win', 'osx', 'ios', 'browser', 'nw', 'wechat', 'Electron' ];
@@ -18,12 +21,35 @@ const supportedOperatingSystems = [ 'linux', 'android' ];
 const knownPackageManagers = [ 'apt', 'rpm', 'pacman' ];
 const supportedPackageManagers = [ 'apt' ];
 
+const adequateNodeVersion = ( minimumVersion ) => {
+  var versionInUse = semver.clean(process.version);
+  return semver.lt( minimumVersion, versionInUse );
+};
+
 const checkForNodePackage = ( spec, callback ) => {
 
   var globalSwitch = spec.isGlobal  ? ` -g`  : ``;
   var command = `npm ${globalSwitch} list ${spec.package};`;
+  LG(`Check if ${spec.package} is installed`);
   exec( command, {silent:true}, (code, stdout, stderr) => {
     callback( code )
+  });
+
+};
+
+const installNodePackage = ( spec, callback ) => {
+  checkForNodePackage( spec, ( res ) => {
+    if ( res != 0 ) {
+      var switches = spec.isGlobal  ? ` -gy`  : ` -y`;
+      var command = `npm ${switches} install ${spec.package};`;
+//      exec( command, {silent:true}, (code, stdout, stderr) => {
+      LG( `Ready to install :'${spec.package}'` );
+      exec( command, (code, stdout, stderr) => {
+        callback( code )
+      });
+    } else {
+      LG( `Found '${spec.package}' already installed` );
+    }
   });
 
 };
@@ -125,6 +151,7 @@ const installUtility = ( utility, callback ) => {
 
   switch( supportedOS() ) {
     case "Ubuntu":
+      LG(`Check if ${utility} is installed`);
       if ( exec( `dpkg-query -s ${utility};`, {silent:true} ).stdout.indexOf('install ok installed') < 0 ) {
         exec( `sudo apt-get -y install ${utility}`, {silent:true}, (code, stdout, stderr) => {
           callback( code == 0  ?  `Installed ${utility} succesfully.`  :  `Could not install ${utility}\n${stderr}` );
@@ -144,11 +171,13 @@ if (!module.parent) {
 }
 
 module.exports = {
+  adequateNodeVersion: adequateNodeVersion,
   UnSupportedOSException: UnSupportedOSException,
   supportedOS: supportedOS,
   getCpuArchitecture: getCpuArchitecture,
   runAsRoot: runAsRoot,
   installUtility: installUtility,
   checkForNodePackage: checkForNodePackage,
+  installNodePackage: installNodePackage,
   installPackage: installPackage
 }
