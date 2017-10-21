@@ -5,8 +5,10 @@
     "npm": "^3.0"
   },
   "scripts": {
-    "prestart": "sh prestart_vulcan.sh",
     "start": "meteor --settings settings.json",
+    "run_acceptance": "./.scripts/startAcceptanceTest.sh",
+    "acceptance": "chimp .e2e_tests/chimp-config.js --ddp=http://localhost:3000         --path=.e2e_tests",
+    "e2e": "chimp .e2e_tests/chimp-config.js --ddp=http://localhost:3000 --watch --path=.e2e_tests",
     "lint": "eslint --cache --ext .jsx,js packages"
   },
   "dependencies": {
