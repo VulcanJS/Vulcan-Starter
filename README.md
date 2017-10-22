@@ -4,46 +4,31 @@ This kit gives you all you need to quickly launch your own VulcanJS projects.
 
 ## Installation Overview
 
-If you already have Vulcan up & running then use the *Quick Install* version.
-The *Complete Install* steps will get you going on a freshly built Ubuntu desktop machine.
+If you already have Meteor and/or Vulcan up & running then use the *Quick Install* version.
+
+The *Complete Install* steps will get you going on a freshly built Ubuntu desktop machine (including installing Node, Meteor, etc.) using the "[two-repo](http://docs.vulcanjs.org/#Two-Repo-Install)" install.
 
 ### Quick Install
 
 These steps assume an environment where you have already had Vulcan working.
 
-#### Step 1 - Preparation
+#### Step 1 - Clone
 
-Edit these three shell variables to declare installation locations ...
+```
+git clone git@github.com:VulcanJS/Vulcan-Starter.git
+cd Vulcan-Starter
+```
 
-    # Specify where things should go
-    export NEW_PROJECT_NAME="";   # a name for your new project
-    export PROJECTS_DIRECTORY=""; # the installation path for your new project
-    export VULCAN_HOME="";        # the path to the root of your Vulcan installation
+#### Step 2 – Settings
 
-Go get the starter kit ...
+Copy `sample_settings.json` into a new `settings.json` file. 
 
-    # Clone Vulcan starter kit as your named project
-    mkdir -p ${PROJECTS_DIRECTORY};
-    cd ${PROJECTS_DIRECTORY};
-    git clone git@github.com:VulcanJS/Vulcan-Starter.git ${NEW_PROJECT_NAME}
+#### Step 3 – Run
 
-Initialize it ...
-
-    # Install and pre-cache all of your named app's NodeJS dependencies
-    cd ${NEW_PROJECT_NAME};
-    meteor npm install
-
-Establish a link from your starter kit to Vulcan's packages ...
-
-    # Tell Meteor to refer to Vulcan for the packages that it supplies
-    export METEOR_PACKAGE_DIRS=${VULCAN_HOME}/packages;
-    echo "Vulcan's Meteor packages folder : ${METEOR_PACKAGE_DIRS}.";
-
-Check it works with a browser at http://localhost:3000 ...
-
-    # Run your Vulcan project
-    [ -f settings.json ] || cp sample_settings.json settings.json;
-    meteor --port 3000 --settings settings.json
+```
+npm install
+npm start
+```
 
 Congrats! You just gained a cornucopia of functionality you no longer have to develop yourself.  You've saved yourself months of work!  Take the rest of the day off!
 
@@ -56,14 +41,20 @@ Expect other environments to behave differently but, sufficiently similar that, 
 
 #### Critical prerequisite
 
-Note that, to use the scripts below, you **must already have** SSH access to GitHub.  You'll need that in any case for properly managing version control of your project.  Learn more at [GiHub Bootcamp : Set up git](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+Note that, to use the scripts below, you **must already have** SSH access to GitHub.  You'll need that in any case for properly managing version control of your project.  Learn more at [GiHub Bootcamp : Connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/)
 
 #### Step 1 - Preparation
 
+    # Specify where things should go
+    export NEW_PROJECT_NAME="myVulcan";                # a name for your new project
+    export PROJECTS_DIRECTORY="${HOME}/projects";      # the installation path for your new project
+    export VULCAN_HOME="${PROJECTS_DIRECTORY}/Vulcan"; # the path to the root of your Vulcan installation
+
     # Prepare dependencies
-    sudo apt install -y git;             # Need git for managing your project's source code.
-    sudo apt install -y curl;            # Need curl to get the other stuff.
-    sudo apt install -y build-essential; # Need C++ build tools for fast bcrypt installation
+    sudo apt install -y git curl build-essential;
+    # Need git for managing your project's source code.
+    # Need curl to get the other stuff.
+    # Need C++ build tools for fast bcrypt installation
 
     # Install 'meteor'
     curl https://install.meteor.com/ | sh;
@@ -89,14 +80,14 @@ Note that, to use the scripts below, you **must already have** SSH access to Git
     nvm alias default ${METEOR_NODE_VERSION};
 
     # Create a projects folder and step into it
-    mkdir -p projects
-    cd projects
+    mkdir -p ${PROJECTS_DIRECTORY}
+    cd ${PROJECTS_DIRECTORY}
 
     # Clone Vulcan core into its own folder and step into it
     git clone git@github.com:VulcanJS/Vulcan.git
-    cd Vulcan;
 
     # install and pre-cache all of Vulcan's NodeJS dependencies
+    cd ${VULCAN_HOME};
     meteor npm install;
 
 #### Step 2 - Test Vulcan installation
@@ -111,22 +102,20 @@ Note that, to use the scripts below, you **must already have** SSH access to Git
 
 #### Step 3 - Prepare your project
 
-    cd ~/projects;
+    cd ${PROJECTS_DIRECTORY};
     
-    # Name your new Vulcan project
-    export PROJ_NAME="myvulcanproject";
-
     # Clone Vulcan starter kit as your named project
-    git clone git@github.com:VulcanJS/Vulcan-Starter.git ${PROJ_NAME}
+    git clone git@github.com:VulcanJS/Vulcan-Starter.git ${NEW_PROJECT_NAME}
 
     # Step in your project folder
-    cd ${PROJ_NAME};
+    cd ${NEW_PROJECT_NAME};
 
     # Make sure your app uses the same Meteor release as Vulcan
-    cp ../Vulcan/.meteor/release ./.meteor
+    cp ${VULCAN_HOME}/.meteor/release ./.meteor;
 
     # install and pre-cache all of your named app's NodeJS dependencies
-    meteor npm install
+    # meteor npm install --save cross-fetch;
+    meteor npm install;
 
     # Tell Meteor to refer to the Vulcan sister folder for packages that Vulcan supplies
     export METEOR_PACKAGE_DIRS=../Vulcan/packages;
@@ -140,5 +129,4 @@ Note that, to use the scripts below, you **must already have** SSH access to Git
     # Run your Vulcan project
     [ -f settings.json ] || cp sample_settings.json settings.json;
     meteor --port 3000 --settings settings.json
-
 
