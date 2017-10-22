@@ -5,8 +5,8 @@ const GitHub = require('github-api');
 // const env = require('shelljs').env;
 // const exec = require('shelljs').exec;
 // const echo = require('shelljs').echo;
-const utils = require('../.scripts/utils.js');
-const installChrome = require('../.scripts/installChrome.js');
+const utils = require('../utils.js');
+const installChrome = require('../installChrome.js');
 
 const LG = console.log;
 

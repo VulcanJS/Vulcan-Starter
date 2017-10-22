@@ -13,13 +13,24 @@ import Movies from '../../modules/movies/collection.js';
 
 const MoviesList = ({results = [], currentUser, loading, loadMore, count, totalCount}) =>
 
-  <div style={{maxWidth: '500px', margin: '20px auto'}}>
-
-    <h4 data-cuke='subTitle'>This is from the 'example-simple' package</h4>
+  <div style={{maxWidth: '600px', margin: '20px auto'}}>
 
     <Helmet>
       <link name="bootstrap" rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
+      <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     </Helmet>
+
+    <h4 data-cuke='subTitle'>This is from the 'example-simple' package</h4>
+    <div><b>Special 'beta' feature !!</b><br/>This example has acceptance (end to end) testing with Cucumber.</div>
+      To use it, open a command line terminal window, go to the base directory of your project and type :<br/>
+<br/><pre className="prettyprint">
+  # Automated install (tested for Ubuntu/Debian only, so far)<br/>
+  .scripts/e2e/installChimp.js<br/>
+  # Run acceptance tests<br/>
+  meteor npm run acceptance
+</pre>
+       Currently, the first step will only work in Ubuntu/Debian distributions.  In other environments you will
+       need to follow <a href='https://chimp.readme.io/docs/installation' target="_blank">Chimp's installation procedure.</a>
 
     {/* user accounts */}
 

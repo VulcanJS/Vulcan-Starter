@@ -16,16 +16,12 @@ module.exports = function () {
 
   this.Given(/^I have clicked on the "([^"]*)" link$/, function (_nameLink) {
     let linkDef = linkSign_Begin + _nameLink + elemSign_End;
-    LG(linkDef);
     browser.click(linkDef);
-    LG( `clicked` );
   });
 
   this.Given(/^I have clicked on the "([^"]*)" button\.$/, function (_nameButt) {
     let buttDef = buttSign_Begin + _nameButt + elemSign_End;
-    LG(buttDef);
     browser.click(buttDef);
-    LG( `clicked` );
   });
 
   this.When(/^I enter my name "([^"]*)", email "([^"]*)" and password : "([^"]*)",$/, function (name, email, pwd) {
@@ -48,7 +44,6 @@ module.exports = function () {
 
   this.When(/^I logout,$/, function () {
     var buttText = `Sign out`;
-    LG( buttSign_Begin + buttText + elemSign_End );
     browser.click( buttSign_Begin + buttText + elemSign_End );
   });
 
