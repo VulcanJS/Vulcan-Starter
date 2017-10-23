@@ -114,12 +114,19 @@ Note that, to use the scripts below, you **must already have** SSH access to Git
     cp ${VULCAN_HOME}/.meteor/release ./.meteor;
 
     # install and pre-cache all of your named app's NodeJS dependencies
-    # meteor npm install --save cross-fetch;
     meteor npm install;
 
-    # Tell Meteor to refer to the Vulcan sister folder for packages that Vulcan supplies
-    export METEOR_PACKAGE_DIRS=../Vulcan/packages;
-    echo "Vulcan's Meteor packages folder : ${METEOR_PACKAGE_DIRS}.";
+    # Make a startup environment variable that tells Meteor to refer
+    # to the Vulcan folder for packages that Vulcan supplies
+    export PKGDIRVARKEY="METEOR_PACKAGE_DIRS";
+    export PKGDIRVARVAL="export METEOR_PACKAGE_DIRS=${VULCAN_HOME}/packages;";
+    export PROFILE=${HOME}/.profile;
+    grep "${PKGDIRVARKEY}" ${PROFILE} >/dev//null \
+      && sed -i "\|${PKGDIRVARKEY}|c${PKGDIRVARVAL}" ${PROFILE} \
+      || echo "${PKGDIRVARVAL}" >> ${PROFILE};
+
+    # Confirm the setting was added to ~/.profile
+    grep -C 2 "${PKGDIRVARKEY}" ${PROFILE};
 
 #### Step 4 - Test your project installation
 
@@ -128,5 +135,7 @@ Note that, to use the scripts below, you **must already have** SSH access to Git
 
     # Run your Vulcan project
     [ -f settings.json ] || cp sample_settings.json settings.json;
-    meteor --port 3000 --settings settings.json
+    source ${PROFILE};
+    echo -e \"Starting app with packages from '\${METEOR_PACKAGE_DIRS}'\";
+    meteor --port 3000 --settings settings.json;
 
