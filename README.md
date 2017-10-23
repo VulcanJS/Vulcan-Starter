@@ -21,7 +21,9 @@ cd Vulcan-Starter
 
 #### Step 2 – Settings
 
-Copy `sample_settings.json` into a new `settings.json` file. 
+Copy `sample_settings.json` into a new `settings.json` file.
+
+export METEOR_PACKAGE_DIRS=${ YOUR VULCAN HOME }/packages;
 
 #### Step 3 – Run
 
