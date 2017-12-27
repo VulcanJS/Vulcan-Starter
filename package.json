@@ -4,7 +4,7 @@
   "engines": {
     "npm": "^3.0"
   },
-  "scripts": {    
+  "scripts": {
     "prestart": "node .vulcan/prestart_vulcan.js",
     "start": "meteor --settings settings.json",
     "lint": "eslint --cache --ext .jsx,js packages"

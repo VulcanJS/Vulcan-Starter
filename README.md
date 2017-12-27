@@ -19,11 +19,14 @@ git clone git@github.com:VulcanJS/Vulcan-Starter.git
 cd Vulcan-Starter
 ```
 
-#### Step 2 – Settings
+or (using `https`):
 
-Copy `sample_settings.json` into a new `settings.json` file. 
+```
+git clone https://github.com/VulcanJS/Vulcan-Starter.git
+cd Vulcan-Starter
+```
 
-#### Step 3 – Run
+#### Step 2 – Run
 
 ```
 npm install
