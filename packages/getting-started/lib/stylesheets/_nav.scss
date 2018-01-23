@@ -7,4 +7,9 @@
 }
 .nav-item{
   white-space: nowrap;
+  a{
+    &.active{
+      font-weight: bold;
+    }
+  }
 }

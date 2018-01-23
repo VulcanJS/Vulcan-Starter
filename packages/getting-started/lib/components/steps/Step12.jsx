@@ -1,7 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
-
-import Movies from '../../modules/collection.js';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const text = `
 ## Field Resolvers
@@ -36,7 +34,7 @@ That function's first argument is the current document, in other words whichever
 
 Knowing all this, we can then call \`context.Users.loader.load\` to load the user with the \`movie.userId\` ID. This is a special dataloading helper that will fetch data from your Mongo database in a [performance-optimized](http://docs.vulcanjs.org/performance.html#Caching-amp-Batching) manner.
 
-One more thing: we need to ask for that \`user\` field in our \`MoviesFragment\` fragment. Modify it like so:
+One more thing: we need to ask for that \`user\` field in our \`MoviesFragment\` fragment. Go to \`lib/modules/fragments.js\` and modify it like so:
 
 ~~~
 fragment MoviesFragment on Movie {
@@ -53,15 +51,8 @@ const after = `
 If you're seeing every user's \`displayName\` next to their review, this means our custom field resolver worked! And as you can see, the *graph* part of *GraphQL* means we can traverse our API graph using nested structures and leveraging each type's existing resolvers. 
 `;
 
-const Step12 = ({ results, loading }) => (
-  <Components.Step step={12} text={text} after={after} results={results}>
-    <Components.MoviesList loading={loading} results={results}/>
-  </Components.Step>
+const Step12 = () => (
+  <Components.Step step={12} text={text} after={after} />
 );
 
-const options = {
-  collection: Movies,
-  fragmentName: 'MoviesFragment' // add fragment name here
-}
-
-registerComponent('Step12', Step12, [withList, options]);
+registerComponent('Step12', Step12);

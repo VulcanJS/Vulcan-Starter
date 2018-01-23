@@ -1,8 +1,9 @@
 import React from 'react';
 import { registerComponent } from 'meteor/vulcan:core';
-import checks from '../modules/checks';
 import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
+
+import checks from '../../modules/checks';
 
 const Step = (props) => {
 

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
-
-import Movies from '../../modules/collection.js';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const text = `
 ## Datatables

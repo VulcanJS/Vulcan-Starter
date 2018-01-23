@@ -1,7 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
-
-import Movies from '../../modules/collection.js';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const text = `
 ## Fragments
@@ -12,7 +10,7 @@ Thankfully, one of GraphQL's perks is the ability to specify exactly what data y
 
 We didn't pass any fragment to our \`withList\` HoC so it's just doing its best to guess what we want and ask for any field it can find. But let's specify a fragment to fix this. 
 
-Find the \`options\` object in this component's file (\`Step11.jsx\`) and add a \`fragmentName: 'MovieFragment'\` property to it. 
+Find the \`options\` object in the \`MoviesList\` component's file and add a \`fragmentName: 'MovieFragment'\` property to it. 
 
 That fragment has already been defined, and it looks something like this:
 
@@ -26,18 +24,11 @@ fragment MoviesItem on Movie {
 `;
 
 const after = `
-As you can see, the \`review\` field is now gone.
+As you can see, since the \`review\` field wasn't included in the fragment, it's no longer being sent to the client.
 `;
 
-const Step11 = ({ results, loading }) => (
-  <Components.Step step={11} text={text} after={after} results={results}>
-    <Components.MoviesList loading={loading} results={results}/>
-  </Components.Step>
+const Step11 = () => (
+  <Components.Step step={11} text={text} after={after} />
 );
 
-const options = {
-  collection: Movies,
-  // add fragmentName property here
-}
-
-registerComponent('Step11', Step11, [withList, options]);
+registerComponent('Step11', Step11);

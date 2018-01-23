@@ -1,8 +1,6 @@
 import React from 'react';
 import { Components, registerComponent, withList } from 'meteor/vulcan:core';
 
-import Movies from '../../modules/collection.js';
-
 const text = `
 ## Forms
 
@@ -23,16 +21,8 @@ const after = `
 By the way, you can build forms to edit documents the same way. Just pass an additional \`documentId\` prop to \`Components.SmartForm\` with the \`_id\` of the document you want to edit, and Vulcan will take care of the rest. 
 `;
 
-const Step15 = ({ results, loading }) => (
-  <Components.Step step={15} text={text} after={after} results={results}>
-    <Components.SmartForm collection={Movies} mutationFragmentName="MoviesFragment"/> {/* <- add form here */}
-    <Components.MoviesList loading={loading} results={results}/>
-  </Components.Step>
+const Step15 = () => (
+  <Components.Step step={15} text={text} after={after} />
 );
 
-const options = {
-  collection: Movies,
-  fragmentName: 'MoviesFragment'
-}
-
-registerComponent('Step15', Step15, [withList, options]);
+registerComponent('Step15', Step15);

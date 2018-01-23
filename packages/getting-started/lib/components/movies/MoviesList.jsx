@@ -1,8 +1,14 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import { Components, registerComponent, withList } from 'meteor/vulcan:core';
+
+import Movies from '../../modules/collection.js';
 
 const MoviesList = ({ loading, results }) => (
   <div className="movies-list">
+    <div className="user-accounts">
+      {/* <Components.AccountsLoginForm redirect={false}/> */}
+    </div>
+    <div className="movies-contents">
     {loading ? 
       <Components.Loading/> :
       results && <ul>
@@ -15,7 +21,13 @@ const MoviesList = ({ loading, results }) => (
         )}
       </ul>
     }
+    </div>
   </div>
 );
 
-registerComponent('MoviesList', MoviesList);
+const options = {
+  collection: Movies,
+  // add fragmentName property here
+}
+
+registerComponent('MoviesList', MoviesList, /* [withList, options] */);

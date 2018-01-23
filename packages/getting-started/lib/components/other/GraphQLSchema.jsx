@@ -1,7 +1,5 @@
 import React from 'react';
-import { registerComponent, Loading } from 'meteor/vulcan:core';
-import checks from '../modules/checks';
-import { Link } from 'react-router';
+import { registerComponent, Loading, Components } from 'meteor/vulcan:core';
 
 const GraphQLSchema = ({ data }) => (
   <div className="graphql-schema">

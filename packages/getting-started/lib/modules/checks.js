@@ -63,7 +63,7 @@ const checks = {
   },
 
   step15: (props) => {
-    return true;
+    return false;
   },
 
   step16: () => {

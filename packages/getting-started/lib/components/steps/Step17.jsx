@@ -36,8 +36,7 @@ Finally, if you run into any issue there's always the [Vulcan Slack channel](htt
 
 
 const Step17 = () => (
-  <Components.Step step={17} text={text} lastStep={true}>
-  </Components.Step>
+  <Components.Step step={17} text={text} lastStep={true} />
 );
 
 registerComponent('Step17', Step17);
