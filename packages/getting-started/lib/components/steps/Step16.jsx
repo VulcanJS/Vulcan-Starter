@@ -28,10 +28,7 @@ As an extra feature, the \`Datatable\` component also includes a search function
 
 const Step16 = () => (
   <Components.Step step={16} text={text} after={after}>
-    <Components.Datatable 
-      collection={Movies} 
-      columns={['name', 'review']} 
-    />
+    {/* Add Datatable code here */}
   </Components.Step>
 );
 

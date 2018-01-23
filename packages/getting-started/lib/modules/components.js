@@ -3,6 +3,7 @@ import '../components/Schema.jsx';
 import '../components/GraphQLSchema.jsx';
 import '../components/MoviesList.jsx';
 import '../components/Layout.jsx';
+import '../components/Nav.jsx';
 
 import '../components/steps/Step0.jsx';
 import '../components/steps/Step1.jsx';

@@ -32,4 +32,4 @@ const options = {
   collection: Movies
 }
 
-registerComponent('Step10', Step10, [withList, options]);
+registerComponent('Step10', Step10, /* [withList, options] */);

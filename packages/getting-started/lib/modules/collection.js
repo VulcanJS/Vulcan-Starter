@@ -8,30 +8,29 @@ import { createCollection, getDefaultResolvers, getDefaultMutations } from 'mete
 import Users from 'meteor/vulcan:users';
 import schema from './schema.js';
 
+let Movies;
+
 /*
 
 Movies collection definition
 
+Uncomment during Step 6
+
 */
 
+// Movies = createCollection({
 
+//   collectionName: 'Movies',
 
-const Movies = createCollection({
+//   typeName: 'Movie',
 
-  collectionName: 'Movies',
-
-  typeName: 'Movie',
-
-  schema,
+//   schema,
   
-  resolvers: getDefaultResolvers('Movies'), // uncomment during Step 9
+//   // resolvers: getDefaultResolvers('Movies'), // Uncomment during Step 9
 
-  mutations: getDefaultMutations('Movies'), // uncomment during Step 14
+//   // mutations: getDefaultMutations('Movies'), // Uncomment during Step 14
 
-});
-
-export default Movies;
-
+// });
 
 
 /*
@@ -46,3 +45,4 @@ Permissions for members (regular users)
 // ];
 // Users.groups.members.can(membersActions);
 
+export default Movies;

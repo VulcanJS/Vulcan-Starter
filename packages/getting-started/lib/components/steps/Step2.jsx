@@ -4,7 +4,7 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 const text = `
 ## Registering a Component
 
-Well done! You've just created your first route. Now let's do it again for step 3, but this time we'll write it from scratch. Go back to the routes file, and create a new route with the following parameters:
+Well done! You've just created your first route. Now let's do it again for the Step 3 route. Go back to the routes file, and uncomment it. Take a moment to look at its properties:
 
 - \`name\`: \`step3\`
 - \`path\`: \`/step/3\`

@@ -37,7 +37,7 @@ const Step11 = ({ results, loading }) => (
 
 const options = {
   collection: Movies,
-  fragmentName: 'MoviesFragment' // add fragment name here
+  // add fragmentName property here
 }
 
 registerComponent('Step11', Step11, [withList, options]);
