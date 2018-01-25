@@ -23,6 +23,9 @@ import '../components/steps/Step14.jsx';
 import '../components/steps/Step15.jsx';
 import '../components/steps/Step16.jsx';
 import '../components/steps/Step17.jsx';
+import '../components/steps/Step18.jsx';
+import '../components/steps/Step19.jsx';
+import '../components/steps/Step20.jsx';
 
 /*
 
@@ -31,6 +34,7 @@ Movies Example App Components
 */
 
 import '../components/movies/MoviesApp.jsx';
+import '../components/movies/MoviesApp2.jsx'; // uncomment on #Step16
 import '../components/movies/MoviesList.jsx';
 import '../components/movies/MoviesUsers.jsx';
 import '../components/movies/MoviesNew.jsx';

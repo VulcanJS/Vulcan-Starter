@@ -1,6 +1,8 @@
-import { Routes, Components, ComponentsTable, Collections } from 'meteor/vulcan:core';
+import { Routes, Components, ComponentsTable, Collections, Strings } from 'meteor/vulcan:core';
+import Users from 'meteor/vulcan:users';
 
 import schema from '../modules/schema.js';
+import Movies from '../modules/collection.js';
 
 const containsChild = (component, childName) => {
   return !!component && component().props.children && component().props.children.type.name === childName;
@@ -70,10 +72,22 @@ const checks = {
   },
 
   step16: () => {
-    return containsChild(Components.Step16, 'GraphQL');
+    return ComponentsTable.MoviesApp.rawComponent.name === 'MoviesApp2';
   },
 
   step17: () => {
+    return Users.groups.members.actions.includes('movies.new');
+  },
+
+  step18: () => {
+    return Movies.views.alphabetical;
+  },
+
+  step19: () => {
+    return Strings.en['datatable.new'] === 'New Movie';
+  },
+
+  step20: () => {
     return false;
   },
 

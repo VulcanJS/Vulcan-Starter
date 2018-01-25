@@ -18,3 +18,6 @@ addRoute({ name: 'step14', path: '/step/14', componentName: 'Step14' });
 addRoute({ name: 'step15', path: '/step/15', componentName: 'Step15' });
 addRoute({ name: 'step16', path: '/step/16', componentName: 'Step16' });
 addRoute({ name: 'step17', path: '/step/17', componentName: 'Step17' });
+addRoute({ name: 'step18', path: '/step/18', componentName: 'Step18' });
+addRoute({ name: 'step19', path: '/step/19', componentName: 'Step19' });
+addRoute({ name: 'step20', path: '/step/20', componentName: 'Step20' });

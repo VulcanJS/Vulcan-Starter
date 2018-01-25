@@ -8,3 +8,15 @@
   border-bottom: 1px solid #aaa;
   margin-bottom: 20px;
 }
+
+.datatable-above{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #aaa;
+}
+
+.datatable-search{
+  max-width: 150px;
+}

@@ -1,42 +1,40 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
-
-import Movies from '../../modules/collection.js';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const text = `
-## Going Further
+## Permissions
 
-Congrats! You've made it all the way to the end of this tutorial. Let's review all the things we learned:
+If you're logged in and your account has the proper admin privileges, you should see Edit buttons next to every item in the Datatable. That's by design: in Vulcan, admin accounts automatically pass every permission checks. 
 
-- How to [create routes](http://docs.vulcanjs.org/routing.html#Adding-Routes).
-- How to [register](/theming.html#Registering-Components) and [use](/theming.html#Using-Components) components.
-- How to use [core components](/theming.html#Core-Components).
-- How to write a [schema](/schemas.html).
-- How to create a [collection](/schemas.html#Creating-Collections).
-- The role of the [GraphQL schema](/graphql-schema.html).
-- The role of [resolvers](/resolvers.html).
-- How to load data on the client using [higher-order components](/resolvers.html#Higher-Order-Components).
-- How to use [fragments](/fragments.html).
-- How to add [field resolvers](/field-resolvers.html).
-- How to use [user accounts](/users.html).
-- How to add [mutations](/mutations.html).
-- How to automatically generate [forms](/forms.html).
+But in a real world app, you'll probably want to handle regular users as well. So let's see how we can assign [permissions](http://docs.vulcanjs.org/groups-permissions.html) to let users edit their own movies. 
 
-Whew! So where do you go from now? Here are a couple options:
+Start by signing out and creating a new account, which this time *won't* be an Admin account. Notice the edit buttons disappear? Also, if you try to add a new movie, the operation will fail because we've yet to tell our back-end who can *insert* movies. 
 
-1. First, we suggest trying the [Simple Example tutorial video](http://docs.vulcanjs.org/example-simple.html). It's a good chance to review the material you already learned here in a more in-deoth way. 
-2. If you'd like to follow along with a written tutorial instead, check out the [Movies Example tutorial](http://docs.vulcanjs.org/example-movies.html). It covers the same things, as well as how to write your own resolvers and mutations. 
+Find \`lib/modules/permissions.js\` and uncomment its contents. `;
 
-You shoud also always keep an eye on the [Vulcan documentation](http://docs.vulcanjs.org/). It has everything you need to know, and even a few things you probably don't!
+const after = `
+It seems like nothing has changed, but try creating a new movie again. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
 
-And Vulcan also has a pretty active [YouTube channel](https://www.youtube.com/channel/UCGIvQQ6zw7ov2cHgD70HFlA) with lots of videos and tutorials. 
+So how does this work? We are using the default mutations, which by convention check for the presence of actions named \`***.new\`, \`***.edit.own\`, and \`***.remove.own\` (where \`***\` is replaced with the lowercase name of the collection, in this case \`movies\`).
 
-Finally, if you run into any issue there's always the [Vulcan Slack channel](http://slack.vulcanjs.org/). See you very soon, and thanks for checking out Vulcan!
+Now let's review the code we added:
+
+~~~js
+const membersActions = [
+  'movies.new',
+  'movies.edit.own',
+  'movies.remove.own',
+];
+Users.groups.members.can(membersActions);
+~~~
+
+We've declared that any user belonging to the \`members\` group (which is a preset that corresponds to any logged-in user) is allowed to perform these three actions.
+
+And in case you're wondering how Vulcan knows whether a user owns a document or not, behind the scenes we simply check if the document's \`userId\` property is equal to the user's own \`_id\`.
 `;
 
-
 const Step17 = () => (
-  <Components.Step step={17} text={text} lastStep={true} />
+  <Components.Step step={17} text={text} after={after}/>
 );
 
 registerComponent('Step17', Step17);

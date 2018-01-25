@@ -2,8 +2,6 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const text = `
-## Creating a Route
-
 Before we can move on to the next step, we need to create a **route** for it. 
 
 In Vulcan, routes are created using the [addRoute](http://docs.vulcanjs.org/routing.html#Adding-Routes) function. 

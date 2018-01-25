@@ -16,7 +16,7 @@ const Nav = (props) => {
       <ul>
       <li className="nav-item"><Link activeClassName="active" to="/" onlyActiveOnIndex={true}>Welcome</Link></li>
       <li className="nav-item"><Link activeClassName="active" to="/step/1">Step 1</Link></li>
-        {_.range(1,18).map(i => {
+        {_.range(1,20).map(i => {
           
             if (!checks[`step${i}`](props)) {
               allChecksPassed = false;

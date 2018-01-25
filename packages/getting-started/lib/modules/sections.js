@@ -1,0 +1,25 @@
+const sections = [
+  `Welcome to Vulcan!`,
+  `Creating a Route`,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+  ``,
+];
+
+export default sections;

@@ -4,8 +4,6 @@ import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 
 const intro = `
-## Welcome to Vulcan!
-
 This interactive tutorial will teach you the basics of using Vulcan. 
 In fact, the tutorial itself is the Vulcan app that we'll be working on! So meta!
 
