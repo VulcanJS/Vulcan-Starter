@@ -6,12 +6,12 @@ If you're logged in and your account has the proper admin privileges, you should
 
 But in a real world app, you'll probably want to handle regular users as well. So let's see how we can assign [permissions](http://docs.vulcanjs.org/groups-permissions.html) to let users edit their own movies. 
 
-Start by signing out and creating a new account, which this time *won't* be an Admin account. Notice the edit buttons disappear? Also, if you try to add a new movie, the operation will fail because we've yet to tell our back-end who can *insert* movies. 
+Start by signing out and creating a new account, which this time *won't* be an Admin account. Notice the new and edit buttons disappeared? That's because we've yet to tell our back-end who can insert and edit movies. 
 
-Find \`lib/modules/permissions.js\` and uncomment its contents. `;
+Find \`lib/modules/permissions.js\` and uncomment its contents.`;
 
 const after = [`
-It seems like nothing has changed, but try creating a new movie again. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
+The “New” button should be back, so try creating a new movie. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
 
 So how does this work? We are using the default mutations, which by convention check for the presence of actions named \`***.new\`, \`***.edit.own\`, and \`***.remove.own\` (where \`***\` is replaced with the lowercase name of the collection, in this case \`movies\`).
 
