@@ -80,7 +80,7 @@ const checks = {
   },
 
   step18: () => {
-    return Movies.views.alphabetical;
+    return Movies && Movies.views && Movies.views.alphabetical;
   },
 
   step19: () => {

@@ -30,7 +30,7 @@ import Movies from '../modules/collection.js';
 const moviesCountResolvers = {
   Query: {
     MoviesCount(root, args, context) {
-      return Movies.find().count();
+      return Movies && Movies.find().count();
     },
   },
 };
