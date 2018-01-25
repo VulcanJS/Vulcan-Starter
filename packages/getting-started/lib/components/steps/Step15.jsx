@@ -8,7 +8,7 @@ One of Vulcan's great features is that it can generate forms for you from a coll
 
 Additionally, in this case since we want our movie to show up in the same list as all the others once it's inserted, we'll specify a \`mutationFragmentName\` option to make sure the movie we get back from the server after the mutation has the same "shape" as the one already loaded on the client (including our special \`user\` field). 
 
-Find \`Step12.jsx\` and add the following above the \`MoviesList\` component:
+Find \`MoviesNew.jsx\` and add the following:
 `,`
 ~~~js
 <Components.SmartForm collection={Movies} mutationFragmentName="MoviesFragment"/>

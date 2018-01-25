@@ -32,11 +32,12 @@ That function's first argument is the current document, in other words whichever
 
 Knowing all this, we can then call \`context.Users.loader.load\` to load the user with the \`movie.userId\` ID. This is a special dataloading helper that will fetch data from your Mongo database in a [performance-optimized](http://docs.vulcanjs.org/performance.html#Caching-amp-Batching) manner.
 
-One more thing: we need to ask for that \`user\` field in our \`MoviesFragment\` fragment. Go to \`lib/modules/fragments.js\` and modify it like so:
+One more thing: we need to ask for that \`user\` field in our \`MoviesFragment\` fragment. Go to \`lib/modules/fragments.js\` and modify the fragment like so:
 `,`
 ~~~js
 fragment MoviesFragment on Movie {
   _id
+  createdAt
   name
   user{
     displayName

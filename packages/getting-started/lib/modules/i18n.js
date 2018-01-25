@@ -1,5 +1,6 @@
 import { addStrings } from 'meteor/vulcan:core';
 
-addStrings('en', {
-  'datatable.new': 'New Movie',
-});
+// uncomment on #Step19
+// addStrings('en', {
+//   'datatable.new': 'New Movie',
+// });

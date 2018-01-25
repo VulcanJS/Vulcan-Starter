@@ -25,7 +25,7 @@ Congrats! You've made it all the way to the end of this tutorial. Let's review a
 
 Whew! So where do you go from now? Here are a couple options:
 
-1. First, we suggest trying the [Simple Example tutorial video](http://docs.vulcanjs.org/example-simple.html). It's a good chance to review the material you already learned here in a more in-deoth way. 
+1. First, we suggest trying the [Simple Example tutorial video](http://docs.vulcanjs.org/example-simple.html). It's a good chance to review the material you already learned here in a more in-depth way. 
 2. If you'd like to follow along with a written tutorial instead, check out the [Movies Example tutorial](http://docs.vulcanjs.org/example-movies.html). It covers the same things, as well as how to write your own resolvers and mutations. 
 
 You shoud also always keep an eye on the [Vulcan documentation](http://docs.vulcanjs.org/). It has everything you need to know, and even a few things you probably don't!

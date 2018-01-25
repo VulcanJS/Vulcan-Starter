@@ -35,7 +35,7 @@ const checks = {
   },
 
   step7: () => {
-    return ComponentsTable.Step7.hocs.length;
+    return !!ComponentsTable.Step7.hocs.length;
   },
 
   step8: (props) => {

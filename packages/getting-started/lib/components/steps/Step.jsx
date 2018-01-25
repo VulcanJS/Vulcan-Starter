@@ -43,7 +43,7 @@ const Step = (props) => {
   return (
     <div className="step">
       <div className="step-text">
-        <h2>{sections[step]}</h2>
+        <h2>{step}. {sections[step]}</h2>
         <TextBlocks textArray={textArray}/>
       </div>
 
