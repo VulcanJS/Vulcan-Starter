@@ -4,8 +4,6 @@ import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 import withGraphQLSchema from '../../hocs/withGraphQLSchema.js';
 
 const text = `
-## The GraphQL Schema
-
 Collection schemas are used to make sure your data is properly formatted before inserting it in the database, but they also have one more important purpose: generating your *GraphQL* schema. 
 
 [GraphQL](http://graphql.org) is the technology used to power Vulcan's data layer, in other words make your server-side data available to the browser. 

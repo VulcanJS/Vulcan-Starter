@@ -1,9 +1,7 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
-const text = `
-## Field Resolvers
-
+const text = [`
 Let's keep learning how to harness the power of GraphQL. One of GraphQL's coolest features is that you're not limited to the fields that are in your database. In fact, GraphQL couldn't care less about your database: it only follows what *you* specify. 
 
 This means that even though our database and JavaScript schema contain a \`userId\` field of type \`String\`, we can make our GraphQL schema contain a \`user\` field of type \`User\` instead!
@@ -11,8 +9,8 @@ This means that even though our database and JavaScript schema contain a \`userI
 In Vulcan, this is done through [field resolvers](http://docs.vulcanjs.org/field-resolvers.html).
 
 Find the \`userId\` field in your \'lib/modules/schema.js\' file and add the following property to it:
-
-~~~
+`,`
+~~~js
 resolveAs: {
   fieldName: 'user',
   type: 'User',
@@ -22,7 +20,7 @@ resolveAs: {
   addOriginalField: true,
 },
 ~~~
-
+`,`
 We're specifying a few things here:
 
 - Our new GraphQL schema field should be named \'user\'. 
@@ -35,8 +33,8 @@ That function's first argument is the current document, in other words whichever
 Knowing all this, we can then call \`context.Users.loader.load\` to load the user with the \`movie.userId\` ID. This is a special dataloading helper that will fetch data from your Mongo database in a [performance-optimized](http://docs.vulcanjs.org/performance.html#Caching-amp-Batching) manner.
 
 One more thing: we need to ask for that \`user\` field in our \`MoviesFragment\` fragment. Go to \`lib/modules/fragments.js\` and modify it like so:
-
-~~~
+`,`
+~~~js
 fragment MoviesFragment on Movie {
   _id
   name
@@ -45,7 +43,7 @@ fragment MoviesFragment on Movie {
   }
 }
 ~~~
-`;
+`];
 
 const after = `
 If you're seeing every user's \`displayName\` next to their review, this means our custom field resolver worked! 

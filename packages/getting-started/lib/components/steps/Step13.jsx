@@ -2,8 +2,6 @@ import React from 'react';
 import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 
 const text = `
-## User Accounts
-
 The vast majority of apps all need some kind of user accounts management in order to be functional. 
 
 Vulcan makes this drop-dead easy. Find \`MoviesUsers.jsx\` in the same directory as \`MoviesList.jsx\` and uncomment the \`Components.AccountsLoginForm\` line.

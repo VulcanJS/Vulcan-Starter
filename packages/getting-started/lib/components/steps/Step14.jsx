@@ -4,8 +4,6 @@ import { Components, registerComponent, withList } from 'meteor/vulcan:core';
 import withMutationResolvers from '../../hocs/withMutationResolvers.js';
 
 const text = `
-## Mutations
-
 We've seen how to load data, and how to create a user account. Now how about using that fresh-out-the-oven user account to *mutate* some data?
 
 Now don't worry, I'm not talking about giving data extra arms and the ability to shoot laser beams out of its eyes. What we mean by “mutation” is simply a function that modifies data on the server (in other words either inserts, edits, or removes a document).

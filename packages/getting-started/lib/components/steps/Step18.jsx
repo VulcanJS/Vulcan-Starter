@@ -1,8 +1,7 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
-const text = `
-## Sorting
+const text = [`
 By default, data is sorted according to its \`createdAt\` timestamp in descending order (meaning more recent items appear at the top of the list).
 
 But what if we wanted to sort our list of movies alphabetically instead? We can do this using [views](http://docs.vulcanjs.org/terms-parameters.html#Using-Views). A view is just an easy way to group a set of sorting and filtering parameters. It's also handy because it means you can hardcode the exact set of options the server will support, instead of just accepting any random property from the client and opening yourself to security risks. 
@@ -10,7 +9,7 @@ But what if we wanted to sort our list of movies alphabetically instead? We can 
 The first step towards enabling our view is to tell our Datatable to use it. In \`MoviesApp2\`, uncomment the \`options={{ terms: { view: 'alphabetical' } }}\` line. 
 
 Now let's take care of the view itself. Uncomment the following code in \`lib/modules/views.js\`:
-
+`,`
 ~~~js
 Movies.addView('alphabetical', terms => ({
   options: {
@@ -18,8 +17,7 @@ Movies.addView('alphabetical', terms => ({
   }
 }));
 ~~~
-
-`;
+`];
 
 const after = `
 If we've done our job correctly, *Citizen Kane* should now be in top position. 

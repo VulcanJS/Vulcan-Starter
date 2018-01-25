@@ -3,53 +3,51 @@ import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 
 import withMoviesCount from '../../hocs/withMoviesCount.js';
 
-const text = `
-## Seeding Data
-
+const text = [`
 We're well on our way to sending data from the server to the client, but there's just one problem: we don't *have* any data. Let's fix this by inserting a few documents into our \`Movies\` collection. 
 
 We actually already have a \`seedMovies\` function ready, we just need to call it. We can do so using the [Meteor shell](https://docs.meteor.com/commandline.html#meteorshell), a convenient way to access your live Meteor development server.
 
 In your Vulcan application directory, type:
-
-~~~
+`,`
+~~~sh
 meteor shell
 ~~~
-
+`,`
 And then:
-
-~~~
+`,`
+~~~js
 import { seedMovies } from 'meteor/getting-started'
 ~~~
-
+`,`
 And finally:
-
-~~~
+`,`
+~~~js
 seedMovies()
 ~~~
-`;
+`];
 
-const after = `
+const after = [`
 Well done! Our secret informant on the server (a.k.a. the \`withMoviesCount\` HoC) has confirmed that there are now 8 movies in our database. 
 
 By the way, a useful companion to the Meteor Shell is Meteor's [database access](https://docs.meteor.com/commandline.html#meteormongo):
-
-~~~
+`,`
+~~~sh
 meteor mongo
 ~~~
-
+`,`
 For example, here's how you would display all movies in your database:
-
-~~~
+`,`
+~~~js
 db.movies.find()
 ~~~
-
+`,`
 And here's how you would remove them all:
-
-~~~
+`,`
+~~~js
 db.movies.remove({})
 ~~~
-`;
+`];
 
 const Step8 = ({ loading, moviesCount }) => (
   <Components.Step step={8} text={text} after={after} moviesCount={moviesCount}>

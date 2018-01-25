@@ -2,8 +2,6 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const text = `
-## Schemas
-
 Now that you have an idea of Vulcan's basic features, let's dive into what *really* makes Vulcan special: how it handles **data**. 
 
 In Vulcan, each type of data belongs to its own **collection** (or **model** if you're more familiar with that term). So you could have a \`Posts\` collection, a \`Comments\` collection, a \`Movies\` collection, and so on. 

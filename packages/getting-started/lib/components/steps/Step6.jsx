@@ -1,9 +1,7 @@
 import React from 'react';
 import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 
-const text = `
-## Collections
-
+const text = [`
 By itself, a schema doesn't do much. We need to [create a **collection**](http://docs.vulcanjs.org/schemas.html#Creating-Collections) to actually make use of it. 
 
 At a minimum, a collection needs three things:
@@ -13,7 +11,7 @@ At a minimum, a collection needs three things:
 - A \`schema\`. 
 
 Which put together gives us the following code: 
-
+`,`
 ~~~js
 const Movies = createCollection({
   collectionName: 'Movies',
@@ -21,11 +19,11 @@ const Movies = createCollection({
   schema
 });
 ~~~
-
+`,`
 Find the \`lib/modules/collection.js\` file and uncomment the \`createCollection\` definition (don't worry about \`resolvers\` and \`mutations\` for now, that will come later).
 
 Once you do, your collection should appear in the list below:
-`;
+`];
 
 const after = `
 Yep, there it is!

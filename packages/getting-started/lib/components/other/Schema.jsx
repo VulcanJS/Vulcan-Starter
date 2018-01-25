@@ -1,14 +1,13 @@
 import React from 'react';
 import { registerComponent } from 'meteor/vulcan:core';
-import ReactMarkdown from 'react-markdown';
+import SyntaxHighlighter from 'react-syntax-highlighter/prism';
+import { okaidia } from 'react-syntax-highlighter/styles/prism';
 
 import schema from '../../modules/schema.js';
 
-const Schema = ({}) => (
+const Schema = () => (
   <div className="schema">
-    <pre>
-      <code>{JSON.stringify(schema, null, 2)}</code>
-    </pre>
+    <SyntaxHighlighter language="javascript" style={okaidia}>{JSON.stringify(schema, null, 2)}</SyntaxHighlighter>
   </div>
 );
 

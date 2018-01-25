@@ -2,8 +2,6 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const text = `
-## Core Components
-
 Nice job! By the way, don't worry: from now on, all components will be already registered and imported, and all routes already created for you so you don't need to repeat the same tasks. 
 
 Now let's play around with some of Vulcan's premade [core components](http://docs.vulcanjs.org/theming.html#Core-Components), such as [the \`ModalTrigger\` component](http://docs.vulcanjs.org/theming.html#ModalTrigger), which lets you show info inside a modal window. 

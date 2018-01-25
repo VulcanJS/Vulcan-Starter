@@ -4,8 +4,6 @@ import { Components, registerComponent, withList } from 'meteor/vulcan:core';
 import Movies from '../../modules/collection.js';
 
 const text = `
-## Going Further
-
 Congrats! You've made it all the way to the end of this tutorial. Let's review all the things we learned:
 
 - How to [create routes](http://docs.vulcanjs.org/routing.html#Adding-Routes).
