@@ -15,7 +15,7 @@ const Step = (props) => {
         <ReactMarkdown source={text} />
       </div>
 
-      <div className="step-contents">{children}</div>
+      {children && <div className="step-contents">{children}</div>}
 
       {checks[`step${step}`](props) && (
         <div className="step-done">

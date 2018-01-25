@@ -14,23 +14,23 @@ let Movies;
 
 Movies collection definition
 
-Uncomment during Step 6
+Uncomment during #Step6:
 
 */
 
-// Movies = createCollection({
+Movies = createCollection({
 
-//   collectionName: 'Movies',
+  collectionName: 'Movies',
 
-//   typeName: 'Movie',
+  typeName: 'Movie',
 
-//   schema,
+  schema,
   
-//   // resolvers: getDefaultResolvers('Movies'), // Uncomment during Step 9
+  resolvers: getDefaultResolvers('Movies'), // Uncomment during #Step9
 
-//   // mutations: getDefaultMutations('Movies'), // Uncomment during Step 14
+  mutations: getDefaultMutations('Movies'), // Uncomment during #Step14
 
-// });
+});
 
 
 /*

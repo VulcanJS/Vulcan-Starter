@@ -4,7 +4,7 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 const text = `
 ## Registering a Component
 
-Well done! You've just created your first route. Now let's do it again for the Step 3 route. Go back to the routes file, and uncomment it. Take a moment to look at its properties:
+You've just created your first route. Now let's do it again for the Step 3 route. Go back to the routes file, and uncomment it. Take a moment to look at its properties:
 
 - \`name\`: \`step3\`
 - \`path\`: \`/step/3\`
@@ -15,6 +15,10 @@ As an added task, we'll also [register the component](http://docs.vulcanjs.org/t
 Just uncomment that last \`registerComponent\` line. This will register the component with Vulcan, and make it available to use inside \`addRoute\`. 
 `;
 
-const Step2 = () => <Components.Step step={2} text={text} />;
+const after = `
+Nicely done. In Vulcan, components are available globally as \`<Components.Foobar/>\` once registered.
+`;
+
+const Step2 = () => <Components.Step step={2} text={text} after={after} />;
 
 registerComponent('Step2', Step2);

@@ -19,7 +19,7 @@ meteor shell
 And then:
 
 ~~~
-import { seedMovies } from 'meteor/example-getting-started'
+import { seedMovies } from 'meteor/getting-started'
 ~~~
 
 And finally:
@@ -51,9 +51,9 @@ db.movies.remove({})
 ~~~
 `;
 
-const Step8 = ({ data }) => (
-  <Components.Step step={8} text={text} after={after} data={data}>
-    <div className="movies-count">Current movies count: {data.MoviesCount}</div>
+const Step8 = ({ loading, moviesCount }) => (
+  <Components.Step step={8} text={text} after={after} moviesCount={moviesCount}>
+    <div className="movies-count">Current movies count: {moviesCount}</div>
   </Components.Step>
 );
 

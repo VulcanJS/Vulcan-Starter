@@ -5,9 +5,6 @@ import Movies from '../../modules/collection.js';
 
 const MoviesList = ({ loading, results }) => (
   <div className="movies-list">
-    <div className="user-accounts">
-      {/* <Components.AccountsLoginForm redirect={false}/> */}
-    </div>
     <div className="movies-contents">
     {loading ? 
       <Components.Loading/> :
@@ -27,7 +24,7 @@ const MoviesList = ({ loading, results }) => (
 
 const options = {
   collection: Movies,
-  // add fragmentName property here
+  fragmentName: 'MoviesFragment', // add fragmentName property here on #Step11
 }
 
-registerComponent('MoviesList', MoviesList, /* [withList, options] */);
+registerComponent('MoviesList', MoviesList, [withList, options]); // uncomment on #Step10

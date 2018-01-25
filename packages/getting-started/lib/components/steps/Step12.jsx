@@ -48,7 +48,9 @@ fragment MoviesFragment on Movie {
 `;
 
 const after = `
-If you're seeing every user's \`displayName\` next to their review, this means our custom field resolver worked! And as you can see, the *graph* part of *GraphQL* means we can traverse our API graph using nested structures and leveraging each type's existing resolvers. 
+If you're seeing every user's \`displayName\` next to their review, this means our custom field resolver worked! 
+
+And as you can see, the *graph* part of *GraphQL* means we can traverse our API graph using nested structures and leveraging each type's existing resolvers, without needing to actually store each user's \`displayName\` inside our \`Movies\` documents. 
 `;
 
 const Step12 = () => (

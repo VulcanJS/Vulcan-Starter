@@ -11,7 +11,13 @@ const withQueryResolvers = graphql(gql`
     }
   }
   `, {
-    alias: 'withQueryResolvers'
+    alias: 'withQueryResolvers',
+    props(props) {
+      return {
+        loading: props.data.loading,
+        resolvers: props.data.__type,
+      }
+    }
   }
 );
 

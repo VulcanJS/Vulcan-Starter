@@ -11,7 +11,13 @@ const withMutationResolvers = graphql(gql`
     }
   }
   `, {
-    alias: 'withMutationResolvers'
+    alias: 'withMutationResolvers',
+    props(props) {
+      return {
+        loading: props.data.loading,
+        mutations: props.data.__type,
+      }
+    }
   }
 );
 

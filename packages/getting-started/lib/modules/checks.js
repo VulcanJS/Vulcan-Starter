@@ -1,4 +1,6 @@
-import { Routes, Components, Collections } from 'meteor/vulcan:core';
+import { Routes, Components, ComponentsTable, Collections } from 'meteor/vulcan:core';
+
+import schema from '../modules/schema.js';
 
 const containsChild = (component, childName) => {
   return !!component && component().props.children && component().props.children.type.name === childName;
@@ -19,7 +21,7 @@ const checks = {
   },
 
   step4: () => {
-    return containsChild(Components.Step5, 'ModalTrigger');
+    return containsChild(Components.Step4, 'ModalTrigger');
   },
 
   step5: () => {
@@ -30,28 +32,29 @@ const checks = {
     return Collections.find(c => c.options.collectionName === 'Movies');
   },
 
-  step7: (props) => {
-    return props.data;
+  step7: () => {
+    return ComponentsTable.Step7.hocs.length;
   },
 
   step8: (props) => {
-    return !!(props.data && props.data.MoviesCount);
+    return props.moviesCount >= 8;
   },
 
   step9: (props) => {
-    return props.data && props.data.__type && !!props.data.__type.fields.find(r => r.name === 'MoviesList');
+    return props.resolvers && props.resolvers.fields.find(r => r.name === 'MoviesList');
   },
 
-  step10: (props) => {
-    return !!props.results;
+  step10: () => {
+    return !!ComponentsTable.MoviesList.hocs.length;
   },
 
-  step11: (props) => {
-    return props.results && props.results[0] && !props.results[0].description;
+  step11: () => {
+    const hocs = ComponentsTable.MoviesList.hocs;
+    return hocs[0] && hocs[0][1] && hocs[0][1].fragmentName;
   },
 
   step12: (props) => {
-    return props.results && props.results[0] && props.results[0].user;
+    return schema.userId.resolveAs;
   },
 
   step13: (props) => {
@@ -59,11 +62,11 @@ const checks = {
   },
 
   step14: (props) => {
-    return props.data && props.data.__type && !!props.data.__type.fields.find(r => r.name === 'MoviesNew');
+    return props.mutations && !!props.mutations.fields.find(r => r.name === 'MoviesNew');
   },
 
   step15: (props) => {
-    return false;
+    return containsChild(Components.MoviesNew, 'GraphQL');
   },
 
   step16: () => {

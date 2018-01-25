@@ -14,7 +14,7 @@ Every GraphQL API endpoint needs a schema to indicate what data should be made a
 
 That GraphQL schema lives on the server, so in order to visualize it we need some way of fetching it from the client. 
 
-Find the \`lib/components/steps/Step7.jsx\` file for this component, and uncomment the last argument of the \`registerComponent\` call, \`withGraphQLSchema\`.
+Find the \`lib/components/steps/Step7.jsx\` file for this component, uncomment the last argument of the \`registerComponent\` call, \`withGraphQLSchema\`, and prepare to scroll down a lot.
 `;
 
 const after = `
@@ -25,12 +25,14 @@ By the way, \`withGraphQLSchema\` is what's known as a **higher-order component*
 We'll learn more about them later, but for now all you need to know is that the first argument of \`registerComponent\` is the component name, the second is the component itself, and any additional arguments will be treated as HoCs and called on the component whenever it's used in your app. 
 
 You don't need to know how HoCs are written in order to use them, but if you're curious then you can learn more in the [Apollo documentation](https://www.apollographql.com/docs/react/basics/queries.html).
+
+By the way, this would be a great time to start using the [React Devtools](https://github.com/facebook/react-devtools). For example, if you inspect the \`Step7\` component (select the “React” tab of your devtools then search for “Step7”) you'll see the \`data\` prop that it's receiving from \`withGraphQLSchema(Step7)\`.
 `;
 
 const Step7 = ({ data }) => (
   <Components.Step step={7} text={text} after={after} data={data}>
-    <Components.GraphQLSchema data={data}/>
+    {data && <Components.GraphQLSchema data={data}/>}
   </Components.Step>
 );
 
-registerComponent('Step7', Step7, /* withGraphQLSchema */);
+registerComponent('Step7', Step7, withGraphQLSchema); // uncomment on #Step7

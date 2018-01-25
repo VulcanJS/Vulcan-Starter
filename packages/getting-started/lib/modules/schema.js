@@ -6,10 +6,24 @@ const schema = {
     viewableBy: ['guests'],
   },
 
+  createdAt: {
+    type: Date,
+    optional: true,
+    viewableBy: ['guests'],
+    onInsert: () => {
+      return new Date();
+    }
+  },
+
   userId: {
     type: String,
     optional: true,
     viewableBy: ['guests'],
+    /*
+
+    Uncomment on #Step12:
+
+    */
     resolveAs: {
       fieldName: 'user',
       type: 'User',

@@ -17,6 +17,7 @@ That fragment has already been defined, and it looks something like this:
 ~~~
 fragment MoviesItem on Movie {
   _id
+  createdAt
   name
 }
 ~~~

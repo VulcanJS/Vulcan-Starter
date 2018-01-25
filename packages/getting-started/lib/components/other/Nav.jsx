@@ -1,21 +1,34 @@
 import React from 'react';
-import { registerComponent } from 'meteor/vulcan:core';
+import { registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 import { Link } from 'react-router';
 
 import checks from '../../modules/checks.js';
+import withMoviesCount from '../../hocs/withMoviesCount.js';
+import withQueryResolvers from '../../hocs/withQueryResolvers.js';
+import withMutationResolvers from '../../hocs/withMutationResolvers.js';
 
-const Nav = ({}) => (
-  <div className="nav">
-    <ul>
-    <li className="nav-item"><Link activeClassName="active" to="/" onlyActiveOnIndex={true}>Welcome</Link></li>
-    <li className="nav-item"><Link activeClassName="active" to="/step/1">Step 1</Link></li>
-      {_.range(1,18).map(i => 
-        checks[`step${i}`]({}) ? 
-        <li className="nav-item" key={i}><Link activeClassName="active" to={`/step/${i+1}`}>Step {i+1}</Link></li> :
-        <li className="nav-item" key={i}>Step {i+1}</li> 
-      )}
-    </ul>
-  </div>
-);
+const Nav = (props) => {
+  
+  let allChecksPassed = true;
 
-registerComponent('Nav', Nav);
+  return (
+    <div className="nav">
+      <ul>
+      <li className="nav-item"><Link activeClassName="active" to="/" onlyActiveOnIndex={true}>Welcome</Link></li>
+      <li className="nav-item"><Link activeClassName="active" to="/step/1">Step 1</Link></li>
+        {_.range(1,18).map(i => {
+          
+            if (!checks[`step${i}`](props)) {
+              allChecksPassed = false;
+            }
+            return allChecksPassed ? 
+              <li className="nav-item" key={i}><Link activeClassName="active" to={`/step/${i+1}`}>Step {i+1}</Link></li> :
+              <li className="nav-item" key={i}>Step {i+1}</li>
+          }
+        )}
+      </ul>
+    </div>
+  )
+};
+
+registerComponent('Nav', Nav, withMoviesCount, withQueryResolvers, withCurrentUser, withMutationResolvers);

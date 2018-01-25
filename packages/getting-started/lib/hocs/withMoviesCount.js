@@ -7,7 +7,16 @@ const withMoviesCount = graphql(gql`
     MoviesCount
   } 
   `, {
-    alias: 'withMoviesCount'
+    alias: 'withMoviesCount',
+    options: {
+      pollInterval: 5
+    },
+    props(props) {
+      return {
+        loading: props.data.loading,
+        moviesCount: props.data.MoviesCount,
+      }
+    }
   }
 );
 

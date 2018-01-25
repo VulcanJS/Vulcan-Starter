@@ -11,6 +11,12 @@ It turns out that's just what happened with \`Step4.jsx\`: the component is regi
 Once we've done this, we can now go ahead and uncomment the route for step 4, following the same pattern as in previous steps. 
 `;
 
-const Step3 = () => <Components.Step step={3} text={text} />;
+const after = `
+It's easy to forget to import a file. A good pattern is to have a central \`components.js\` file that imports all of your app's components.
 
-// registerComponent('Step3', Step3); // <- uncomment me!
+Now let's learn a couple more Vulcan basics before we start building our little app. 
+`;
+
+const Step3 = () => <Components.Step step={3} text={text} after={after}/>;
+
+registerComponent('Step3', Step3); // uncomment me on #Step2
