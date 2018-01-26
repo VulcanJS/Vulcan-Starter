@@ -49,7 +49,16 @@ And here's how you would remove them all:
 ~~~js
 db.movies.remove({})
 ~~~
-`];
+`,
+{
+  text: `By the way, I know you must be getting hungry so feel free to take a lunch break soon!`,
+  check: () => {
+    const date = new Date();
+    const hours = date.getHours();
+    return hours === 1 || hours === 12;
+  }
+}
+];
 
 const Step8 = ({ loading, moviesCount }) => (
   <Components.Step step={8} text={text} after={after} moviesCount={moviesCount}>

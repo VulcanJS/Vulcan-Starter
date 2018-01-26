@@ -43,7 +43,16 @@ By convention, every file *outside* of \`client\` and \`server\` will be loaded 
 This includes React components, higher-order components (special component wrapper functions), and all the other files in \`modules\`. 
 
 Throughout this tutorial, we'll be modifying files in both \`components\` and \`modules\`. But of course, feel free to take a look at the other parts of the package as well!
-`];
+`,
+{
+  text: `Oh, and thanks for taking time out of your week-end to try out Vulcan. You won't regret it!`,
+  check: () => {
+    const date = new Date();
+    const day = date.getDay();
+    return day === 6 || day === 0;
+  }
+},
+];
 
 const Step0 = () => <Components.Step step={0} text={text} firstStep={true}/>;
 

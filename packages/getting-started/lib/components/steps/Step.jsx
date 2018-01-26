@@ -20,9 +20,18 @@ const languages = {
 
 const TextBlocks = ({ textArray, currentUser }) =>
   <div className="text-blocks">
-    {textArray.map((t, i) => {
+    {textArray.map((block, i) => {
       
-      let text = t;
+      let text;
+      if (typeof block === 'object') {
+        // if block is an object, use its check function to decide whether to show block or not
+        if (!block.check(currentUser)) {
+          return null;
+        }
+        text = block.text;
+      } else {
+        text = block;
+      }
 
       text = text.replace('##currentUserId##', currentUser._id);
       text = text.replace('##currentUserName##', currentUser.displayName);
