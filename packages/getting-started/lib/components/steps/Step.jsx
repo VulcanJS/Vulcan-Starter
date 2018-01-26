@@ -1,5 +1,5 @@
 import React from 'react';
-import { registerComponent } from 'meteor/vulcan:core';
+import { registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 // import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -18,24 +18,29 @@ const languages = {
   sh: 'powershell',
 }
 
-const TextBlocks = ({ textArray }) =>
+const TextBlocks = ({ textArray, currentUser }) =>
   <div className="text-blocks">
     {textArray.map((t, i) => {
-              
-      const trimmed = t.trim();
+      
+      let text = t;
+
+      text = text.replace('##currentUserId##', currentUser._id);
+      text = text.replace('##currentUserName##', currentUser.displayName);
+
+      const trimmed = text.trim();
       const language = languages[trimmed.slice(3,5)] || 'javascript';
       const code = trimmed.slice(5, trimmed.length-3).trim();
 
       return isCode(trimmed) ? 
         <div className="code-block" key={i}><SyntaxHighlighter language={language} style={okaidia}>{code}</SyntaxHighlighter></div> :
-        <div className="text-block" key={i}><ReactMarkdown source={t} /></div>
+        <div className="text-block" key={i}><ReactMarkdown source={text} /></div>
       }
     )}
   </div>
 
 const Step = (props) => {
 
-  const { step, text, after, children, firstStep = false } = props;
+  const { step, text, after, children, firstStep = false, currentUser } = props;
 
   const textArray = Array.isArray(text) ? text : [text];
   const afterArray = Array.isArray(after) ? after : [after];
@@ -46,7 +51,7 @@ const Step = (props) => {
     <div className="step">
       <div className="step-text">
         <h2>{step > 0 && `${step}. `}{sections[step]}</h2>
-        <TextBlocks textArray={textArray}/>
+        <TextBlocks textArray={textArray} currentUser={currentUser}/>
       </div>
 
       {children && <div className="step-contents">{children}</div>}
@@ -55,7 +60,7 @@ const Step = (props) => {
         <div className="step-done">
           {after && (
             <div className="step-after">
-              <TextBlocks textArray={afterArray}/>
+              <TextBlocks textArray={afterArray} currentUser={currentUser}/>
             </div>
           )}
 
@@ -67,4 +72,4 @@ const Step = (props) => {
     </div>
 )};
 
-registerComponent('Step', Step);
+registerComponent('Step', Step, withCurrentUser);

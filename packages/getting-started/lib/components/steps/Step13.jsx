@@ -11,11 +11,17 @@ Vulcan makes this drop-dead easy. Find \`MoviesUsers.jsx\` in the same directory
 Next, go ahead and use the form to sign up in order to get your very own user account. 
 `;
 
-const after = `
-That wasn't too bad!
+const after = [`
+Why hello there **##currentUserName##**! Nice to finally meet you!
 
-Note that if this was the first user account you created inside this project (including other examples), Vulcan will have automatically assigned it admin privileges. 
-`;
+Note that if this was the first user account you created inside this project (including other examples), Vulcan will have automatically assigned it admin privileges, and you should see an \`(admin)\` mention next to your username on the right.
+
+If your account is *not* an admin account and you'd like to make it one, run the following code in your Mongo shell (\`meteor mongo\`) and then reload this page:
+`,`
+~~~js
+db.users.update({ _id: "##currentUserId##" }, { $set: { isAdmin: true } })
+~~~
+`];
 
 const Step13 = ({ currentUser }) => (
   <Components.Step step={13} text={text} after={after} currentUser={currentUser}/>
