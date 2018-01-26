@@ -10,6 +10,10 @@ const containsChild = (component, childName) => {
 
 const checks = {
 
+  step0: () => {
+    return true;
+  },
+
   step1: () => {
     return !!Routes.step2;
   },

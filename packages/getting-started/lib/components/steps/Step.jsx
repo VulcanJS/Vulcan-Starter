@@ -15,7 +15,7 @@ const isCode = t => t.slice(0,3) === '~~~';
 const languages = {
   js: 'jsx',
   gq: 'graphql',
-  sh: 'shell',
+  sh: 'powershell',
 }
 
 const TextBlocks = ({ textArray }) =>
@@ -27,23 +27,25 @@ const TextBlocks = ({ textArray }) =>
       const code = trimmed.slice(5, trimmed.length-3).trim();
 
       return isCode(trimmed) ? 
-        <SyntaxHighlighter key={i} language={language} style={okaidia}>{code}</SyntaxHighlighter> :
-        <ReactMarkdown key={i} source={t} />
+        <div className="code-block"><SyntaxHighlighter key={i} language={language} style={okaidia}>{code}</SyntaxHighlighter></div> :
+        <div className="text-block"><ReactMarkdown key={i} source={t} /></div>
       }
     )}
   </div>
 
 const Step = (props) => {
 
-  const { step, text, after, children } = props;
+  const { step, text, after, children, firstStep = false } = props;
 
   const textArray = Array.isArray(text) ? text : [text];
   const afterArray = Array.isArray(after) ? after : [after];
 
+  const buttonText = firstStep ? `Let's get started!` : `Move on to Step ${step + 1}`;
+
   return (
     <div className="step">
       <div className="step-text">
-        <h2>{step}. {sections[step]}</h2>
+        <h2>{step > 0 && `${step}. `}{sections[step]}</h2>
         <TextBlocks textArray={textArray}/>
       </div>
 
@@ -58,7 +60,7 @@ const Step = (props) => {
           )}
 
           <div className="step-next">
-            <Link className="btn btn-primary" to={`/step/${step + 1}`}>Move on to Step {step + 1}</Link>
+            <Link className="btn btn-primary" to={`/step/${step + 1}`}>{buttonText}</Link>
           </div>
         </div>
       )}
