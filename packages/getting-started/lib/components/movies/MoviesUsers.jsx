@@ -1,12 +1,13 @@
 
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 
-// Uncomment children on #Step13:
-const MoviesUsers = () => (
+// Uncomment contents on #Step13:
+const MoviesUsers = ({ currentUser }) => (
   <div className="movies-users">
+    {currentUser && <p>Welcome, {currentUser.displayName} {currentUser.isAdmin && `(admin)`}</p>}
     <Components.AccountsLoginForm redirect={false} /> 
   </div>
 );
 
-registerComponent('MoviesUsers', MoviesUsers);
+registerComponent('MoviesUsers', MoviesUsers, withCurrentUser);
