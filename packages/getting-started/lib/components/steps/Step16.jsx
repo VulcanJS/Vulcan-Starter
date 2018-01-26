@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Datatables
+
 const text = [`
 Learning about collections and schemas, seeding data, loading it on the client, inserting new documents… we've come a long way since step 1. 
 
@@ -26,7 +28,9 @@ To do so find \`lib/modules/components.js\` and uncomment the \`MoviesApp2\` imp
 const after = `
 If you take a closer look at \`MoviesApp2.jsx\`, you'll notice that it uses \`replaceComponent\` to *replace* the existing \`MoviesApp\` component. This explains why our new Datatable-enabled version just pops in at the same spot. This can be very useful when you want to surgically modify a specific component of a theme or package without having to fork its entire codebase. Every component is replaceable in Vulcan, including the parts that make up Datatable itself!
 
-Also, as an extra feature, the \`Datatable\` component also includes a search function. To make a field searchable, just add the \`searchable: true\` property to it in \`lib/modules/schema.js\`. Try it now with the \`name\` and \`review\` fields!
+By the way, did you see the \`review\` field is back? That's because we're not using our fragment to load data anymore, instead the Datatable is doing its best to “guess” the appropriate list of fields. That being said, if you want to be safe then manually specifying a fragment is always a good idea.
+
+Also, as an extra feature, the \`Datatable\` component also includes a search function. The \`name\` and \`review\` fields happen to have the \`searchable: true\` property in our schema, which makes them searchable. Try it now!
 `;
 
 const Step16 = () => (

@@ -27,8 +27,8 @@ const TextBlocks = ({ textArray }) =>
       const code = trimmed.slice(5, trimmed.length-3).trim();
 
       return isCode(trimmed) ? 
-        <div className="code-block"><SyntaxHighlighter key={i} language={language} style={okaidia}>{code}</SyntaxHighlighter></div> :
-        <div className="text-block"><ReactMarkdown key={i} source={t} /></div>
+        <div className="code-block" key={i}><SyntaxHighlighter language={language} style={okaidia}>{code}</SyntaxHighlighter></div> :
+        <div className="text-block" key={i}><ReactMarkdown source={t} /></div>
       }
     )}
   </div>

@@ -3,6 +3,8 @@ import { Components, registerComponent, withList } from 'meteor/vulcan:core';
 
 import withMutationResolvers from '../../hocs/withMutationResolvers.js';
 
+// Mutations
+
 const text = `
 We've seen how to load data, and how to create a user account. Now how about using that fresh-out-the-oven user account to *mutate* some data?
 

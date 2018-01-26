@@ -3,6 +3,8 @@ import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 
 import withMoviesCount from '../../hocs/withMoviesCount.js';
 
+// Seeding
+
 const text = [`
 We're well on our way to sending data from the server to the client, but there's just one problem: we don't *have* any data. Let's fix this by inserting a few documents into our \`Movies\` collection. 
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 
+// User Accounts
+
 const text = `
 The vast majority of apps all need some kind of user accounts management in order to be functional. 
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Sorting
+
 const text = [`
 By default, data is sorted according to its \`createdAt\` timestamp in descending order (meaning more recent items appear at the top of the list).
 

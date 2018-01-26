@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Field Resolvers
+
 const text = [`
 Let's keep learning how to harness the power of GraphQL. One of GraphQL's coolest features is that you're not limited to the fields that are in your database. In fact, GraphQL couldn't care less about your database: it only follows what *you* specify. 
 

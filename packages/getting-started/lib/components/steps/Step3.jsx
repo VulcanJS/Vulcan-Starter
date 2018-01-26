@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Importing Components
+
 const text = `
 Registering a component tells Vulcan about it, but it's also important to make sure our component is properly *imported*, otherwise that registration function will never be executed in the first place!
 

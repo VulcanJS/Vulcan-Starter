@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Fragments
+
 const text = [`
 Our dummy reviews are fairly short, but what if they were each several thousand words long? In that case, we probably wouldn't want to load them all in our list view.
 

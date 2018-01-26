@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Internationalization
+
 const text = [`
 We're almost there. Let's take a look at one more aspect of Vulcan: [internationalization](http://docs.vulcanjs.org/internationalization.html). The cool part is that you can use it not only to translate your app or make it available in multiple languages, but also to change any text string in Vulcan!
 

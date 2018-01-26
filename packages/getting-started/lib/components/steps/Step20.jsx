@@ -1,7 +1,7 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
-import Movies from '../../modules/collection.js';
+// Next Steps
 
 const text = `
 Congrats! You've made it all the way to the end of this tutorial. Let's review all the things we learned:
@@ -34,7 +34,6 @@ And Vulcan also has a pretty active [YouTube channel](https://www.youtube.com/ch
 
 Finally, if you run into any issue there's always the [Vulcan Slack channel](http://slack.vulcanjs.org/). See you very soon, and thanks for checking out Vulcan!
 `;
-
 
 const Step20 = () => (
   <Components.Step step={20} text={text} lastStep={true} />
