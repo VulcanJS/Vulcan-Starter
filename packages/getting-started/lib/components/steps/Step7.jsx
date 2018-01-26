@@ -33,4 +33,4 @@ const Step7 = ({ data }) => (
   </Components.Step>
 );
 
-registerComponent('Step7', Step7, /* withGraphQLSchema */); // uncomment on #Step7
+registerComponent('Step7', Step7, withGraphQLSchema); // uncomment on #Step7

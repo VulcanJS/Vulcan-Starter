@@ -8,9 +8,9 @@ Uncomment on #Step17
 
 */
 
-// const membersActions = [
-//   'movies.new',
-//   'movies.edit.own',
-//   'movies.remove.own',
-// ];
-// Users.groups.members.can(membersActions);
+const membersActions = [
+  'movies.new',
+  'movies.edit.own',
+  'movies.remove.own',
+];
+Users.groups.members.can(membersActions);

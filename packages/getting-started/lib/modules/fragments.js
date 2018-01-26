@@ -6,8 +6,8 @@ registerFragment(`
     createdAt
     name
     # uncomment on #Step12
-    # user{
-    #  displayName
-    # }
+    user{
+     displayName
+    }
   }
 `);
