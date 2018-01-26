@@ -3,6 +3,8 @@ import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 
 import withQueryResolvers from '../../hocs/withQueryResolvers.js';
 
+// Resolvers
+
 const text = `
 Now that our data exists on the server, let's think about transmitting it to the client. 
 

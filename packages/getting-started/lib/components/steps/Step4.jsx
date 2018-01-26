@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Core Components
+
 const text = `
 Nice job! By the way, don't worry: from now on, all components will be already registered and imported, and all routes already created for you so you don't need to repeat the same tasks. 
 

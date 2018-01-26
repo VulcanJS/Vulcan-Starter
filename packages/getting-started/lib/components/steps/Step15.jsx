@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent, withList } from 'meteor/vulcan:core';
 
+// Forms
+
 const text = [`
 We've got a mutation that creates new movies, so now let's build a form that takes advantage of it. 
 

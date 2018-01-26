@@ -41,6 +41,7 @@ const schema = {
     viewableBy: ['guests'],
     insertableBy: ['members'],
     editableBy: ['members'],
+    searchable: true,
   },
 
   review: {
@@ -50,7 +51,8 @@ const schema = {
     control: 'textarea',
     viewableBy: ['guests'],
     insertableBy: ['members'],
-    editableBy: ['members']
+    editableBy: ['members'],
+    searchable: true,
   },
 
 };

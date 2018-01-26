@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 
+// Collections
+
 const text = [`
 By itself, a schema doesn't do much. We need to [create a **collection**](http://docs.vulcanjs.org/schemas.html#Creating-Collections) to actually make use of it. 
 

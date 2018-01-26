@@ -1,6 +1,8 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
+// Permissions
+
 const text = `
 If you're logged in and your account has the proper admin privileges, you should see Edit buttons next to every item in the Datatable. That's by design: in Vulcan, admin accounts automatically pass every permission checks. 
 
