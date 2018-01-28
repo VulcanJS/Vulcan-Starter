@@ -33,8 +33,11 @@ const TextBlocks = ({ textArray, currentUser }) =>
         text = block;
       }
 
-      text = text.replace('##currentUserId##', currentUser._id);
-      text = text.replace('##currentUserName##', currentUser.displayName);
+      // if current user is logged in, add some personalization
+      if (currentUser) {
+        text = text.replace('##currentUserId##', currentUser._id);
+        text = text.replace('##currentUserName##', currentUser.displayName);
+      }
 
       const trimmed = text.trim();
       const language = languages[trimmed.slice(3,5)] || 'javascript';
