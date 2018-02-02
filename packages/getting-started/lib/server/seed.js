@@ -7,6 +7,7 @@ Seed the database with some dummy content.
 import Movies from '../modules/collection.js';
 import Users from 'meteor/vulcan:users';
 import { newMutation } from 'meteor/vulcan:core';
+import { Promise } from 'meteor/promise';
 
 const seedData = [
   {
@@ -55,7 +56,7 @@ const seedData = [
   },
 ];
 
-const createUser = function (username, email) {
+const createUser = async (username, email) => {
   const user = {
     username,
     email,
@@ -68,11 +69,16 @@ const createUser = function (username, email) {
   });
 }
 
-const createDummyUsers = function () {
+const createDummyUsers = async () => {
+
+  // eslint-disable-next-line no-console
   console.log('// seeding users…');
-  createUser('Bruce', 'dummyuser1@telescopeapp.org');
-  createUser('Arnold', 'dummyuser2@telescopeapp.org');
-  createUser('Julia', 'dummyuser3@telescopeapp.org');
+
+  return Promise.all([
+    createUser('Bruce', 'dummyuser1@telescopeapp.org'),
+    createUser('Arnold', 'dummyuser2@telescopeapp.org'),
+    createUser('Julia', 'dummyuser3@telescopeapp.org'),
+  ]);
 };
 
 export const seedMovies = () => {
@@ -80,20 +86,18 @@ export const seedMovies = () => {
   const allUsers = Users.find().fetch();
 
   if (allUsers.length === 0) {
-    createDummyUsers();
+    Promise.await(createDummyUsers());
   }
   if (Movies.find().fetch().length === 0) {
+    
+    // eslint-disable-next-line no-console
     console.log('// seeding movies…');
-    seedData.forEach(document => {
-  
-      const currentUser = _.sample(allUsers); // get a random user
-      
-      newMutation({
-        collection: Movies,
-        document: document, 
-        currentUser: currentUser,
-        validate: false
-      });
-    });
+
+    Promise.awaitAll(seedData.map(document => newMutation({
+      collection: Movies,
+      document: document, 
+      currentUser: _.sample(allUsers), // get a random user
+      validate: false
+    })));
   }
 };
