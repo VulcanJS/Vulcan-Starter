@@ -47,14 +47,14 @@ All while modifying the code of the tutorial itself! How meta!
 
 Additionally, this repo also contains the following example apps: 
 
-- **Simple Example**: build a simple paginated list of movies [video](http://docs.vulcanjs.org/example-simple.html).
-- **Movies Example**: like the Simple example, but more in-depth [video+tutorial](http://docs.vulcanjs.org/example-movies.html). 
-- **Permissions Example**: manage user roles in Vulcan [video](http://docs.vulcanjs.org/example-permissions.html).
-- **Instagram Example**: create a simple Instagram clone [video](http://docs.vulcanjs.org/example-instagram.html).
+- **Simple Example**: build a simple paginated list of movies [[video]](http://docs.vulcanjs.org/example-simple.html).
+- **Movies Example**: like the Simple example, but more in-depth [[video+tutorial]](http://docs.vulcanjs.org/example-movies.html). 
+- **Permissions Example**: manage user roles in Vulcan [[video]](http://docs.vulcanjs.org/example-permissions.html).
+- **Instagram Example**: create a simple Instagram clone [[video]](http://docs.vulcanjs.org/example-instagram.html).
 - **Interfaces Example**: using GraphQL interfaces.
 - **Reactions Example**: implement Facebook-style reactions & voting.
-- **Forum Example**: a full-fledged Hacker News-style forum codebase [docs](http://docs.vulcanjs.org/example-forum.html). 
-- **Customization Example**: how to customize other Vulcan packages, based on the Forum Example [video+tutorial](http://docs.vulcanjs.org/example-customization.html). 
+- **Forum Example**: a full-fledged Hacker News-style forum codebase [[docs]](http://docs.vulcanjs.org/example-forum.html). 
+- **Customization Example**: how to customize other Vulcan packages, based on the Forum Example [[video+tutorial]](http://docs.vulcanjs.org/example-customization.html). 
 
 ## Complete Install
 
