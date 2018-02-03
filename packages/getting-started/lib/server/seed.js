@@ -62,7 +62,7 @@ const createUser = async (username, email) => {
     email,
     isDummy: true
   };
-  newMutation({
+  return newMutation({
     collection: Users, 
     document: user,
     validate: false
@@ -83,16 +83,17 @@ const createDummyUsers = async () => {
 
 export const seedMovies = () => {
   
-  const allUsers = Users.find().fetch();
-
-  if (allUsers.length === 0) {
+  if (Users.find().count() === 0) {
     Promise.await(createDummyUsers());
   }
+  
   if (Movies.find().fetch().length === 0) {
+    
+    const allUsers = Users.find().fetch();
     
     // eslint-disable-next-line no-console
     console.log('// seeding movies…');
-
+    
     Promise.awaitAll(seedData.map(document => newMutation({
       collection: Movies,
       document: document, 
