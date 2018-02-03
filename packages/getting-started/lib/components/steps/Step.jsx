@@ -11,17 +11,22 @@ import { okaidia } from 'react-syntax-highlighter/styles/prism';
 import checks from '../../modules/checks';
 import sections from '../../modules/sections.js';
 
-const isCode = t => t.slice(0,3) === '~~~';
+const isCode = t => t.slice(0, 3) === '~~~';
 const languages = {
   js: 'jsx',
   gq: 'graphql',
   sh: 'powershell',
-}
+};
 
-const TextBlocks = ({ textArray, currentUser }) =>
+// see https://github.com/rexxars/react-markdown-examples/blob/master/examples/custom-renderers/link-renderer.js
+const LinkRenderer = props => 
+  props.href.match(/^(https?:)?\/\//) ?
+    <a href={props.href} target="_blank">{props.children}</a> :
+    <Link to={props.href}>{props.children}</Link>
+
+const TextBlocks = ({ textArray, currentUser }) => (
   <div className="text-blocks">
     {textArray.map((block, i) => {
-      
       let text;
       if (typeof block === 'object') {
         // if block is an object, use its check function to decide whether to show block or not
@@ -33,22 +38,32 @@ const TextBlocks = ({ textArray, currentUser }) =>
         text = block;
       }
 
-      text = text.replace('##currentUserId##', currentUser._id);
-      text = text.replace('##currentUserName##', currentUser.displayName);
+      // if current user is logged in, add some personalization
+      if (currentUser) {
+        text = text.replace('##currentUserId##', currentUser._id);
+        text = text.replace('##currentUserName##', currentUser.displayName);
+      }
 
       const trimmed = text.trim();
-      const language = languages[trimmed.slice(3,5)] || 'javascript';
-      const code = trimmed.slice(5, trimmed.length-3).trim();
+      const language = languages[trimmed.slice(3, 5)] || 'javascript';
+      const code = trimmed.slice(5, trimmed.length - 3).trim();
 
-      return isCode(trimmed) ? 
-        <div className="code-block" key={i}><SyntaxHighlighter language={language} style={okaidia}>{code}</SyntaxHighlighter></div> :
-        <div className="text-block" key={i}><ReactMarkdown source={text} /></div>
-      }
-    )}
+      return isCode(trimmed) ? (
+        <div className="code-block" key={i}>
+          <SyntaxHighlighter language={language} style={okaidia}>
+            {code}
+          </SyntaxHighlighter>
+        </div>
+      ) : (
+        <div className="text-block" key={i}>
+          <ReactMarkdown source={text} renderers={{ link: LinkRenderer }} />
+        </div>
+      );
+    })}
   </div>
+);
 
-const Step = (props) => {
-
+const Step = props => {
   const { step, text, after, children, firstStep = false, currentUser } = props;
 
   const textArray = Array.isArray(text) ? text : [text];
@@ -59,8 +74,11 @@ const Step = (props) => {
   return (
     <div className="step">
       <div className="step-text">
-        <h2>{step > 0 && `${step}. `}{sections[step]}</h2>
-        <TextBlocks textArray={textArray} currentUser={currentUser}/>
+        <h2>
+          {step > 0 && `${step}. `}
+          {sections[step]}
+        </h2>
+        <TextBlocks textArray={textArray} currentUser={currentUser} />
       </div>
 
       {children && <div className="step-contents">{children}</div>}
@@ -69,16 +87,19 @@ const Step = (props) => {
         <div className="step-done">
           {after && (
             <div className="step-after">
-              <TextBlocks textArray={afterArray} currentUser={currentUser}/>
+              <TextBlocks textArray={afterArray} currentUser={currentUser} />
             </div>
           )}
 
           <div className="step-next">
-            <Link className="btn btn-primary" to={`/step/${step + 1}`}>{buttonText}</Link>
+            <Link className="btn btn-primary" to={`/step/${step + 1}`}>
+              {buttonText}
+            </Link>
           </div>
         </div>
       )}
     </div>
-)};
+  );
+};
 
 registerComponent('Step', Step, withCurrentUser);

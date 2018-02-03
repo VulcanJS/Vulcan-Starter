@@ -16,7 +16,9 @@ Just uncomment that last \`registerComponent\` line. This will register the comp
 `;
 
 const after = `
-Nicely done. In Vulcan, components are available globally as \`<Components.Foobar/>\` once registered.
+Nicely done. In Vulcan, components are available globally as \`<Components.Foobar/>\` once registered. 
+
+You can review them all by accessing the [Components dashboard](/components) (note that most of the components you'll see in there belong to various Vulcan packages, such as \`vulcan:core\`, \`vulcan:forms\`, etc.).
 `;
 
 const Step2 = () => <Components.Step step={2} text={text} after={after} />;

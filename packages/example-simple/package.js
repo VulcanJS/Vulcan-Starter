@@ -11,11 +11,12 @@ Package.onUse(function (api) {
     // Here are our dependencies:
 
     // vulcan core
-    'vulcan:core@1.8.5',
+    'promise',
+    'vulcan:core@1.8.7',
 
     // vulcan packages
-    'vulcan:forms@1.8.5',
-    'vulcan:accounts@1.8.5',
+    'vulcan:forms@1.8.7',
+    'vulcan:accounts@1.8.7',
     
   ]);
 
