@@ -1,6 +1,11 @@
-# Vulcan Starter.
+# Vulcan Starter
 
 This kit gives you all you need to quickly learn Vulcan and launch your own projects.
+
+Other resources: 
+
+- [Vulcan Docs](http://docs.vulcanjs.org)
+- [Vulcan Slack](http://slack.vulcanjs.org)
 
 ## Quick Install
 

@@ -43,6 +43,8 @@ By convention, every file *outside* of \`client\` and \`server\` will be loaded 
 This includes React components, higher-order components (special component wrapper functions), and all the other files in \`modules\`. 
 
 Throughout this tutorial, we'll be modifying files in both \`components\` and \`modules\`. But of course, feel free to take a look at the other parts of the package as well!
+
+If you get stuck at any point, drop by the [Vulcan Slack group](http://slack.vulcanjs.org)'s \`#getting-started\` channel to get help. We'd also love to know what you think of the tutorial once you're through!
 `,
 {
   text: `Oh, and thanks for taking time out of your week-end to try out Vulcan. You won't regret it!`,
