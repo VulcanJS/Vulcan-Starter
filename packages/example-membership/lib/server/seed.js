@@ -59,7 +59,7 @@ const createUser = async (username, email) => {
 const createDummyUsers = async () => {
   // eslint-disable-next-line no-console
   console.log('// inserting dummy users…');
-  Promise.all([
+  return Promise.all([
     createUser('Bruce', 'dummyuser1@telescopeapp.org'),
     createUser('Arnold', 'dummyuser2@telescopeapp.org'),
     createUser('Julia', 'dummyuser3@telescopeapp.org'),
