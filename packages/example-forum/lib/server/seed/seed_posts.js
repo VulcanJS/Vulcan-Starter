@@ -61,8 +61,9 @@ if (getSetting('forum.seedOnStart')) {
 
   const createComment = async (slug, username, body, parentBody) => {
     const user = await Users.rawCollection().findOne({ username: username });
+    const post = await Posts.rawCollection().findOne({ dummySlug: slug });
     const comment = {
-      postId: await Posts.rawCollection().findOne({ dummySlug: slug })._id,
+      postId: post._id,
       userId: user._id,
       body: body,
       isDummy: true,
