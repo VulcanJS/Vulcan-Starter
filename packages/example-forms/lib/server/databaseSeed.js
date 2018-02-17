@@ -33,8 +33,8 @@ const createUsers = () => {
             // Set passwords for demo users
             // IMPORTANT NOTE : in production, use a password stored as an environment variable
             // instead 
-            console.warn('Setting passwords to "demodemo"')
-            console.warn('Please use an environment variable to define the admin password before switching to production')
+            console.error('Setting passwords to "demodemo"')
+            console.error('Please use an environment variable to define the admin password before switching to production')
             adminUsers.forEach(admin => setPassword("demodemo"))
         })
 }
