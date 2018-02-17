@@ -9,10 +9,13 @@ import Customers from '../customers/collection'
 
 // copy the address form schema and tweak it a little to match our current needs
 // address is optional (default is the client address)
-const meetingAddressFormSchema = { 
+const meetingAddressFormSchema = {
     ...addressFormSchema,
     optional: true,
- }
+    viewableBy: ['guests'],
+    editableBy: ['guests'],
+    insertableBy: ['guests'],
+}
 
 
 const schema = {
@@ -38,6 +41,9 @@ const schema = {
             locale: 'fr',
             closeOnSelect: true,
         },
+        viewableBy: ['guests'],
+        editableBy: ['guests'],
+        insertableBy: ['guests'],
     },
     // Who created the doc. This field is necessary for Vulcan to handle ownership
     // correctly when setting the permissions
@@ -46,7 +52,7 @@ const schema = {
         type: String,
         hidden: true,
         optional: true,
-        onInsert(document, currentUser){
+        onInsert(document, currentUser) {
             document.userId = currentUser._id
         },
     },
@@ -75,7 +81,10 @@ const schema = {
             multiple: false,
             labelKey: 'name',
             valueKey: '_id'
-        }
+        },
+        viewableBy: ['guests'],
+        editableBy: ['guests'],
+        insertableBy: ['guests'],
     },
     address: meetingAddressFormSchema,
 }

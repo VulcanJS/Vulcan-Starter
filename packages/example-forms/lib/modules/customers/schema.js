@@ -55,13 +55,19 @@ const schema = {
             }))
         },
         label: 'Client status',
-        control: 'select'
+        control: 'select',
+        viewableBy: ['guests'],
+        editableBy: ['guests'],
+        insertableBy: ['guests'],
     },
     'name': {
         type: String,
         optional: false,
         label: 'Customer name',
         searchable: true,
+        viewableBy: ['guests'],
+        editableBy: ['guests'],
+        insertableBy: ['guests'],
     },
     'email': {
         type: String,
@@ -72,6 +78,9 @@ const schema = {
         searchable: true,
         // a text input of type 'email'
         control: 'email',
+        viewableBy: ['guests'],
+        editableBy: ['guests'],
+        insertableBy: ['guests'],
     },
     // customer addresses (a customer can have 1 ore more addresses)
     // TODO: this should generate a form that allow to create one or more
@@ -83,6 +92,9 @@ const schema = {
         // TODO: this should be the default control for array
         // or at least provided in the core libs
         control: Components.ArrayForm, 
+        viewableBy: ['guests'],
+        editableBy: ['guests'],
+        insertableBy: ['guests'],
     },
     'addresses.$': addressFormSchema
 }
