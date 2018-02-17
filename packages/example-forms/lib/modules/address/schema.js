@@ -5,8 +5,7 @@ This is because they are always tied to a specific object,
 either a client or a meeting (Aggregation relationship in the UML representation).
 
 */
-import { addGraphQLSchema } from 'meteor/vulcan:core'
-import { ObjectForm } from '../../components/ObjectForm'
+import { Components, addGraphQLSchema } from 'meteor/vulcan:core'
 
 // Representation of an address
 export const addressSchema = {
@@ -63,7 +62,7 @@ export const addressFormSchema = {
         form:{
             objectSchema: () => addressSchema,
         },
-        control: ObjectForm,
+        control: Components.ObjectForm,
     },
 }
 /*

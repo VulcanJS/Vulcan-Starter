@@ -8,7 +8,7 @@
  * a form given a simple-schema schema.
  */
 import React, { Component } from 'react'
-import { Components } from 'meteor/vulcan:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 import { PropTypes } from 'prop-types';
 
 
@@ -79,3 +79,4 @@ ObjectForm.contextTypes = {
 };
 
 export default ObjectForm
+registerComponent('ObjectForm', ObjectForm)

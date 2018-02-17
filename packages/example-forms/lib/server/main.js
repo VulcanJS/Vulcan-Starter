@@ -1,2 +1,2 @@
 //import './databaseSeed'
-import '../modules/index'
+import '../modules'

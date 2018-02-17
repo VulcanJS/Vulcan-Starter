@@ -1,1 +1,1 @@
-import './schema'
+export * from './schema'
