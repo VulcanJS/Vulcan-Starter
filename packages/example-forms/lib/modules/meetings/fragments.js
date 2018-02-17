@@ -8,11 +8,11 @@ import { registerFragment } from 'meteor/vulcan:core';
 
 // TODO: extend this fragment
 registerFragment(`
-  fragment CustomersItemFragment on Customer {
+  fragment MeetingsItemFragment on Meetings{
     _id
-    state
-    name
-    email
-    addresses
+    date
+    userId
+    customerId
+    address
   }
 `);
