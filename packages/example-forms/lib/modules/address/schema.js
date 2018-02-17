@@ -64,11 +64,11 @@ export const addressFormSchema = {
     control: Components.ObjectForm,
 }
 /*
-TODO: we should be able to write this instead
+TODO: ideally we should be able to write this instead
 
 {
     type: addressSchema,
-    label: 'Address'
+    label: 'Address',
 }
 
 This would need:

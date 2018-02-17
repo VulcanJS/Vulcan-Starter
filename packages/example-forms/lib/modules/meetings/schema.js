@@ -5,6 +5,7 @@ A SimpleSchema-compatible JSON schema for prospects
 */
 import { Components } from 'meteor/vulcan:core'
 import { addressFormSchema } from '../address'
+import Customers from '../customers/collection'
 
 // copy the address form schema and tweak it a little to match our current needs
 // address is optional (default is the client address)
@@ -29,9 +30,14 @@ const schema = {
         }
     },
     // the meeting date
-    // default is today
-    date:{
-
+    date: {
+        type: Date,
+        optional: false,
+        control: 'datetime',
+        form: {
+            locale: 'fr',
+            closeOnSelect: true,
+        },
     },
     // Who created the doc. This field is necessary for Vulcan to handle ownership
     // correctly when setting the permissions
@@ -62,14 +68,13 @@ const schema = {
             addOriginalField: true
         },
         // we use a custom Select with autocompletion
-        control: DataSelectForm,
+        control: Components.DataSelectForm,
         form: {
+            // TODO: we should be able to write (context) => context.Customers instead
             collection: Customers,
             multiple: false,
             labelKey: 'name',
-            valueKey: '_id',
-            // component to render the select item
-            optionRenderer: () => CustomerOption,
+            valueKey: '_id'
         }
     },
     address: meetingAddressFormSchema,
