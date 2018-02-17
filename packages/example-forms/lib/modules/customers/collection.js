@@ -4,6 +4,9 @@ Customers
 
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core'
 import schema from './schema.js'
+import './fragments'
+import './permissions'
+
 
 const Customers = createCollection({
 

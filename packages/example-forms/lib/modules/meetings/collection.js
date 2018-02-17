@@ -4,12 +4,14 @@ Customers
 
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core'
 import schema from './schema.js'
+import './fragments'
+import './permissions'
 
 const Meetings = createCollection({
 
   collectionName: 'Meetings',
 
-  typeName: 'Meetings',
+  typeName: 'Meeting',
 
   schema,
   
