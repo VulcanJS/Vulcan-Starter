@@ -55,27 +55,27 @@ export const addressSchema = {
 
 // Address field as an object, reusable in other schemas
 export const addressFormSchema = {
-    address:{
-        type: Object,
-        label: 'Address',
-        blackbox: true, // FIXME without this we would have a validation failure
-        form:{
-            objectSchema: () => addressSchema,
-        },
-        control: Components.ObjectForm,
+    type: Object,
+    label: 'Address',
+    blackbox: true, // FIXME without this we would have a validation failure
+    form: {
+        objectSchema: () => addressSchema,
     },
+    control: Components.ObjectForm,
 }
 /*
 TODO: we should be able to write this instead
-This would need:
-- To allow simpl-schemas as the field type (right now this would fail due to unexpected gql schema generation)
-- To use ObjectForm to be the default control for fields with a nested schema
-- To handle validation of such fields / gql schema génération
 
-address:{
+{
     type: addressSchema,
     label: 'Address'
 }
+
+This would need:
+- To allow simple-schemas as the field type (right now this would fail due to unexpected gql schema generation)
+- To use ObjectForm to be the default control for fields with a nested schema
+- To handle validation of such fields / gql schema génération
+
 
 */
 

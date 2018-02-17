@@ -5,7 +5,7 @@ A SimpleSchema-compatible JSON schema for prospects
 */
 import SimpleSchema from 'simpl-schema'
 import { Components } from 'meteor/vulcan:core'
-import { addressSchema } from '../address'
+import { addressFormSchema } from '../address'
 
 // Defining the allowed value for the state field
 // Using separate object is a good practice, since you might need those  info
@@ -84,10 +84,7 @@ const schema = {
         // or at least provided in the core libs
         control: Components.ArrayForm, 
     },
-    'addresses.$':{
-        type: addressSchema,
-        label: 'address'
-    },
+    'addresses.$': addressFormSchema
 }
 
 // fields with $ must be ignored for the moment otherwise 
