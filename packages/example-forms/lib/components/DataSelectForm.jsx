@@ -10,6 +10,7 @@ import Select from 'react-select'
 import { registerComponent, withList, Components, getFragment } from 'meteor/vulcan:core'
 
 
+
 const SelectInput = ({
     results,
     loading,

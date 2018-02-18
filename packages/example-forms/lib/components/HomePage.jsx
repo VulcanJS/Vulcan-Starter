@@ -10,7 +10,7 @@ class HomePage extends Component {
     state = {}
     render() {
         return (
-            <div>
+            <div style={{padding: 32}}>
                 <Helmet>
                     <link
                         name="bootstrap"

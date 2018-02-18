@@ -17,6 +17,8 @@ Package.onUse(function (api) {
     'fourseven:scss@4.5.0',
   ]);
 
+
+  api.addFiles('lib/stylesheets/react-select.css');
   api.addFiles('lib/stylesheets/style.scss');
 
   api.mainModule('lib/server/main.js', 'server');

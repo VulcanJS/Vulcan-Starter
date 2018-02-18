@@ -6,6 +6,7 @@ A SimpleSchema-compatible JSON schema for prospects
 import { Components } from 'meteor/vulcan:core'
 import { addressFormSchema } from '../address'
 import Customers from '../customers/collection'
+import DataSelectForm from '../../components/DataSelectForm'
 
 // copy the address form schema and tweak it a little to match our current needs
 // address is optional (default is the client address)
@@ -74,7 +75,7 @@ const schema = {
             addOriginalField: true
         },
         // we use a custom Select with autocompletion
-        control: Components.DataSelectForm,
+        control: DataSelectForm,
         form: {
             // TODO: we should be able to write (context) => context.Customers instead
             collection: Customers,

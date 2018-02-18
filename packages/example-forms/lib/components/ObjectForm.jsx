@@ -13,7 +13,7 @@ import { PropTypes } from 'prop-types';
 
 
 class ObjectForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.updateValue = this.updateValue.bind(this)
         this.submitUpdate = this.submitUpdate.bind(this)
@@ -22,15 +22,15 @@ class ObjectForm extends Component {
         }
     }
 
-    componentWillMount(){
+    componentWillMount() {
         // add to the autofilled values
         //@see https://github.com/VulcanJS/Vulcan/issues/1884
         if (this.props.value) {
-            this.context.addToAutofilledValues({[this.props.name]: this.props.value});
+            this.context.addToAutofilledValues({ [this.props.name]: this.props.value });
         }
     }
 
-    submitUpdate(){
+    submitUpdate() {
         const { name } = this.props // field name
         const { value } = this.state
         this.context.updateCurrentValues({
@@ -40,34 +40,34 @@ class ObjectForm extends Component {
     }
     updateValue(fieldName, fieldValue) {
         const { name, value } = this.props // field name
-        this.setState({value : {...value, [fieldName] : fieldValue}})
+        this.setState({ value: { ...value, [fieldName]: fieldValue } })
     }
     render() {
         const { objectSchema, value, label, ...otherProps } = this.props
         const currentValue = this.state.value || value
         return (
             <div>
-            {label && <div>
-                <strong>{label}</strong>
-                </div> }
-            {
-                Object.keys(objectSchema).map(fieldName => (
-                    <Components.FormComponentDefault 
-                    {...otherProps}
-                    key={fieldName}
-                    onChange={
-                        (objectName, fieldValue) => {
-                            this.updateValue(fieldName, fieldValue)
-                        }
-                    }
-                    value={currentValue[fieldName] || ''}
-                    label={objectSchema[fieldName].label}
-                    control={objectSchema[fieldName].label}
-                    onBlur={this.submitUpdate}
-                     />
+                {label && <div>
+                    <strong>{label}</strong>
+                </div>}
+                {
+                    Object.keys(objectSchema).map(fieldName => (
+                        <Components.FormComponentDefault
+                            {...otherProps}
+                            key={fieldName}
+                            onChange={
+                                (objectName, fieldValue) => {
+                                    this.updateValue(fieldName, fieldValue)
+                                }
+                            }
+                            value={currentValue[fieldName] || ''}
+                            label={objectSchema[fieldName].label}
+                            control={objectSchema[fieldName].label}
+                            onBlur={this.submitUpdate}
+                        />
 
-                ))
-            }
+                    ))
+                }
             </div>
         )
     }

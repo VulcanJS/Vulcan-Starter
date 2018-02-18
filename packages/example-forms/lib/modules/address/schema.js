@@ -6,6 +6,7 @@ either a client or a meeting (Aggregation relationship in the UML representation
 
 */
 import { Components, addGraphQLSchema } from 'meteor/vulcan:core'
+import ObjectForm from '../../components/ObjectForm'
 
 // Representation of an address
 export const addressSchema = {
@@ -61,7 +62,7 @@ export const addressFormSchema = {
     form: {
         objectSchema: () => addressSchema,
     },
-    control: Components.ObjectForm,
+    control: ObjectForm,
 }
 /*
 TODO: ideally we should be able to write this instead

@@ -6,6 +6,7 @@ A SimpleSchema-compatible JSON schema for prospects
 import SimpleSchema from 'simpl-schema'
 import { Components } from 'meteor/vulcan:core'
 import { addressFormSchema } from '../address'
+import ArrayForm from '../../components/ArrayForm'
 
 // Defining the allowed value for the state field
 // Using separate object is a good practice, since you might need those  info
@@ -91,7 +92,7 @@ const schema = {
         min: 0,
         // TODO: this should be the default control for array
         // or at least provided in the core libs
-        control: Components.ArrayForm, 
+        control: ArrayForm, 
         viewableBy: ['guests'],
         editableBy: ['guests'],
         insertableBy: ['guests'],
