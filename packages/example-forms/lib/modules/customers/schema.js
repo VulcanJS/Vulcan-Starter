@@ -22,6 +22,7 @@ const schema = {
     _id: {
         type: String,
         optional: true,
+        viewableBy: ['guests'],
     },
     // document creation date is set automatically (optional + hidden + onInsert)
     createdAt: {
