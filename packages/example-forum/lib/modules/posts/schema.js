@@ -419,6 +419,11 @@ const schema = {
     }
   },
 
+  'comments.$': {
+    type: String,
+    optional: true
+  },
+
   emailShareUrl: {
     type: String,
     optional: true,
