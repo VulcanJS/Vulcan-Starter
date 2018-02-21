@@ -1,5 +1,5 @@
 // modules/routes.js #tutorial-step-6 - 
-// Thi is the file that is called into package.js that allows the component to be found. 
+// This is the file that is called into package.js that allows the component to be found. 
 
 // First, we import this from vulcan core, which is a utility to add a new route.
 import { addRoute, Components } from 'meteor/vulcan:core';
