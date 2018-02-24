@@ -1,3 +1,4 @@
+
 # Vulcan Starter
 
 This kit gives you all you need to quickly learn Vulcan and launch your own projects.
@@ -7,9 +8,27 @@ Other resources:
 - [Vulcan Docs](http://docs.vulcanjs.org)
 - [Vulcan Slack](http://slack.vulcanjs.org)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Quick Install](#quick-install)
+    - [Step 1 - Clone](#step-1---clone)
+    - [Step 2 – Run](#step-2--run)
+- [Getting Started Tutorial](#getting-started-tutorial)
+- [Other Examples](#other-examples)
+- [Complete Install](#complete-install)
+    - [Critical prerequisite](#critical-prerequisite)
+    - [Step 1 - Preparation](#step-1---preparation)
+    - [Step 2 - Test Vulcan installation](#step-2---test-vulcan-installation)
+    - [Step 3 - Prepare your project](#step-3---prepare-your-project)
+    - [Step 4 - Test your project installation](#step-4---test-your-project-installation)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Quick Install
 
-If you already have Meteor up and running then use this *Quick Install* tutorial. Otherwise, scroll down for the *Complete Install* steps.
+If you already have Meteor up and running, read this section. Otherwise, read the [Complete Install](#complete-install) section.
 
 #### Step 1 - Clone
 
