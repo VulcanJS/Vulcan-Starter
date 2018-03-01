@@ -22,7 +22,7 @@ const MoviesItem = ({movie, currentUser}) =>
     {/* edit document form */}
 
     {Movies.options.mutations.edit.check(currentUser, movie) ? 
-      <Components.ModalTrigger label="Edit Movie">
+      <Components.ModalTrigger label="Edit Movie" title="Edit Movie">
         <Components.MoviesEditForm currentUser={currentUser} documentId={movie._id} />
       </Components.ModalTrigger>
       : null
