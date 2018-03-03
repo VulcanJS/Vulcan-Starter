@@ -10,7 +10,7 @@ In Vulcan, routes are created using the [addRoute](http://docs.vulcanjs.org/rout
 
 Let's create a route for step 2. Open \`/lib/modules/routes.js\`, find the route named \`step2\`, and uncomment that line. Once you save the file, this page should automatically reload. 
 
-You'll notice that the route points to a component named \`Step2\`, which we've already registetered. But more on that very soon!
+You'll notice that the route points to a component named \`Step2\`, which we've already registered. But more on that very soon!
 `;
 
 const after = `
