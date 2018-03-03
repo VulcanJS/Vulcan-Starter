@@ -23,6 +23,7 @@ class SearchForm extends Component{
     super(props);
     this.search = this.search.bind(this);
     this.state = {
+      pathname: props.router.location.pathname,
       search: props.router.location.query.query || ''
     }
   }
@@ -43,7 +44,10 @@ class SearchForm extends Component{
     const query = data.searchQuery === '' ? routerQuery : {...routerQuery, query: data.searchQuery};
 
     delay(() => {
-      router.push({pathname: Utils.getRoutePath('posts.list'), query: query});
+      // only update the route if the path hasn't changed in the meantime
+      if (this.state.pathname === router.location.pathname) {
+        router.push({pathname: Utils.getRoutePath('posts.list'), query: query});
+      }
     }, 700 );
 
   }
