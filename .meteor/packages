@@ -1,6 +1,6 @@
 # see http://docs.vulcanjs.org/packages
 
-vulcan:core@1.8.9
+vulcan:core@1.8.10
 
 ############ Language Packages ############
 

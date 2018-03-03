@@ -9,11 +9,11 @@ Package.onUse(function (api) {
     'promise',
 
     // vulcan core
-    'vulcan:core@1.8.9',
+    'vulcan:core@1.8.10',
 
     // vulcan packages
-    'vulcan:forms@1.8.9',
-    'vulcan:accounts@1.8.9',
+    'vulcan:forms@1.8.10',
+    'vulcan:accounts@1.8.10',
     
   ]);
 
