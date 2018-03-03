@@ -6,7 +6,7 @@ Notifications for new posts and post approval.
 
 import { Posts } from '../../../modules/posts/index.js'
 import Users from 'meteor/vulcan:users';
-import { addCallback } from 'meteor/vulcan:core';
+import { Connectors, addCallback } from 'meteor/vulcan:core';
 import { createNotification } from '../../email/notifications.js';
 
 /**
@@ -23,7 +23,8 @@ addCallback('posts.approve.async', PostsApprovedNotification);
  */
 function PostsNewNotifications (post) {
 
-  let adminIds = _.pluck(Users.adminUsers({fields: {_id:1}}), '_id');
+  const adminUsers = Connectors.find(Users, { isAdmin: true }, { fields: { _id: 1 }});
+  let adminIds = _.pluck(adminUsers, '_id');
   let notifiedUserIds = _.pluck(Users.find({'notifications_posts': true}, {fields: {_id:1}}).fetch(), '_id');
 
   // remove post author ID from arrays

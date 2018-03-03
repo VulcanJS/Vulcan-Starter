@@ -24,6 +24,7 @@ registerFragment(`
     displayName
     emailHash
     avatarUrl
+    pageUrl
   }
 `);
 

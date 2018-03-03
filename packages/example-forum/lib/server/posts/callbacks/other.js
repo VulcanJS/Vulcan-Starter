@@ -12,7 +12,7 @@ Callbacks to:
 
 import { Posts } from '../../../modules/posts/index.js'
 import Users from 'meteor/vulcan:users';
-import { addCallback, getSetting, registerSetting, runCallbacks, runCallbacksAsync } from 'meteor/vulcan:core';
+import { Connectors, addCallback, getSetting, registerSetting, runCallbacks, runCallbacksAsync } from 'meteor/vulcan:core';
 import Events from 'meteor/vulcan:events';
 
 registerSetting('forum.trackClickEvents', true, 'Track clicks to posts pages');
@@ -82,27 +82,12 @@ addCallback('users.remove.async', UsersRemoveDeletePosts);
 //  * @param {string} postId – the ID of the post being edited
 //  * @param {string} ip – the IP of the current user
 //  */
-Posts.increaseClicks = (post, ip) => {
-  if (getSetting('forum.trackClickEvents', true)) {
-    // make sure this IP hasn't previously clicked on this post
-    let existingClickEvent = false;
-    try {
-      existingClickEvent = Events.findOne({name: 'click', 'properties.postId': post._id, 'properties.ip': ip});
-    } catch (error) {
-      console.error(error);
-    }
-
-    if (!existingClickEvent) {
-      // Events.log(clickEvent); // Sidebar only: don't log event
-      return Posts.update(post._id, { $inc: { clickCount: 1 } });
-    }
-  } else {
-    return Posts.update(post._id, { $inc: { clickCount: 1 } });
-  }
-};
 
 function PostsClickTracking(post, ip) {
-  return Posts.increaseClicks(post, ip);
+  if (getSetting('forum.trackClickEvents', true)) {
+    Events.track('post.click', { title: post.title, postId: post._id });
+    Connectors.update(Posts, post._id, { $inc: { clickCount: 1 } });
+  }
 }
 
 // track links clicked, locally in Events collection
