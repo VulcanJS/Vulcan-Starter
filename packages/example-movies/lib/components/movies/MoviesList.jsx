@@ -17,6 +17,7 @@ const MoviesList = ({results = [], currentUser, loading, loadMore, count, totalC
 
     <Helmet>
       <link name="bootstrap" rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
+      <link name="font-awesome" rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>      
     </Helmet>
     
     {/* user accounts */}
