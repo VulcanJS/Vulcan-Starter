@@ -10,11 +10,11 @@ Package.onUse(function (api) {
     'fourseven:scss@4.5.0',
 
     // vulcan core
-    'vulcan:core@1.8.5',
+    'vulcan:core@1.8.10',
 
     // vulcan packages
-    'vulcan:forms@1.8.5',
-    'vulcan:accounts@1.8.5',
+    'vulcan:forms@1.8.10',
+    'vulcan:accounts@1.8.10',
     
   ]);
 

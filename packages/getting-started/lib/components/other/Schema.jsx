@@ -52,7 +52,6 @@ const schema = `
 
 }
 `
-console.log(schema)
 
 const Schema = () => (
   <div className="schema">

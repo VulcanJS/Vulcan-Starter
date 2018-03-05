@@ -49,7 +49,7 @@ const schema = {
     control: FormsUpload, // use the FormsUpload form component
     form: {
       options: {
-        preset: getSetting('cloudinaryPresets').vulcanstagram
+        preset: 'vulcanstagram'
       },
     }
   },
