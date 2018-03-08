@@ -3,15 +3,15 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const withMoviesCount = component => {
-  
+
   return graphql(gql`
     query MoviesCount{
       MoviesCount
-    } 
+    }
     `, {
       alias: 'withMoviesCount',
       options: {
-        pollInterval: 5
+        pollInterval: 1000
       },
       props(props) {
         return {
