@@ -1,6 +1,6 @@
 import { registerFragment } from 'meteor/vulcan:core';
 
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment MovieFragment on Movie {
     _id
     createdAt
@@ -25,7 +25,7 @@ registerFragment(`
 Used for MyReactions
 
 */
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment UserMoviesVotes on User {
     _id
     votes(collectionName: "Movies"){
@@ -43,7 +43,7 @@ registerFragment(`
 Used for MyReactions2
 
 */
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment UserReactedMovies on User {
     _id
     reactedMovies{

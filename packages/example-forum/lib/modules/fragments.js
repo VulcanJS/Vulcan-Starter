@@ -3,7 +3,7 @@ import { registerFragment } from 'meteor/vulcan:core';
 // ------------------------------ Vote ------------------------------ //
 
 // note: fragment used by default on the UsersProfile fragment
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment VotedItem on Vote {
     # vulcan:voting
     documentId
@@ -15,7 +15,7 @@ registerFragment(`
 // ------------------------------ Users ------------------------------ //
 
 // note: fragment used by default on UsersProfile, PostsList & CommentsList fragments
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment UsersMinimumInfo on User {
     # vulcan:users
     _id
@@ -28,7 +28,7 @@ registerFragment(`
   }
 `);
 
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment UsersProfile on User {
     # vulcan:users
     ...UsersMinimumInfo
