@@ -19,6 +19,7 @@ Package.onUse(function (api) {
 
 
   api.addFiles('lib/stylesheets/react-select.css');
+  api.addFiles('lib/stylesheets/bootstrap.min.css');
   api.addFiles('lib/stylesheets/style.scss');
 
   api.mainModule('lib/server/main.js', 'server');

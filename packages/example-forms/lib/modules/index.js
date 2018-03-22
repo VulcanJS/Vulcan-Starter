@@ -1,8 +1,5 @@
-import '../components'
+import './components.js'
 
 import './customers/collection'
-import './meetings/collection'
-import './address'
-
 
 import './routes'

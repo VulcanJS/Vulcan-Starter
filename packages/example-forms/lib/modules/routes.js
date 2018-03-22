@@ -1,3 +1,3 @@
 import { addRoute } from 'meteor/vulcan:core';
 
-addRoute({ name: 'home', path: '/', componentName: 'HomePage' });
+addRoute({ name: 'home', path: '/', componentName: 'Home' });
