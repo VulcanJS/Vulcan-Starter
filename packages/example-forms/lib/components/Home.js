@@ -12,7 +12,6 @@ import Customers from '../modules/customers/collection';
 
 const Home = () => (
   <div className="dashboard">
-
     <div
       style={{
         padding: '20px 0',
@@ -23,9 +22,11 @@ const Home = () => (
       <Components.AccountsLoginForm />
     </div>
 
-    <Components.SmartForm collection={Customers} documentId="ZaodYQiwkL84DEBej"/>
-
-    <Components.Datatable collection={Customers} columns={['name', 'addresses']} />
+    <Components.Datatable
+      collection={Customers}
+      columns={['name', 'addresses']}
+      emptyState={<p className="datatable-empty">No customers to display</p>}
+    />
   </div>
 );
 

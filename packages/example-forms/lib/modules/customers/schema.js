@@ -7,6 +7,7 @@ export const addressSchema = new SimpleSchema({
     viewableBy: ['guests'],
     editableBy: ['members'],
     insertableBy: ['members'],
+    limit: 100,
   },
   country: {
     type: String,
@@ -41,6 +42,7 @@ const schema = {
     viewableBy: ['guests'],
     editableBy: ['members'],
     insertableBy: ['members'],
+    searchable: true,
   },
 
   addresses: {
