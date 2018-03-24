@@ -14,8 +14,7 @@ accounts-password@1.4.0
 
 ############ Your Packages ############
 
-#getting-started
-
+getting-started
 
 # example-simple
 # example-movies
@@ -26,4 +25,4 @@ accounts-password@1.4.0
 # example-membership
 # example-interfaces
 # example-reactions
-example-forms
+# example-forms
