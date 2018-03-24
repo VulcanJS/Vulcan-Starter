@@ -1,0 +1,22 @@
+body{
+  padding: 20px;
+}
+.dashboard{
+  margin: 0 auto;
+}
+
+.datatable{
+  margin: 20px 0;
+}
+
+.datatable-above{
+  display: flex;
+  .modal-trigger{
+    margin-left: 20px;
+  }
+}
+
+.datatable-empty{
+  margin: 20px 0;
+  text-align: center;
+}
