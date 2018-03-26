@@ -401,7 +401,7 @@ const schema = {
   },
 
   comments: {
-    type: Array,
+    type: Object,
     optional: true,
     viewableBy: ['guests'],
     resolveAs: {
