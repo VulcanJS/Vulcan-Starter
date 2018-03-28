@@ -7,9 +7,13 @@ body{
 
 .datatable{
   margin: 20px 0;
+  border: 5px solid #dedede;
+  border-radius: 3px;
 }
 
 .datatable-above{
+  background: #efefef;
+  padding: 20px;
   display: flex;
   .modal-trigger{
     margin-left: 20px;
@@ -19,4 +23,25 @@ body{
 .datatable-empty{
   margin: 20px 0;
   text-align: center;
+}
+
+.form-funnel-wrapper{
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  li{
+    display: flex;
+    align-items: center;
+  }
+}
+
+.form-funnel-separator{
+  color: #ccc;
+  margin: 0 10px;
+}
+
+.btn-default{
+  border: 1px solid #ccc;
 }

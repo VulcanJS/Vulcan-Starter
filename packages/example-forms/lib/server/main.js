@@ -1,2 +1,3 @@
-//import './databaseSeed'
 import '../modules'
+
+import './seed'
