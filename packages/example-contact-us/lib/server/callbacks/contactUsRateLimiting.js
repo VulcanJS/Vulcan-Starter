@@ -54,7 +54,7 @@ async function rateLimitAutomaticRespondEmails(userInput) {
      */
 
   } catch (error) {
-    console.error(`----\nRate-limiting error: \n\n${error.stack}`);
+    console.error(`----\nRate-limiting error:`);
     throw error;
   }
   // No error occurred, continue db operation.

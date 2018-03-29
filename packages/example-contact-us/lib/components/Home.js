@@ -1,7 +1,7 @@
 import React from 'react';
 import { Components, withList, registerComponent } from 'meteor/vulcan:core';
-
 import ContactUsForm from '../modules/contact-us/collection.js';
+
 
 const ContactUs = ({
   results = [],
@@ -25,6 +25,7 @@ const ContactUs = ({
       <Components.Loading />
     ) : (
       <div>
+
         {results.map(userSubmission => (
           <Components.Card
             key={userSubmission._id}

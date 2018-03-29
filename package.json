@@ -80,6 +80,7 @@
     "react-syntax-highlighter": "^6.1.2",
     "recompose": "^0.26.0",
     "redux": "^3.6.0",
+    "regular-expression-validation": "^1.0.1",
     "rss": "^1.2.1",
     "sanitize-html": "^1.16.3",
     "sendy-api": "^0.1.0",
