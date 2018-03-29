@@ -6,12 +6,12 @@ import VulcanEmail from 'meteor/vulcan:email';
 
 async function createAutomaticRespondEmail(userInput) {
   // Destruct the needed fields from userInput
-  const { to, userName, emailContent } = userInput;
+  const { sendToEmail, userName, emailContent } = userInput;
 
   // Send email to the email the quest provided
   await VulcanEmail.send(
-    to,
-    "Hi! Thanks for your message",
+    sendToEmail,
+    "Hi! Thanks for your message ",
     `
     <h3>You wrote:</h3>
     <p>${emailContent}</p>
@@ -21,17 +21,17 @@ async function createAutomaticRespondEmail(userInput) {
   );
 
   // Define a mail that receives notification on guest submissions
-  const toAdmin = 'awesomeVulcanAdmin@vulcan-starter.com';
+  const toAdmin = 'Vulcan Admin <awesomeVulcanAdmin@vulcan-starter.com>';
 
   // Send email to the admin
   await VulcanEmail.send(
     toAdmin,
-    `(ContactUs Submission) ${userName} sent a message `,
+    `Contact-us Form Submission: ${userName} sent a message `,
     `
     <h3>${userName} wrote:</h3>
     <p>${emailContent}</p>
     <br>
-    <p>Write them back at the given email: ${to}</p>
+    <p>Write them back at the given email: ${sendToEmail}</p>
     <br>
     <p>If you're getting spammed - call or message your admin</p>
     <p>Best regards, Website Admin</p>
