@@ -14,7 +14,7 @@ async function createAutomaticRespondEmail(userInput) {
     "Hi! Thanks for your message ",
     `
     <h3>You wrote:</h3>
-    <p>${emailContent}</p>
+    <p style="white-space:pre-wrap;">${emailContent}</p>
     <br>
     <p>The humans are notified - they'll get it touch soon.</p>
     `,
