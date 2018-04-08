@@ -17,6 +17,7 @@ Package.onUse(function (api) {
     // vulcan packages
     'vulcan:forms@1.8.11',
     'vulcan:accounts@1.8.11',
+    'vulcan:accounts2-ui@1.8.9',
     
   ]);
 

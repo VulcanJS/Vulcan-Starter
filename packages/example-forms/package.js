@@ -11,7 +11,7 @@ Package.onUse(function (api) {
     // vulcan packages
     'vulcan:forms@1.8.9',
     'vulcan:accounts@1.8.9',
-    'vulcan:forms-upload@1.8.9',
+    'vulcan:forms-upload@1.8.11',
 
     // third-party packages
     'fourseven:scss@4.5.0',

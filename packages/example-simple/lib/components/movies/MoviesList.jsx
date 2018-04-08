@@ -41,6 +41,8 @@ const MoviesList = ({
       />
     </Helmet>
 
+    <Components.FlashMessages />
+
     {/* user accounts */}
 
     <div
@@ -53,7 +55,9 @@ const MoviesList = ({
       {/* ...This is the log in form component. It allowed you to create an account in our web app.
         It takes care of all accounts stuff like changing passwords, signing in and out, and so on
         Just pop this in anywhere you want to use it. It's in the Vulcan accounts package...  */}
-      <Components.AccountsLoginForm />
+      {/* <Components.AccountsLoginForm /> */}
+      <Components.AccountsUI />
+
     </div>
 
     {/* ... We have a test for the loding variable (See the "Higher Order Components" section at the bottom and then the "props" section at the top.)... */}
