@@ -25,7 +25,7 @@ Users.addField([
   {
     fieldName: 'posts',
     fieldSchema: {
-      type: Array,
+      type: Object,
       optional: true,
       viewableBy: ['guests'],
       resolveAs: {

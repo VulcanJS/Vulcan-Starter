@@ -145,7 +145,7 @@ if (getSetting('forum.seedOnStart')) {
   // Uses Promise.await to await async functions in a Fiber to make them "Meteor synchronous"
   Meteor.startup(() => {
     // insert dummy content only if createDummyContent hasn't happened and there aren't any posts or users in the db
-    if (!Users.find().count()) {
+    if (!Users.find({ isDummy: true }).count()) {
       Promise.await(createDummyUsers());
     }
     if (!Posts.find().count()) {

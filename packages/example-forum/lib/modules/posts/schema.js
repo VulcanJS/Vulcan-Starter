@@ -77,14 +77,12 @@ const schema = {
     control: 'url',
     order: 10,
     searchable: true,
-    form: {
-      query: `
-        SiteData{
-          logoUrl
-          title
-        }
-      `,
-    },
+    query: `
+      SiteData{
+        logoUrl
+        title
+      }
+    `,
   },
   /**
     Title
@@ -216,9 +214,7 @@ const schema = {
         return getCollection('Posts').getDefaultStatus(currentUser);
       }
     },
-    form: {
-      options: () => getCollection('Posts').statuses,
-    },
+    options: () => getCollection('Posts').statuses,
     group: formGroups.admin
   },
   /**
