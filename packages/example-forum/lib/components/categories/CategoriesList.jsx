@@ -1,4 +1,4 @@
-import { ModalTrigger, Components, registerComponent, withList, Utils } from "meteor/vulcan:core";
+import { Components, registerComponent, withList, Utils, withCurrentUser } from "meteor/vulcan:core";
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
@@ -86,19 +86,19 @@ class CategoriesList extends PureComponent {
             !this.props.loading ?
               // there are currently categories
               nestedCategories && nestedCategories.length > 0 ?
-                nestedCategories.map((category, index) => <Components.CategoriesNode key={index} category={category} index={index} openModal={this.openCategoryEditModal}/>)
+                nestedCategories.map((category, index) => <Components.CategoriesNode key={index} category={category} index={index} openModal={this.openCategoryEditModal} currentUser={this.props.currentUser}/>)
               // not any category found
               : null
             // categories are loading
             : <div className="dropdown-item"><MenuItem><Components.Loading /></MenuItem></div>
           }
-          <Components.ShowIf check={Categories.options.mutations.new.check}>
+          {Categories.options.mutations.new.check(this.props.currentUser) && 
             <div className="categories-new-button category-menu-item dropdown-item">
-              <ModalTrigger title={<FormattedMessage id="categories.new"/>} component={<Button bsStyle="primary"><FormattedMessage id="categories.new"/></Button>}>
+              <Components.ModalTrigger title={<FormattedMessage id="categories.new"/>} component={<Button bsStyle="primary"><FormattedMessage id="categories.new"/></Button>}>
                 <Components.CategoriesNewForm/>
-              </ModalTrigger>
+              </Components.ModalTrigger>
             </div>
-          </Components.ShowIf>
+          }
         </DropdownButton>
 
       </div>
@@ -120,4 +120,4 @@ const options = {
   pollInterval: 0,
 };
 
-registerComponent('CategoriesList', CategoriesList, withRouter, withApollo, [withList, options]);
+registerComponent('CategoriesList', CategoriesList, withRouter, withApollo, [withList, options], withCurrentUser);

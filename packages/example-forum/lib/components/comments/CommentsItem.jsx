@@ -105,11 +105,11 @@ class CommentsItem extends PureComponent {
             <Components.UsersAvatar size="small" user={comment.user}/>
             <Components.UsersName user={comment.user}/>
             <div className="comments-item-date">{moment(new Date(comment.postedAt)).fromNow()}</div>
-            <Components.ShowIf check={Comments.options.mutations.edit.check} document={this.props.comment}>
+            {Comments.options.mutations.edit.check(this.props.currentUser, this.props.comment) &&
               <div>
                 <a className="comment-edit" onClick={this.showEdit}><FormattedMessage id="comments.edit"/></a>
               </div>
-            </Components.ShowIf>
+            }
           </div>
           {this.state.showEdit ? this.renderEdit() : this.renderComment()}
         </div>
