@@ -27,12 +27,13 @@ function PostsNewRateLimit (post, user) {
     // check that user waits more than X seconds between posts
     if(timeSinceLastPost < postInterval){
       const RateLimitError = createError('posts.rate_limit_error', {message: 'posts.rate_limit_error'});
-      throw new RateLimitError({data: {break: true, value: postInterval-timeSinceLastPost}});
+      throw new RateLimitError({data: {break: true, id: 'posts.rate_limit_error', properties: { value: postInterval-timeSinceLastPost }}});
+
     }
     // check that the user doesn't post more than Y posts per day
     if(numberOfPostsInPast24Hours >= maxPostsPer24Hours){
       const RateLimitError = createError('posts.max_per_day', {message: 'posts.max_per_day'});
-      throw new RateLimitError({data: {break: true, value: maxPostsPer24Hours}});
+      throw new RateLimitError({data: {break: true, id: 'posts.max_per_day', properties: { value: maxPostsPer24Hours }}});
     }
   }
 
@@ -46,7 +47,14 @@ addCallback('posts.new.validate', PostsNewRateLimit);
 function PostsNewDuplicateLinksCheck (post, user) {
   if(!!post.url && Posts.checkForSameUrl(post.url)) {
     const DuplicateError = createError('posts.link_already_posted', {message: 'posts.link_already_posted'});
-    throw new DuplicateError({data: {break: true, url: post.url}});
+    throw new DuplicateError({
+      data: {
+        break: true,
+        id: 'posts.link_already_posted',
+        path: 'url',
+        properties: { url: post.url },
+      },
+    });
   }
   return post;
 }
@@ -57,9 +65,19 @@ addCallback('posts.new.sync', PostsNewDuplicateLinksCheck);
  * @summary Check for duplicate links
  */
 function PostsEditDuplicateLinksCheck (modifier, post) {
-  if(post.url !== modifier.$set.url && !!modifier.$set.url) {
-    Posts.checkForSameUrl(modifier.$set.url);
-  }
+  // if(post.url !== modifier.$set.url && !!modifier.$set.url) {
+    if (Posts.checkForSameUrl(modifier.$set.url)){
+      const DuplicateError = createError('posts.link_already_posted', {message: 'posts.link_already_posted'});
+      throw new DuplicateError({
+        data: {
+          break: true,
+          id: 'posts.link_already_posted',
+          path: 'url',
+          properties: { url: post.url },
+        },
+      });
+    }
+  // }
   return modifier;
 }
 addCallback('posts.edit.sync', PostsEditDuplicateLinksCheck);
