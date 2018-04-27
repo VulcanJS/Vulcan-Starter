@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { registerComponent } from 'meteor/vulcan:core';
-import Button from 'react-bootstrap/lib/Button';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 
 const funnel = ['lead', 'prospect', 'customer'];
 
@@ -18,14 +17,14 @@ class FormFunnel extends PureComponent {
           <ul className="form-funnel-wrapper">
             {funnel.map((stage, i) => (
               <li key={i}>
-                <Button
+                <Components.Button
                   onClick={() => {
                     this.update(stage);
                   }}
-                  bsStyle={this.props.value === stage ? 'primary' : 'default'}
+                  variant={this.props.value === stage ? 'primary' : 'default'}
                 >
                   {stage}
-                </Button>
+                </Components.Button>
                 {i < funnel.length - 1 && <div className="form-funnel-separator">▶</div>}
               </li>
             ))}

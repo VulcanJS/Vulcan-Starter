@@ -6,12 +6,13 @@ Package.onUse(function (api) {
 
   api.use([
     // vulcan core
-    'vulcan:core@1.8.9',
+    'vulcan:core@1.9.1',
 
     // vulcan packages
-    'vulcan:forms@1.8.9',
-    'vulcan:accounts@1.8.9',
-    'vulcan:forms-upload@1.8.9',
+    'vulcan:forms@1.9.1',
+    'vulcan:accounts@1.9.1',
+    'vulcan:forms-upload@1.9.1',
+    'vulcan:ui-bootstrap@1.9.1',
 
     // third-party packages
     'fourseven:scss@4.5.0',
