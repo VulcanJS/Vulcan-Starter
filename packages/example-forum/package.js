@@ -18,6 +18,7 @@ Package.onUse(function (api) {
     'vulcan:core@1.9.0',
 
     // vulcan packages
+    'vulcan:ui-bootstrap@1.9.1',
     'vulcan:voting@1.9.0',
     'vulcan:accounts@1.9.0',
     'vulcan:email@1.9.0',
