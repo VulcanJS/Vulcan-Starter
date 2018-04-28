@@ -29,7 +29,7 @@ class PostsEditForm extends PureComponent {
           documentId={this.props.post._id}
           successCallback={post => {
             this.props.closeModal();
-            this.props.flash(this.context.intl.formatMessage({ id: 'posts.edit_success' }, { title: post.title }), 'success');
+            this.props.flash({ id: 'posts.edit_success', properties: { title: post.title }, type: 'success'});
           }}
           mutationFragmentName="PostsPage"
           removeSuccessCallback={({ documentId, documentTitle }) => {
@@ -39,8 +39,7 @@ class PostsEditForm extends PureComponent {
               this.props.router.push('/');
             }
 
-            const deleteDocumentSuccess = this.context.intl.formatMessage({ id: 'posts.delete_success' }, { title: documentTitle });
-            this.props.flash(deleteDocumentSuccess, 'success');
+            this.props.flash({ id: 'posts.delete_success' , properties: { title: documentTitle }, type: 'success'});
             // todo: handle events in collection callbacks
             // this.context.events.track("post deleted", {_id: documentId});
           }}

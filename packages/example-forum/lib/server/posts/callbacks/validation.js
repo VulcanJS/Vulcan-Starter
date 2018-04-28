@@ -65,7 +65,7 @@ addCallback('posts.new.sync', PostsNewDuplicateLinksCheck);
  * @summary Check for duplicate links
  */
 function PostsEditDuplicateLinksCheck (modifier, post) {
-  // if(post.url !== modifier.$set.url && !!modifier.$set.url) {
+  if(post.url !== modifier.$set.url && !!modifier.$set.url) {
     if (Posts.checkForSameUrl(modifier.$set.url)){
       const DuplicateError = createError('posts.link_already_posted', {message: 'posts.link_already_posted'});
       throw new DuplicateError({
@@ -77,7 +77,7 @@ function PostsEditDuplicateLinksCheck (modifier, post) {
         },
       });
     }
-  // }
+  }
   return modifier;
 }
 addCallback('posts.edit.sync', PostsEditDuplicateLinksCheck);

@@ -1,7 +1,7 @@
 import { Components, registerComponent, withMessages } from 'meteor/vulcan:core';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, FormattedMessage } from 'meteor/vulcan:i18n';
+import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { Comments } from '../../modules/comments/index.js';
 import moment from 'moment';
 
@@ -43,10 +43,7 @@ class CommentsItem extends PureComponent {
   }
 
   removeSuccessCallback({documentId}) {
-    const deleteDocumentSuccess = this.context.intl.formatMessage({id: 'comments.delete_success'});
-    this.props.flash(deleteDocumentSuccess, "success");
-    // todo: handle events in async callback
-    // this.context.events.track("comment deleted", {_id: documentId});
+    this.props.flash({id: 'comments.delete_success', type: 'success'});
   }
 
   renderComment() {
@@ -124,11 +121,6 @@ CommentsItem.propTypes = {
   comment: PropTypes.object.isRequired, // the current comment
   currentUser: PropTypes.object,
   flash: PropTypes.func,
-};
-
-CommentsItem.contextTypes = {
-  events: PropTypes.object,
-  intl: intlShape
 };
 
 registerComponent('CommentsItem', CommentsItem, withMessages);

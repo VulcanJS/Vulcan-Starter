@@ -40,13 +40,12 @@ class Newsletter extends PureComponent {
     } catch(error) {
       const graphQLError = error.graphQLErrors[0];
       console.error(graphQLError); // eslint-disable-line no-console
-      const message = this.context.intl.formatMessage({id: `newsletter.error_${this.state.error.name}`}, {message: this.state.error.message});
-      this.props.flash(message, 'error');
+      this.props.flash({id: `newsletter.error_${this.state.error.name}`, message: this.state.error.message, type: 'error'});
     }
   }
 
   successCallbackSubscription(/* result*/) {
-    this.props.flash(this.context.intl.formatMessage({ id: 'newsletter.success_message'}), 'success' );
+    this.props.flash({ id: 'newsletter.success_message', type: 'success' });
     this.dismissBanner();
   }
 

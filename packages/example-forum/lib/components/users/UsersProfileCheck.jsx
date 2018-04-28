@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/lib/Modal'
 import Users from 'meteor/vulcan:users';
 import { withDocument, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
-import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
+import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { gql } from 'react-apollo';
 
 const UsersProfileCheck = ({currentUser, document, loading, flash}, context) => {
@@ -38,7 +38,7 @@ const UsersProfileCheck = ({currentUser, document, loading, flash}, context) => 
               successCallback={user => {
                 const newUser = {...currentUser, ...user};
                 if (Users.hasCompletedProfile(newUser)) {
-                  flash(context.intl.formatMessage({id: "users.profile_completed"}), 'success');
+                  flash({id: "users.profile_completed", type: 'success'});
                 }
               }}
             />
@@ -60,10 +60,6 @@ const UsersProfileCheck = ({currentUser, document, loading, flash}, context) => 
 
 UsersProfileCheck.propTypes = {
   currentUser: PropTypes.object
-};
-
-UsersProfileCheck.contextTypes = {
-  intl: intlShape
 };
 
 UsersProfileCheck.displayName = 'UsersProfileCheck';
