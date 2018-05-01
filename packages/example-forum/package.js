@@ -26,6 +26,7 @@ Package.onUse(function (api) {
     'vulcan:newsletter@1.9.0',
     'vulcan:events@1.9.0',
     'vulcan:embed@1.9.0',
+    'vulcan:admin@1.9.0',
 
   ]);
 
