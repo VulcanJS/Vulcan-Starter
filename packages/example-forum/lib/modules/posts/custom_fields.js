@@ -42,5 +42,12 @@ Users.addField([
         }
       }
     }
+  },
+  {
+    fieldName: 'posts.$',
+    fieldSchema: {
+      type: String,
+      optional: true
+    }
   }
 ]);
