@@ -2,7 +2,6 @@ import { Components, registerComponent, withList, Utils, withCurrentUser } from 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
-import Button from 'react-bootstrap/lib/Button';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { withRouter } from 'react-router'
@@ -94,7 +93,7 @@ class CategoriesList extends PureComponent {
           }
           {Categories.options.mutations.new.check(this.props.currentUser) && 
             <div className="categories-new-button category-menu-item dropdown-item">
-              <Components.ModalTrigger title={<FormattedMessage id="categories.new"/>} component={<Button bsStyle="primary"><FormattedMessage id="categories.new"/></Button>}>
+              <Components.ModalTrigger title={<FormattedMessage id="categories.new"/>} component={<Components.Button variant="primary"><FormattedMessage id="categories.new"/></Components.Button>}>
                 <Components.CategoriesNewForm/>
               </Components.ModalTrigger>
             </div>

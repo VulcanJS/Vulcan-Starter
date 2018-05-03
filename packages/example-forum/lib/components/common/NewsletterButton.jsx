@@ -2,7 +2,6 @@ import { Components, registerComponent, withMutation, withCurrentUser, withMessa
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
-import Button from 'react-bootstrap/lib/Button';
 
 class NewsletterButton extends Component {
   constructor(props) {
@@ -34,13 +33,13 @@ class NewsletterButton extends Component {
   render() {
     
     return (
-      <Button
+      <Components.Button
         className="newsletter-button"
         onClick={this.subscriptionAction}
-        bsStyle="primary"
+        variant="primary"
       >
         <FormattedMessage id={this.props.label}/>
-      </Button>
+      </Components.Button>
     )
   }
 }

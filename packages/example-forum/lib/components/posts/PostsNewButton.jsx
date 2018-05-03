@@ -2,12 +2,11 @@ import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:co
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
-import Button from 'react-bootstrap/lib/Button';
 
 const PostsNewButton = (props, context) => {
 
   const size = props.currentUser ? 'large' : 'small';
-  const button = <Button className="posts-new-button" bsStyle="primary"><Components.Icon name="new"/> <FormattedMessage id="posts.new_post"/></Button>;
+  const button = <Components.Button className="posts-new-button" variant="primary"><Components.Icon name="new"/> <FormattedMessage id="posts.new_post"/></Components.Button>;
   return (
     <Components.ModalTrigger size={size} title={context.intl.formatMessage({ id: 'posts.new_post' })} component={button}>
       <Components.PostsNewForm />

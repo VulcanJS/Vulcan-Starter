@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-bootstrap/lib/Modal'
 import Users from 'meteor/vulcan:users';
 import { withDocument, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
@@ -15,41 +14,44 @@ const UsersProfileCheck = ({currentUser, document, loading, flash}, context) => 
   if (!currentUser || loading) {
 
     return null;
-  
+
   } else {
-    
+
     // return fields that are required by the schema but haven't been filled out yet
     const fieldsToComplete = _.filter(Users.getRequiredFields(), fieldName => {
       return !userMustCompleteFields[fieldName];
     });
 
     if (fieldsToComplete.length > 0) {
-
+      const footer = (
+        <a className="complete-profile-logout" onClick={ () => Meteor.logout(() => window.location.reload() /* something is broken here when giving the apollo client as a prop*/) }>
+          <FormattedMessage id="app.or"/> <FormattedMessage id="users.log_out"/>
+        </a>
+      );
       return (
-        <Modal bsSize='small' show={ true }>
-          <Modal.Header>
-            <Modal.Title><FormattedMessage id="users.complete_profile"/></Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Components.SmartForm
-              collection={ Users }
-              documentId={ currentUser._id }
-              fields={ fieldsToComplete }
-              successCallback={user => {
-                const newUser = {...currentUser, ...user};
-                if (Users.hasCompletedProfile(newUser)) {
-                  flash({id: "users.profile_completed", type: 'success'});
-                }
-              }}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <FormattedMessage id="app.or"/> <a className="complete-profile-logout" onClick={ () => Meteor.logout(() => window.location.reload() /* something is broken here when giving the apollo client as a prop*/) }><FormattedMessage id="users.log_out"/></a>
-          </Modal.Footer>
-        </Modal>
-      )
+        <Components.Modal
+          size='small'
+          show={ true }
+          showCloseButton={ false }
+          title={<FormattedMessage id="users.complete_profile"/>}
+          footerContent={ footer }
+        >
+          <Components.SmartForm
+            collection={ Users }
+            documentId={ currentUser._id }
+            fields={ fieldsToComplete }
+            showRemove={ false }
+            successCallback={user => {
+              const newUser = {...currentUser, ...user};
+              if (Users.hasCompletedProfile(newUser)) {
+                flash({id: "users.profile_completed", type: 'success'});
+              }
+            }}
+          />
+        </Components.Modal>
+      );
     } else {
-      
+
       return null;
 
     }
