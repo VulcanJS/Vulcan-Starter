@@ -19,8 +19,12 @@ const UsersMenu = ({ currentUser, client }) => {
 
   if (Users.isAdmin(currentUser)) {
     menuItems.push({
-      to: `/admin`,
-      labelId: 'app.admin',
+      to: `/admin/users`,
+      labelId: 'admin.users',
+    });
+    menuItems.push({
+      to: `/admin/categories`,
+      labelId: 'admin.categories',
     });
   }
 

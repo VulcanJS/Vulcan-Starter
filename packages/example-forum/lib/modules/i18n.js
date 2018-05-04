@@ -85,4 +85,7 @@ addStrings('en', {
   'categories.delete_success': 'Category “{name}” deleted.',
   'categories.invalid': 'Invalid category',
 
+  'admin.categories': 'Categories (admin)',
+  'admin.users': 'Users (admin)',
+  
 });
