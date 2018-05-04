@@ -24,3 +24,11 @@ a{
 .message.error {
   color: $red;
 }
+
+.menu-node-children{
+  .dropdown-item{
+    a{
+      padding-left: 20px;
+    }
+  }
+}

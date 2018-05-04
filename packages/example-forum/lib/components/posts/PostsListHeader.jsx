@@ -7,7 +7,7 @@ const PostsListHeader = () => {
     <div>
       <div className="posts-list-header">
         <div className="posts-list-header-categories">
-          <Components.CategoriesList />
+          <Components.CategoriesMenu />
         </div>
         <Components.PostsViews />
         <Components.SearchForm/>

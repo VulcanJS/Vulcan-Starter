@@ -47,8 +47,6 @@ import '../components/comments/CommentsLoadMore.jsx';
 // categories
 
 import '../components/categories/CategoriesList.jsx';
-import '../components/categories/CategoriesNode.jsx';
-import '../components/categories/Category.jsx';
 import '../components/categories/CategoriesEditForm.jsx';
 import '../components/categories/CategoriesNewForm.jsx';
 
