@@ -1,41 +1,53 @@
 import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { Meteor } from 'meteor/meteor';
-import Dropdown from 'react-bootstrap/lib/Dropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
-import { LinkContainer } from 'react-router-bootstrap';
 import Users from 'meteor/vulcan:users';
 import { withApollo } from 'react-apollo';
 
-const UsersMenu = ({currentUser, client}) =>
-  <div className="users-menu">
-    <Dropdown id="user-dropdown">
-      <Dropdown.Toggle>
-        <Components.UsersAvatar size="small" user={currentUser} addLink={false} />
-        <div className="users-menu-name">{Users.getDisplayName(currentUser)}</div>
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <LinkContainer to={`/users/${currentUser.slug}`}>
-          <MenuItem className="dropdown-item" eventKey="1"><FormattedMessage id="users.profile"/></MenuItem>
-        </LinkContainer>
-        <LinkContainer to={`/account`}>
-          <MenuItem className="dropdown-item" eventKey="2"><FormattedMessage id="users.edit_account"/></MenuItem>
-        </LinkContainer>
+const UsersMenu = ({ currentUser, client }) => {
+  const menuItems = [
+    {
+      to: `/users/${currentUser.slug}`,
+      labelId: 'users.profile',
+    },
+    {
+      to: `/account`,
+      labelId: 'users.edit_account',
+    },
+  ];
 
-        <Components.ShowIf
-          check={() => Users.isAdmin(currentUser)}
-        >
-          <LinkContainer to={`/admin`}>
-            <MenuItem className="dropdown-item" eventKey="2">Admin</MenuItem>
-          </LinkContainer>
-        </Components.ShowIf>
-        <MenuItem className="dropdown-item" eventKey="4" onClick={() => Meteor.logout(() => client.resetStore())}><FormattedMessage id="users.log_out"/></MenuItem>
-      </Dropdown.Menu>
-    </Dropdown>
-  </div>
+  if (Users.isAdmin(currentUser)) {
+    menuItems.push({
+      to: `/admin`,
+      labelId: 'app.admin',
+    });
+  }
 
+  menuItems.push({
+    labelId: 'users.log_out',
+    itemProps: {
+      onClick: () => Meteor.logout(() => client.resetStore()),
+    },
+  });
+
+  return (
+    <div className="users-menu">
+      <Components.Dropdown
+        variant="default"
+        id="user-dropdown"
+        trigger={
+          <div className="dropdown-toggle-inner">
+            <Components.Avatar size="small" user={currentUser} addLink={false} />
+            <div className="users-menu-name">{Users.getDisplayName(currentUser)}</div>
+          </div>
+        }
+        pullRight
+        menuItems={menuItems}
+      />
+    </div>
+  );
+};
 
 UsersMenu.propsTypes = {
   currentUser: PropTypes.object,

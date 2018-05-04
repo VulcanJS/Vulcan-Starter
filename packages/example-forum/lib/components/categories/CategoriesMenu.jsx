@@ -104,7 +104,7 @@ class CategoriesMenu extends PureComponent {
           <Components.Dropdown
             variant="default"
             className="categories-list btn-secondary"
-            label={<FormattedMessage id="categories" />}
+            labelId={'categories'}
             id="categories-dropdown"
             menuItems={this.getMenuItems()}
           />
