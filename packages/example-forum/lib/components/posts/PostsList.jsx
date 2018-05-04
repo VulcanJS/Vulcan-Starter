@@ -2,11 +2,10 @@ import { Components, registerComponent, withList, withCurrentUser, Utils } from 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Posts } from '../../modules/posts/index.js';
-import Alert from 'react-bootstrap/lib/Alert'
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
 import classNames from 'classnames';
 
-const Error = ({error}) => <Alert className="flash-message" bsStyle="danger"><FormattedMessage id={error.id} values={{value: error.value}}/>{error.message}</Alert>
+const Error = ({error}) => <Components.Alert className="flash-message" variant="danger"><FormattedMessage id={error.id} values={{value: error.value}}/>{error.message}</Components.Alert>
 
 const PostsList = ({className, results, loading, count, totalCount, loadMore, showHeader = true, showLoadMore = true, networkStatus, currentUser, error, terms}) => {
 

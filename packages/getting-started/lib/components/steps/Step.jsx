@@ -1,5 +1,5 @@
 import React from 'react';
-import { registerComponent, withCurrentUser } from 'meteor/vulcan:core';
+import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 // import SyntaxHighlighter from 'react-syntax-highlighter';

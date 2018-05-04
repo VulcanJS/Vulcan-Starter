@@ -16,6 +16,7 @@ Package.onUse(function (api) {
     'vulcan:accounts@1.9.0',
     'vulcan:forms-upload@1.9.0',
     'vulcan:payments@1.9.0',
+    'vulcan:ui-bootstrap@1.9.1',
     
     // third-party packages
     'fourseven:scss@4.5.0',

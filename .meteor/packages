@@ -1,6 +1,7 @@
 # see http://docs.vulcanjs.org/packages
 
-vulcan:core@1.9.0
+vulcan:core@1.9.1
+vulcan:ui-bootstrap@1.9.1
 
 ############ Language Packages ############
 
