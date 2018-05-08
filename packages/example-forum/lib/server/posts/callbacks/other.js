@@ -101,7 +101,7 @@ addCallback('posts.click.async', PostsClickTracking);
 //////////////////////////////////////////////////////
 
 function PostsApprovedSetPostedAt(modifier, post) {
-  modifier.postedAt = new Date();
+  modifier.$set.postedAt = new Date();
   return modifier;
 }
 addCallback('posts.approve.sync', PostsApprovedSetPostedAt);

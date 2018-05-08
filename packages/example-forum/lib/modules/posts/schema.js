@@ -62,6 +62,12 @@ const schema = {
       if (!post.postedAt && getCollection('Posts').getDefaultStatus(currentUser) === getCollection('Posts').config.STATUS_APPROVED) {
         return new Date();
       }
+    },
+    onEdit: (modifier, post) => {
+      // Set the post's postedAt if it's going to be approved
+      if (!post.postedAt && modifier.$set.status === getCollection('Posts').config.STATUS_APPROVED) {
+        return new Date();
+      }
     }
   },
   /**
