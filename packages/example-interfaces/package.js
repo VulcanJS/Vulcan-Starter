@@ -1,26 +1,23 @@
 Package.describe({
-  name: 'example-interfaces',
+  name: "example-interfaces"
 });
 
-Package.onUse(function (api) {
-
+Package.onUse(function(api) {
   api.use([
-
-    'promise',
+    "promise",
 
     // vulcan core
-    'vulcan:core@1.10.0',
+    "vulcan:core@1.10.0",
 
     // vulcan packages
-    'vulcan:forms@1.10.0',
-    'vulcan:accounts@1.10.0',
-    
+    "vulcan:forms@1.10.0",
+    "vulcan:accounts@1.10.0",
+    "vulcan:ui-bootstrap@1.10.0"
   ]);
 
-  api.addFiles('lib/stylesheets/bootstrap.min.css');
-  api.addFiles('lib/stylesheets/custom.css');
+  api.addFiles("lib/stylesheets/bootstrap.min.css");
+  api.addFiles("lib/stylesheets/custom.css");
 
-  api.mainModule('lib/server/main.js', 'server');
-  api.mainModule('lib/client/main.js', 'client');
-
+  api.mainModule("lib/server/main.js", "server");
+  api.mainModule("lib/client/main.js", "client");
 });
