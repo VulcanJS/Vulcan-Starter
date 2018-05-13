@@ -46,7 +46,7 @@ const Home = ({ flash }) => (
           meetingDate: new Date(),
         },
         successCallback: () => {
-          flash('New customer created.');
+          flash({message: 'New customer created.', type: 'success'});
         },
       }}
     />
