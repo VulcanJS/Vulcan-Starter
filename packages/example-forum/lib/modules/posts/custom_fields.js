@@ -5,6 +5,7 @@ Custom fields on Users collection
 */
 
 import Users from 'meteor/vulcan:users';
+import SimpleSchema from 'simpl-schema';
 
 Users.addField([
   /**
@@ -37,10 +38,52 @@ Users.addField([
           // restrict documents fields
           const viewablePosts = _.filter(posts, post => Posts.checkAccess(currentUser, post));
           const restrictedPosts = Users.restrictViewableFields(currentUser, Posts, viewablePosts);
-        
           return restrictedPosts;
         }
       }
+    }
+  },
+  /**
+    User's bio (Markdown version)
+  */
+  {
+    fieldName: 'bio',
+    fieldSchema: {
+      type: String,
+      optional: true,
+      control: "textarea",
+      insertableBy: ['members'],
+      editableBy: ['members'],
+      viewableBy: ['guests'],
+      order: 30,
+      searchable: true,
+    }
+  },
+  /**
+    User's bio (Markdown version)
+  */
+  {
+    fieldName: 'htmlBio',
+    fieldSchema: {
+      type: String,
+      optional: true,
+      viewableBy: ['guests'],
+    }
+  },
+  /**
+    A link to the user's homepage
+  */
+  {
+    fieldName: 'website',
+    fieldSchema: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Url,
+      optional: true,
+      control: "text",
+      insertableBy: ['members'],
+      editableBy: ['members'],
+      viewableBy: ['guests'],
+      order: 50,
     }
   }
 ]);
