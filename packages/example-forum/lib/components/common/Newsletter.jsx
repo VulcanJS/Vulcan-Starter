@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
 import Formsy from 'formsy-react';
 import { Input } from 'formsy-react-components';
-import Cookie from 'react-cookie';
 import Users from 'meteor/vulcan:users';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class Newsletter extends PureComponent {
 
@@ -108,7 +110,7 @@ const mutationOptions = {
 function showBanner (user) {
   return (
     // showBanner cookie either doesn't exist or is not set to "no"
-    Cookie.load('showBanner') !== 'no'
+    cookies.get('showBanner') !== 'no'
     // and user is not subscribed to the newsletter already (setting either DNE or is not set to false)
     && !Users.getSetting(user, 'newsletter_subscribeToNewsletter', false)
   );
