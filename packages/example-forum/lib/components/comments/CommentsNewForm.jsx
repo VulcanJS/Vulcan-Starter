@@ -19,6 +19,7 @@ const CommentsNewForm = (props, context) => {
   return (
     <Components.ShowIf
       check={Comments.options.mutations.new.check}
+      document={prefilledProps}
       failureComponent={<FormattedMessage id="users.cannot_comment"/>}
     >
       <div className="comments-new-form">
