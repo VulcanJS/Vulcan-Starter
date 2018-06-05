@@ -16,7 +16,6 @@ import { Posts } from 'meteor/example-forum';
 // LESSWRONG - New options
  const options = {
    newCheck: (user, document) => {
-     console.log("Comments New Check: ", user, document)
      if (!user || !document) return false;
      const post = Posts.findOne(document.postId)
 
@@ -56,7 +55,7 @@ Comments.checkAccess = (currentUser, comment) => {
     return true;
   } else if (comment.isDeleted) {
     return false;
-  } else { 
+  } else {
     return true;
   }
 }
