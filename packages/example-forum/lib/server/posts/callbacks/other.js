@@ -21,6 +21,11 @@ registerSetting('forum.trackClickEvents', true, 'Track clicks to posts pages');
  * @summary Increment the user's post count
  */
 function PostsNewIncrementPostCount(post) {
+  // LESSWRONG – Fixing post count bug. See issue #488
+  if (post.draft === true) {
+    return;
+  }
+
   var userId = post.userId;
   Users.update({ _id: userId }, { $inc: { 'postCount': 1 } });
 }
