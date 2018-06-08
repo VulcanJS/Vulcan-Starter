@@ -31,7 +31,7 @@ export const servePostRSS = (terms, url) => {
   let parameters = Posts.getParameters(terms);
   delete parameters['options']['sort']['sticky'];
 
-  parameters.options.limit = 50;
+  parameters.options.limit = 10;
 
   const postsCursor = Posts.find(parameters.selector, parameters.options);
 
