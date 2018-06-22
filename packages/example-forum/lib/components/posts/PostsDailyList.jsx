@@ -41,11 +41,6 @@ class PostsDailyList extends PureComponent {
     const range = _.range(daysCount).map(
       i => moment.utc(before, 'YYYY-MM-DD').local().subtract(i, 'days').startOf('day')
     );
-    console.log('PostsDailyList.after: ', after)
-    console.log('PostsDailyList.mAfter: ', mAfter)
-    console.log('PostsDailyList.before: ', before)
-    console.log('PostsDailyList.mBefore: ', mBefore)
-    console.log('PostsDailyList.range: ', range)
     return range;
   }
 
