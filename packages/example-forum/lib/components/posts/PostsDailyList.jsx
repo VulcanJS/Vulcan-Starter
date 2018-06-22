@@ -35,11 +35,11 @@ class PostsDailyList extends PureComponent {
 
   // return date objects for all the dates in a range
   getDateRange(after, before) {
-    const mAfter = moment(after, 'YYYY-MM-DD');
-    const mBefore = moment(before, 'YYYY-MM-DD');
+    const mAfter = moment.utc(after, 'YYYY-MM-DD').local();
+    const mBefore = moment.utc(before, 'YYYY-MM-DD').local();
     const daysCount = mBefore.diff(mAfter, 'days') + 1;
     const range = _.range(daysCount).map(
-      i => moment(before, 'YYYY-MM-DD').subtract(i, 'days').startOf('day')
+      i => moment.utc(before, 'YYYY-MM-DD').local().subtract(i, 'days').startOf('day')
     );
     return range;
   }

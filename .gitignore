@@ -50,3 +50,6 @@ packages/nova-router/.npm
 npm-debug.log
 
 .meteor/.id
+
+*.swp
+*.un~
