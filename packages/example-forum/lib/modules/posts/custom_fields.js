@@ -77,7 +77,6 @@ Users.addField([
     fieldName: 'website',
     fieldSchema: {
       type: String,
-      regEx: SimpleSchema.RegEx.Url,
       optional: true,
       control: "text",
       insertableBy: ['members'],
