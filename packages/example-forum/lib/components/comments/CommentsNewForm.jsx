@@ -6,7 +6,8 @@ import { FormattedMessage } from 'meteor/vulcan:i18n';
 
 const CommentsNewForm = (props, context) => {
 
-  let prefilledProps = {postId: props.postId};
+  let prefilledProps = props.prefilledProps || {}
+  prefilledProps.postId = props.postId;
 
   if (props.parentComment) {
     prefilledProps = Object.assign(prefilledProps, {
@@ -47,6 +48,7 @@ CommentsNewForm.propTypes = {
   cancelCallback: PropTypes.func,
   router: PropTypes.object,
   flash: PropTypes.func,
+  prefilledProps: PropTypes.object
 };
 
 registerComponent('CommentsNewForm', CommentsNewForm, withMessages);
