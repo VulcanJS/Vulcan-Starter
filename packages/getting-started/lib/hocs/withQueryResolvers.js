@@ -15,6 +15,9 @@ const withQueryResolvers = component => {
     `,
     {
       alias: 'withQueryResolvers',
+      options: () => ({
+        ssr: false,
+      }),
       props(props) {
         return {
           loading: props.data.loading,
