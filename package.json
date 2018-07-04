@@ -1,6 +1,6 @@
 {
   "name": "Vulcan",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "engines": {
     "npm": "^3.0"
   },
@@ -57,7 +57,7 @@
     "mingo": "^0.8.1",
     "moment": "^2.13.0",
     "prop-types": "^15.6.0",
-    "react": "^16.2.0",
+    "react": "^16.4.1",
     "react-addons-pure-render-mixin": "^15.4.1",
     "react-apollo": "^1.4.15",
     "react-bootstrap": "^0.32.0",
