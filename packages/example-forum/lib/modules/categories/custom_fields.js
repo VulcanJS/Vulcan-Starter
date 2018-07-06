@@ -14,18 +14,20 @@ Posts.addField([
       type: Array,
       control: 'checkboxgroup',
       optional: true,
-      insertableBy: ['members'],
-      editableBy: ['members'],
-      viewableBy: ['guests'],
+      canCreate: ['members'],
+      canUpdate: ['members'],
+      canRead: ['guests'],
       options: props => {
-        return getCategoriesAsOptions(props.data.CategoriesList);
+        return getCategoriesAsOptions(props.data.categories.results);
       },
       query: `
-        CategoriesList{
-          _id
-          name
-          slug
-          order
+        categories{
+          results{
+            _id
+            name
+            slug
+            order
+          }
         }
       `,
       resolveAs: {

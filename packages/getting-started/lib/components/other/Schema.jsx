@@ -11,14 +11,14 @@ const schema = `
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
 
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: () => {
+    canRead: ['guests'],
+    onCreate: () => {
       return new Date();
     }
   },
@@ -26,16 +26,16 @@ const schema = `
   userId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
 
   name: {
     label: 'Name',
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
     searchable: true,
   },
 
@@ -44,9 +44,9 @@ const schema = `
     type: String,
     optional: true,
     control: 'textarea',
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
     searchable: true,
   },
 

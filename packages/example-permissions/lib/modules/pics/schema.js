@@ -13,20 +13,20 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (document, currentUser) => {
+    canRead: ['guests'],
+    onCreate: () => {
       return new Date();
     }
   },
   userId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       fieldName: 'user',
       type: 'User',
@@ -42,9 +42,9 @@ const schema = {
   imageUrl: {
     label: 'Image URL',
     type: String,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
     control: FormsUpload, // use the FormsUpload form component
     options: {
       preset: 'vulcanstagram'
@@ -55,9 +55,9 @@ const schema = {
     type: String,
     optional: true,
     control: 'textarea', // use a textarea form component
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members']
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members']
   },
 
   // GraphQL-only field
@@ -65,7 +65,7 @@ const schema = {
   commentsCount: {
     type: Number,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     hidden: true,
     resolveAs: {
       fieldName: 'commentsCount',
@@ -79,9 +79,9 @@ const schema = {
   managerId: {
     type: String,
     optional: true,
-    viewableBy: ['members'],
-    editableBy: ['admins'],
-    insertableBy: ['admins'],
+    canRead: ['members'],
+    canUpdate: ['admins'],
+    canCreate: ['admins'],
     resolveAs: {
       fieldName: 'manager',
       type: 'User',

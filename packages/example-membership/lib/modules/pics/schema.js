@@ -14,20 +14,20 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (document, currentUser) => {
+    canRead: ['guests'],
+    onCreate: () => {
       return new Date();
     }
   },
   userId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       fieldName: 'user',
       type: 'User',
@@ -43,9 +43,9 @@ const schema = {
   imageUrl: {
     label: 'Image URL',
     type: String,
-    viewableBy: ['customers', 'admins'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['customers', 'admins'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
     control: FormsUpload, // use the FormsUpload form component
     options: {
       preset: getSetting('cloudinaryPresets').vulcanstagram
@@ -56,9 +56,9 @@ const schema = {
     type: String,
     optional: true,
     control: 'textarea', // use a textarea form component
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members']
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members']
   },
 
 };

@@ -24,6 +24,8 @@ Also of note are the \`viewableBy\`, \`insertableBy\`, and \`editableBy\` proper
 - \`members\`: any user *with* an account.
 - \`admins\`: users with special privileges. 
 
+A field will only appear in your GraphQL schema if it has at least one of those three special properties. In other words, Vulcan will not expose any of your data unless you explicitly tell it to.
+
 Note that the first account you create in any Vulcan app automatically belongs to the \`admins\` group. But more on that later. For now, onwards to the next step!
 `
 

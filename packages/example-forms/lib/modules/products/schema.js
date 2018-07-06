@@ -2,12 +2,12 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   createdAt: {
     type: Date,
     optional: true,
-    onInsert: (document, currentUser) => {
+    onCreate: () => {
       return new Date();
     },
   },
@@ -15,9 +15,9 @@ const schema = {
   name: {
     type: String,
     optional: false,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
+    canRead: ['guests'],
+    canUpdate: ['members'],
+    canCreate: ['members'],
   },
 };
 

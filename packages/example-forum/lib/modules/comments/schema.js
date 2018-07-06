@@ -19,7 +19,7 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   /**
     The `_id` of the parent comment, if there is one
@@ -28,8 +28,8 @@ const schema = {
     type: String,
     // regEx: SimpleSchema.RegEx.Id,
     max: 500,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
     optional: true,
     resolveAs: {
       fieldName: 'parentComment',
@@ -50,8 +50,8 @@ const schema = {
     type: String,
     // regEx: SimpleSchema.RegEx.Id,
     max: 500,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
     optional: true,
     resolveAs: {
       fieldName: 'topLevelComment',
@@ -71,8 +71,8 @@ const schema = {
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ['admins'],
-    onInsert: (document, currentUser) => {
+    canRead: ['admins'],
+    onCreate: () => {
       return new Date();
     }
   },
@@ -82,8 +82,8 @@ const schema = {
   postedAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (document, currentUser) => {
+    canRead: ['guests'],
+    onCreate: () => {
       return new Date();
     }
   },
@@ -93,9 +93,9 @@ const schema = {
   body: {
     type: String,
     max: 3000,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
     control: "textarea"
   },
   /**
@@ -104,15 +104,15 @@ const schema = {
   htmlBody: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (comment) => {
+    canRead: ['guests'],
+    onCreate: ({comment}) => {
       if (comment.body) {
         return Utils.sanitize(marked(comment.body));
       }
     },
-    onEdit: (modifier, comment) => {
-      if (modifier.$set.body) {
-        return Utils.sanitize(marked(modifier.$set.body));
+    onUpdate: ({data}) => {
+      if (data.body) {
+        return Utils.sanitize(marked(data.body));
       }
     }
   },
@@ -122,11 +122,11 @@ const schema = {
   author: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    onEdit: (modifier, document, currentUser) => {
+    canRead: ['guests'],
+    onUpdate: ({data}) => {
       // if userId is changing, change the author name too
-      if (modifier.$set && modifier.$set.userId) {
-        return Users.getDisplayNameById(modifier.$set.userId)
+      if (data.userId) {
+        return Users.getDisplayNameById(data.userId)
       }
     }
   },
@@ -136,8 +136,8 @@ const schema = {
   postId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
     // regEx: SimpleSchema.RegEx.Id,
     max: 500,
     resolveAs: {
@@ -158,8 +158,8 @@ const schema = {
   userId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
     hidden: true,
     resolveAs: {
       fieldName: 'user',
@@ -178,22 +178,22 @@ const schema = {
   isDeleted: {
     type: Boolean,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   userIP: {
     type: String,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
   },
   userAgent: {
     type: String,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
   },
   referrer: {
     type: String,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
   },
 
   // GraphQL only fields
@@ -201,7 +201,7 @@ const schema = {
   pageUrl: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       fieldName: 'pageUrl',
       type: 'String',

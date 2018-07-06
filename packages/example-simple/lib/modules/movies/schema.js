@@ -13,20 +13,20 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ["guests"]
+    canRead: ["guests"]
   },
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ["guests"],
-    onInsert: (document, currentUser) => {
+    canRead: ["guests"],
+    onCreate: () => {
       return new Date();
     }
   },
   userId: {
     type: String,
     optional: true,
-    viewableBy: ["guests"],
+    canRead: ["guests"],
     resolveAs: {
       fieldName: "user",
       type: "User",
@@ -48,27 +48,27 @@ const schema = {
     optional: true,
     // ...these next three are interesting—they take a user group that says which group can do what action.
     // ...guests are anonymous users...
-    viewableBy: ["guests"],
+    canRead: ["guests"],
     /// ...members can only edit documents that they own. This is part of the default mutations. Back to modules/movies/collection.js...
-    insertableBy: ["members"],
-    editableBy: ["members"]
+    canCreate: ["members"],
+    canUpdate: ["members"]
   },
   year: {
     label: "Year",
     type: String,
     optional: true,
-    viewableBy: ["guests"],
-    insertableBy: ["members"],
-    editableBy: ["members"]
+    canRead: ["guests"],
+    canCreate: ["members"],
+    canUpdate: ["members"]
   },
   review: {
     label: "Review",
     type: String,
     optional: true,
     control: "textarea",
-    viewableBy: ["guests"],
-    insertableBy: ["members"],
-    editableBy: ["members"]
+    canRead: ["guests"],
+    canCreate: ["members"],
+    canUpdate: ["members"]
   }
 };
 

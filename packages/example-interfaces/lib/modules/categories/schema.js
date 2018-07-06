@@ -11,8 +11,8 @@ const schema = {
   parentId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
     hidden: true,
     resolveAs: {
       fieldName: 'parent',
@@ -33,20 +33,20 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (document, currentUser) => {
+    canRead: ['guests'],
+    onCreate: () => {
       return new Date();
     }
   },
   userId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       fieldName: 'user',
       type: 'User',
@@ -63,9 +63,9 @@ const schema = {
     label: 'Name',
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
   },
 
 };
