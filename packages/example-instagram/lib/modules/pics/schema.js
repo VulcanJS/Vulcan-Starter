@@ -46,7 +46,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    control: FormsUpload, // use the FormsUpload form component
+    input: FormsUpload, // use the FormsUpload form component
     options: {
       preset: 'vulcanstagram'
     },
@@ -55,7 +55,7 @@ const schema = {
     label: 'Body',
     type: String,
     optional: true,
-    control: 'textarea', // use a textarea form component
+    input: 'textarea', // use a textarea form component
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members']

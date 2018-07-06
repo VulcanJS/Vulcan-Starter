@@ -11,7 +11,7 @@ Posts.addField(
     fieldName: 'color',
     fieldSchema: {
       type: String,
-      control: "select", // use a select form control
+      input: "select", // use a select form control
       optional: true, // this field is not required
       canCreate: ['members'],
       canUpdate: ['members'],

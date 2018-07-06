@@ -96,7 +96,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    control: "textarea"
+    input: "textarea"
   },
   /**
     The HTML version of the comment body

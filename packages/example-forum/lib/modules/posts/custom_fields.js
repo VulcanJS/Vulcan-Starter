@@ -51,7 +51,7 @@ Users.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      control: "textarea",
+      input: "textarea",
       canCreate: ['members'],
       canUpdate: ['members'],
       canRead: ['guests'],
@@ -79,7 +79,7 @@ Users.addField([
       type: String,
       regEx: SimpleSchema.RegEx.Url,
       optional: true,
-      control: "text",
+      input: "text",
       canCreate: ['members'],
       canUpdate: ['members'],
       canRead: ['guests'],

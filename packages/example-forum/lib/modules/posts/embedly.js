@@ -4,7 +4,7 @@ Posts.addField([
   {
     fieldName: 'url',
     fieldSchema: {
-      control: 'EmbedURL', // we are just extending the field url, not replacing it
+      input: 'EmbedURL', // we are just extending the field url, not replacing it
     }
   },
   {

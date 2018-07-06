@@ -55,7 +55,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['admins'],
     canUpdate: ['admins'],
-    control: 'datetime',
+    input: 'datetime',
     group: formGroups.admin,
     onCreate: ({document: post, currentUser}) => {
       // Set the post's postedAt if it's going to be approved
@@ -80,7 +80,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    control: 'url',
+    input: 'url',
     order: 10,
     searchable: true,
     query: `
@@ -100,7 +100,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    control: 'text',
+    input: 'text',
     order: 20,
     searchable: true
   },
@@ -130,7 +130,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    control: 'textarea',
+    input: 'textarea',
     order: 30
   },
   /**
@@ -208,7 +208,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['admins'],
     canUpdate: ['admins'],
-    control: 'select',
+    input: 'select',
     onCreate: ({document, currentUser}) => {
       if (!document.status) {
         return getCollection('Posts').getDefaultStatus(currentUser);
@@ -263,7 +263,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['admins'],
     canUpdate: ['admins'],
-    control: 'checkbox',
+    input: 'checkbox',
     group: formGroups.admin,
     onCreate: ({post}) => {
       if(!post.sticky) {
@@ -314,7 +314,7 @@ const schema = {
   userId: {
     type: String,
     optional: true,
-    control: 'select',
+    input: 'select',
     canRead: ['guests'],
     canCreate: ['members'],
     hidden: true,

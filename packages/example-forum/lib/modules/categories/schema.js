@@ -49,7 +49,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    form: {
+    inputProperties: {
       rows: 3
     }
   },
@@ -89,7 +89,7 @@ const schema = {
   parentId: {
     type: String,
     optional: true,
-    control: "select",
+    input: "select",
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],

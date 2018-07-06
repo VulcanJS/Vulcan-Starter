@@ -12,7 +12,7 @@ Posts.addField([
     fieldName: 'categoriesIds',
     fieldSchema: {
       type: Array,
-      control: 'checkboxgroup',
+      input: 'checkboxgroup',
       optional: true,
       canCreate: ['members'],
       canUpdate: ['members'],

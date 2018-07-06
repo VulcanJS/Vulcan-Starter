@@ -48,7 +48,7 @@ const schema = {
     label: 'Review',
     type: String,
     optional: true,
-    control: 'textarea',
+    input: 'textarea',
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],

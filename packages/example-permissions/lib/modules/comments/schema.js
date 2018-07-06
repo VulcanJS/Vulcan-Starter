@@ -54,7 +54,7 @@ const schema = {
   isDeleted: {
     type: Boolean,
     optional: true,
-    control: 'checkbox',
+    input: 'checkbox',
     canRead: ['mods', 'admins', 'managers'],
     canCreate: ['mods', 'admins', 'managers'],
     canUpdate: ['mods', 'admins', 'managers'],
