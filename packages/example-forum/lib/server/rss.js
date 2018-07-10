@@ -36,7 +36,7 @@ export const servePostRSS = (terms, url) => {
   const postsCursor = Posts.find(parameters.selector, parameters.options);
 
   postsCursor.forEach((post) => {
-    const postLink = `<a href="${Posts.getPageUrl(post, true)}">Discuss</a>`;
+    const postLink = `<a href="${Posts.getPageUrl(post, true)}#comments">Discuss</a>`;
     const feedItem = {
       title: post.title,
       description: `${post.htmlBody || ""}<br/><br/>${postLink}`,
