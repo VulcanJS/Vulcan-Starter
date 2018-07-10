@@ -19,9 +19,9 @@ const getMeta = (url) => {
   return {
     title: getSetting('title'),
     description: getSetting('tagline'),
-    feed_url: siteUrl+url,
+    feed_url: url,
     site_url: siteUrl,
-    image_url: siteUrl+'img/favicon.png'
+    image_url: "https://res.cloudinary.com/lesswrong-2-0/image/upload/v1497915096/favicon_lncumn.ico"
   };
 };
 
@@ -36,7 +36,7 @@ export const servePostRSS = (terms, url) => {
   const postsCursor = Posts.find(parameters.selector, parameters.options);
 
   postsCursor.forEach((post) => {
-    const postLink = `<a href="${Posts.getPageUrl(post, true)}">Discuss</a>`;
+    const postLink = `<a href="${Posts.getPageUrl(post, true)}#comments">Discuss</a>`;
     const feedItem = {
       title: post.title,
       description: `${post.htmlBody || ""}<br/><br/>${postLink}`,
