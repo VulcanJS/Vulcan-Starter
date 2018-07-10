@@ -19,7 +19,7 @@ const getMeta = (url) => {
   return {
     title: getSetting('title'),
     description: getSetting('tagline'),
-    feed_url: siteUrl+url,
+    feed_url: url,
     site_url: siteUrl,
     image_url: siteUrl+'img/favicon.png'
   };
