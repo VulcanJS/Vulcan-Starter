@@ -21,7 +21,7 @@ const getMeta = (url) => {
     description: getSetting('tagline'),
     feed_url: url,
     site_url: siteUrl,
-    image_url: siteUrl+'img/favicon.png'
+    image_url: "https://res.cloudinary.com/lesswrong-2-0/image/upload/v1497915096/favicon_lncumn.ico"
   };
 };
 
