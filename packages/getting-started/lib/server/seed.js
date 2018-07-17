@@ -14,25 +14,21 @@ const seedData = [
     name: 'Star Wars',
     year: '1973',
     review: `A classic.`,
-    privateComments: `Actually, I don't really like Star Wars…`
   },
   {
     name: 'Die Hard',
     year: '1987',
     review: `A must-see if you like action movies.`,
-    privateComments: `I love Bruce Willis so much!`
   },
   {
     name: 'Terminator',
     year: '1983',
     review: `Once again, Schwarzenegger shows why he's the boss.`,
-    privateComments: `Terminator is my favorite movie ever. `
   },
   {
     name: 'Jaws',
     year: '1971',
     review: 'The original blockbuster.',
-    privateComments: `I'm scared of sharks…`
   },
   {
     name: 'Die Hard II',
@@ -100,5 +96,8 @@ export const seedMovies = () => {
       currentUser: _.sample(allUsers), // get a random user
       validate: false
     })));
+
+    // eslint-disable-next-line no-console
+    console.log('-> finished seeding!');
   }
 };
