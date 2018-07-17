@@ -1,8 +1,7 @@
-import { Components, registerComponent, withMutation, withCurrentUser, withMessages, Utils } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMutation, withCurrentUser, withMessages, getErrors } from 'meteor/vulcan:core';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
-import Button from 'react-bootstrap/lib/Button';
 
 class NewsletterButton extends Component {
   constructor(props) {
@@ -26,24 +25,21 @@ class NewsletterButton extends Component {
       
       successCallback(mutationResult);
     } catch(error) {
-      console.error(error); // eslint-disable-line no-console
-      flash(
-        this.context.intl.formatMessage(Utils.decodeIntlError(error)),
-        "error"
-      );
+      console.error(getErrors(error)); // eslint-disable-line no-console
+      flash(getErrors(error)[0]);
     }
   }
 
   render() {
     
     return (
-      <Button
+      <Components.Button
         className="newsletter-button"
         onClick={this.subscriptionAction}
-        bsStyle="primary"
+        variant="primary"
       >
         <FormattedMessage id={this.props.label}/>
-      </Button>
+      </Components.Button>
     )
   }
 }

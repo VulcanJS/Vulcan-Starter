@@ -1,16 +1,34 @@
-# VulcanJS Starter Kit.
 
-This kit gives you all you need to quickly launch your own VulcanJS projects.
+# Vulcan Starter
 
-## Installation Overview
+This kit gives you all you need to quickly learn Vulcan and launch your own projects.
 
-If you already have Meteor and/or Vulcan up & running then use the *Quick Install* version.
+Other resources: 
 
-The *Complete Install* steps will get you going on a freshly built Ubuntu desktop machine (including installing Node, Meteor, etc.) using the "[two-repo](http://docs.vulcanjs.org/#Two-Repo-Install)" install.
+- [Vulcan Docs](http://docs.vulcanjs.org)
+- [Vulcan Slack](http://slack.vulcanjs.org)
 
-### Quick Install
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
 
-These steps assume an environment where you have already had Vulcan working.
+- [Quick Install](#quick-install)
+    - [Step 1 - Clone](#step-1---clone)
+    - [Step 2 – Run](#step-2--run)
+- [Getting Started Tutorial](#getting-started-tutorial)
+- [Other Examples](#other-examples)
+- [Complete Install](#complete-install)
+    - [Critical prerequisite](#critical-prerequisite)
+    - [Step 1 - Preparation](#step-1---preparation)
+    - [Step 2 - Test Vulcan installation](#step-2---test-vulcan-installation)
+    - [Step 3 - Prepare your project](#step-3---prepare-your-project)
+    - [Step 4 - Test your project installation](#step-4---test-your-project-installation)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Quick Install
+
+If you already have Meteor up and running, read this section. Otherwise, read the [Complete Install](#complete-install) section.
 
 #### Step 1 - Clone
 
@@ -19,12 +37,7 @@ git clone git@github.com:VulcanJS/Vulcan-Starter.git
 cd Vulcan-Starter
 ```
 
-or (using `https`):
-
-```
-git clone https://github.com/VulcanJS/Vulcan-Starter.git
-cd Vulcan-Starter
-```
+(or, using `https`: `git clone https://github.com/VulcanJS/Vulcan-Starter.git`)
 
 #### Step 2 – Run
 
@@ -33,9 +46,38 @@ npm install
 npm start
 ```
 
-Congrats! You just gained a cornucopia of functionality you no longer have to develop yourself.  You've saved yourself months of work!  Take the rest of the day off!
+## Getting Started Tutorial
 
-### Complete Install
+When you first run this repo, you'll see the first step of Vulcan's interactive Getting Started tutorial. 
+
+![https://d3vv6lp55qjaqc.cloudfront.net/items/0I2W3G1i2K3z0p052c02/Screen%20Shot%202018-02-03%20at%2011.16.53.png?X-CloudApp-Visitor-Id=43642&v=807ac6f9](https://d3vv6lp55qjaqc.cloudfront.net/items/0I2W3G1i2K3z0p052c02/Screen%20Shot%202018-02-03%20at%2011.16.53.png?X-CloudApp-Visitor-Id=43642&v=807ac6f9)
+
+This interactive tutorial will guide you through Vulcan basics, such as:
+
+- Creating routes.
+- Registering components.
+- Defining a schema.
+- Loading data.
+- Generating forms.
+
+All while modifying the code of the tutorial itself! How meta!
+
+## Other Examples
+
+Additionally, this repo also contains the following example apps: 
+
+- **Simple Example**: build a simple paginated list of movies [[video]](http://docs.vulcanjs.org/example-simple.html).
+- **Movies Example**: like the Simple example, but more in-depth [[video+tutorial]](http://docs.vulcanjs.org/example-movies.html). 
+- **Permissions Example**: manage user roles in Vulcan [[video]](http://docs.vulcanjs.org/example-permissions.html).
+- **Instagram Example**: create a simple Instagram clone [[video]](http://docs.vulcanjs.org/example-instagram.html).
+- **Interfaces Example**: using GraphQL interfaces.
+- **Reactions Example**: implement Facebook-style reactions & voting.
+- **Forum Example**: a full-fledged Hacker News-style forum codebase [[docs]](http://docs.vulcanjs.org/example-forum.html). 
+- **Customization Example**: how to customize other Vulcan packages, based on the Forum Example [[video+tutorial]](http://docs.vulcanjs.org/example-customization.html). 
+
+## Complete Install
+
+The *Complete Install* steps will get you going on a freshly built Ubuntu desktop machine (including installing Node, Meteor, etc.) using the "[two-repo](http://docs.vulcanjs.org/#Two-Repo-Install)" install.
 
 The steps below assume a machine that has not previously been used for software development.
 

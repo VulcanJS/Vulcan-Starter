@@ -56,7 +56,7 @@
 }
 
 .users-account-menu, .users-menu{
-  .dropdown-toggle{
+  .dropdown-toggle, .dropdown-toggle-inner{
     @include flex-center;
     padding: 0;
     background: none;

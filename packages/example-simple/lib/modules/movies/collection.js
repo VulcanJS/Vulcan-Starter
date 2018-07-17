@@ -80,4 +80,4 @@ Movies.addDefaultView(terms => ({
 export default Movies;
 
 // There were three things I mentioned that you might not have heard of:
-// schema, revolvers, and mutations. I will talk about them in the next steps.
+// schema, resolvers, and mutations. I will talk about them in the next steps.

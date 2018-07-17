@@ -61,8 +61,9 @@ if (getSetting('forum.seedOnStart')) {
 
   const createComment = async (slug, username, body, parentBody) => {
     const user = await Users.rawCollection().findOne({ username: username });
+    const post = await Posts.rawCollection().findOne({ dummySlug: slug });
     const comment = {
-      postId: await Posts.rawCollection().findOne({ dummySlug: slug })._id,
+      postId: post._id,
       userId: user._id,
       body: body,
       isDummy: true,
@@ -144,7 +145,7 @@ if (getSetting('forum.seedOnStart')) {
   // Uses Promise.await to await async functions in a Fiber to make them "Meteor synchronous"
   Meteor.startup(() => {
     // insert dummy content only if createDummyContent hasn't happened and there aren't any posts or users in the db
-    if (!Users.find().count()) {
+    if (!Users.find({ isDummy: true }).count()) {
       Promise.await(createDummyUsers());
     }
     if (!Posts.find().count()) {

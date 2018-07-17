@@ -1,0 +1,3 @@
+import '../modules'
+
+import './seed'

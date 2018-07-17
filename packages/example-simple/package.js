@@ -12,12 +12,13 @@ Package.onUse(function (api) {
 
     // vulcan core
     'promise',
-    'vulcan:core@1.8.7',
+    'vulcan:core@1.11.2',
 
     // vulcan packages
-    'vulcan:forms@1.8.7',
-    'vulcan:accounts@1.8.7',
-    
+    'vulcan:forms@1.11.2',
+    'vulcan:accounts@1.11.2',
+    'vulcan:ui-bootstrap@1.11.2',
+
   ]);
 
   api.addFiles('lib/stylesheets/style.css');

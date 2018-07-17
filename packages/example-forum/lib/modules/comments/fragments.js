@@ -2,7 +2,7 @@ import { registerFragment } from 'meteor/vulcan:core';
 
 // ----------------------------- Comments ------------------------------ //
 
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment CommentsList on Comment {
     # vulcan:comments
     _id

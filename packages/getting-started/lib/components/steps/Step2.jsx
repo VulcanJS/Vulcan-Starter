@@ -4,15 +4,15 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 // Registering Components
 
 const text = `
-You've just created your first route. Now let's do it again for the Step 3 route. Go back to the routes file, and uncomment it. Take a moment to look at its properties:
+You've just created your first route. Next up on the menu, let's take a look at [registering components](http://docs.vulcanjs.org/theming.html#Registering-Components). 
+
+Find the component for Step 3, which you can find in \`lib/components/steps/Step3.jsx\`, and uncomment that last \`registerComponent\` line. This will register the component with Vulcan, and make it available to use inside \`addRoute\`. 
+
+With the \`Step3\` component registered, we can now reference it inside a route. Go back to the routes file, and uncomment the \`Step3\` route. Taking a moment to look at its properties:
 
 - \`name\`: \`step3\`
 - \`path\`: \`/step/3\`
 - \`componentName\`: \`Step3\`
-
-As an added task, we'll also [register the component](http://docs.vulcanjs.org/theming.html#Registering-Components) for step 3, which you can find in \`lib/components/steps/Step3.jsx\`. 
-
-Just uncomment that last \`registerComponent\` line. This will register the component with Vulcan, and make it available to use inside \`addRoute\`. 
 `;
 
 const after = `

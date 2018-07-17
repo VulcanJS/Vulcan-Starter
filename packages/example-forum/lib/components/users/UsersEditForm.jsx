@@ -25,7 +25,7 @@ const UsersEditForm = (props, context) => {
           collection={Users} 
           {...props.terms}
           successCallback={user => {
-            props.flash(context.intl.formatMessage({ id: 'users.edit_success' }, {name: Users.getDisplayName(user)}), 'success')
+            props.flash({ id: 'users.edit_success', properties: {name: Users.getDisplayName(user)}, type: 'success'})
           }}
           showRemove={true}
         />

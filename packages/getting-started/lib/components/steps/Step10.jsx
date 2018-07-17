@@ -6,7 +6,7 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 const text = `
 We already know that Vulcan uses HoCs to load data. Up to now, we've been using specific pre-written HoCs as part of this tutorial, but just like we've looked at default resolvers, we'll now look at Vulcan's core default HoCs. 
 
-These two HoCs, \`withList\` and \`withDocument\`, can be used to load a list of documents or a single document respecively with a minimal amount of manual work. 
+These two HoCs, \`withList\` and \`withDocument\`, can be used to load a list of documents or a single document respectively with a minimal amount of manual work. 
 
 Find the \`MoviesList\` component in \`lib/components/movies/MoviesList.jsx\` and uncomment \`[withList, options]\` in the \`registerComponent\` line. 
 `;

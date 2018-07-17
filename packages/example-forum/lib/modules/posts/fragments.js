@@ -1,6 +1,6 @@
 import { registerFragment } from 'meteor/vulcan:core';
 
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment PostsList on Post {
     # posts
     _id
@@ -39,7 +39,7 @@ registerFragment(`
   }
 `);
 
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment PostsPage on Post {
     ...PostsList
     body

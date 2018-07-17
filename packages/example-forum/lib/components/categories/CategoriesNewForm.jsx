@@ -13,7 +13,7 @@ const CategoriesNewForm = (props, context) => {
         mutationFragment={getFragment('CategoriesList')}
         successCallback={category => {
           props.closeModal();
-          props.flash(context.intl.formatMessage({id: 'categories.new_success'}, {name: category.name}), "success");
+          props.flash({id: 'categories.new_success', properties: {name: category.name}, type: "success"});
         }}
       />
     </div>

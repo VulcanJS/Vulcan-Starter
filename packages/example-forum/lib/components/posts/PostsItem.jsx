@@ -1,4 +1,4 @@
-import { Components, registerComponent, ModalTrigger } from 'meteor/vulcan:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
@@ -19,9 +19,9 @@ class PostsItem extends PureComponent {
   renderActions() {
     return (
       <div className="posts-actions">
-        <ModalTrigger title="Edit Post" component={<a className="posts-action-edit"><FormattedMessage id="posts.edit"/></a>}>
+        <Components.ModalTrigger title="Edit Post" component={<a className="posts-action-edit"><FormattedMessage id="posts.edit"/></a>}>
           <Components.PostsEditForm post={this.props.post} />
-        </ModalTrigger>
+        </Components.ModalTrigger>
       </div>
     )
   }
@@ -63,7 +63,7 @@ class PostsItem extends PureComponent {
               </Link>
             </div>
             {this.props.currentUser && this.props.currentUser.isAdmin ? <Components.PostsStats post={post} /> : null}
-            {Posts.options.mutations.edit.check(this.props.currentUser, post) ? this.renderActions() : null}
+            {Posts.options.mutations.edit.check(this.props.currentUser, post) && this.renderActions()}
           </div>
 
         </div>

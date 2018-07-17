@@ -10,7 +10,7 @@ In Vulcan, each type of data belongs to its own **collection** (or **model** if 
 
 And each collection features a [schema](http://docs.vulcanjs.org/schemas.html) that defines what a post, comment, or movie should look like (in other words, what fields it should have).
 
-This package already includes a pre-written schema. Just find this component (\`Step5.jsx\`) and uncomment the \`<Components.Schema/>\` component to display its contents below: 
+This package already includes a pre-written schema for a \`Movies\` collection. Just find this component (\`Step5.jsx\`) and uncomment the \`<Components.Schema/>\` component to display its contents below: 
 `;
 
 const after = `

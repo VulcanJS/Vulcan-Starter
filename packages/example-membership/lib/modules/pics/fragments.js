@@ -6,7 +6,7 @@ Register the GraphQL fragment used to query for data
 
 import { registerFragment } from 'meteor/vulcan:core';
 
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment PicsItemFragment on Pic {
     _id
     createdAt
@@ -19,7 +19,7 @@ registerFragment(`
   }
 `);
 
-registerFragment(`
+registerFragment(/* GraphQL */`
   fragment PicsDetailsFragment on Pic {
     _id
     createdAt

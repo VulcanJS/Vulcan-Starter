@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
 import Formsy from 'formsy-react';
 import { Input } from 'formsy-react-components';
-import Button from 'react-bootstrap/lib/Button';
-import Cookie from 'react-cookie';
 import Users from 'meteor/vulcan:users';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class Newsletter extends PureComponent {
 
@@ -40,13 +41,12 @@ class Newsletter extends PureComponent {
     } catch(error) {
       const graphQLError = error.graphQLErrors[0];
       console.error(graphQLError); // eslint-disable-line no-console
-      const message = this.context.intl.formatMessage({id: `newsletter.error_${this.state.error.name}`}, {message: this.state.error.message});
-      this.props.flash(message, 'error');
+      this.props.flash({id: `newsletter.error_${this.state.error.name}`, message: this.state.error.message, type: 'error'});
     }
   }
 
   successCallbackSubscription(/* result*/) {
-    this.props.flash(this.context.intl.formatMessage({ id: 'newsletter.success_message'}), 'success' );
+    this.props.flash({ id: 'newsletter.success_message', type: 'success' });
     this.dismissBanner();
   }
 
@@ -80,7 +80,7 @@ class Newsletter extends PureComponent {
           type="text"
           layout="elementOnly"
         />
-        <Button className="newsletter-button" type="submit" bsStyle="primary"><FormattedMessage id="newsletter.subscribe"/></Button>
+        <Components.Button className="newsletter-button" type="submit" variant="primary"><FormattedMessage id="newsletter.subscribe"/></Components.Button>
       </Formsy.Form>
     )
   }
@@ -110,7 +110,7 @@ const mutationOptions = {
 function showBanner (user) {
   return (
     // showBanner cookie either doesn't exist or is not set to "no"
-    Cookie.load('showBanner') !== 'no'
+    cookies.get('showBanner') !== 'no'
     // and user is not subscribed to the newsletter already (setting either DNE or is not set to false)
     && !Users.getSetting(user, 'newsletter_subscribeToNewsletter', false)
   );

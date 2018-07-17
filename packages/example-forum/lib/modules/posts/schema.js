@@ -62,6 +62,12 @@ const schema = {
       if (!post.postedAt && getCollection('Posts').getDefaultStatus(currentUser) === getCollection('Posts').config.STATUS_APPROVED) {
         return new Date();
       }
+    },
+    onEdit: (modifier, post) => {
+      // Set the post's postedAt if it's going to be approved
+      if (!post.postedAt && modifier.$set.status === getCollection('Posts').config.STATUS_APPROVED) {
+        return new Date();
+      }
     }
   },
   /**
@@ -77,14 +83,12 @@ const schema = {
     control: 'url',
     order: 10,
     searchable: true,
-    form: {
-      query: `
-        SiteData{
-          logoUrl
-          title
-        }
-      `,
-    },
+    query: `
+      SiteData{
+        logoUrl
+        title
+      }
+    `,
   },
   /**
     Title
@@ -216,9 +220,7 @@ const schema = {
         return getCollection('Posts').getDefaultStatus(currentUser);
       }
     },
-    form: {
-      options: () => getCollection('Posts').statuses,
-    },
+    options: () => getCollection('Posts').statuses,
     group: formGroups.admin
   },
   /**
@@ -401,7 +403,7 @@ const schema = {
   },
 
   comments: {
-    type: Array,
+    type: Object,
     optional: true,
     viewableBy: ['guests'],
     resolveAs: {

@@ -16,17 +16,15 @@ Posts.addField(
       insertableBy: ['members'],
       editableBy: ['members'],
       viewableBy: ['members'],
-      form: {
-        options: function () { // options for the select form control
-          return [
-            {value: "white", label: "White"},
-            {value: "yellow", label: "Yellow"},
-            {value: "blue", label: "Blue"},
-            {value: "red", label: "Red"},
-            {value: "green", label: "Green"}
-          ];
-        }
-      },
+      options: function () { // options for the select form control
+        return [
+          {value: "white", label: "White"},
+          {value: "yellow", label: "Yellow"},
+          {value: "blue", label: "Blue"},
+          {value: "red", label: "Red"},
+          {value: "green", label: "Green"}
+        ];
+      }
     }
   }
 );
