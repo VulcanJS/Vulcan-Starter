@@ -1,10 +1,10 @@
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from "simpl-schema";
 
 const addressGroup = {
-  name: 'addresses',
-  label: 'Addresses',
+  name: "addresses",
+  label: "Addresses",
   order: 10
-}
+};
 
 /*
 
@@ -15,79 +15,96 @@ export const addressSchema = new SimpleSchema({
   street: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
-    max: 100, // limit street address to 100 characters
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"],
+    max: 100 // limit street address to 100 characters
   },
   country: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"]
   },
   zipCode: {
     type: Number,
     optional: true,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
-    control: 'number',
-  },
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"],
+    control: "number"
+  }
 });
 
 const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    viewableBy: ["guests"]
   },
   createdAt: {
     type: Date,
     optional: true,
     onInsert: (document, currentUser) => {
       return new Date();
-    },
+    }
   },
   userId: {
     type: String,
-    optional: true,
+    optional: true
   },
 
   name: {
     type: String,
     optional: false,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
-    searchable: true, // make field searchable
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"],
+    searchable: true // make field searchable
   },
 
   stage: {
     type: String,
     optional: false,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"],
     searchable: true,
-    control: 'FormFunnel', // use a custom `FormFunnel` form input component
+    control: "FormFunnel" // use a custom `FormFunnel` form input component
   },
 
   meetingDate: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"]
+  },
+
+  /*
+
+  The `meetingPlace` field specifies that meetingPlace is a nested object, while
+  `meetingPlace.$` indicates the type of the nested object (in this case, `addressSchema`)
+
+  */
+  meetingPlace: {
+    type: Object,
+    optional: true,
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"]
+  },
+  "meetingPlace.$": {
+    type: addressSchema
   },
 
   productId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"],
     query: `
       ProductsList{
         _id
@@ -98,16 +115,16 @@ const schema = {
       props.data.ProductsList &&
       props.data.ProductsList.map(product => ({
         value: product._id,
-        label: product.name,
+        label: product.name
       })),
     resolveAs: {
-      fieldName: 'product',
-      type: 'Product',
+      fieldName: "product",
+      type: "Product",
       resolver: (customer, args, { Products }) =>
         customer.productId && Products.loader.load(customer.productId),
-      addOriginalField: true,
+      addOriginalField: true
     },
-    control: 'select',
+    control: "select"
   },
 
   /*
@@ -118,15 +135,15 @@ const schema = {
   */
   addresses: {
     type: Array,
-    viewableBy: ['guests'],
-    editableBy: ['members'],
-    insertableBy: ['members'],
-    group: addressGroup,
+    viewableBy: ["guests"],
+    editableBy: ["members"],
+    insertableBy: ["members"],
+    group: addressGroup
   },
 
-  'addresses.$': {
-    type: addressSchema,
-  },
+  "addresses.$": {
+    type: addressSchema
+  }
 };
 
 export default schema;
