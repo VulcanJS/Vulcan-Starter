@@ -88,6 +88,7 @@ const schema = {
   `meetingPlace.$` indicates the type of the nested object (in this case, `addressSchema`)
 
   */
+
   meetingPlace: {
     type: Object,
     optional: true,
