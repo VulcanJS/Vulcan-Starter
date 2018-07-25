@@ -13,7 +13,7 @@ On your left, you'll find this tutorial's **steps**. Right now they're greyed ou
 
 On your right is your **work area**. As we build up our app starting on Step 10, its components will appear there. 
 
-During this tutorial, you'll have to edit a number of files. These are all located inside the **Getting Started** example package, which you can find at \`/your-vulcan-directory/packages/example-getting-started\`. From now on, file paths will be referenced using that directory as root. 
+During this tutorial, you'll have to edit a number of files. These are all located inside the **Getting Started** example package, which you can find at \`/your-vulcan-directory/packages/getting-started\`. From now on, file paths will be referenced using that directory as root. 
 
 While we're on this topic, let's take a quick look at that package's file architecture:
 `,`
