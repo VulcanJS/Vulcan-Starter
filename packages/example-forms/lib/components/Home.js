@@ -6,13 +6,13 @@ http://docs.vulcanjs.org/core-components.html#Datatable
 
 */
 
-import React from 'react';
+import React from "react";
 import {
   Components,
   registerComponent,
-  withMessages,
-} from 'meteor/vulcan:core';
-import Customers from '../modules/customers/collection';
+  withMessages
+} from "meteor/vulcan:core";
+import Customers from "../modules/customers/collection";
 
 const Home = ({ flash }) => (
   <div className="dashboard">
@@ -20,9 +20,9 @@ const Home = ({ flash }) => (
 
     <div
       style={{
-        padding: '20px 0',
-        marginBottom: '20px',
-        borderBottom: '1px solid #ccc',
+        padding: "20px 0",
+        marginBottom: "20px",
+        borderBottom: "1px solid #ccc"
       }}
     >
       <Components.AccountsLoginForm />
@@ -32,9 +32,16 @@ const Home = ({ flash }) => (
 
     <Components.Datatable
       collection={Customers}
-      columns={['name', 'meetingDate', 'stage', 'addresses', 'product']}
+      columns={[
+        "name",
+        "meetingDate",
+        "meetingPlace",
+        "stage",
+        "addresses",
+        "product"
+      ]}
       emptyState={<p className="datatable-empty">No customers to display</p>}
-      options={{ fragmentName: 'customerFragment' }}
+      options={{ fragmentName: "customerFragment" }}
       /*
 
       Specify that the datatable's “new document” form should have its `meetingDate`
@@ -43,14 +50,14 @@ const Home = ({ flash }) => (
       */
       newFormOptions={{
         prefilledProps: {
-          meetingDate: new Date(),
+          meetingDate: new Date()
         },
         successCallback: () => {
-          flash({message: 'New customer created.', type: 'success'});
-        },
+          flash({ message: "New customer created.", type: "success" });
+        }
       }}
     />
   </div>
 );
 
-registerComponent('Home', Home, withMessages);
+registerComponent("Home", Home, withMessages);
