@@ -90,16 +90,13 @@ const schema = {
   */
 
   meetingPlace: {
-    type: Object,
+    type: addressSchema,
     optional: true,
     viewableBy: ["guests"],
     editableBy: ["members"],
     insertableBy: ["members"]
   },
-  "meetingPlace.$": {
-    type: addressSchema
-  },
-
+  
   productId: {
     type: String,
     optional: true,
