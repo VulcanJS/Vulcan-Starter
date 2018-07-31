@@ -1,12 +1,12 @@
 /* 
 
 List of movies. 
-Wrapped with the "withList" and "withCurrentUser" containers.
+Wrapped with the "withMulti" and "withCurrentUser" containers.
 
 */
 
 import React from 'react';
-import { registerComponent, Components, withList, withCurrentUser, Loading } from 'meteor/vulcan:core';
+import { registerComponent, Components, withMulti, withCurrentUser, Loading } from 'meteor/vulcan:core';
 import Helmet from 'react-helmet';
 
 import Movies from '../../modules/movies/collection.js';
@@ -39,14 +39,15 @@ const MoviesList = ({results = [], currentUser, loading, loadMore, count, totalC
 
         {/* documents list */}
 
-        {results.map(movie => <Components.MoviesItem key={movie._id} movie={movie} currentUser={currentUser} />)}
+        {results.map(movie => {
+          return <Components.MoviesItem key={movie._id} movie={movie} currentUser={currentUser} />})}
         
         {/* load more */}
 
-        {totalCount > results.length ?
+        {/*totalCount > results.length ?
           <a href="#" onClick={e => {e.preventDefault(); loadMore();}}>Load More ({count}/{totalCount})</a> : 
           <p>No more items.</p>
-        }
+        */}
 
       </div>
     }
@@ -59,4 +60,4 @@ const options = {
   limit: 5
 };
 
-registerComponent('MoviesList', MoviesList, withCurrentUser, [withList, options]);
+registerComponent('MoviesList', MoviesList, withCurrentUser, [withMulti, options]);

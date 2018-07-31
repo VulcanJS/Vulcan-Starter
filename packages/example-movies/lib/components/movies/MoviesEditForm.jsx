@@ -19,6 +19,9 @@ const MoviesEditForm = ({documentId, closeModal}) =>
     successCallback={document => {
       closeModal();
     }}
+    removeSuccessCallback={document => {
+      closeModal();
+    }}
   />
 
 registerComponent('MoviesEditForm', MoviesEditForm);

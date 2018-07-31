@@ -11,38 +11,28 @@ Three resolvers are defined:
 // basic list, single, and total query resolvers
 const resolvers = {
 
-  list: {
+  multi: {
 
-    name: 'moviesList',
+    name: 'movies',
 
     async resolver(root, {terms = {}}, context, info) {
       let {selector, options} = await context.Movies.getParameters(terms, {}, context.currentUser);
-      return context.Movies.find(selector, options).fetch();
+      return {results: context.Movies.find(selector, options).fetch()};
     },
 
   },
 
   single: {
     
-    name: 'moviesSingle',
+    name: 'movie',
 
-    resolver(root, {documentId}, context) {
-      const document = context.Movies.findOne({_id: documentId});
-      return context.Users.restrictViewableFields(context.currentUser, context.Movies, document);
+    resolver(root, args, context) {
+      const _id =  args.input.selector.documentId || args.input.selector._id; // we keep this for backwards comp until SmartForm passes _id as a prop
+      const document = context.Movies.findOne({_id: _id});
+      return {result: context.Users.restrictViewableFields(context.currentUser, context.Movies, document)}
     },
   
   },
-
-  total: {
-    
-    name: 'moviesTotal',
-    
-    async resolver(root, {terms = {}}, context) {
-      const {selector, options} = await context.Movies.getParameters(terms, {}, context.currentUser);
-      return context.Movies.find(selector, options).count();
-    },
-  
-  }
 };
 
 export default resolvers;

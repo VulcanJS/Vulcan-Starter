@@ -14,87 +14,104 @@ Each mutation has:
 
 */
 
-import { newMutation, editMutation, removeMutation, Utils } from 'meteor/vulcan:core';
+import {
+  createMutator,
+  updateMutator,
+  deleteMutator,
+  Utils,
+} from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
 
 const mutations = {
+  create: {
+    name: 'moviesCreate',
 
-  new: {
-    
-    name: 'moviesNew',
-    
     check(user) {
       if (!user) return false;
       return Users.canDo(user, 'movies.new');
     },
-    
-    mutation(root, {document}, context) {
-      
+
+    mutation(root, args, context) {
+      const {
+        input: { data: document },
+      } = args;
       Utils.performCheck(this.check, context.currentUser, document);
 
-      return newMutation({
-        collection: context.Movies,
-        document: document, 
-        currentUser: context.currentUser,
-        validate: true,
-        context,
-      });
+      return {
+        data: createMutator({
+          collection: context.Movies,
+          document: document,
+          currentUser: context.currentUser,
+          validate: true,
+          context,
+        }),
+      };
     },
-
   },
 
-  edit: {
-    
-    name: 'moviesEdit',
-    
+  update: {
+    name: 'moviesUpdate',
+
     check(user, document) {
       if (!user || !document) return false;
-      return Users.owns(user, document) ? Users.canDo(user, 'movies.edit.own') : Users.canDo(user, `movies.edit.all`);
+      return Users.owns(user, document)
+        ? Users.canDo(user, 'movies.update.own')
+        : Users.canDo(user, `movies.update.all`);
     },
 
-    mutation(root, {documentId, set, unset}, context) {
-
-      const document = context.Movies.findOne(documentId);
+    mutation(root, args, context) {
+      console.log(args);
+      const {
+        input: {
+          selector: { documentId: _id },
+        },
+      } = args;
+      const document = context.Movies.findOne(_id);
       Utils.performCheck(this.check, context.currentUser, document);
 
-      return editMutation({
-        collection: context.Movies, 
-        documentId: documentId, 
-        set: set, 
-        unset: unset, 
-        currentUser: context.currentUser,
-        validate: true,
-        context,
-      });
+      return {
+        data: updateMutator({
+          collection: context.Movies,
+          selector: args.selector,
+          data: args.data,
+          currentUser: context.currentUser,
+          validate: true,
+          context,
+        }),
+      };
     },
-
   },
-  
-  remove: {
 
-    name: 'moviesRemove',
-    
+  delete: {
+    name: 'moviesDelete',
+
     check(user, document) {
       if (!user || !document) return false;
-      return Users.owns(user, document) ? Users.canDo(user, 'movies.remove.own') : Users.canDo(user, `movies.remove.all`);
+      return Users.owns(user, document)
+        ? Users.canDo(user, 'movies.delete.own')
+        : Users.canDo(user, `movies.delete.all`);
     },
-    
-    mutation(root, {documentId}, context) {
 
-      const document = context.Movies.findOne(documentId);
+    mutation(root, args, context) {
+      const {
+        input: {
+          selector: { documentId: _id },
+        },
+      } = args;
+      const document = context.Movies.findOne({ _id: _id });
       Utils.performCheck(this.check, context.currentUser, document);
 
-      return removeMutation({
-        collection: context.Movies, 
-        documentId: documentId, 
-        currentUser: context.currentUser,
-        validate: true,
-        context,
-      });
+      return {
+        data: deleteMutator({
+          collection: context.Movies,
+          documentId: _id,
+          currentUser: context.currentUser,
+          validate: true,
+          context,
+        }),
+      };
     },
-
   },
-
 };
 
 export default mutations;
