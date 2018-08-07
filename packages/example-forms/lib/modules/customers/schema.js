@@ -1,8 +1,8 @@
-import SimpleSchema from "simpl-schema";
+import SimpleSchema from 'simpl-schema';
 
 const addressGroup = {
-  name: "addresses",
-  label: "Addresses",
+  name: 'addresses',
+  label: 'Addresses',
   order: 10
 };
 
@@ -15,25 +15,25 @@ export const addressSchema = new SimpleSchema({
   street: {
     type: String,
     optional: true,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"],
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members'],
     max: 100 // limit street address to 100 characters
   },
   country: {
     type: String,
     optional: true,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"]
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members']
   },
   zipCode: {
     type: Number,
     optional: true,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"],
-    control: "number"
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members'],
+    control: 'number'
   }
 });
 
@@ -41,7 +41,7 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ["guests"]
+    viewableBy: ['guests']
   },
   createdAt: {
     type: Date,
@@ -58,28 +58,28 @@ const schema = {
   name: {
     type: String,
     optional: false,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"],
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members'],
     searchable: true // make field searchable
   },
 
   stage: {
     type: String,
     optional: false,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"],
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members'],
     searchable: true,
-    control: "FormFunnel" // use a custom `FormFunnel` form input component
+    control: 'FormFunnel' // use a custom `FormFunnel` form input component
   },
 
   meetingDate: {
     type: Date,
     optional: true,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"]
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members']
   },
 
   /*
@@ -92,17 +92,17 @@ const schema = {
   meetingPlace: {
     type: addressSchema,
     optional: true,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"]
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members']
   },
-  
+
   productId: {
     type: String,
     optional: true,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"],
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members'],
     query: `
       ProductsList{
         _id
@@ -116,13 +116,13 @@ const schema = {
         label: product.name
       })),
     resolveAs: {
-      fieldName: "product",
-      type: "Product",
+      fieldName: 'product',
+      type: 'Product',
       resolver: (customer, args, { Products }) =>
         customer.productId && Products.loader.load(customer.productId),
       addOriginalField: true
     },
-    control: "select"
+    control: 'select'
   },
 
   /*
@@ -133,13 +133,13 @@ const schema = {
   */
   addresses: {
     type: Array,
-    viewableBy: ["guests"],
-    editableBy: ["members"],
-    insertableBy: ["members"],
+    viewableBy: ['guests'],
+    editableBy: ['members'],
+    insertableBy: ['members'],
     group: addressGroup
   },
 
-  "addresses.$": {
+  'addresses.$': {
     type: addressSchema
   }
 };

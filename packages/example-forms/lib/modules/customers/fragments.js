@@ -1,4 +1,4 @@
-import { registerFragment } from "meteor/vulcan:core";
+import { registerFragment } from 'meteor/vulcan:core';
 
 registerFragment(`
   fragment customerFragment on Customer {
