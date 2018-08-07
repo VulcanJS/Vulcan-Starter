@@ -7,7 +7,8 @@
   "scripts": {
     "prestart": "node .vulcan/prestart_vulcan.js",
     "start": "meteor --settings settings.json",
-    "lint": "eslint --cache --ext .jsx,js packages"
+    "lint": "eslint --cache --ext .jsx,js packages",
+    "test": "testcafe firefox tests/"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.46",
@@ -104,7 +105,8 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-meteor": "^4.2.1",
-    "eslint-plugin-react": "^6.7.1"
+    "eslint-plugin-react": "^6.7.1",
+    "testcafe": "^0.21.0"
   },
   "postcss": {
     "plugins": {
