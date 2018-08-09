@@ -105,16 +105,16 @@ const schema = {
     type: String,
     optional: true,
     viewableBy: ['guests'],
-    onInsert: (comment) => {
-      if (comment.body) {
-        return Utils.sanitize(marked(comment.body));
-      }
-    },
-    onEdit: (modifier, comment) => {
-      if (modifier.$set.body) {
-        return Utils.sanitize(marked(modifier.$set.body));
-      }
-    }
+    // onInsert: (comment) => {
+    //   if (comment.body) {
+    //     return Utils.sanitize(marked(comment.body));
+    //   }
+    // },
+    // onEdit: (modifier, comment) => {
+    //   if (modifier.$set.body) {
+    //     return Utils.sanitize(marked(modifier.$set.body));
+    //   }
+    // }
   },
   /**
     The comment author's name
