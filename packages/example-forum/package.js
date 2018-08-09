@@ -1,7 +1,7 @@
 Package.describe({
   name: "example-forum",
   summary: "Vulcan forum package",
-  version: '1.11.0',
+  version: '1.11.2',
   git: "https://github.com/VulcanJS/Vulcan.git"
 });
 
