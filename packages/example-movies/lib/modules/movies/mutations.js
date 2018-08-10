@@ -27,25 +27,23 @@ const mutations = {
     name: 'moviesCreate',
 
     check(user) {
-      if (!user) return false;
-      return Users.canDo(user, 'movies.new');
+      if (!user) return false; //the user must be logged in
+      return Users.canDo(user, 'movies.new'); // the user must have the permission to do the mutation. For this, see permissions.js
     },
 
     mutation(root, args, context) {
-      const {
-        input: { data: document },
-      } = args;
+      const { data: document } = args;
+      
+      //run the check function defined above
       Utils.performCheck(this.check, context.currentUser, document);
 
-      return {
-        data: createMutator({
-          collection: context.Movies,
-          document: document,
-          currentUser: context.currentUser,
-          validate: true,
-          context,
-        }),
-      };
+      return createMutator({
+        collection: context.Movies, // the collection we are creating a document in
+        document: document, // the document inserted in the mutation input
+        currentUser: context.currentUser, // the user doing the mutation
+        validate: true, 
+        context,
+      });
     },
   },
 
@@ -59,26 +57,19 @@ const mutations = {
         : Users.canDo(user, `movies.update.all`);
     },
 
-    mutation(root, args, context) {
-      console.log(args);
-      const {
-        input: {
-          selector: { documentId: _id },
-        },
-      } = args;
-      const document = context.Movies.findOne(_id);
+    mutation(root, {selector, data}, context) {
+      const document = context.Movies.findOne( {_id: selector.documentId || selector._id});
+      // Utils.performCheck is applying this.check(context.currentUser, document); and returns an error if the result is false or if there is no user or document, ending the mutation before updating the db
       Utils.performCheck(this.check, context.currentUser, document);
 
-      return {
-        data: updateMutator({
-          collection: context.Movies,
-          selector: args.selector,
-          data: args.data,
-          currentUser: context.currentUser,
-          validate: true,
-          context,
-        }),
-      };
+      return updateMutator({
+        collection: context.Movies, // the collection we are updating
+        selector: selector, //the way to select the document to update
+        data: data, // the new value of the document
+        currentUser: context.currentUser, // the user performing the update
+        validate: true, //if we should validate or not
+        context,
+      });
     },
   },
 
@@ -92,24 +83,17 @@ const mutations = {
         : Users.canDo(user, `movies.delete.all`);
     },
 
-    mutation(root, args, context) {
-      const {
-        input: {
-          selector: { documentId: _id },
-        },
-      } = args;
-      const document = context.Movies.findOne({ _id: _id });
+    mutation(root, { selector }, context) {
+      const document = context.Movies.findOne({ _id: selector.documentId || selector._id });
       Utils.performCheck(this.check, context.currentUser, document);
 
-      return {
-        data: deleteMutator({
-          collection: context.Movies,
-          documentId: _id,
-          currentUser: context.currentUser,
-          validate: true,
-          context,
-        }),
-      };
+      return deleteMutator({
+        collection: context.Movies,
+        selector: selector,
+        currentUser: context.currentUser,
+        validate: true,
+        context,
+      });
     },
   },
 };
