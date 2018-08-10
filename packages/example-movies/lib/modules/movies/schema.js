@@ -47,7 +47,7 @@ const schema = {
   },
   year: {
     label: 'Year',
-    type: String,
+    type: Number,
     optional: true,
     canRead: ['guests'],
     canCreate: ['members'],
