@@ -10,7 +10,7 @@ Thankfully, one of GraphQL's perks is the ability to specify exactly what data y
 
 We didn't pass any fragment to our \`withList\` HoC so it's just doing its best to guess what we want and ask for any field it can find. But let's specify a fragment to fix this. 
 
-Find the \`options\` object in the \`MoviesList\` component's file and add a \`fragmentName: 'MovieFragment'\` property to it. 
+Find the \`options\` object in the \`MoviesList\` component's file and add a \`fragmentName: 'MoviesFragment'\` property to it. 
 
 That fragment has already been defined, and it looks something like this:
 `,`
