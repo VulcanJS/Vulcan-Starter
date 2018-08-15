@@ -78,8 +78,10 @@ function PostsAddBeforeAfterParameters (parameters, terms, apolloClient) {
 
     }
 
-    if (!_.isEmpty(postedAt)) {
+    if (!_.isEmpty(postedAt) && !terms.timeField) {
       parameters.selector.postedAt = postedAt;
+    } else if (!_.isEmpty(postedAt)) {
+      parameters.selector[terms.timeField] = postedAt;
     }
 
   }
