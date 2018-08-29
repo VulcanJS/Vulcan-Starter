@@ -1,9 +1,5 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
-import { Link } from 'react-router';
-import ReactMarkdown from 'react-markdown';
-
-import sections from '../../modules/sections.js';
 
 const text = [`
 This interactive tutorial will teach you the basics of using Vulcan. 

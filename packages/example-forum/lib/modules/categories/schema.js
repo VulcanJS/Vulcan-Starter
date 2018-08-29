@@ -34,47 +34,47 @@ export function getCategoriesAsNestedOptions (categories) {
 const schema = {
   _id: {
     type: String,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     optional: true,
   },
   name: {
     type: String,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
   },
   description: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
-    form: {
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+    inputProperties: {
       rows: 3
     }
   },
   order: {
     type: Number,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
   },
   slug: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
-    onInsert: category => {
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+    onCreate: ({category}) => {
       // if no slug has been provided, generate one
       const slug = category.slug || Utils.slugify(category.name);
       return Utils.getUnusedSlugByCollectionName('Categories', slug);
     },
-    onEdit: (modifier, category) => {
+    onUpdate: ({data, document: category}) => {
       // if slug is changing
-      if (modifier.$set && modifier.$set.slug && modifier.$set.slug !== category.slug) {
-        const slug = modifier.$set.slug;
+      if (data.slug && data.slug !== category.slug) {
+        const slug = data.slug;
         return Utils.getUnusedSlugByCollectionName('Categories', slug);
       }
     }
@@ -82,17 +82,17 @@ const schema = {
   image: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
   },
   parentId: {
     type: String,
     optional: true,
-    control: "select",
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
+    input: "select",
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
     resolveAs: {
       fieldName: 'parent',
       type: 'Category',
@@ -104,14 +104,16 @@ const schema = {
       addOriginalField: true
     },
     options: props => {
-      return getCategoriesAsOptions(props.data.CategoriesList);
+      return getCategoriesAsOptions(props.data.categories.results);
     },
     query: `
       CategoriesList{
-        _id
-        name
-        slug
-        order
+        results{
+          _id
+          name
+          slug
+          order
+        }
       }
     `,
   }

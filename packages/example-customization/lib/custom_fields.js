@@ -11,11 +11,11 @@ Posts.addField(
     fieldName: 'color',
     fieldSchema: {
       type: String,
-      control: "select", // use a select form control
+      input: "select", // use a select form control
       optional: true, // this field is not required
-      insertableBy: ['members'],
-      editableBy: ['members'],
-      viewableBy: ['members'],
+      canCreate: ['members'],
+      canUpdate: ['members'],
+      canRead: ['members'],
       options: function () { // options for the select form control
         return [
           {value: "white", label: "White"},

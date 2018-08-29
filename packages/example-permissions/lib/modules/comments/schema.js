@@ -11,20 +11,20 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (document, currentUser) => {
+    canRead: ['guests'],
+    onCreate: () => {
       return new Date();
     }
   },
   userId: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       fieldName: 'user',
       type: 'User', 
@@ -41,23 +41,23 @@ const schema = {
     label: 'Body',
     placeholder: 'Add a comment…',
     type: String,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members']
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members']
   },
   picId: {
     type: String,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
+    canRead: ['guests'],
+    canCreate: ['members'],
     hidden: true, // never show this in forms
   },
   isDeleted: {
     type: Boolean,
     optional: true,
-    control: 'checkbox',
-    viewableBy: ['mods', 'admins', 'managers'],
-    insertableBy: ['mods', 'admins', 'managers'],
-    editableBy: ['mods', 'admins', 'managers'],
+    input: 'checkbox',
+    canRead: ['mods', 'admins', 'managers'],
+    canCreate: ['mods', 'admins', 'managers'],
+    canUpdate: ['mods', 'admins', 'managers'],
   },
   
 };

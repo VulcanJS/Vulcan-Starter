@@ -4,7 +4,7 @@ Posts.addField([
   {
     fieldName: 'url',
     fieldSchema: {
-      control: 'EmbedURL', // we are just extending the field url, not replacing it
+      input: 'EmbedURL', // we are just extending the field url, not replacing it
     }
   },
   {
@@ -12,9 +12,9 @@ Posts.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      insertableBy: ['members'],
-      editableBy: ['members'],
-      viewableBy: ['guests'],
+      canCreate: ['members'],
+      canUpdate: ['members'],
+      canRead: ['guests'],
       hidden: true
     }
   },
@@ -24,7 +24,7 @@ Posts.addField([
       type: Object,
       optional: true,
       blackbox: true,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   },
   {
@@ -32,7 +32,7 @@ Posts.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   },
   {
@@ -40,7 +40,7 @@ Posts.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   }
 ]);
