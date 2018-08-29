@@ -33,12 +33,12 @@ const Movies = createCollection({
   // ...then our default resolvers and default mutations...
 
   // A resolver is the thing that gives you data, that fetches it in the database and sends it to the client.
-  // There are three default resolvers: list - for a list of documents, single - for a single document, and total - for the total number of documents that match a given query.
+  // There are two default resolvers: multi - for a list of documents, and single - for a single document.
   // You can code your own too. Check out the next example, the movies example to do so...
   resolvers: getDefaultResolvers('Movies'),
 
   // A mutation is the act of changing data on the server.
-  // There are three default mutaitons: inserting a new document, editing an existing document, and removing a document. You can only do this if you own it.
+  // There are three default mutaitons: creating a new document, updating an existing document, and deleting a document. You can only do this if you own it.
   mutations: getDefaultMutations('Movies'),
 
 });

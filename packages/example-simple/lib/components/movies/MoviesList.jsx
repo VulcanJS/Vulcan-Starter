@@ -12,7 +12,7 @@ This component is a React component. We only have one but it does a bunch of thi
 
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Components, withList, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
+import { Components, withMulti, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
 import Movies from '../../modules/movies/collection.js';
 
@@ -64,7 +64,7 @@ const MoviesList = ({
         {/* new document form - this if for inserting new documents. Because the collection has the schema, when we generate the form, it know what the colleciton should look like
           You only need to specify the colleciton. You don't need to code any of the form. Validation will work and it will show you fields based on your user permission...*/}
 
-        {Movies.options.mutations.new.check(currentUser) ? (
+        {Movies.options.mutations.create.check(currentUser) ? (
           <div
             style={{
               marginBottom: "20px",
@@ -72,7 +72,7 @@ const MoviesList = ({
               borderBottom: "1px solid #ccc"
             }}
           >
-            <h4>Insert New Document</h4>
+            <h4>Create New Document</h4>
             <Components.SmartForm collection={Movies} />
           </div>
         ) : null}
@@ -117,8 +117,7 @@ const options = {
 };
 
 // These two functions (withList & withCurrentUser) are Higher Order Components (HOC) and by wrapping our component with this we can give it "props". (See the "props" section at the top.)
-registerComponent('MoviesList', MoviesList, withCurrentUser, [withList, options]);
-
+registerComponent({ name: 'MoviesList', component: MoviesList, hocs: [withCurrentUser, [withMulti, options]] });
 
 // #tutorial-step-12 - Well. that's it! If you like this, go on to the movies-example, where we get more granular when it comes to data loading.
 // Well thanks for tuning in! Come visit us at our chat room at slack.vulcanjs.org. See you soon!

@@ -14,7 +14,7 @@ Define a sub-schema for addresses
 export const addressSchema = new SimpleSchema({
   street: {
     type: String,
-    optional: true,
+    optional: false,
     canRead: ['guests'],
     canUpdate: ['members'],
     canCreate: ['members'],
@@ -64,6 +64,16 @@ const schema = {
     searchable: true, // make field searchable
   },
 
+  notes: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    canUpdate: ['members'],
+    canCreate: ['members'],
+    input: 'textarea',
+    searchable: true, // make field searchable
+  },
+
   stage: {
     type: String,
     optional: false,
@@ -110,6 +120,14 @@ const schema = {
       addOriginalField: true,
     },
     input: 'select',
+  },
+
+  isVIP: {
+    type: Boolean,
+    optional: true,
+    canRead: ['guests'],
+    canUpdate: ['members'],
+    canCreate: ['members'],
   },
 
   categories: {

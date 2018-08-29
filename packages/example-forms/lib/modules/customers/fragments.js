@@ -5,7 +5,11 @@ registerFragment(`
     _id
     stage
     name
+    notes
+    meetingDate
     addresses
+    categories
+    isVIP
     product{
       name
     }

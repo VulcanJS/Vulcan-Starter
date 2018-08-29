@@ -105,7 +105,7 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({comment}) => {
+    onCreate: ({newDocument: comment}) => {
       if (comment.body) {
         return Utils.sanitize(marked(comment.body));
       }
