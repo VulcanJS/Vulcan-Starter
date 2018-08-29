@@ -1,5 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMulti } from 'meteor/vulcan:core';
 
 // Forms
 
@@ -10,7 +10,7 @@ One of Vulcan's great features is that it can generate forms for you from a coll
 
 Additionally, in this case since we want our movie to show up in the same list as all the others once it's inserted, we'll specify a \`mutationFragmentName\` option to make sure the movie we get back from the server after the mutation has the same "shape" as the one already loaded on the client (including our special \`user\` field). 
 
-Find \`MoviesNew.jsx\` and add the following:
+Find \`createMovie.jsx\` and add the following:
 `,`
 ~~~js
 <Components.SmartForm collection={Movies} mutationFragmentName="MoviesFragment"/>

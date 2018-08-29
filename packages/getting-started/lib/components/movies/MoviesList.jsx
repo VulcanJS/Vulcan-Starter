@@ -1,5 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMulti } from 'meteor/vulcan:core';
 
 import Movies from '../../modules/collection.js';
 
@@ -27,4 +27,4 @@ const options = {
   // fragmentName: 'MoviesFragment', // uncomment on #Step11
 }
 
-registerComponent('MoviesList', MoviesList, /* [withList, options] */); // uncomment on #Step10
+registerComponent('MoviesList', MoviesList, /* [withMulti, options] */); // uncomment on #Step10

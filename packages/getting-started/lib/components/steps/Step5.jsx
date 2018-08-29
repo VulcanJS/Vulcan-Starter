@@ -16,9 +16,9 @@ This package already includes a pre-written schema. Just find this component (\`
 const after = `
 Before we go to the next step, let's take a second to look at this schema. As you can see, we're defining five fields: \`_id\`, \`createdAt\`, \`userId\`, \`name\`, and \`review\`, which together make up the schema for our upcoming \`Movies\` collection. 
 
-Note that \`createdAt\` has an \`onInsert\` property, which returns a callback that will set it to the current timestamp whenever a new document is inserted. 
+Note that \`createdAt\` has an \`onCreate\` property, which returns a callback that will set it to the current timestamp whenever a new document is inserted. 
 
-Also of note are the \`viewableBy\`, \`insertableBy\`, and \`editableBy\` properties that specify which user groups can view, insert, or edit each field. Out of the box, Vulcan has three predefined groups:
+Also of note are the \`canRead\`, \`canCreate\`, and \`canUpdate\` properties that specify which user groups can view, insert, or edit each field. Out of the box, Vulcan has three predefined groups:
 
 - \`guests\`: any user without an account.
 - \`members\`: any user *with* an account.
