@@ -1,5 +1,5 @@
 import React from 'react';
-import { Components, registerComponent, withList } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMulti } from 'meteor/vulcan:core';
 
 import withMutationResolvers from '../../hocs/withMutationResolvers.js';
 
@@ -16,7 +16,7 @@ Go back to \`lib/modules/collection.js\` and this time uncomment the \`mutations
 `;
 
 const after = `
-Our three \`MoviesNew\`, \`MoviesEdit\`, and \`MoviesRemove\` mutations are now ready to use. In other words, if we send down the proper query, our GraphQL endpoint will be able to understand it and create, edit, or delete a document in our database. 
+Our three \`createMovie\`, \`updateMovie\`, and \`deleteMovie\` mutations are now ready to use. In other words, if we send down the proper query, our GraphQL endpoint will be able to understand it and create, edit, or delete a document in our database. 
 
 By the way, we've been talking about “default” mutations but you can also [write your own](http://docs.vulcanjs.org/mutations.html#GraphQL-Mutations) New, Edit, and Remove mutations on the server if you need to (and the same also goes for the List, Single, and Total resolvers). 
 `
@@ -27,7 +27,7 @@ const Step14 = ({ mutations }) => (
       <ul>
         {mutations && mutations.fields.map(resolver =>
           <li key={resolver.name}>
-            {['MoviesNew', 'MoviesEdit', 'MoviesRemove'].includes(resolver.name) ? 
+            {['createMovie', 'updateMovie', 'deleteMovie'].includes(resolver.name) ? 
               <strong>{resolver.name}</strong> : 
               <span>{resolver.name}</span>
             }

@@ -33,7 +33,7 @@ const schema = {
   _id: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   /**
     Timetstamp of post creation
@@ -41,8 +41,8 @@ const schema = {
   createdAt: {
     type: Date,
     optional: true,
-    viewableBy: ['admins'],
-    onInsert: () => {
+    canRead: ['admins'],
+    onCreate: () => {
       return new Date();
     }
   },
@@ -52,20 +52,20 @@ const schema = {
   postedAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['admins'],
-    editableBy: ['admins'],
-    control: 'datetime',
+    canRead: ['guests'],
+    canCreate: ['admins'],
+    canUpdate: ['admins'],
+    input: 'datetime',
     group: formGroups.admin,
-    onInsert: (post, currentUser) => {
+    onCreate: ({document: post, currentUser}) => {
       // Set the post's postedAt if it's going to be approved
       if (!post.postedAt && getCollection('Posts').getDefaultStatus(currentUser) === getCollection('Posts').config.STATUS_APPROVED) {
         return new Date();
       }
     },
-    onEdit: (modifier, post) => {
+    onUpdate: ({data, post}) => {
       // Set the post's postedAt if it's going to be approved
-      if (!post.postedAt && modifier.$set.status === getCollection('Posts').config.STATUS_APPROVED) {
+      if (!post.postedAt && data.status === getCollection('Posts').config.STATUS_APPROVED) {
         return new Date();
       }
     }
@@ -77,10 +77,10 @@ const schema = {
     type: String,
     optional: true,
     max: 500,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
-    control: 'url',
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+    input: 'url',
     order: 10,
     searchable: true,
     query: `
@@ -97,10 +97,10 @@ const schema = {
     type: String,
     optional: false,
     max: 500,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
-    control: 'text',
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+    input: 'text',
     order: 20,
     searchable: true
   },
@@ -110,13 +110,13 @@ const schema = {
   slug: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (post) => {
+    canRead: ['guests'],
+    onCreate: ({post}) => {
       return Utils.slugify(post.title);
     },
-    onEdit: (modifier, post) => {
-      if (modifier.$set.title) {
-        return Utils.slugify(modifier.$set.title);
+    onUpdate: ({data}) => {
+      if (data.title) {
+        return Utils.slugify(data.title);
       }
     }
   },
@@ -127,10 +127,10 @@ const schema = {
     type: String,
     optional: true,
     max: 3000,
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
-    editableBy: ['members'],
-    control: 'textarea',
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+    input: 'textarea',
     order: 30
   },
   /**
@@ -139,15 +139,15 @@ const schema = {
   htmlBody: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (post) => {
+    canRead: ['guests'],
+    onCreate: ({post}) => {
       if (post.body) {
         return Utils.sanitize(marked(post.body));
       }
     },
-    onEdit: (modifier, post) => {
-      if (modifier.$set.body) {
-        return Utils.sanitize(marked(modifier.$set.body));
+    onUpdate: ({data}) => {
+      if (data.body) {
+        return Utils.sanitize(marked(data.body));
       }
     }
   },
@@ -157,19 +157,19 @@ const schema = {
   excerpt: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     searchable: true,
-    onInsert: (post) => {
+    onCreate: ({post}) => {
       if (post.body) {
         // excerpt length is configurable via the settings (30 words by default, ~255 characters)
         const excerptLength = getSetting('forum.postExcerptLength', 30); 
         return Utils.trimHTML(Utils.sanitize(marked(post.body)), excerptLength);
       }
     },
-    onEdit: (modifier, post) => {
-      if (modifier.$set.body) {
+    onUpdate: ({data}) => {
+      if (data.body) {
         const excerptLength = getSetting('forum.postExcerptLength', 30); 
-        return Utils.trimHTML(Utils.sanitize(marked(modifier.$set.body)), excerptLength);
+        return Utils.trimHTML(Utils.sanitize(marked(data.body)), excerptLength);
       }
     }
   },
@@ -179,7 +179,7 @@ const schema = {
   viewCount: {
     type: Number,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
     defaultValue: 0
   },
   /**
@@ -188,7 +188,7 @@ const schema = {
   lastCommentedAt: {
     type: Date,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
   },
   /**
     Count of how many times the post's link was clicked
@@ -196,7 +196,7 @@ const schema = {
   clickCount: {
     type: Number,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
     defaultValue: 0
   },
   /**
@@ -205,18 +205,18 @@ const schema = {
   status: {
     type: Number,
     optional: true,
-    viewableBy: ['guests'],
-    insertableBy: ['admins'],
-    editableBy: ['admins'],
-    control: 'select',
-    onInsert: (document, currentUser) => {
+    canRead: ['guests'],
+    canCreate: ['admins'],
+    canUpdate: ['admins'],
+    input: 'select',
+    onCreate: ({document, currentUser}) => {
       if (!document.status) {
         return getCollection('Posts').getDefaultStatus(currentUser);
       }
     },
-    onEdit: (modifier, document, currentUser) => {
+    onUpdate: ({data, currentUser}) => {
       // if for some reason post status has been removed, give it default status
-      if (modifier.$unset && modifier.$unset.status) {
+      if (data.status === null) {
         return getCollection('Posts').getDefaultStatus(currentUser);
       }
     },
@@ -229,8 +229,8 @@ const schema = {
   isFuture: {
     type: Boolean,
     optional: true,
-    viewableBy: ['guests'],
-    onInsert: (post) => {
+    canRead: ['guests'],
+    onCreate: ({post}) => {
       // Set the post's isFuture to true if necessary
       if (post.postedAt) {
         const postTime = new Date(post.postedAt).getTime();
@@ -238,10 +238,10 @@ const schema = {
         return postTime > currentTime; // round up to the second
       }
     },
-    onEdit: (modifier, post) => {
+    onUpdate: ({data, post}) => {
       // Set the post's isFuture to true if necessary
-      if (modifier.$set.postedAt) {
-        const postTime = new Date(modifier.$set.postedAt).getTime();
+      if (data.postedAt) {
+        const postTime = new Date(data.postedAt).getTime();
         const currentTime = new Date().getTime() + 1000;
         if (postTime > currentTime) {
           // if a post's postedAt date is in the future, set isFuture to true
@@ -260,18 +260,18 @@ const schema = {
     type: Boolean,
     optional: true,
     defaultValue: false,
-    viewableBy: ['guests'],
-    insertableBy: ['admins'],
-    editableBy: ['admins'],
-    control: 'checkbox',
+    canRead: ['guests'],
+    canCreate: ['admins'],
+    canUpdate: ['admins'],
+    input: 'checkbox',
     group: formGroups.admin,
-    onInsert: (post) => {
+    onCreate: ({post}) => {
       if(!post.sticky) {
         return false;
       }
     },
-    onEdit: (modifier, post) => {
-      if (!modifier.$set.sticky) {
+    onUpdate: ({data}) => {
+      if (!data.sticky) {
         return false;
       }
     }
@@ -282,17 +282,17 @@ const schema = {
   userIP: {
     type: String,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
   },
   userAgent: {
     type: String,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
   },
   referrer: {
     type: String,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
   },
   /**
     The post author's name
@@ -300,11 +300,11 @@ const schema = {
   author: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
-    onEdit: (modifier, document, currentUser) => {
+    canRead: ['guests'],
+    onUpdate: ({data}) => {
       // if userId is changing, change the author name too
-      if (modifier.$set && modifier.$set.userId) {
-        return Users.getDisplayNameById(modifier.$set.userId)
+      if (data.userId) {
+        return Users.getDisplayNameById(data.userId)
       }
     }
   },
@@ -314,9 +314,9 @@ const schema = {
   userId: {
     type: String,
     optional: true,
-    control: 'select',
-    viewableBy: ['guests'],
-    insertableBy: ['members'],
+    input: 'select',
+    canRead: ['guests'],
+    canCreate: ['members'],
     hidden: true,
     resolveAs: {
       fieldName: 'user',
@@ -336,7 +336,7 @@ const schema = {
   scheduledAt: {
     type: Date,
     optional: true,
-    viewableBy: ['admins'],
+    canRead: ['admins'],
   },
 
   // GraphQL-only fields
@@ -344,7 +344,7 @@ const schema = {
   domain: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'String',
       resolver: (post, args, context) => {
@@ -356,7 +356,7 @@ const schema = {
   pageUrl: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'String',
       resolver: (post, args, { Posts }) => {
@@ -368,7 +368,7 @@ const schema = {
   linkUrl: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'String',
       resolver: (post, args, { Posts }) => {
@@ -380,7 +380,7 @@ const schema = {
   postedAtFormatted: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'String',
       resolver: (post, args, context) => {
@@ -392,7 +392,7 @@ const schema = {
   commentsCount: {
     type: Number,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'Int',
       resolver: (post, args, { Comments }) => {
@@ -405,7 +405,7 @@ const schema = {
   comments: {
     type: Object,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       arguments: 'limit: Int = 5',
       type: '[Comment]',
@@ -424,7 +424,7 @@ const schema = {
   emailShareUrl: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'String',
       resolver: (post, args, { Posts }) => {
@@ -436,7 +436,7 @@ const schema = {
   twitterShareUrl: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'String',
       resolver: (post, args, { Posts }) => {
@@ -448,7 +448,7 @@ const schema = {
   facebookShareUrl: {
     type: String,
     optional: true,
-    viewableBy: ['guests'],
+    canRead: ['guests'],
     resolveAs: {
       type: 'String',
       resolver: (post, args, { Posts }) => {

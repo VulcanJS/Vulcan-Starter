@@ -11,7 +11,7 @@ Users.addField([
       type: Number,
       optional: true,
       defaultValue: 0,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   }
 ]);
@@ -26,7 +26,7 @@ Posts.addField([
       type: Number,
       optional: true,
       defaultValue: 0,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   },
   /**
@@ -46,7 +46,7 @@ Posts.addField([
           return Users.restrictViewableFields(currentUser, Users, commenters);
         },
       },
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   },
   {

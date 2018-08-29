@@ -17,7 +17,7 @@ Users.addField([
     fieldSchema: {
       type: Array,
       optional: true,
-      viewableBy: Users.owns,
+      canRead: Users.owns,
       resolveAs: {
         type: '[Movie]',
         resolver: async (user, args, { currentUser }) => {

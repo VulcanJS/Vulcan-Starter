@@ -17,7 +17,7 @@ Users.addField([
       type: Number,
       optional: true,
       defaultValue: 0,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   },
   /**
@@ -28,7 +28,7 @@ Users.addField([
     fieldSchema: {
       type: Object,
       optional: true,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
       resolveAs: {
         arguments: 'limit: Int = 5',
         type: '[Post]',
@@ -51,10 +51,10 @@ Users.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      control: "textarea",
-      insertableBy: ['members'],
-      editableBy: ['members'],
-      viewableBy: ['guests'],
+      input: "textarea",
+      canCreate: ['members'],
+      canUpdate: ['members'],
+      canRead: ['guests'],
       order: 30,
       searchable: true,
     }
@@ -67,7 +67,7 @@ Users.addField([
     fieldSchema: {
       type: String,
       optional: true,
-      viewableBy: ['guests'],
+      canRead: ['guests'],
     }
   },
   /**
@@ -79,10 +79,10 @@ Users.addField([
       type: String,
       regEx: SimpleSchema.RegEx.Url,
       optional: true,
-      control: "text",
-      insertableBy: ['members'],
-      editableBy: ['members'],
-      viewableBy: ['guests'],
+      input: "text",
+      canCreate: ['members'],
+      canUpdate: ['members'],
+      canRead: ['guests'],
       order: 50,
     }
   }

@@ -32,7 +32,7 @@ const Home = ({ flash }) => (
 
     <Components.Datatable
       collection={Customers}
-      columns={['name', 'meetingDate', 'stage', 'addresses', 'product']}
+      columns={['name', 'meetingDate', 'stage', 'addresses', 'product', 'categories', 'isVIP', 'notes']}
       emptyState={<p className="datatable-empty">No customers to display</p>}
       options={{ fragmentName: 'customerFragment' }}
       /*
