@@ -47,7 +47,7 @@ const checks = {
   },
 
   step9: (props) => {
-    return props.resolvers && props.resolvers.fields.find(r => r.name === 'MoviesList');
+    return props.resolvers && props.resolvers.fields.find(r => r.name === 'movies');
   },
 
   step10: () => {
@@ -68,7 +68,7 @@ const checks = {
   },
 
   step14: (props) => {
-    return props.mutations && !!props.mutations.fields.find(r => r.name === 'MoviesNew');
+    return props.mutations && !!props.mutations.fields.find(r => r.name === 'createMovie');
   },
 
   step15: (props) => {
@@ -80,7 +80,7 @@ const checks = {
   },
 
   step17: () => {
-    return Users.groups.members.actions.includes('movies.new');
+    return Users.groups.members.actions.includes('movie.create');
   },
 
   step18: () => {

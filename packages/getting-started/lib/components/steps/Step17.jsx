@@ -21,9 +21,9 @@ Now let's review the code we added:
 `,`
 ~~~js
 const membersActions = [
-  'movies.new',
-  'movies.edit.own',
-  'movies.remove.own',
+  'movie.create',
+  'movie.update.own',
+  'movie.delete.own',
 ];
 Users.groups.members.can(membersActions);
 ~~~

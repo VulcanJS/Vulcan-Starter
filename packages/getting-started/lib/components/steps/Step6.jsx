@@ -6,9 +6,8 @@ import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 const text = [`
 By itself, a schema doesn't do much. We need to [create a **collection**](http://docs.vulcanjs.org/schemas.html#Creating-Collections) to actually make use of it. 
 
-At a minimum, a collection needs three things:
+At a minimum, a collection needs two things:
 
-- A \`name\`, in this case \`Movies\`.
 - A \`typeName\`, which will be the name of an individual document in the collection (in this case, a \`Movie\`).
 - A \`schema\`. 
 
@@ -16,7 +15,6 @@ Which put together gives us the following code:
 `,`
 ~~~js
 const Movies = createCollection({
-  collectionName: 'Movies',
   typeName: 'Movie',
   schema
 });

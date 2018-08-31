@@ -8,7 +8,7 @@ Our dummy reviews are fairly short, but what if they were each several thousand 
 
 Thankfully, one of GraphQL's perks is the ability to specify exactly what data you need, down to the individual field. And Vulcan makes it super-easy through [fragments](http://docs.vulcanjs.org/fragments.html).
 
-We didn't pass any fragment to our \`withList\` HoC so it's just doing its best to guess what we want and ask for any field it can find. But let's specify a fragment to fix this. 
+We didn't pass any fragment to our \`withMulti\` HoC so it's just doing its best to guess what we want and ask for any field it can find. But let's specify a fragment to fix this. 
 
 Find the \`options\` object in the \`MoviesList\` component's file and add a \`fragmentName: 'MovieFragment'\` property to it. 
 
