@@ -7,4 +7,4 @@ function sortByYear (parameters, terms) {
   };
 }
 
-addCallback('movies.parameters', sortByYear);
+addCallback('movie.parameters', sortByYear);

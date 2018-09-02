@@ -1,7 +1,7 @@
 import Users from 'meteor/vulcan:users';
 
 const membersActions = [
-  'movies.new',
+  'movies.create',
   'movies.update.own',
   'movies.delete.own',
 ];

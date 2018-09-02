@@ -34,10 +34,10 @@ const MoviesList = ({ results = [], currentUser, loading, loadMore, count, total
 
         {/* load more */}
 
-        {/*totalCount > results.length ?
+        { totalCount > results.length ?
           <a href="#" onClick={e => {e.preventDefault(); loadMore();}}>Load More ({count}/{totalCount})</a> : 
           <p>No more items.</p>
-        */}
+       }
       </div>
     )}
   </div>

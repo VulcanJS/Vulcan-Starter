@@ -2,9 +2,9 @@
 
 Define the three default mutations:
 
-- new (e.g.: moviesNew(document: moviesInput) : Movie )
-- edit (e.g.: moviesEdit(documentId: String, set: moviesInput, unset: moviesUnset) : Movie )
-- remove (e.g.: moviesRemove(documentId: String) : Movie )
+- create (e.g.: createMovie(data: {document: CreateMovieDataInput!}) : MovieOutput )
+- update (e.g.: updateMovie(selector: MovieSelectorUniqueInput!, data: UpdateMovieDataInput!) : MovieOutput )
+- delete (e.g.: deleteMovie(selector: MovieSelectorUniqueInput!) : MovieOutput )
 
 Each mutation has:
 
@@ -28,7 +28,7 @@ const mutations = {
 
     check(user) {
       if (!user) return false; //the user must be logged in
-      return Users.canDo(user, 'movies.new'); // the user must have the permission to do the mutation. For this, see permissions.js
+      return Users.canDo(user, 'movies.create'); // the user must have the permission to do the mutation. For this, see permissions.js
     },
 
     mutation(root, args, context) {
