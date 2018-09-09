@@ -10,24 +10,25 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 
 import Movies from '../../modules/movies/collection.js';
 
-const MoviesItem = ({movie, currentUser}) =>
-
-  <div style={{paddingBottom: "15px",marginBottom: "15px", borderBottom: "1px solid #ccc"}}>
-
+const MoviesItem = ({ movie, currentUser, refetch }) => (
+  <div style={{ paddingBottom: '15px', marginBottom: '15px', borderBottom: '1px solid #ccc' }}>
     {/* document properties */}
-    
-    <h4>{movie.name} ({movie.year})</h4>
-    <p>{movie.review} – {movie.user && movie.user.displayName}</p>
-    
+
+    <h4>
+      {movie.name} ({movie.year})
+    </h4>
+    <p>
+      {movie.review} – {movie.user && movie.user.displayName}
+    </p>
+
     {/* edit document form */}
 
-    {Movies.options.mutations.edit.check(currentUser, movie) ? 
+    {Movies.options.mutations.update.check(currentUser, movie) ? (
       <Components.ModalTrigger label="Edit Movie" title="Edit Movie">
-        <Components.MoviesEditForm currentUser={currentUser} documentId={movie._id} />
+        <Components.MoviesEditForm currentUser={currentUser} documentId={movie._id} refetch={refetch} />
       </Components.ModalTrigger>
-      : null
-    }
-
+    ) : null}
   </div>
+);
 
-registerComponent('MoviesItem', MoviesItem);
+registerComponent({ name: 'MoviesItem', component: MoviesItem });

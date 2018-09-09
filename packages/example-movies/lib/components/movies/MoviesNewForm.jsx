@@ -9,21 +9,15 @@ import { Components, registerComponent, withCurrentUser, getFragment } from 'met
 
 import Movies from '../../modules/movies/collection.js';
 
-const MoviesNewForm = ({currentUser}) =>
-
+const MoviesNewForm = ({ currentUser, refetch }) => (
   <div>
-
-    {Movies.options.mutations.new.check(currentUser) ?
-      <div style={{marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #ccc'}}>
+    {Movies.options.mutations.create.check(currentUser) ? (
+      <div style={{ marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #ccc' }}>
         <h4>Insert New Document</h4>
-        <Components.SmartForm 
-          collection={Movies}
-          mutationFragment={getFragment('MoviesItemFragment')}
-        /> 
-      </div> :
-      null
-    }
-
+        <Components.SmartForm collection={Movies} mutationFragment={getFragment('MoviesItemFragment')} successCallback={refetch} />
+      </div>
+    ) : null}
   </div>
+);
 
-registerComponent('MoviesNewForm', MoviesNewForm, withCurrentUser);
+registerComponent({ name: 'MoviesNewForm', component: MoviesNewForm, hocs: [withCurrentUser] });
