@@ -31,4 +31,4 @@ const MoviesItem = ({ movie, currentUser, refetch }) => (
   </div>
 );
 
-registerComponent({ name: 'MoviesItem', component: MoviesItem });
+registerComponent('MoviesItem', MoviesItem);

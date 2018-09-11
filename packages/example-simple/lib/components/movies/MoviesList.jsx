@@ -117,7 +117,7 @@ const options = {
 };
 
 // These two functions (withList & withCurrentUser) are Higher Order Components (HOC) and by wrapping our component with this we can give it "props". (See the "props" section at the top.)
-registerComponent({ name: 'MoviesList', component: MoviesList, hocs: [withCurrentUser, [withMulti, options]] });
+registerComponent('MoviesList', MoviesList, withCurrentUser, [withMulti, options]);
 
 // #tutorial-step-12 - Well. that's it! If you like this, go on to the movies-example, where we get more granular when it comes to data loading.
 // Well thanks for tuning in! Come visit us at our chat room at slack.vulcanjs.org. See you soon!

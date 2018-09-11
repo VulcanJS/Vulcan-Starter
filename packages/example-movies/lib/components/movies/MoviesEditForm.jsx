@@ -26,4 +26,4 @@ const MoviesEditForm = ({ documentId, closeModal, refetch }) => (
   />
 );
 
-registerComponent({ name: 'MoviesEditForm', component: MoviesEditForm });
+registerComponent('MoviesEditForm', MoviesEditForm);

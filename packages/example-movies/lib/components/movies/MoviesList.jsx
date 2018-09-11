@@ -49,4 +49,4 @@ const options = {
   limit: 5,
 };
 
-registerComponent({ name: 'MoviesList', component: MoviesList, hocs: [withCurrentUser, [withMulti, options]] });
+registerComponent('MoviesList', MoviesList, withCurrentUser, [withMulti, options]);
