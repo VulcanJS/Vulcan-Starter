@@ -18,4 +18,4 @@ const PostsLoadMore = ({loading, loadMore, count, totalCount}) => {
 
 PostsLoadMore.displayName = "PostsLoadMore";
 
-registerComponent('PostsLoadMore', PostsLoadMore);
+registerComponent({ name: 'PostsLoadMore', component: PostsLoadMore });

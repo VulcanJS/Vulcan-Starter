@@ -32,4 +32,4 @@ const CategoriesNewForm = ({currentUser, closeModal, parentId}) =>
 
   </div>
 
-registerComponent('CategoriesNewForm', CategoriesNewForm, withCurrentUser);
+registerComponent({ name: 'CategoriesNewForm', component: CategoriesNewForm, hocs: [withCurrentUser] });

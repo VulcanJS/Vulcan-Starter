@@ -40,4 +40,4 @@ CategoriesEditForm.contextTypes = {
   intl: intlShape,
 };
 
-registerComponent('CategoriesEditForm', CategoriesEditForm, withMessages);
+registerComponent({ name: 'CategoriesEditForm', component: CategoriesEditForm, hocs: [withMessages] });

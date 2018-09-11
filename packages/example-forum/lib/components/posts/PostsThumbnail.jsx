@@ -9,4 +9,4 @@ const PostsThumbnail = ({post}) =>
 
 PostsThumbnail.displayName = "PostsThumbnail";
 
-registerComponent('PostsThumbnail', PostsThumbnail);
+registerComponent({ name: 'PostsThumbnail', component: PostsThumbnail });

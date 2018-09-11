@@ -26,4 +26,4 @@ const CommentsNewForm = ({picId}) =>
 
   </div>
 
-registerComponent('CommentsNewForm', CommentsNewForm);
+registerComponent({ name: 'CommentsNewForm', component: CommentsNewForm });

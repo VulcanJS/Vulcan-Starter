@@ -18,4 +18,4 @@ const PostsListHeader = () => {
 
 PostsListHeader.displayName = "PostsListHeader";
 
-registerComponent('PostsListHeader', PostsListHeader);
+registerComponent({ name: 'PostsListHeader', component: PostsListHeader });

@@ -71,4 +71,4 @@ const Header = ({currentUser}) =>
 
   </div>
 
-registerComponent('Header', Header, withCurrentUser);
+registerComponent({ name: 'Header', component: Header, hocs: [withCurrentUser] });

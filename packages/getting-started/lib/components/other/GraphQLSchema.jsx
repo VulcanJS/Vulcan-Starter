@@ -12,4 +12,4 @@ const GraphQLSchema = ({ data }) => (
   </div>
 );
 
-registerComponent('GraphQLSchema', GraphQLSchema);
+registerComponent({ name: 'GraphQLSchema', component: GraphQLSchema });

@@ -31,4 +31,4 @@ CategoriesNewForm.contextTypes = {
   intl: intlShape,
 };
 
-registerComponent('CategoriesNewForm', CategoriesNewForm, withMessages);
+registerComponent({ name: 'CategoriesNewForm', component: CategoriesNewForm, hocs: [withMessages] });

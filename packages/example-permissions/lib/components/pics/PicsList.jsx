@@ -34,4 +34,4 @@ const options = {
   limit: 6
 };
 
-registerComponent('PicsList', PicsList, withCurrentUser, [withList, options]);
+registerComponent({ name: 'PicsList', component: PicsList, hocs: [withCurrentUser, [withList, options]] });

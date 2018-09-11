@@ -65,4 +65,4 @@ const MoviesList = ({results = [], currentUser, loading, loadMore, count, totalC
 
   </div>
 
-registerComponent('MoviesList', MoviesList, withCurrentUser);
+registerComponent({ name: 'MoviesList', component: MoviesList, hocs: [withCurrentUser] });

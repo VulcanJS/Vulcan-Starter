@@ -102,4 +102,4 @@ const Step = props => {
   );
 };
 
-registerComponent('Step', Step, withCurrentUser);
+registerComponent({ name: 'Step', component: Step, hocs: [withCurrentUser] });

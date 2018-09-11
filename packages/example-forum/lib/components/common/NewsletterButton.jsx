@@ -60,4 +60,4 @@ NewsletterButton.contextTypes = {
 const addOptions = {name: 'addUserNewsletter', args: {userId: 'String'}};
 const removeOptions = {name: 'removeUserNewsletter', args: {userId: 'String'}};
 
-registerComponent('NewsletterButton', NewsletterButton, withCurrentUser, withMutation(addOptions), withMutation(removeOptions), withMessages);
+registerComponent({ name: 'NewsletterButton', component: NewsletterButton, hocs: [withCurrentUser, withMutation(addOptions), withMutation(removeOptions), withMessages] });

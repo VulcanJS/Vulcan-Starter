@@ -53,4 +53,4 @@ const Home = ({ flash }) => (
   </div>
 );
 
-registerComponent('Home', Home, withMessages);
+registerComponent({ name: 'Home', component: Home, hocs: [withMessages] });

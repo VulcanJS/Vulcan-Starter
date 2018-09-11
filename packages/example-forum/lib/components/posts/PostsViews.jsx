@@ -51,4 +51,4 @@ PostsViews.contextTypes = {
 
 PostsViews.displayName = 'PostsViews';
 
-registerComponent('PostsViews', PostsViews, withCurrentUser, withRouter);
+registerComponent({ name: 'PostsViews', component: PostsViews, hocs: [withCurrentUser, withRouter] });

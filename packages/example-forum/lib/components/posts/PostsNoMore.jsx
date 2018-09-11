@@ -6,4 +6,4 @@ const PostsNoMore = props => <p className="posts-no-more"><FormattedMessage id="
 
 PostsNoMore.displayName = "PostsNoMore";
 
-registerComponent('PostsNoMore', PostsNoMore);
+registerComponent({ name: 'PostsNoMore', component: PostsNoMore });

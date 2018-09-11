@@ -15,4 +15,4 @@ const MyCustomPage = () => {
   )
 }
 
-registerComponent('MyCustomPage', MyCustomPage);
+registerComponent({ name: 'MyCustomPage', component: MyCustomPage });

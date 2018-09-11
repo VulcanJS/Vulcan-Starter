@@ -21,4 +21,4 @@ const CategoriesEditForm = ({documentId, closeModal}) =>
     }}
   />
 
-registerComponent('CategoriesEditForm', CategoriesEditForm);
+registerComponent({ name: 'CategoriesEditForm', component: CategoriesEditForm });

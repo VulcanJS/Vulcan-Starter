@@ -9,4 +9,4 @@ const PostsHome = (props, context) => {
 
 PostsHome.displayName = "PostsHome";
 
-registerComponent('PostsHome', PostsHome);
+registerComponent({ name: 'PostsHome', component: PostsHome });

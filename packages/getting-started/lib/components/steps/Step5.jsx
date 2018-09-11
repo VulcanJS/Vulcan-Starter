@@ -39,4 +39,4 @@ const Step5 = () => (
   </Components.Step>
 );
 
-registerComponent('Step5', Step5);
+registerComponent({ name: 'Step5', component: Step5 });

@@ -82,4 +82,4 @@ const options = {
 
 const mapPropsFunction = props => ({...props, documentId: props.currentUser && props.currentUser._id});
 
-registerComponent('MyReactions', MyReactions, withCurrentUser, mapProps(mapPropsFunction), [withDocument, options]);
+registerComponent({ name: 'MyReactions', component: MyReactions, hocs: [withCurrentUser, mapProps(mapPropsFunction), [withDocument, options]] });

@@ -58,4 +58,4 @@ const Step12 = () => (
   <Components.Step step={12} text={text} after={after} />
 );
 
-registerComponent('Step12', Step12);
+registerComponent({ name: 'Step12', component: Step12 });

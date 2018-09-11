@@ -43,4 +43,4 @@ const PicsHome = ({results = [], currentUser, loading, loadMore, count, totalCou
   
 };
 
-registerComponent('PicsHome', PicsHome, withCurrentUser);
+registerComponent({ name: 'PicsHome', component: PicsHome, hocs: [withCurrentUser] });

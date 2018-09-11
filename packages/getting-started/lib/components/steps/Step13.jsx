@@ -27,4 +27,4 @@ const Step13 = ({ currentUser }) => (
   <Components.Step step={13} text={text} after={after} currentUser={currentUser}/>
 );
 
-registerComponent('Step13', Step13, withCurrentUser);
+registerComponent({ name: 'Step13', component: Step13, hocs: [withCurrentUser] });

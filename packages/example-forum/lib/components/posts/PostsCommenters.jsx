@@ -22,4 +22,4 @@ const PostsCommenters = ({post}) => {
 
 PostsCommenters.displayName = "PostsCommenters";
 
-registerComponent('PostsCommenters', PostsCommenters);
+registerComponent({ name: 'PostsCommenters', component: PostsCommenters });

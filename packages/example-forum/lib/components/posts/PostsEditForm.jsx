@@ -61,4 +61,4 @@ PostsEditForm.contextTypes = {
   intl: intlShape
 }
 
-registerComponent('PostsEditForm', PostsEditForm, withMessages, withRouter, withCurrentUser);
+registerComponent({ name: 'PostsEditForm', component: PostsEditForm, hocs: [withMessages, withRouter, withCurrentUser] });

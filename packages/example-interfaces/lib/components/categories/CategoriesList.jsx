@@ -42,4 +42,4 @@ const options = {
   limit: 0,
 };
 
-registerComponent('CategoriesList', CategoriesList, withCurrentUser, [withList, options]);
+registerComponent({ name: 'CategoriesList', component: CategoriesList, hocs: [withCurrentUser, [withList, options]] });

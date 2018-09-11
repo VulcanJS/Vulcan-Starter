@@ -126,4 +126,4 @@ const options = {
   pollInterval: 0,
 };
 
-registerComponent('CategoriesMenu', CategoriesMenu, withRouter, withApollo, [withList, options], withCurrentUser);
+registerComponent({ name: 'CategoriesMenu', component: CategoriesMenu, hocs: [withRouter, withApollo, [withList, options], withCurrentUser] });

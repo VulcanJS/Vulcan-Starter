@@ -123,4 +123,4 @@ CommentsItem.propTypes = {
   flash: PropTypes.func,
 };
 
-registerComponent('CommentsItem', CommentsItem, withMessages);
+registerComponent({ name: 'CommentsItem', component: CommentsItem, hocs: [withMessages] });

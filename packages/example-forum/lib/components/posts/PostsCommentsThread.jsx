@@ -52,4 +52,4 @@ const options = {
   limit: 0,
 };
 
-registerComponent('PostsCommentsThread', PostsCommentsThread, [withList, options], withCurrentUser);
+registerComponent({ name: 'PostsCommentsThread', component: PostsCommentsThread, hocs: [[withList, options], withCurrentUser] });

@@ -116,4 +116,4 @@ function showBanner (user) {
   );
 }
 
-registerComponent('Newsletter', Newsletter, withMutation(mutationOptions), withCurrentUser, withMessages);
+registerComponent({ name: 'Newsletter', component: Newsletter, hocs: [withMutation(mutationOptions), withCurrentUser, withMessages] });

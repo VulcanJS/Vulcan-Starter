@@ -68,4 +68,4 @@ Vote.contextTypes = {
   intl: intlShape
 };
 
-registerComponent('Vote', Vote, withMessages, withVote);
+registerComponent({ name: 'Vote', component: Vote, hocs: [withMessages, withVote] });

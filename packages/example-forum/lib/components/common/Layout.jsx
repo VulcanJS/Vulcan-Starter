@@ -33,4 +33,4 @@ const Layout = ({currentUser, children, currentRoute}) =>
   
   </div>
 
-registerComponent('Layout', Layout, withCurrentUser);
+registerComponent({ name: 'Layout', component: Layout, hocs: [withCurrentUser] });

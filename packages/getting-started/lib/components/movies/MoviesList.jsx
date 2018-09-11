@@ -27,4 +27,4 @@ const options = {
   // fragmentName: 'MoviesFragment', // uncomment on #Step11
 }
 
-registerComponent('MoviesList', MoviesList, /* [withMulti, options] */); // uncomment on #Step10
+registerComponent({ name: 'MoviesList', component: MoviesList, hocs: [/* [withMulti, options] */] }); // uncomment on #Step10

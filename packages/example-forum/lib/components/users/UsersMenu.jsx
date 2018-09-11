@@ -58,4 +58,4 @@ UsersMenu.propsTypes = {
   client: PropTypes.object,
 };
 
-registerComponent('UsersMenu', UsersMenu, withCurrentUser, withApollo);
+registerComponent({ name: 'UsersMenu', component: UsersMenu, hocs: [withCurrentUser, withApollo] });

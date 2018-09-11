@@ -21,4 +21,4 @@ const PicsEditForm = ({documentId, closeModal}) =>
     }}
   />
 
-registerComponent('PicsEditForm', PicsEditForm);
+registerComponent({ name: 'PicsEditForm', component: PicsEditForm });

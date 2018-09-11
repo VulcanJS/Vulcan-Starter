@@ -79,4 +79,4 @@ const options = {
   fragment: mustCompleteFragment,
 };
 
-registerComponent('UsersProfileCheck', UsersProfileCheck, withMessages, [withDocument, options]);
+registerComponent({ name: 'UsersProfileCheck', component: UsersProfileCheck, hocs: [withMessages, [withDocument, options]] });
