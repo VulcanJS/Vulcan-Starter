@@ -20,4 +20,4 @@ const MoviesNewForm = ({ currentUser, refetch }) => (
   </div>
 );
 
-registerComponent({ name: 'MoviesNewForm', component: MoviesNewForm, hocs: [withCurrentUser] });
+registerComponent('MoviesNewForm', MoviesNewForm, withCurrentUser);
