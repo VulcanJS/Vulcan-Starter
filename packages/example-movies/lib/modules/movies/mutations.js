@@ -28,7 +28,7 @@ const mutations = {
 
     check(user) {
       if (!user) return false; //the user must be logged in
-      return Users.canDo(user, 'movies.create'); // the user must have the permission to do the mutation. For this, see permissions.js
+      return Users.canDo(user, 'movie.create'); // the user must have the permission to do the mutation. For this, see permissions.js
     },
 
     mutation(root, args, context) {
@@ -53,8 +53,8 @@ const mutations = {
     check(user, document) {
       if (!user || !document) return false;
       return Users.owns(user, document)
-        ? Users.canDo(user, 'movies.update.own')
-        : Users.canDo(user, `movies.update.all`);
+        ? Users.canDo(user, 'movie.update.own')
+        : Users.canDo(user, `movie.update.all`);
     },
 
     mutation(root, {selector, data}, context) {
@@ -79,8 +79,8 @@ const mutations = {
     check(user, document) {
       if (!user || !document) return false;
       return Users.owns(user, document)
-        ? Users.canDo(user, 'movies.delete.own')
-        : Users.canDo(user, `movies.delete.all`);
+        ? Users.canDo(user, 'movie.delete.own')
+        : Users.canDo(user, `movie.delete.all`);
     },
 
     mutation(root, { selector }, context) {
