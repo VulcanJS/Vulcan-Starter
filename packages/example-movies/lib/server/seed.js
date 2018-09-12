@@ -6,7 +6,7 @@ Seed the database with some dummy content.
 
 import { Promise } from 'meteor/promise';
 import Users from 'meteor/vulcan:users';
-import { newMutation } from 'meteor/vulcan:core';
+import { createMutator } from 'meteor/vulcan:core';
 import Movies from '../modules/movies/collection.js';
 
 const seedData = [
@@ -62,7 +62,7 @@ const createUser = async (username, email) => {
     email,
     isDummy: true,
   };
-  return newMutation({
+  return createMutator({
     collection: Users,
     document: user,
     validate: false,
@@ -94,8 +94,8 @@ Meteor.startup(() => {
   if (Movies.find().fetch().length === 0) {
     // eslint-disable-next-line no-console
     console.log('// creating dummy movies');
-    Promise.awaitAll(seedData.map(document => newMutation({
-      action: 'movies.new',
+    Promise.awaitAll(seedData.map(document => createMutator({
+      action: 'movie.create',
       collection: Movies,
       document,
       currentUser,

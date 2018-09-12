@@ -1,14 +1,14 @@
 import Users from 'meteor/vulcan:users';
 
 const membersActions = [
-  'movies.create',
-  'movies.update.own',
-  'movies.delete.own',
+  'movie.create',
+  'movie.update.own',
+  'movie.delete.own',
 ];
 Users.groups.members.can(membersActions);
 
 const adminActions = [
-  'movies.update.all',
-  'movies.delete.all'
+  'movie.update.all',
+  'movie.delete.all'
 ];
 Users.groups.admins.can(adminActions);
