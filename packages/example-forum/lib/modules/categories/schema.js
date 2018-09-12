@@ -66,7 +66,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    onCreate: ({category}) => {
+    onCreate: ({newDocument: category}) => {
       // if no slug has been provided, generate one
       const slug = category.slug || Utils.slugify(category.name);
       return Utils.getUnusedSlugByCollectionName('Categories', slug);
@@ -107,7 +107,7 @@ const schema = {
       return getCategoriesAsOptions(props.data.categories.results);
     },
     query: `
-      CategoriesList{
+      categories{
         results{
           _id
           name
