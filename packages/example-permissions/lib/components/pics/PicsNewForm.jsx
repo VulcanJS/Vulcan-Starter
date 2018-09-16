@@ -27,4 +27,4 @@ const PicsNewForm = ({currentUser, closeModal}) =>
 
   </div>
 
-registerComponent('PicsNewForm', PicsNewForm, withCurrentUser);
+registerComponent({ name: 'PicsNewForm', component: PicsNewForm, hocs: [withCurrentUser] });

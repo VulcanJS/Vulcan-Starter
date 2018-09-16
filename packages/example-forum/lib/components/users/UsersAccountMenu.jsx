@@ -22,4 +22,4 @@ const UsersAccountMenu = ({ state }) => (
 
 UsersAccountMenu.displayName = 'UsersAccountMenu';
 
-registerComponent('UsersAccountMenu', UsersAccountMenu);
+registerComponent({ name: 'UsersAccountMenu', component: UsersAccountMenu });

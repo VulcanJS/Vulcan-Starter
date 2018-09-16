@@ -65,4 +65,4 @@ const options = {
   fragmentName: 'PicsDetailsFragment',
 };
 
-registerComponent('PicsDetails', PicsDetails, [withDocument, options]);
+registerComponent({ name: 'PicsDetails', component: PicsDetails, hocs: [[withDocument, options]] });

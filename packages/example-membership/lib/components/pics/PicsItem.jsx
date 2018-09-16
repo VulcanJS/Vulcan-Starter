@@ -17,4 +17,4 @@ const PicsItem = ({pic, currentUser}) =>
 
   </div>
 
-registerComponent('PicsItem', PicsItem);
+registerComponent({ name: 'PicsItem', component: PicsItem });

@@ -60,4 +60,4 @@ Reaction.propTypes = {
   currentUser: PropTypes.object, // user might not be logged in, so don't make it required
 };
 
-registerComponent('Reaction', Reaction, withMessages, withVote);
+registerComponent({ name: 'Reaction', component: Reaction, hocs: [withMessages, withVote] });

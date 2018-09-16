@@ -14,4 +14,4 @@ const PostsCategories = ({post}) => {
 
 PostsCategories.displayName = "PostsCategories";
 
-registerComponent('PostsCategories', PostsCategories);
+registerComponent({ name: 'PostsCategories', component: PostsCategories });

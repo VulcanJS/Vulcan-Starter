@@ -31,4 +31,4 @@ const CommentsItem = ({comment, currentUser, pic}) =>
 
   </div>
 
-registerComponent('CommentsItem', CommentsItem);
+registerComponent({ name: 'CommentsItem', component: CommentsItem });

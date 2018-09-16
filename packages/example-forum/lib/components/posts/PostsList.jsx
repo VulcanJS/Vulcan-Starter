@@ -77,4 +77,4 @@ const options = {
   fragmentName: 'PostsList',
 };
 
-registerComponent('PostsList', PostsList, withCurrentUser, [withList, options]);
+registerComponent({ name: 'PostsList', component: PostsList, hocs: [withCurrentUser, [withList, options]] });

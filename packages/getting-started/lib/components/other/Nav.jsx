@@ -32,4 +32,4 @@ const Nav = (props) => {
   )
 };
 
-registerComponent('Nav', Nav, withMoviesCount, withQueryResolvers, withCurrentUser, withMutationResolvers);
+registerComponent({ name: 'Nav', component: Nav, hocs: [withMoviesCount, withQueryResolvers, withCurrentUser, withMutationResolvers] });

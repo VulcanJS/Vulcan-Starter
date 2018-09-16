@@ -6,4 +6,4 @@ const PostsNoResults = props => <p className="posts-no-results"><FormattedMessag
 
 PostsNoResults.displayName = "PostsNoResults";
 
-registerComponent('PostsNoResults', PostsNoResults);
+registerComponent({ name: 'PostsNoResults', component: PostsNoResults });

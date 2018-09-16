@@ -59,4 +59,4 @@ const Schema = () => (
   </div>
 );
 
-registerComponent('Schema', Schema);
+registerComponent({ name: 'Schema', component: Schema });

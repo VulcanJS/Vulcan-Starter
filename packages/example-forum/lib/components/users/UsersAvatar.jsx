@@ -40,4 +40,4 @@ UsersAvatar.defaultProps = {
 
 UsersAvatar.displayName = 'UsersAvatar';
 
-registerComponent('UsersAvatar', UsersAvatar);
+registerComponent({ name: 'UsersAvatar', component: UsersAvatar });

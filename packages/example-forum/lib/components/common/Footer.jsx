@@ -10,4 +10,4 @@ const Footer = props => {
 
 Footer.displayName = "Footer";
 
-registerComponent('Footer', Footer);
+registerComponent({ name: 'Footer', component: Footer });

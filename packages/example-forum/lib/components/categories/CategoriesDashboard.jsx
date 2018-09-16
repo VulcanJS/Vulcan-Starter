@@ -27,4 +27,4 @@ const CategoriesDashboard = () =>
   
   </div>
 
-registerComponent('CategoriesDashboard', CategoriesDashboard);
+registerComponent({ name: 'CategoriesDashboard', component: CategoriesDashboard });

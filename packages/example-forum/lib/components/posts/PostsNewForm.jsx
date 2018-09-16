@@ -64,4 +64,4 @@ const options = {
   pollInterval: 0,
 };
 
-registerComponent('PostsNewForm', PostsNewForm, withRouter, withMessages, [withList, options]);
+registerComponent({ name: 'PostsNewForm', component: PostsNewForm, hocs: [withRouter, withMessages, [withList, options]] });

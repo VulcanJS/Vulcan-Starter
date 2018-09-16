@@ -22,4 +22,4 @@ const Logo = ({logoUrl, siteTitle}) => {
 
 Logo.displayName = "Logo";
 
-registerComponent('Logo', Logo);
+registerComponent({ name: 'Logo', component: Logo });

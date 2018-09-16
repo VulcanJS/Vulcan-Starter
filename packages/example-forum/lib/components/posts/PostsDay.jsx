@@ -29,4 +29,4 @@ PostsDay.propTypes = {
   number: PropTypes.number
 };
 
-registerComponent('PostsDay', PostsDay);
+registerComponent({ name: 'PostsDay', component: PostsDay });

@@ -81,4 +81,4 @@ PostsItem.propTypes = {
   terms: PropTypes.object,
 };
 
-registerComponent('PostsItem', PostsItem);
+registerComponent({ name: 'PostsItem', component: PostsItem });

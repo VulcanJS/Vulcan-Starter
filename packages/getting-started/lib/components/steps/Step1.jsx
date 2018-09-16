@@ -21,4 +21,4 @@ By the way, when developing locally you can review all your routes using the [Ro
 
 const Step1 = () => <Components.Step step={1} text={text} after={after}/>;
 
-registerComponent('Step1', Step1);
+registerComponent({ name: 'Step1', component: Step1 });

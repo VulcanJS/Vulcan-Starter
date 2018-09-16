@@ -116,4 +116,4 @@ const options = {
   limit: 0,
 };
 
-registerComponent('PostsDailyList', PostsDailyList, withCurrentUser, [withList, options]);
+registerComponent({ name: 'PostsDailyList', component: PostsDailyList, hocs: [withCurrentUser, [withList, options]] });

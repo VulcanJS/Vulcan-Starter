@@ -39,4 +39,4 @@ FormFunnel.contextTypes = {
   updateCurrentValues: PropTypes.func,
 };
 
-registerComponent('FormFunnel', FormFunnel);
+registerComponent({ name: 'FormFunnel', component: FormFunnel });

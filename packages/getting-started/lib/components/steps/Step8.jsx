@@ -66,4 +66,4 @@ const Step8 = ({ loading, moviesCount }) => (
   </Components.Step>
 );
 
-registerComponent('Step8', Step8, withMoviesCount);
+registerComponent({ name: 'Step8', component: Step8, hocs: [withMoviesCount] });

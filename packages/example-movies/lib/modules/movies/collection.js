@@ -4,7 +4,7 @@ The main Movies collection definition file.
 
 */
 
-import { createCollection } from 'meteor/vulcan:core';
+import { createCollection, getDefaultResolvers, getDefaultMutations, } from 'meteor/vulcan:core';
 import schema from './schema.js';
 import resolvers from './resolvers.js';
 import './fragments.js';
@@ -13,17 +13,17 @@ import './permissions.js';
 import './parameters.js';
 
 const Movies = createCollection({
-
   collectionName: 'Movies',
 
   typeName: 'Movie',
 
-  schema,
-  
-  resolvers,
+  schema: schema,
 
-  mutations,
+  resolvers: resolvers,
+  // resolvers: getDefaultResolvers({typeName:'Movie'}),
 
+  mutations: mutations,
+  // mutations: getDefaultMutations({typeName: 'Movie'}),
 });
 
 export default Movies;

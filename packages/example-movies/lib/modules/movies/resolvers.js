@@ -1,48 +1,36 @@
 /*
 
-Three resolvers are defined:
+Two resolvers are defined:
 
-- list (e.g.: moviesList(terms: JSON, offset: Int, limit: Int) )
-- single (e.g.: moviesSingle(_id: String) )
-- listTotal (e.g.: moviesTotal )
+- multi (e.g.: movies (terms: JSON, offset: Int, limit: Int) )
+- single (e.g.: movie (_id: String) )
 
 */
 
-// basic list, single, and total query resolvers
+// basic multi and single resolvers
 const resolvers = {
+  multi: {
+    name: 'movies',
 
-  list: {
-
-    name: 'moviesList',
-
-    async resolver(root, {terms = {}}, context, info) {
-      let {selector, options} = await context.Movies.getParameters(terms, {}, context.currentUser);
-      return context.Movies.find(selector, options).fetch();
+    async resolver(root, args, context) {
+      const { input: {terms = {}} } = args;
+      let { selector, options } = await context.Movies.getParameters(terms, {}, context.currentUser);
+      movies = await context.Movies.find(selector, options);
+      moviesContent = movies.fetch();
+      moviesCount = movies.count();
+      return { results: moviesContent, totalCount: moviesCount };
     },
-
   },
 
   single: {
-    
-    name: 'moviesSingle',
+    name: 'movie',
 
-    resolver(root, {documentId}, context) {
-      const document = context.Movies.findOne({_id: documentId});
-      return context.Users.restrictViewableFields(context.currentUser, context.Movies, document);
+    resolver(root, args, context) {
+      const _id = args.input.selector.documentId || args.input.selector._id; // we keep this for backwards comp until SmartForm passes _id as a prop
+      const document = context.Movies.findOne({ _id: _id });
+      return { result: context.Users.restrictViewableFields(context.currentUser, context.Movies, document) };
     },
-  
   },
-
-  total: {
-    
-    name: 'moviesTotal',
-    
-    async resolver(root, {terms = {}}, context) {
-      const {selector, options} = await context.Movies.getParameters(terms, {}, context.currentUser);
-      return context.Movies.find(selector, options).count();
-    },
-  
-  }
 };
 
 export default resolvers;

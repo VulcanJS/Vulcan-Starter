@@ -25,4 +25,4 @@ PostsNewButton.contextTypes = {
   intl: intlShape
 };
 
-registerComponent('PostsNewButton', PostsNewButton, withCurrentUser);
+registerComponent({ name: 'PostsNewButton', component: PostsNewButton, hocs: [withCurrentUser] });

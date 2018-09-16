@@ -23,4 +23,4 @@ You can review them all by accessing the [Components dashboard](/components) (no
 
 const Step2 = () => <Components.Step step={2} text={text} after={after} />;
 
-registerComponent('Step2', Step2);
+registerComponent({ name: 'Step2', component: Step2 });

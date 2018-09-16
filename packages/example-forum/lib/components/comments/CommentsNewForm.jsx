@@ -48,4 +48,4 @@ CommentsNewForm.propTypes = {
   flash: PropTypes.func,
 };
 
-registerComponent('CommentsNewForm', CommentsNewForm, withMessages);
+registerComponent({ name: 'CommentsNewForm', component: CommentsNewForm, hocs: [withMessages] });

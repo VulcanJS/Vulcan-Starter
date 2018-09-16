@@ -12,4 +12,4 @@ const MoviesUsers = ({ currentUser }) => (
   </div>
 );
 
-registerComponent('MoviesUsers', MoviesUsers, withCurrentUser);
+registerComponent({ name: 'MoviesUsers', component: MoviesUsers, hocs: [withCurrentUser] });

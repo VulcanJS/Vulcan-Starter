@@ -17,4 +17,4 @@ CommentsNode.propTypes = {
   comment: PropTypes.object.isRequired, // the current comment
 };
 
-registerComponent('CommentsNode', CommentsNode);
+registerComponent({ name: 'CommentsNode', component: CommentsNode });

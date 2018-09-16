@@ -7,4 +7,4 @@ const UsersSingle = (props, context) => {
 
 UsersSingle.displayName = "UsersSingle";
 
-registerComponent('UsersSingle', UsersSingle);
+registerComponent({ name: 'UsersSingle', component: UsersSingle });

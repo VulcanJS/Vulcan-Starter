@@ -45,4 +45,4 @@ UsersEditForm.contextTypes = {
 
 UsersEditForm.displayName = 'UsersEditForm';
 
-registerComponent('UsersEditForm', UsersEditForm, withMessages, withCurrentUser);
+registerComponent({ name: 'UsersEditForm', component: UsersEditForm, hocs: [withMessages, withCurrentUser] });

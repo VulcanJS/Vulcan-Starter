@@ -26,4 +26,4 @@ const accessOptions = {
   groups: ['members', 'admins'],
 };
 
-registerComponent('PicsNewForm', PicsNewForm, [withAccess, accessOptions]);
+registerComponent({ name: 'PicsNewForm', component: PicsNewForm, hocs: [[withAccess, accessOptions]] });

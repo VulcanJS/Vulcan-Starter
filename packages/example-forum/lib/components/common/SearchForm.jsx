@@ -78,4 +78,4 @@ SearchForm.contextTypes = {
   intl: intlShape
 };
 
-registerComponent('SearchForm', SearchForm, withRouter);
+registerComponent({ name: 'SearchForm', component: SearchForm, hocs: [withRouter] });

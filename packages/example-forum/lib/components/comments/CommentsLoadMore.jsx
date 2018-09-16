@@ -8,4 +8,4 @@ const CommentsLoadMore = ({loadMore, count, totalCount}) => {
 
 CommentsLoadMore.displayName = "CommentsLoadMore";
 
-registerComponent('CommentsLoadMore', CommentsLoadMore);
+registerComponent({ name: 'CommentsLoadMore', component: CommentsLoadMore });

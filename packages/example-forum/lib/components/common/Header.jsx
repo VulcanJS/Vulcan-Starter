@@ -44,4 +44,4 @@ Header.propTypes = {
   currentUser: PropTypes.object,
 };
 
-registerComponent('Header', Header, withCurrentUser);
+registerComponent({ name: 'Header', component: Header, hocs: [withCurrentUser] });

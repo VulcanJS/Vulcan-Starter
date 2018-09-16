@@ -19,4 +19,4 @@ const PostsDaily = props => {
 
 PostsDaily.displayName = 'PostsDaily';
 
-registerComponent('PostsDaily', PostsDaily);
+registerComponent({ name: 'PostsDaily', component: PostsDaily });

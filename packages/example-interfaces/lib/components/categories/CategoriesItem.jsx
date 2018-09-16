@@ -46,4 +46,4 @@ const CategoriesItem = ({category, currentUser}) =>
 
   </div>
 
-registerComponent('CategoriesItem', CategoriesItem);
+registerComponent({ name: 'CategoriesItem', component: CategoriesItem });

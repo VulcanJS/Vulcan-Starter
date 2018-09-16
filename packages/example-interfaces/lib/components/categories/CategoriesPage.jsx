@@ -26,4 +26,4 @@ const CategoriesPage = ({results = [], currentUser, loading, loadMore, count, to
 
   </div>
 
-registerComponent('CategoriesPage', CategoriesPage, withCurrentUser);
+registerComponent({ name: 'CategoriesPage', component: CategoriesPage, hocs: [withCurrentUser] });

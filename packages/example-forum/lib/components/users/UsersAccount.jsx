@@ -14,4 +14,4 @@ UsersAccount.propTypes = {
 
 UsersAccount.displayName = 'UsersAccount';
 
-registerComponent('UsersAccount', UsersAccount, withCurrentUser);
+registerComponent({ name: 'UsersAccount', component: UsersAccount, hocs: [withCurrentUser] });

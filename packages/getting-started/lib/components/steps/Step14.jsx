@@ -38,4 +38,4 @@ const Step14 = ({ mutations }) => (
   </Components.Step>
 );
 
-registerComponent('Step14', Step14, withMutationResolvers);
+registerComponent({ name: 'Step14', component: Step14, hocs: [withMutationResolvers] });

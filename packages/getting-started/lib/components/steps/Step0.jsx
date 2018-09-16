@@ -54,4 +54,4 @@ If you get stuck at any point, drop by the [Vulcan Slack group](http://slack.vul
 
 const Step0 = () => <Components.Step step={0} text={text} firstStep={true}/>;
 
-registerComponent('Step0', Step0);
+registerComponent({ name: 'Step0', component: Step0 });

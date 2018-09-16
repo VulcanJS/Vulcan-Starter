@@ -7,4 +7,4 @@ const PostsLoading = props => {
 
 PostsLoading.displayName = "PostsLoading";
 
-registerComponent('PostsLoading', PostsLoading);
+registerComponent({ name: 'PostsLoading', component: PostsLoading });

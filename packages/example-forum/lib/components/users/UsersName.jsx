@@ -12,4 +12,4 @@ UsersName.propTypes = {
 
 UsersName.displayName = 'UsersName';
 
-registerComponent('UsersName', UsersName);
+registerComponent({ name: 'UsersName', component: UsersName });

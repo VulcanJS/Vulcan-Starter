@@ -10,4 +10,4 @@ const MoviesNew = () => (
   </div>
 );
 
-registerComponent('MoviesNew', MoviesNew);
+registerComponent({ name: 'MoviesNew', component: MoviesNew });

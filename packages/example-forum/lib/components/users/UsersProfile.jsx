@@ -51,4 +51,4 @@ const options = {
   fragmentName: 'UsersProfile',
 };
 
-registerComponent('UsersProfile', UsersProfile, withCurrentUser, [withDocument, options]);
+registerComponent({ name: 'UsersProfile', component: UsersProfile, hocs: [withCurrentUser, [withDocument, options]] });

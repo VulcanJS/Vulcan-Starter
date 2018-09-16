@@ -52,4 +52,4 @@ const Step9 = ({ resolvers }) => (
   </Components.Step>
 );
 
-registerComponent('Step9', Step9, withQueryResolvers);
+registerComponent({ name: 'Step9', component: Step9, hocs: [withQueryResolvers] });

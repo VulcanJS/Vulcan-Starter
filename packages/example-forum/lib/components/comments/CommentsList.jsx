@@ -25,4 +25,4 @@ const CommentsList = ({comments, commentCount, currentUser}) => {
 
 CommentsList.displayName = "CommentsList";
 
-registerComponent('CommentsList', CommentsList);
+registerComponent({ name: 'CommentsList', component: CommentsList });

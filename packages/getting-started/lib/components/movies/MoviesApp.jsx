@@ -11,4 +11,4 @@ const MoviesApp = () => (
   </div>
 );
 
-registerComponent('MoviesApp', MoviesApp);
+registerComponent({ name: 'MoviesApp', component: MoviesApp });

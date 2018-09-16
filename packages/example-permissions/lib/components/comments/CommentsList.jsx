@@ -33,4 +33,4 @@ const options = {
   fragmentName: 'CommentsItemFragment',
 };
 
-registerComponent('CommentsList', CommentsList, withCurrentUser, [withList, options]);
+registerComponent({ name: 'CommentsList', component: CommentsList, hocs: [withCurrentUser, [withList, options]] });

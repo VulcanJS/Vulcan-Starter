@@ -15,4 +15,4 @@ const PostsStats = ({post}) => {
 
 PostsStats.displayName = "PostsStats";
 
-registerComponent('PostsStats', PostsStats);
+registerComponent({ name: 'PostsStats', component: PostsStats });
