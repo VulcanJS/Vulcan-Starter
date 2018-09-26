@@ -1,6 +1,10 @@
 import React from 'react';
-import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
-import { Link } from 'react-router';
+import {
+  Components,
+  registerComponent,
+  withCurrentUser
+} from 'meteor/vulcan:core';
+import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 // import { docco } from 'react-syntax-highlighter/styles/hljs';
@@ -15,14 +19,18 @@ const isCode = t => t.slice(0, 3) === '~~~';
 const languages = {
   js: 'jsx',
   gq: 'graphql',
-  sh: 'powershell',
+  sh: 'powershell'
 };
 
 // see https://github.com/rexxars/react-markdown-examples/blob/master/examples/custom-renderers/link-renderer.js
-const LinkRenderer = props => 
-  props.href.match(/^(https?:)?\/\//) ?
-    <a href={props.href} target="_blank">{props.children}</a> :
+const LinkRenderer = props =>
+  props.href.match(/^(https?:)?\/\//) ? (
+    <a href={props.href} target="_blank">
+      {props.children}
+    </a>
+  ) : (
     <Link to={props.href}>{props.children}</Link>
+  );
 
 const TextBlocks = ({ textArray, currentUser }) => (
   <div className="text-blocks">
@@ -69,7 +77,9 @@ const Step = props => {
   const textArray = Array.isArray(text) ? text : [text];
   const afterArray = Array.isArray(after) ? after : [after];
 
-  const buttonText = firstStep ? `Let's get started!` : `Move on to Step ${step + 1}`;
+  const buttonText = firstStep
+    ? 'Let\'s get started!'
+    : `Move on to Step ${step + 1}`;
 
   return (
     <div className="step">
