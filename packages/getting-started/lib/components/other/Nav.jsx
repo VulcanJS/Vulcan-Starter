@@ -15,7 +15,7 @@ const Nav = props => {
     <div className="nav">
       <ul>
         <li className="nav-item">
-          <NavLink activeClassName="active" to="/" onlyActiveOnIndex={true}>
+          <NavLink exact activeClassName="active" to="/">
             {sections[0]}
           </NavLink>
         </li>
