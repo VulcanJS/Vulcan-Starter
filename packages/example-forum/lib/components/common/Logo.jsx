@@ -1,25 +1,27 @@
 import { registerComponent } from 'meteor/vulcan:core';
 import React from 'react';
-import { IndexLink } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
-const Logo = ({logoUrl, siteTitle}) => {
+const Logo = ({ logoUrl, siteTitle }) => {
   if (logoUrl) {
     return (
       <h1 className="logo-image ">
-        <IndexLink to={{pathname: "/"}}>
+        <IndexLink to={{ pathname: '/' }}>
           <img src={logoUrl} alt={siteTitle} />
         </IndexLink>
       </h1>
-    )
+    );
   } else {
     return (
       <h1 className="logo-text">
-        <IndexLink to={{pathname: "/"}}>{siteTitle}</IndexLink>
+        <NavLink exact to={{ pathname: '/' }}>
+          {siteTitle}
+        </NavLink>
       </h1>
-    )
+    );
   }
-}
+};
 
-Logo.displayName = "Logo";
+Logo.displayName = 'Logo';
 
 registerComponent({ name: 'Logo', component: Logo });
