@@ -10,7 +10,7 @@
     "lint": "eslint --cache --ext .jsx,js packages"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.46",
+    "@babel/runtime": "^7.1.2",
     "analytics-node": "^2.1.1",
     "apollo-client": "^1.2.2",
     "apollo-engine": "^0.5.4",
