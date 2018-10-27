@@ -7,6 +7,7 @@ Wrapped with the "withCurrentUser" container.
 
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import { Link } from 'react-router';
 
 import Movies from '../../modules/movies/collection.js';
 
@@ -28,6 +29,9 @@ const MoviesItem = ({ movie, currentUser, refetch }) => (
         <Components.MoviesEditForm currentUser={currentUser} documentId={movie._id} refetch={refetch} />
       </Components.ModalTrigger>
     ) : null}
+    <div>
+      <Link to={'/movie/'+movie._id}>Details</Link>
+    </div>
   </div>
 );
 
