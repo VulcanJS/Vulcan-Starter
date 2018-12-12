@@ -18,7 +18,7 @@ With the \`Step3\` component registered, we can now reference it inside a route.
 const after = `
 Nicely done. In Vulcan, components are available globally as \`<Components.Foobar/>\` once registered. 
 
-You can review them all by accessing the [Components dashboard](/components) (note that most of the components you'll see in there belong to various Vulcan packages, such as \`vulcan:core\`, \`vulcan:forms\`, etc.).
+You can review them all by accessing the [Components dashboard](/debug/components) (note that most of the components you'll see in there belong to various Vulcan packages, such as \`vulcan:core\`, \`vulcan:forms\`, etc.).
 `;
 
 const Step2 = () => <Components.Step step={2} text={text} after={after} />;
