@@ -9,12 +9,12 @@ Package.onUse(function (api) {
     'promise',
 
     // vulcan core
-    'vulcan:core@1.12.9',
+    'vulcan:core@1.12.11',
 
     // vulcan packages
-    'vulcan:forms@1.12.9',
-    'vulcan:accounts@1.12.9',
-    'vulcan:ui-bootstrap@1.12.9',
+    'vulcan:forms@1.12.11',
+    'vulcan:accounts@1.12.11',
+    'vulcan:ui-bootstrap@1.12.11',
     
   ]);
 
