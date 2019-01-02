@@ -6,7 +6,7 @@ import { STATES } from 'meteor/vulcan:accounts';
 
 const UsersAccountMenu = ({ state }) => (
   <Components.Dropdown
-    variant="default"
+    buttonProps={{ variant: ' btn-secondary' }}
     id="accounts-dropdown"
     className="users-account-menu"
     trigger={
@@ -15,7 +15,6 @@ const UsersAccountMenu = ({ state }) => (
         <FormattedMessage id="users.sign_up_log_in" />
       </div>
     }
-    pullRight
     menuContents={<Components.AccountsLoginForm formState={state ? STATES[state] : STATES.SIGN_UP} />}
   />
 );

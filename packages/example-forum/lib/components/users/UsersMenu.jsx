@@ -38,7 +38,7 @@ const UsersMenu = ({ currentUser, client }) => {
   return (
     <div className="users-menu">
       <Components.Dropdown
-        variant="default"
+        buttonProps={{ variant: 'secondary' }}
         id="user-dropdown"
         trigger={
           <div className="dropdown-toggle-inner">
@@ -46,7 +46,6 @@ const UsersMenu = ({ currentUser, client }) => {
             <div className="users-menu-name">{Users.getDisplayName(currentUser)}</div>
           </div>
         }
-        pullRight
         menuItems={menuItems}
       />
     </div>

@@ -11,23 +11,23 @@ import { withApollo } from 'react-apollo';
 Category menu item
 
 */
-const CategoryMenuItem = ({ category, active, expanded }) => <span className={`category-menu-item ${active ? 'category-menu-item-active' : ''}`}>{category.name}</span>;
+const CategoryMenuItem = ({ category, active, expanded }) => (
+  <span className={`category-menu-item ${active ? 'category-menu-item-active' : ''}`}>{category.name}</span>
+);
 
 class CategoriesMenu extends PureComponent {
-
   /*
 
   Menu item for the "All Categories" link
 
   */
   getResetCategoriesItem = () => {
-
     const resetCategoriesQuery = _.clone(this.props.router.location.query);
     delete resetCategoriesQuery.cat;
 
     const menuItem = {
       to: { pathname: Utils.getRoutePath('posts.list'), query: resetCategoriesQuery },
-      itemProps: { 
+      itemProps: {
         eventKey: 0,
         className: 'category-menu-item category-menu-item-all dropdown-item',
       },
@@ -35,7 +35,7 @@ class CategoriesMenu extends PureComponent {
     };
 
     return menuItem;
-  }
+  };
 
   /*
 
@@ -52,7 +52,6 @@ class CategoriesMenu extends PureComponent {
 
     // decorate categories with active and expanded properties
     const categoriesClone = categories.map((category, index) => {
-
       const query = _.clone(this.props.router.location.query);
       query.cat = category.slug;
 
@@ -61,12 +60,13 @@ class CategoriesMenu extends PureComponent {
 
       return {
         to: { pathname: Utils.getRoutePath('posts.list'), query },
-        component: <CategoryMenuItem/>,
+        component: <CategoryMenuItem />,
         itemProps: {
           active,
           className: 'dropdown-item',
         },
-        componentProps: { // will be passed to component defined above
+        componentProps: {
+          // will be passed to component defined above
           _id: category._id,
           parentId: category.parentId,
           category,
@@ -74,15 +74,19 @@ class CategoriesMenu extends PureComponent {
           currentUser: this.props.currentUser,
           active,
           expanded,
-        }
+        },
       };
     });
 
     // add `childrenItems` on each item in categoriesClone
-    const nestedCategories = Utils.unflatten(categoriesClone, { idProperty: 'componentProps._id', parentIdProperty: 'componentProps.parentId', childrenProperty: 'childrenItems' });
+    const nestedCategories = Utils.unflatten(categoriesClone, {
+      idProperty: 'componentProps._id',
+      parentIdProperty: 'componentProps.parentId',
+      childrenProperty: 'childrenItems',
+    });
 
     return nestedCategories;
-  }
+  };
 
   /*
 
@@ -95,15 +99,14 @@ class CategoriesMenu extends PureComponent {
   };
 
   render() {
-
     return (
       <div>
         {this.props.loading ? (
           <Components.Loading />
         ) : (
           <Components.Dropdown
-            variant="default"
-            className="categories-list btn-secondary"
+            buttonProps={{ variant: 'secondary' }}
+            className="categories-list"
             labelId={'categories'}
             id="categories-dropdown"
             menuItems={this.getMenuItems()}
@@ -126,4 +129,8 @@ const options = {
   pollInterval: 0,
 };
 
-registerComponent({ name: 'CategoriesMenu', component: CategoriesMenu, hocs: [withRouter, withApollo, [withList, options], withCurrentUser] });
+registerComponent({
+  name: 'CategoriesMenu',
+  component: CategoriesMenu,
+  hocs: [withRouter, withApollo, [withList, options], withCurrentUser],
+});

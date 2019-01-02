@@ -17,9 +17,9 @@ const PostsViews = (props, context) => {
   return (
     <div className="posts-views">
       <Components.Dropdown
-        variant="default"
+        buttonProps={{ variant: 'secondary' }}
         id="views-dropdown"
-        className="views btn-secondary"
+        className="views"
         labelId={'posts.view'}
         menuItems={[
           ...views.map(view => ({
