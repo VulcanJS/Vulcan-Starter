@@ -2,7 +2,7 @@ import { Components, registerComponent, withList, Utils, withCurrentUser } from 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { Categories } from '../../modules/categories/index.js';
 import { withApollo } from 'react-apollo';
 
@@ -22,7 +22,7 @@ class CategoriesMenu extends PureComponent {
   */
   getResetCategoriesItem = () => {
 
-    const resetCategoriesQuery = _.clone(this.props.router.location.query);
+    const resetCategoriesQuery = _.clone(this.props.location.query);
     delete resetCategoriesQuery.cat;
 
     const menuItem = {
@@ -46,14 +46,14 @@ class CategoriesMenu extends PureComponent {
     const categories = this.props.results || [];
 
     // check if a category is currently active in the route
-    const currentCategorySlug = this.props.router.location.query && this.props.router.location.query.cat;
+    const currentCategorySlug = this.props.location.query && this.props.location.query.cat;
     const currentCategory = Categories.findOneInStore(this.props.client.store, { slug: currentCategorySlug });
     const parentCategories = Categories.getParents(currentCategory, this.props.client.store);
 
     // decorate categories with active and expanded properties
     const categoriesClone = categories.map((category, index) => {
 
-      const query = _.clone(this.props.router.location.query);
+      const query = _.clone(this.props.location.query);
       query.cat = category.slug;
 
       const active = currentCategory && category.slug === currentCategory.slug;

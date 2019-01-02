@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Components, registerComponent, withMessages, withCurrentUser } from 'meteor/vulcan:core';
 import { intlShape } from 'meteor/vulcan:i18n';
 import { Posts } from '../../modules/posts/index.js';
-import Users from "meteor/vulcan:users";
-import { withRouter } from 'react-router'
+import Users from 'meteor/vulcan:users';
+import { withRouter } from 'react-router-dom'
 
 class PostsEditForm extends PureComponent {
 
@@ -36,7 +36,7 @@ class PostsEditForm extends PureComponent {
             // post edit form is being included from a single post, redirect to index
             // note: this.props.params is in the worst case an empty obj (from react-router)
             if (this.props.params._id) {
-              this.props.router.push('/');
+              this.props.history.push('/');
             }
 
             this.props.flash({ id: 'posts.delete_success' , properties: { title: documentTitle }, type: 'success'});

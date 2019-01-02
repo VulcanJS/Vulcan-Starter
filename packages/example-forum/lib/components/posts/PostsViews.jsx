@@ -1,7 +1,7 @@
 import { Components, registerComponent, withCurrentUser, Utils } from 'meteor/vulcan:core';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import Users from 'meteor/vulcan:users';
 
 const PostsViews = (props, context) => {
@@ -12,7 +12,7 @@ const PostsViews = (props, context) => {
     views = views.concat(adminViews);
   }
 
-  const query = _.clone(props.router.location.query);
+  const query = _.clone(props.location.query);
 
   return (
     <div className="posts-views">
@@ -27,8 +27,8 @@ const PostsViews = (props, context) => {
             labelId: `posts.${view}`,
           })),
           {
-            to: `/daily`,
-            labelId: `posts.daily`,
+            to: '/daily',
+            labelId: 'posts.daily',
           },
         ]}
       />

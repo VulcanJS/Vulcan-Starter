@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { intlShape } from 'meteor/vulcan:i18n';
 import Formsy from 'formsy-react';
 import FRC from 'formsy-react-components';
-import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const Input = FRC.Input;
 
@@ -23,21 +22,21 @@ class SearchForm extends Component {
     super(props);
     this.search = this.search.bind(this);
     this.state = {
-      pathname: props.router.location.pathname,
-      search: props.router.location.query.query || ''
+      pathname: props.location.pathname,
+      search: props.location.query.query || ''
     };
   }
 
   // note: why do we need this?
   componentWillReceiveProps(nextProps) {
     this.setState({
-      search: this.props.router.location.query.query || ''
+      search: this.props.location.query.query || ''
     });
   }
 
   search(data) {
-    const router = this.props.router;
-    const routerQuery = _.clone(router.location.query);
+    const { location, history } = this.props;
+    const routerQuery = _.clone(location.query);
     delete routerQuery.query;
 
     const query =
@@ -47,8 +46,8 @@ class SearchForm extends Component {
 
     delay(() => {
       // only update the route if the path hasn't changed in the meantime
-      if (this.state.pathname === router.location.pathname) {
-        router.push({
+      if (this.state.pathname === location.pathname) {
+        history.push({
           pathname: Utils.getRoutePath('posts.list'),
           query: query
         });
