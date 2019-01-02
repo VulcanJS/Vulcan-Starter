@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Users from 'meteor/vulcan:users';
 import { withDocument, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const UsersProfileCheck = ({currentUser, document, loading, flash}, context) => {
 
