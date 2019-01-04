@@ -28,6 +28,8 @@ Package.onUse(function (api) {
     'vulcan:embed@1.12.12',
     'vulcan:admin@1.12.12',
 
+    'vulcan:redux@1.12.8'
+
   ]);
 
   api.addAssets([

@@ -4,7 +4,7 @@ Redux
 
 */
 
-import { addAction, addReducer } from 'meteor/vulcan:core';
+import { addAction, addReducer } from 'meteor/vulcan:redux';
 
 addAction({
   postsViewed: {
