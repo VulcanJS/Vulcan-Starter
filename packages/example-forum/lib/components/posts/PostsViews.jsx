@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import Users from 'meteor/vulcan:users';
+import queryString from 'querystring';
 
 const PostsViews = (props, context) => {
   let views = ['top', 'new', 'best'];
@@ -12,7 +13,7 @@ const PostsViews = (props, context) => {
     views = views.concat(adminViews);
   }
 
-  const query = _.clone(props.router.location.query);
+  const query = queryString.parse(props.location.search);
 
   return (
     <div className="posts-views">

@@ -5,6 +5,7 @@ import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { withRouter } from 'react-router';
 import { Categories } from '../../modules/categories/index.js';
 import { withApollo } from 'react-apollo';
+import queryString from 'querystring';
 
 /*
 
@@ -16,13 +17,17 @@ const CategoryMenuItem = ({ category, active, expanded }) => (
 );
 
 class CategoriesMenu extends PureComponent {
+
+  getQuery = () => {
+    return queryString.parse(this.props.location.search);
+  }
   /*
 
   Menu item for the "All Categories" link
 
   */
   getResetCategoriesItem = () => {
-    const resetCategoriesQuery = _.clone(this.props.router.location.query);
+    const resetCategoriesQuery = this.getQuery();
     delete resetCategoriesQuery.cat;
 
     const menuItem = {
@@ -46,20 +51,22 @@ class CategoriesMenu extends PureComponent {
     const categories = this.props.results || [];
 
     // check if a category is currently active in the route
-    const currentCategorySlug = this.props.router.location.query && this.props.router.location.query.cat;
-    const currentCategory = Categories.findOneInStore(this.props.client.store, { slug: currentCategorySlug });
+    const query = this.getQuery();
+    const currentCategorySlug = query && query.cat;
+    const currentCategory = {};
+    // const currentCategory = Categories.findOneInStore(this.props.client.store, { slug: currentCategorySlug });
     const parentCategories = Categories.getParents(currentCategory, this.props.client.store);
 
     // decorate categories with active and expanded properties
     const categoriesClone = categories.map((category, index) => {
-      const query = _.clone(this.props.router.location.query);
-      query.cat = category.slug;
+      const catQuery = this.getQuery();
+      catQuery.cat = category.slug;
 
       const active = currentCategory && category.slug === currentCategory.slug;
       const expanded = parentCategories && _.contains(_.pluck(parentCategories, 'slug'), category.slug);
 
       return {
-        to: { pathname: Utils.getRoutePath('posts.list'), query },
+        to: { pathname: Utils.getRoutePath('posts.list'), catQuery },
         component: <CategoryMenuItem />,
         itemProps: {
           active,

@@ -6,6 +6,7 @@ import Formsy from 'formsy-react';
 import FRC from 'formsy-react-components';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import queryString from 'querystring';
 
 const Input = FRC.Input;
 
@@ -23,21 +24,25 @@ class SearchForm extends Component {
     super(props);
     this.search = this.search.bind(this);
     this.state = {
-      pathname: props.router.location.pathname,
-      search: props.router.location.query.query || ''
+      pathname: props.location.pathname,
+      search: this.getQuery().query || ''
     };
+  }
+
+  getQuery = () => {
+    return  queryString.parse(this.props.location.search);
   }
 
   // note: why do we need this?
   componentWillReceiveProps(nextProps) {
     this.setState({
-      search: this.props.router.location.query.query || ''
+      search: this.getQuery().query || ''
     });
   }
 
   search(data) {
     const router = this.props.router;
-    const routerQuery = _.clone(router.location.query);
+    const routerQuery = this.getQuery();
     delete routerQuery.query;
 
     const query =
@@ -57,7 +62,7 @@ class SearchForm extends Component {
   }
 
   render() {
-    const resetQuery = _.clone(this.props.location.query);
+    const resetQuery = this.getQuery();
     delete resetQuery.query;
 
     return (
