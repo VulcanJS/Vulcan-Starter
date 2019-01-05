@@ -34,7 +34,7 @@ const PostsNewForm = (props, context) => {
           mutationFragment={getFragment('PostsPage')}
           successCallback={post => {
             props.closeModal();
-            props.router.push({pathname: props.redirect || Posts.getPageUrl(post)});
+            props.history.push({pathname: props.redirect || Posts.getPageUrl(post)});
             props.flash({id: "posts.created_message", type: "success"});
           }}
         />

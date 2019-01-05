@@ -44,7 +44,7 @@ class CategoriesMenu extends PureComponent {
 
   /*
 
-  Menu items for categoeries
+  Menu items for categories
 
   */
   getCategoriesItems = () => {
@@ -53,7 +53,7 @@ class CategoriesMenu extends PureComponent {
     // check if a category is currently active in the route
     const query = this.getQuery();
     const currentCategorySlug = query && query.cat;
-    const currentCategory = {};
+    const currentCategory = categories.find(category => category.slug = currentCategorySlug);
     // const currentCategory = Categories.findOneInStore(this.props.client.store, { slug: currentCategorySlug });
     const parentCategories = Categories.getParents(currentCategory, this.props.client.store);
 

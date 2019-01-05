@@ -1,10 +1,11 @@
-import { Components, registerComponent, withDocument, withCurrentUser, getActions, withMutation } from 'meteor/vulcan:core';
+import { Components, registerComponent, withSingle, withCurrentUser, getActions, withMutation } from 'meteor/vulcan:core';
 import { Posts } from '../../modules/posts/index.js';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
+import mapProps from 'recompose/mapProps';
 
 class PostsPage extends Component {
   
@@ -49,21 +50,22 @@ class PostsPage extends Component {
         // from the parent component, used in withDocument, GraphQL HOC
         documentId,
         // from connect, Redux HOC 
-        setViewed, 
-        postsViewed, 
+        // setViewed, // TODO: re-enable
+        // postsViewed, // TODO: re-enable
         // from withMutation, GraphQL HOC
-        increasePostViewCount,
+        // increasePostViewCount, // TODO: re-enable
       } = this.props;
       
-      // a post id has been found & it's has not been seen yet on this client session
-      if (documentId && !postsViewed.includes(documentId)) {
+      // TODO: re-enable
+      // // a post id has been found & it's has not been seen yet on this client session
+      // if (documentId && !postsViewed.includes(documentId)) {
         
-        // trigger the asynchronous mutation with postId as an argument
-        await increasePostViewCount({postId: documentId});
+      //   // trigger the asynchronous mutation with postId as an argument
+      //   await increasePostViewCount({postId: documentId});
         
-        // once the mutation is done, update the redux store
-        setViewed(documentId);
-      }
+      //   // once the mutation is done, update the redux store
+      //   setViewed(documentId);
+      // }
       
     } catch(error) {
       console.log(error); // eslint-disable-line
@@ -92,20 +94,24 @@ const mutationOptions = {
   args: {postId: 'String'},
 };
 
-const mapStateToProps = state => ({ postsViewed: state.postsViewed });
-const mapDispatchToProps = dispatch => bindActionCreators(getActions().postsViewed, dispatch);
+// TODO: re-enable?
+// const mapStateToProps = state => ({ postsViewed: state.postsViewed });
+// const mapDispatchToProps = dispatch => bindActionCreators(getActions().postsViewed, dispatch);
+
+const mapPropsFunction = props => ({ ...props, documentId: props.match && props.match.params._id });
 
 registerComponent(
   // component name used by Vulcan
   'PostsPage', 
   // React component 
   PostsPage,
+  mapProps(mapPropsFunction),
   // HOC to give access to the current user
   withCurrentUser, 
   // HOC to load the data of the document, based on queryOptions & a documentId props
-  [withDocument, queryOptions], 
+  [withSingle, queryOptions], 
   // HOC to provide a single mutation, based on mutationOptions
   withMutation(mutationOptions), 
   // HOC to give access to the redux store & related actions
-  connect(mapStateToProps, mapDispatchToProps)
+  // connect(mapStateToProps, mapDispatchToProps), // TODO: re-enable?
 );

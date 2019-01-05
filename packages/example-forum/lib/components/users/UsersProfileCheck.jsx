@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Users from 'meteor/vulcan:users';
-import { withDocument, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
+import { withSingle, Components, registerComponent, withMessages } from 'meteor/vulcan:core';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import gql from 'graphql-tag';
 
@@ -18,7 +18,7 @@ const UsersProfileCheck = ({currentUser, document, loading, flash}, context) => 
   } else {
 
     // return fields that are required by the schema but haven't been filled out yet
-    const fieldsToComplete = _.filter(Users.getRequiredFields(), fieldName => {
+    const fieldsToComplete = Users.getRequiredFields().filter(fieldName => {
       return !userMustCompleteFields[fieldName];
     });
 
@@ -34,7 +34,7 @@ const UsersProfileCheck = ({currentUser, document, loading, flash}, context) => 
           show={ true }
           showCloseButton={ false }
           title={<FormattedMessage id="users.complete_profile"/>}
-          footerContent={ footer }
+          footer={ footer }
         >
           <Components.SmartForm
             collection={ Users }
@@ -79,4 +79,4 @@ const options = {
   fragment: mustCompleteFragment,
 };
 
-registerComponent({ name: 'UsersProfileCheck', component: UsersProfileCheck, hocs: [withMessages, [withDocument, options]] });
+registerComponent({ name: 'UsersProfileCheck', component: UsersProfileCheck, hocs: [withMessages, [withSingle, options]] });
