@@ -57,7 +57,7 @@ const schema = {
     canUpdate: ['admins'],
     input: 'datetime',
     group: formGroups.admin,
-    onCreate: ({newDocument: post, currentUser}) => {
+    onCreate: ({document: post, currentUser}) => {
       // Set the post's postedAt if it's going to be approved
       if (!post.postedAt && getCollection('Posts').getDefaultStatus(currentUser) === getCollection('Posts').config.STATUS_APPROVED) {
         return new Date();
@@ -111,7 +111,7 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({newDocument: post}) => {
+    onCreate: ({document: post}) => {
       return Utils.slugify(post.title);
     },
     onUpdate: ({data}) => {
@@ -140,7 +140,7 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({newDocument: post}) => {
+    onCreate: ({document: post}) => {
       if (post.body) {
         return Utils.sanitize(marked(post.body));
       }
@@ -159,7 +159,7 @@ const schema = {
     optional: true,
     canRead: ['guests'],
     searchable: true,
-    onCreate: ({newDocument: post}) => {
+    onCreate: ({document: post}) => {
       if (post.body) {
         // excerpt length is configurable via the settings (30 words by default, ~255 characters)
         const excerptLength = getSetting('forum.postExcerptLength', 30); 
@@ -209,7 +209,7 @@ const schema = {
     canCreate: ['admins'],
     canUpdate: ['admins'],
     input: 'select',
-    onCreate: ({newDocument: document, currentUser}) => {
+    onCreate: ({document: document, currentUser}) => {
       if (!document.status) {
         return getCollection('Posts').getDefaultStatus(currentUser);
       }
@@ -230,7 +230,7 @@ const schema = {
     type: Boolean,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({newDocument: post}) => {
+    onCreate: ({document: post}) => {
       // Set the post's isFuture to true if necessary
       if (post.postedAt) {
         const postTime = new Date(post.postedAt).getTime();
@@ -265,7 +265,7 @@ const schema = {
     canUpdate: ['admins'],
     input: 'checkbox',
     group: formGroups.admin,
-    onCreate: ({newDocument: post}) => {
+    onCreate: ({document: post}) => {
       if(!post.sticky) {
         return false;
       }

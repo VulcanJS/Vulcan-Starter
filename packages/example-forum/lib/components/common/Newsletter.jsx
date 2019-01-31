@@ -2,15 +2,12 @@ import { Components, registerComponent, withCurrentUser, withMutation, withMessa
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
-import Formsy from 'formsy-react';
-import { Input } from 'formsy-react-components';
 import Users from 'meteor/vulcan:users';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
 class Newsletter extends PureComponent {
-
   constructor(props, context) {
     super(props);
     this.subscribeEmail = this.subscribeEmail.bind(this);
@@ -18,30 +15,36 @@ class Newsletter extends PureComponent {
     this.dismissBanner = this.dismissBanner.bind(this);
 
     this.state = {
-      showBanner: false
+      showBanner: false,
+      email: '',
     };
   }
 
   componentDidMount() {
     this.setState({
-      showBanner: showBanner(this.props.currentUser)
+      showBanner: showBanner(this.props.currentUser),
     });
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (nextProps.currentUser) {
-      this.setState({showBanner: showBanner(nextProps.currentUser)});
+      this.setState({ showBanner: showBanner(nextProps.currentUser) });
     }
   }
 
-  async subscribeEmail(data) {
+  async subscribeEmail(e) {
+    e.preventDefault();
     try {
-      const result = await this.props.addEmailNewsletter({email: data.email});
+      const result = await this.props.addEmailNewsletter({ email: this.state.email });
       this.successCallbackSubscription(result);
-    } catch(error) {
+    } catch (error) {
       const graphQLError = error.graphQLErrors[0];
       console.error(graphQLError); // eslint-disable-line no-console
-      this.props.flash({id: `newsletter.error_${this.state.error.name}`, message: this.state.error.message, type: 'error'});
+      this.props.flash({
+        id: `newsletter.error_${this.state.error.name}`,
+        message: this.state.error.message,
+        type: 'error',
+      });
     }
   }
 
@@ -53,7 +56,7 @@ class Newsletter extends PureComponent {
   dismissBanner(e) {
     if (e && e.preventDefault) e.preventDefault();
 
-    this.setState({showBanner: false});
+    this.setState({ showBanner: false });
 
     // set cookie to keep the banner dismissed persistently
     cookies.set('showBanner', 'no');
@@ -61,59 +64,74 @@ class Newsletter extends PureComponent {
 
   renderButton() {
     return (
-        <Components.NewsletterButton
-            label="newsletter.subscribe"
-            mutationName="addUserNewsletter"
-            successCallback={() => this.successCallbackSubscription()}
-            user={this.props.currentUser}
-        />
+      <Components.NewsletterButton
+        label="newsletter.subscribe"
+        mutationName="addUserNewsletter"
+        successCallback={() => this.successCallbackSubscription()}
+        user={this.props.currentUser}
+      />
     );
   }
 
   renderForm() {
     return (
-      <Formsy.Form className="newsletter-form" onSubmit={this.subscribeEmail}>
-        <Input
-          name="email"
-          value=""
-          placeholder={this.context.intl.formatMessage({id: "newsletter.email"})}
-          type="text"
-          layout="elementOnly"
+      <Components.FormElement className="newsletter-form" onSubmit={this.subscribeEmail}>
+        <Components.FormComponentText
+          inputProperties={{
+            name: 'email',
+            value: this.state.email,
+            placeholder: this.context.intl.formatMessage({ id: 'newsletter.email' }),
+            type: 'text',
+            layout: 'elementOnly',
+            onChange: e => {
+              const value = e.target.value;
+              this.setState({ email: value });
+            }
+          }}
         />
-        <Components.Button className="newsletter-button" type="submit" variant="primary"><FormattedMessage id="newsletter.subscribe"/></Components.Button>
-      </Formsy.Form>
-    )
+        <Components.Button className="newsletter-button" type="submit" variant="primary">
+          <FormattedMessage id="newsletter.subscribe" />
+        </Components.Button>
+      </Components.FormElement>
+    );
   }
 
   render() {
-    return this.state.showBanner
-      ? (
-        <div className="newsletter">
-          <h4 className="newsletter-tagline"><FormattedMessage id="newsletter.subscribe_prompt"/></h4>
-          {this.props.currentUser ? this.renderButton() : this.renderForm()}
-          <a onClick={this.dismissBanner} className="newsletter-close"><Components.Icon name="close"/></a>
-        </div>
-      ) : null;
+    return this.state.showBanner ? (
+      <div className="newsletter">
+        <h4 className="newsletter-tagline">
+          <FormattedMessage id="newsletter.subscribe_prompt" />
+        </h4>
+        {this.props.currentUser ? this.renderButton() : this.renderForm()}
+        <a onClick={this.dismissBanner} className="newsletter-close">
+          <Components.Icon name="close" />
+        </a>
+      </div>
+    ) : null;
   }
 }
 
 Newsletter.contextTypes = {
   actions: PropTypes.object,
-  intl: intlShape
+  intl: intlShape,
 };
 
 const mutationOptions = {
   name: 'addEmailNewsletter',
-  args: { email: 'String' }
-}
+  args: { email: 'String' },
+};
 
-function showBanner (user) {
+function showBanner(user) {
   return (
     // showBanner cookie either doesn't exist or is not set to "no"
-    cookies.get('showBanner') !== 'no'
+    cookies.get('showBanner') !== 'no' &&
     // and user is not subscribed to the newsletter already (setting either DNE or is not set to false)
-    && !Users.getSetting(user, 'newsletter_subscribeToNewsletter', false)
+    !Users.getSetting(user, 'newsletter_subscribeToNewsletter', false)
   );
 }
 
-registerComponent({ name: 'Newsletter', component: Newsletter, hocs: [withMutation(mutationOptions), withCurrentUser, withMessages] });
+registerComponent({
+  name: 'Newsletter',
+  component: Newsletter,
+  hocs: [withMutation(mutationOptions), withCurrentUser, withMessages],
+});

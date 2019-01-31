@@ -66,7 +66,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    onCreate: ({newDocument: category}) => {
+    onCreate: ({document: category}) => {
       // if no slug has been provided, generate one
       const slug = category.slug || Utils.slugify(category.name);
       return Utils.getUnusedSlugByCollectionName('Categories', slug);
