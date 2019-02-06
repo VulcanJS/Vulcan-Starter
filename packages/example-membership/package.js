@@ -9,14 +9,14 @@ Package.onUse(function (api) {
     'promise',
 
     // vulcan core
-    'vulcan:core@1.12.12',
+    'vulcan:core@1.12.16',
 
     // vulcan packages
-    'vulcan:forms@1.12.12',
-    'vulcan:accounts@1.12.12',
-    'vulcan:forms-upload@1.12.12',
-    'vulcan:payments@1.12.12',
-    'vulcan:ui-bootstrap@1.12.12',
+    'vulcan:forms@1.12.16',
+    'vulcan:accounts@1.12.16',
+    'vulcan:forms-upload@1.12.16',
+    'vulcan:payments@1.12.16',
+    'vulcan:ui-bootstrap@1.12.16',
     
     // third-party packages
     'fourseven:scss@4.5.0',
