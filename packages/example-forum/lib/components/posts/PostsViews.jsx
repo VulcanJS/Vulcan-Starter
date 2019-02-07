@@ -1,7 +1,7 @@
 import { Components, registerComponent, withCurrentUser, Utils } from 'meteor/vulcan:core';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import Users from 'meteor/vulcan:users';
 import queryString from 'querystring';
 
@@ -28,8 +28,8 @@ const PostsViews = (props, context) => {
             labelId: `posts.${view}`,
           })),
           {
-            to: `/daily`,
-            labelId: `posts.daily`,
+            to: '/daily',
+            labelId: 'posts.daily',
           },
         ]}
       />

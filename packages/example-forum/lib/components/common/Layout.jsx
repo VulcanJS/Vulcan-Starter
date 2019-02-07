@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Helmet from 'react-helmet';
 
-const Layout = ({currentUser, children, currentRoute}) =>
+const Layout = ({currentUser, children }) =>
 
-  <div className={classNames('wrapper', `wrapper-${currentRoute.name.replace('.', '-')}`)} id="wrapper">
+  <div className={classNames('wrapper')} id="wrapper">
 
     <Helmet>
       <link name="bootstrap" rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>

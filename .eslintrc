@@ -61,7 +61,6 @@
   "settings": {
     "import/resolver": "meteor"
   },
-  "modules": true,
   "root": true,
   "globals": {
     "param": true,

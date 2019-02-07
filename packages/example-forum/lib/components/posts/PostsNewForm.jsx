@@ -10,7 +10,7 @@ import { Posts } from '../../modules/posts/index.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router-dom'
 
 const PostsNewForm = (props, context) => {
   if (props.loading) {
@@ -35,7 +35,7 @@ const PostsNewForm = (props, context) => {
           successCallback={post => {
             props.closeModal();
             props.history.push({pathname: props.redirect || Posts.getPageUrl(post)});
-            props.flash({id: "posts.created_message", type: "success"});
+            props.flash({id: 'posts.created_message', type: 'success'});
           }}
         />
       </div>
@@ -54,7 +54,7 @@ PostsNewForm.contextTypes = {
   closeCallback: PropTypes.func,
 };
 
-PostsNewForm.displayName = "PostsNewForm";
+PostsNewForm.displayName = 'PostsNewForm';
 
 const options = {
   collectionName: 'Categories',
