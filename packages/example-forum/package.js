@@ -15,18 +15,18 @@ Package.onUse(function (api) {
     'fourseven:scss@4.5.0',
 
     // vulcan core
-    'vulcan:core@1.12.12',
+    'vulcan:core@1.12.16',
 
     // vulcan packages
-    'vulcan:ui-bootstrap@1.12.12',
-    'vulcan:voting@1.12.12',
-    'vulcan:accounts@1.12.12',
-    'vulcan:email@1.12.12',
-    'vulcan:forms@1.12.12',
-    'vulcan:newsletter@1.12.12',
-    'vulcan:events@1.12.12',
-    'vulcan:embed@1.12.12',
-    'vulcan:admin@1.12.12',
+    'vulcan:ui-bootstrap@1.12.16',
+    'vulcan:voting@1.12.16',
+    'vulcan:accounts@1.12.16',
+    'vulcan:email@1.12.16',
+    'vulcan:forms@1.12.16',
+    'vulcan:newsletter@1.12.16',
+    'vulcan:events@1.12.16',
+    'vulcan:embed@1.12.16',
+    'vulcan:admin@1.12.16',
 
     'vulcan:redux@1.12.8'
   ]);

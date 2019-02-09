@@ -1,9 +1,6 @@
 import { registerComponent, Components, Utils } from 'meteor/vulcan:core';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { intlShape } from 'meteor/vulcan:i18n';
-import Formsy from 'formsy-react';
-import FRC from 'formsy-react-components';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import queryString from 'querystring';
@@ -40,22 +37,21 @@ class SearchForm extends Component {
     });
   }
 
-  search(data) {
+  search(e) {
+    const value = e.target.value;
     const router = this.props.router;
     const routerQuery = this.getQuery();
     delete routerQuery.query;
 
-    const query =
-      data.searchQuery === ''
-        ? routerQuery
-        : { ...routerQuery, query: data.searchQuery };
+    const query = value === '' ? routerQuery : { ...routerQuery, query: value };
+    this.setState({ search: value });
 
     delay(() => {
       // only update the route if the path hasn't changed in the meantime
       if (this.state.pathname === router.location.pathname) {
         router.push({
           pathname: Utils.getRoutePath('posts.list'),
-          query: query
+          query,
         });
       }
     }, 700);
@@ -67,36 +63,38 @@ class SearchForm extends Component {
 
     return (
       <div className="search-form">
-        <Formsy.Form onChange={this.search}>
-          <Input
-            name="searchQuery"
-            value={this.state.search}
-            placeholder={this.context.intl.formatMessage({
-              id: 'posts.search'
-            })}
-            type="text"
-            layout="elementOnly"
+        <Components.FormElement>
+          <Components.FormComponentText
+            inputProperties={{
+              name: 'searchQuery',
+              value: this.state.search,
+              placeholder: this.context.intl.formatMessage({ id: 'posts.search' }),
+              type: 'text',
+              layout: 'elementOnly',
+              onChange: this.search,
+            }}
           />
           {this.state.search !== '' ? (
-            <Link
-              className="search-form-reset"
-              to={{ pathname: '/', query: resetQuery }}
-            >
+            <Link className="search-form-reset" to={{ pathname: '/', query: resetQuery }}>
               <Components.Icon name="close" />
             </Link>
           ) : null}
-        </Formsy.Form>
+        </Components.FormElement>
       </div>
     );
   }
 }
 
 SearchForm.contextTypes = {
-  intl: intlShape
+  intl: intlShape,
 };
 
+<<<<<<< HEAD
 registerComponent({
   name: 'SearchForm',
   component: SearchForm,
   hocs: [withRouter]
 });
+=======
+registerComponent({ name: 'SearchForm', component: SearchForm, hocs: [withRouter] });
+>>>>>>> master
