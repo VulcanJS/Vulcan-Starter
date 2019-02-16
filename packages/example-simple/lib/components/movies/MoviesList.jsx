@@ -37,7 +37,7 @@ const MoviesList = ({
         name="bootstrap"
         rel="stylesheet"
         type="text/css"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       />
     </Helmet>
 

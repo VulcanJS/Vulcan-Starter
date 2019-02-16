@@ -19,12 +19,7 @@ const Layout = ({ children, currentUser }) => (
     <Components.FlashMessages />
 
     <Helmet>
-      <link
-        name="bootstrap"
-        rel="stylesheet"
-        type="text/css"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
-      />
+      <link name="bootstrap" rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
     </Helmet>
 
     {/* user accounts */}

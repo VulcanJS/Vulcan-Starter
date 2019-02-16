@@ -19,12 +19,12 @@ const links = [
   {
     rel: 'stylesheet',
     type: 'text/css',
-    href: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css'
+    href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'
   },
   {
     rel: 'stylesheet',
     type: 'text/css',
-    href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+    href: 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
   }
 ];
 
