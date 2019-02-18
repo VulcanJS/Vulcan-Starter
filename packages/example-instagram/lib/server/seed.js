@@ -28,7 +28,7 @@ const createPic = async (imageUrl, createdAt, body, username) => {
   const user = await Users.rawCollection().findOne({ username: username });
   const pic = {
     createdAt,
-    imageUrl: `http://vulcanjs.org/photos/${imageUrl}`,
+    imageUrl: [`http://vulcanjs.org/photos/${imageUrl}`],
     body,
     isDummy: true,
     userId: user._id,

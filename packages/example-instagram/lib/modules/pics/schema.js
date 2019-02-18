@@ -37,12 +37,12 @@ const schema = {
       addOriginalField: true
     }
   },
-  
+
   // custom properties
 
   imageUrl: {
     label: 'Image URL',
-    type: String,
+    type: Array,
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
@@ -50,6 +50,9 @@ const schema = {
     options: {
       preset: 'vulcanstagram'
     },
+  },
+  "imageUrl.$": {
+    type: String
   },
   body: {
     label: 'Body',
