@@ -175,7 +175,14 @@ const formComponents = [
   },
   { name: 'FormComponentDefault' },
   { name: 'FormComponentText' },
-  { name: 'FormComponentEmail' },
+  {
+    name: 'FormComponentEmail',
+    props: {
+      inputProperties: {
+        value: 'hello@vulcanjs.org',
+      },
+    },
+  },
   {
     name: 'FormComponentNumber',
     props: {
@@ -231,7 +238,7 @@ const getFormProps = (componentName, storyProps) => {
     },
   };
   return merge({}, defaultFormProps, component.props, dynamicProps, storyProps);
-}
+};
 
 formComponents.forEach(item => {
   const { name } = item;
@@ -240,9 +247,7 @@ formComponents.forEach(item => {
   const storyName = `Forms/${componentLabel}`;
   if (Component) {
     storiesOf(storyName, module)
-      .add('Horizontal Layout', () => (
-        <Component {...getFormProps(name)} />
-      ))
+      .add('Horizontal Layout', () => <Component {...getFormProps(name)} />)
       .add('Input Only', () => (
         <Component
           {...getFormProps(name, {

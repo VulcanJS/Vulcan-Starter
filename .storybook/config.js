@@ -21,8 +21,6 @@ Components
 import 'UIComponentsLoader';
 // load core components
 import 'CoreComponentsLoader';
-// load mock props
-import 'MockProps';
 
 /*
 
