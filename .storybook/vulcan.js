@@ -79,3 +79,15 @@ export const addStrings = (language, strings) => {
     ...strings
   };
 };
+
+/*
+
+Helpers
+
+*/
+
+export function capitalize(string) {
+  return string.replace(/\-/, ' ').split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}

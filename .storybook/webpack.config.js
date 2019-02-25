@@ -25,6 +25,7 @@ module.exports = storybookBaseConfig => {
 
       // Components
       UIComponentsLoader: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-ui-${uiLibrary}/lib/modules/components.js`),
+      CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-core/lib/modules/components.js`),
       UILibrary: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-ui-${uiLibrary}/lib`),
       MockProps: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-core/lib/modules/mockprops.js`),
       
