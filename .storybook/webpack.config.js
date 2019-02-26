@@ -7,8 +7,8 @@ Modify
 // path to your Vulcan repo (see 2-repo install in docs)
 const pathToVulcan = '../../Vulcan';
 
-// one of: bootstrap
-const uiLibrary = 'bootstrap'; 
+// path to your Vulcan UI library package
+const pathToUILibrary = `${pathToVulcan}/packages/vulcan-ui-bootstrap`; 
 
 /*
 
@@ -24,9 +24,9 @@ module.exports = storybookBaseConfig => {
       ...storybookBaseConfig.resolve.alias,
 
       // Components
-      UIComponentsLoader: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-ui-${uiLibrary}/lib/modules/components.js`),
       CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-core/lib/modules/components.js`),
-      UILibrary: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-ui-${uiLibrary}/lib`),
+      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
+      UILibrary: path.resolve(__dirname, pathToUILibrary),
       
       // Locales
       EnUS: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-i18n-en-us/lib/en_US.js`),
@@ -34,8 +34,8 @@ module.exports = storybookBaseConfig => {
       FrFR: path.resolve(__dirname, `${pathToVulcan}/packages/vulcan-i18n-fr-fr/lib/fr_FR.js`),
       
       // Vulcan Packages
-      'meteor/vulcan:lib': path.resolve(__dirname, './vulcan.js'),
-      'meteor/vulcan:core': path.resolve(__dirname, './vulcan.js'),
+      'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
+      'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:i18n': 'react-intl',
     },
   };

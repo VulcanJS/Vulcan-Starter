@@ -43,7 +43,7 @@ addLocaleData(deLocaleData);
 import 'EnUS';
 import 'EsES';
 import 'FrFR';
-import { Strings } from './vulcan.js';
+import { Strings } from './helpers.js';
 
 const getMessages = (locale) => Strings[locale];
 
