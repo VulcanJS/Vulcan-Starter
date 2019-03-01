@@ -74,14 +74,26 @@ module.exports = storybookBaseConfig => {
   */
   storybookBaseConfig.module.rules.push({
     test: /\.(js|jsx)$/,
-    loader: 'babel-loader',
-    query: {
-      presets: ['@babel/react', {
-        plugins: [
-          '@babel/plugin-proposal-class-properties'
-        ]
+    loaders: [
+      {
+        loader: path.resolve(__dirname, './loaders/vulcan-loader'),
+        options: {
+          vulcanPackagesDir: pathToVulcanPackages
+        },
+      },
+      {
+        loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
+      },
+      {
+        loader: 'babel-loader',
+        query: {
+          presets: ['@babel/react', {
+            plugins: [
+              '@babel/plugin-proposal-class-properties'
+            ]
+          }],
+        }
       }],
-    },
   });
 
   /*
