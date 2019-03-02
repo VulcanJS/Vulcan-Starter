@@ -32,6 +32,15 @@ alerts.forEach(variant =>
 
 /*
 
+Avatar
+
+*/
+storiesOf('UI/Avatar', module).add('Default', () => (
+  <Components.Avatar user={{ displayName: 'John Smith' }}/>
+));
+
+/*
+
 Button
 
 */

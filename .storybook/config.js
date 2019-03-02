@@ -13,6 +13,15 @@ function loadStories() {
 
 /*
 
+React Router Config
+See https://github.com/gvaldambrini/storybook-router/tree/master/packages/react
+
+*/
+import StoryRouter from 'storybook-react-router';
+addDecorator(StoryRouter());
+
+/*
+
 Components
 
 */
@@ -31,32 +40,29 @@ See https://github.com/truffls/storybook-addon-intl
 */
 
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
-
-// Load the locale data for all your defined locales
 import { addLocaleData } from 'react-intl';
+import { Strings, Locales } from './helpers.js';
+
+const getMessages = locale => Strings[locale];
+
+/*
+
+En
+
+*/
 import enLocaleData from 'react-intl/locale-data/en';
-import deLocaleData from 'react-intl/locale-data/de';
-
 addLocaleData(enLocaleData);
-addLocaleData(deLocaleData);
-
 import 'EnUS';
-import 'EsES';
-import 'FrFR';
-import { Strings } from './helpers.js';
-
-const getMessages = (locale) => Strings[locale];
 
 // Set intl configuration
 setIntlConfig({
-    locales: ['en', 'de'],
-    defaultLocale: 'en',
-    getMessages
+  locales: Locales.map(locale => locale.id),
+  defaultLocale: 'en',
+  getMessages,
 });
 
 // Register decorator
 addDecorator(withIntl);
-
 
 // Run storybook
 configure(loadStories, module);

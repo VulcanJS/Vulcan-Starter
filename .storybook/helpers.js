@@ -34,6 +34,26 @@ export function registerComponent(name, rawComponent, ...hocs) {
 
 export const replaceComponent = registerComponent;
 
+export const instantiateComponent = (component, props) => {
+  if (!component) {
+    return null;
+  } else if (typeof component === 'string') {
+    const Component = getComponent(component);
+    return <Component {...props} />;
+  } else if (
+    typeof component === 'function' &&
+    component.prototype &&
+    component.prototype.isReactComponent
+  ) {
+    const Component = component;
+    return <Component {...props} />;
+  } else if (typeof component === 'function') {
+    return component(props);
+  } else {
+    return component;
+  }
+};
+
 export const coreComponents = [
   'Alert',
   'Button',
@@ -80,6 +100,42 @@ export const addStrings = (language, strings) => {
   };
 };
 
+export const Locales = [];
+
+export const registerLocale = locale => {
+  Locales.push(locale);
+};
+
+/*
+
+Users
+
+*/
+
+export const isAdmin = () => true;
+export const getProfileUrl = (user, isAbsolute) => {
+  if (typeof user === 'undefined') {
+    return '';
+  }
+  isAbsolute = typeof isAbsolute === 'undefined' ? false : isAbsolute; // default to false
+  var prefix = isAbsolute ? Utils.getSiteUrl().slice(0, -1) : '';
+  if (user.slug) {
+    return `${prefix}/users/${user.slug}`;
+  } else {
+    return '';
+  }
+};
+export const getDisplayName = (user) => {
+  if (!user) {
+    return '';
+  } else {
+    return user.displayName ? user.displayName : Users.getUserName(user);
+  }
+};
+export const avatar = {
+  getUrl: user => 'https://api.adorable.io/avatars/285/abotaat@adorable.io.png',
+  getInitials: user => 'SG',
+}
 /*
 
 Helpers
@@ -91,3 +147,17 @@ export function capitalize(string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }).join(' ');
 }
+
+/*
+
+Other Exports
+
+*/
+
+export const getSetting = (name, defaultSetting) => defaultSetting;
+
+export const track = () => {};
+export const addCallback = () => {};
+
+export const withCurrentUser = c => c;
+export const withUpdate = c => c;
