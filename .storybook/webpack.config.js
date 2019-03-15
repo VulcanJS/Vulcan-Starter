@@ -4,6 +4,7 @@ Modify
 
 */
 
+const path = require('path');
 /**
  * Smart function to find Vulcan packages
  * 
@@ -32,7 +33,7 @@ const findPathToVulcanPackages = () => {
   return '../../Vulcan/packages'
 }
 // path to your Vulcan repo (see 2-repo install in docs)
-const pathToVulcanPackages = findPathToVulcanPackages();
+const pathToVulcanPackages = path.resolve(__dirname, findPathToVulcanPackages());
 
 // path to your Vulcan UI library package
 const pathToUILibrary = `${pathToVulcanPackages}/vulcan-ui-bootstrap`;
@@ -42,7 +43,6 @@ const pathToUILibrary = `${pathToVulcanPackages}/vulcan-ui-bootstrap`;
 Do Not Modify
 
 */
-const path = require('path');
 
 module.exports = storybookBaseConfig => {
   storybookBaseConfig.resolve = {
