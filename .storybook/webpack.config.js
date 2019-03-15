@@ -64,6 +64,7 @@ module.exports = storybookBaseConfig => {
       'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:i18n': 'react-intl',
+      'meteor/vulcan:users': path.resolve(__dirname, './helpers')
     },
   };
 
@@ -75,7 +76,7 @@ module.exports = storybookBaseConfig => {
   storybookBaseConfig.module.rules.push({
     test: /\.(js|jsx)$/,
     loaders: [
-      {
+  /*    {
         loader: path.resolve(__dirname, './loaders/vulcan-loader'),
         options: {
           vulcanPackagesDir: pathToVulcanPackages
@@ -84,6 +85,7 @@ module.exports = storybookBaseConfig => {
       {
         loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
       },
+      */
       {
         loader: 'babel-loader',
         query: {
