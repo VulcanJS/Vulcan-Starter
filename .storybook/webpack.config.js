@@ -44,11 +44,11 @@ Do Not Modify
 
 */
 
-module.exports = storybookBaseConfig => {
-  storybookBaseConfig.resolve = {
-    ...storybookBaseConfig.resolve,
+module.exports = ({ config }) => {
+  config.resolve = {
+    ...config.resolve,
     alias: {
-      ...storybookBaseConfig.resolve.alias,
+      ...config.resolve.alias,
 
       // Components
       CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-core/lib/modules/components.js`),
@@ -63,6 +63,8 @@ module.exports = storybookBaseConfig => {
       // Vulcan Packages
       'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
+      'meteor/vulcan:events': path.resolve(__dirname, './helpers.js'),
+      'meteor/vulcan:users': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:i18n': 'react-intl',
       'meteor/vulcan:users': path.resolve(__dirname, './helpers')
     },
@@ -73,7 +75,7 @@ module.exports = storybookBaseConfig => {
   Parse JSX files outside of Storybook directory
 
   */
-  storybookBaseConfig.module.rules.push({
+  config.module.rules.push({
     test: /\.(js|jsx)$/,
     loaders: [
   /*    {
@@ -103,12 +105,12 @@ module.exports = storybookBaseConfig => {
   Parse SCSS files
 
   */
-  storybookBaseConfig.module.rules.push({
-    test: /\.(css|scss)$/,
+  config.module.rules.push({
+    test: /\.scss$/,
     loaders: ["style-loader", "css-loader", "sass-loader"],
     // include: path.resolve(__dirname, "../")
   });
 
   // Return the altered config
-  return storybookBaseConfig;
+  return config;
 };
