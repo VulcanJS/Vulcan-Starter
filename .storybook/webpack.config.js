@@ -36,7 +36,7 @@ const findPathToVulcanPackages = () => {
 const pathToVulcanPackages = path.resolve(__dirname, findPathToVulcanPackages());
 
 // path to your Vulcan UI library package
-const pathToUILibrary = `${pathToVulcanPackages}/vulcan-ui-bootstrap`;
+//const pathToUILibrary = `${pathToVulcanPackages}/vulcan-ui-bootstrap`;
 
 /*
 
@@ -52,8 +52,10 @@ module.exports = ({ config }) => {
 
       // Components
       CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-core/lib/modules/components.js`),
-      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
-      UILibrary: path.resolve(__dirname, pathToUILibrary),
+//      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
+//      UILibrary: path.resolve(__dirname, pathToUILibrary),
+      'meteor/vulcan:ui-bootstrap': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-bootstrap`),
+      'meteor/vulcan:ui-material': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-material`),
 
       // Locales
       EnUS: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-en-us/lib/en_US.js`),
@@ -66,7 +68,7 @@ module.exports = ({ config }) => {
       'meteor/vulcan:events': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:users': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:i18n': 'react-intl',
-      'meteor/vulcan:users': path.resolve(__dirname, './helpers')
+      'meteor/vulcan:users': path.resolve(__dirname, './helpers'),
     },
   };
 
@@ -78,7 +80,8 @@ module.exports = ({ config }) => {
   config.module.rules.push({
     test: /\.(js|jsx)$/,
     loaders: [
-  /*    {
+      /*
+      {
         loader: path.resolve(__dirname, './loaders/vulcan-loader'),
         options: {
           vulcanPackagesDir: pathToVulcanPackages

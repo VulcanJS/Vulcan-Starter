@@ -1,5 +1,11 @@
 import { addDecorator, configure } from '@storybook/react';
 
+// init UI
+import BootstrapDecorator from './decorators/BootstrapDecorator'
+//import MaterialUIDecorator from './decorators/MaterialUIDecorator'
+addDecorator(BootstrapDecorator)
+//addDecorator(MaterialUIDecorator)
+
 /*
 
 Standard Config
@@ -26,8 +32,8 @@ Components
 
 */
 
-// load UI components
-import 'UIComponentsLoader';
+// load custom UI components
+//import 'UIComponentsLoader';
 // load core components
 import 'CoreComponentsLoader';
 
