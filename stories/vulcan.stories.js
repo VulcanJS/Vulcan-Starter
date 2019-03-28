@@ -4,11 +4,16 @@ import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
 
-import { Components, capitalize } from 'meteor/vulcan:core';
+import { Components } from 'meteor/vulcan:core';
 
 const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
 
+function capitalize(string) {
+  return string.replace(/\-/, ' ').split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
 /*
 
 UI Components Stories
