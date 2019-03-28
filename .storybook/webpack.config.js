@@ -47,6 +47,7 @@ Do Not Modify
 module.exports = ({ config }) => {
   config.resolve = {
     ...config.resolve,
+    // this way node_modules are always those of current project and not of Vulcan
     alias: {
       ...config.resolve.alias,
 
@@ -54,7 +55,7 @@ module.exports = ({ config }) => {
       CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-core/lib/modules/components.js`),
 //      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
 //      UILibrary: path.resolve(__dirname, pathToUILibrary),
-      'meteor/vulcan:ui-bootstrap': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-bootstrap`),
+      //'meteor/vulcan:ui-bootstrap': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-bootstrap`),
       'meteor/vulcan:ui-material': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-material`),
 
       // Locales
@@ -66,12 +67,30 @@ module.exports = ({ config }) => {
       'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
       'meteor/vulcan:events': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:users': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:i18n': 'react-intl',
+      //'meteor/vulcan:i18n': 'react-intl',
       'meteor/vulcan:users': path.resolve(__dirname, './helpers'),
     },
+    modules: [path.resolve(__dirname, '../node_modules')]
   };
 
+
+  // handle meteor packages
+  config.module.rules.push({
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    loaders: [
+      {
+        loader: path.resolve(__dirname, './loaders/vulcan-loader'),
+        options: {
+          vulcanPackagesDir: pathToVulcanPackages,
+          environment: 'client'
+        },
+      },
+      {
+        loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
+      }
+    ]
+  });
   /*
 
   Parse JSX files outside of Storybook directory
@@ -80,17 +99,6 @@ module.exports = ({ config }) => {
   config.module.rules.push({
     test: /\.(js|jsx)$/,
     loaders: [
-      /*
-      {
-        loader: path.resolve(__dirname, './loaders/vulcan-loader'),
-        options: {
-          vulcanPackagesDir: pathToVulcanPackages
-        },
-      },
-      {
-        loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
-      },
-      */
       {
         loader: 'babel-loader',
         query: {
