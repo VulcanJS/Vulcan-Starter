@@ -99,7 +99,9 @@ module.exports = ({ config }) => {
         loader: path.resolve(__dirname, './loaders/vulcan-loader'),
         options: {
           vulcanPackagesDir: pathToVulcanPackages,
-          environment: 'client'
+          environment: 'client',
+          // those package are mocked using an alias instead
+          //exclude: ['meteor/vulcan:i18n']
         },
       },
       {
