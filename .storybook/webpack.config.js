@@ -5,6 +5,7 @@ Modify
 */
 
 const path = require('path');
+const webpack = require('webpack')
 /**
  * Smart function to find Vulcan packages
  * 
@@ -56,22 +57,37 @@ module.exports = ({ config }) => {
 //      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
 //      UILibrary: path.resolve(__dirname, pathToUILibrary),
       //'meteor/vulcan:ui-bootstrap': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-bootstrap`),
-      'meteor/vulcan:ui-material': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-material`),
+      //'meteor/vulcan:ui-material': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-material`),
 
       // Locales
-      EnUS: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-en-us/lib/en_US.js`),
-      EsES: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-es-es/lib/es_ES.js`),
-      FrFR: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-fr-fr/lib/fr_FR.js`),
+      //EnUS: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-en-us/lib/en_US.js`),
+      //EsES: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-es-es/lib/es_ES.js`),
+      //FrFR: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-fr-fr/lib/fr_FR.js`),
 
       // Vulcan Packages
-      'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:events': path.resolve(__dirname, './helpers.js'),
+      //'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
+      //'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
+      //'meteor/vulcan:events': path.resolve(__dirname, './helpers.js'),
       //'meteor/vulcan:i18n': 'react-intl',
-      'meteor/vulcan:users': path.resolve(__dirname, './helpers'),
+      //'meteor/vulcan:users': path.resolve(__dirname, './helpers'),
+      'meteor/apollo': path.resolve(__dirname, './mocks/meteor-apollo')
     },
-    modules: [path.resolve(__dirname, '../node_modules')]
   };
+
+  // force the config to use local node_modules instead the modules from Vulcan install
+  config.resolve.modules.push(
+      path.resolve(__dirname, '../node_modules')
+  )
+
+  config.plugins.push(
+    new webpack.ProvidePlugin({
+      // mock global variables
+      'Meteor': path.resolve(__dirname, './mocks/Meteor'),
+      'Vulcan': path.resolve(__dirname, './mocks/Vulcan'),
+      'Mongo': path.resolve(__dirname, './mocks/Mongo'),
+      '_': 'underscore',
+    })
+  )
 
 
   // handle meteor packages
@@ -88,6 +104,10 @@ module.exports = ({ config }) => {
       },
       {
         loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
+        options:{
+          // those package will be preserved, we provide a mock instead
+          preserve: ['meteor/apollo']
+        }
       }
     ]
   });

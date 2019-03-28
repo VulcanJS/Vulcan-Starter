@@ -58,7 +58,7 @@ En
 */
 import enLocaleData from 'react-intl/locale-data/en';
 addLocaleData(enLocaleData);
-import 'EnUS';
+//import 'EnUS';
 
 // Set intl configuration
 setIntlConfig({
