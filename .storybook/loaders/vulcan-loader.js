@@ -23,8 +23,9 @@ module.exports = function loader(source) {
         // we use it to matche the package name, until we meet a ' or "
         /meteor\/vulcan:(.*?(?=\/|'|"))(.*?(?=\'|\"))/g, // match Meteor packages that are vulcan packages, + the import path (without the quotes)
         (match, packageName, importPath) => {
+            console.log("Found Vulcan package", packageName)
             // ignore excluded packages
-            if (!!match.match(excludeRegex)){
+            if (excludeRegex && !!match.match(excludeRegex)){
                 return match 
             }
     //        console.log("match", match, "packageName", packageName, "path", importPath)

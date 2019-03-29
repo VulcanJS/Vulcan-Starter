@@ -35,7 +35,9 @@ Components
 // load custom UI components
 //import 'UIComponentsLoader';
 // load core components
-import 'CoreComponentsLoader';
+//import 'CoreComponentsLoader';
+console.log('importing components')
+import 'meteor/vulcan:core'
 
 /*
 
