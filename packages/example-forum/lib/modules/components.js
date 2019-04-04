@@ -52,7 +52,6 @@ import '../components/categories/CategoriesDashboard.jsx';
 
 // users
 
-import '../components/users/UsersSingle.jsx';
 import '../components/users/UsersAccount.jsx';
 import '../components/users/UsersEditForm.jsx';
 import '../components/users/UsersProfile.jsx';

@@ -8,6 +8,8 @@ import React from 'react';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import Users from 'meteor/vulcan:users';
 import { Link } from 'react-router-dom';
+import mapProps from 'recompose/mapProps';
+import get from 'lodash/get';
 
 const UsersProfile = props => {
   if (props.loading) {
@@ -71,10 +73,6 @@ const UsersProfile = props => {
   }
 };
 
-UsersProfile.propTypes = {
-  // document: PropTypes.object.isRequired,
-};
-
 UsersProfile.displayName = 'UsersProfile';
 
 const options = {
@@ -83,8 +81,11 @@ const options = {
   fragmentName: 'UsersProfile'
 };
 
+// make router slug param available as `slug` prop
+const mapPropsFunction = props => ({ ...props, slug: get(props, 'match.params.slug') });
+
 registerComponent({
   name: 'UsersProfile',
   component: UsersProfile,
-  hocs: [withCurrentUser, [withDocument, options]]
+  hocs: [mapProps(mapPropsFunction), withCurrentUser, [withDocument, options]]
 });
