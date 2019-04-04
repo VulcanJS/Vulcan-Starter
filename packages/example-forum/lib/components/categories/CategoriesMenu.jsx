@@ -1,42 +1,33 @@
-import { Components, registerComponent, withList, Utils, withCurrentUser } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMulti, Utils, withCurrentUser } from 'meteor/vulcan:core';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { withRouter } from 'react-router-dom';
 import { Categories } from '../../modules/categories/index.js';
 import { withApollo } from 'react-apollo';
-import queryString from 'querystring';
-
-/*
-
-Category menu item
-
-*/
-const CategoryMenuItem = ({ category, active, expanded }) => (
-  <span className={`category-menu-item ${active ? 'category-menu-item-active' : ''}`}>{category.name}</span>
-);
+import qs from 'qs';
 
 class CategoriesMenu extends PureComponent {
-
   getQuery = () => {
-    return queryString.parse(this.props.location.search);
-  }
+    return qs.parse(this.props.location.search, { ignoreQueryPrefix: true }) || {};
+  };
+
   /*
 
   Menu item for the "All Categories" link
 
   */
-  getResetCategoriesItem = () => {
-    const resetCategoriesQuery = this.getQuery();
-    delete resetCategoriesQuery.cat;
+  getAllCategoriesItem = () => {
+    // eslint-disable-next-line no-unused-vars
+    const { cat, ...allCategoriesQuery } = this.getQuery();
 
     const menuItem = {
-      to: { pathname: Utils.getRoutePath('posts.list'), query: resetCategoriesQuery },
-      itemProps: {
-        eventKey: 0,
-        className: 'category-menu-item category-menu-item-all dropdown-item',
+      to: { pathname: Utils.getRoutePath('posts.list'), query: allCategoriesQuery },
+      linkProps: {
+        isActive: () => {
+          return !this.getQuery().cat;
+        },
       },
-      component: <FormattedMessage id="categories.all" />,
+      labelId: 'categories.all',
     };
 
     return menuItem;
@@ -51,48 +42,25 @@ class CategoriesMenu extends PureComponent {
     const categories = this.props.results || [];
 
     // check if a category is currently active in the route
-    const query = this.getQuery();
-    const currentCategorySlug = query && query.cat;
-    const currentCategory = categories.find(category => category.slug = currentCategorySlug);
-    // const currentCategory = Categories.findOneInStore(this.props.client.store, { slug: currentCategorySlug });
-    const parentCategories = Categories.getParents(currentCategory, this.props.client.store);
+    const currentCategory = categories.find(category => category.slug === this.getQuery().cat);
 
-    // decorate categories with active and expanded properties
-    const categoriesClone = categories.map((category, index) => {
-      const catQuery = this.getQuery();
-      catQuery.cat = category.slug;
-
-      const active = currentCategory && category.slug === currentCategory.slug;
-      const expanded = parentCategories && _.contains(_.pluck(parentCategories, 'slug'), category.slug);
-
+    // decorate categories with active property
+    const categoriesItems = categories.map((category, index) => {
       return {
-        to: { pathname: Utils.getRoutePath('posts.list'), catQuery },
-        component: <CategoryMenuItem />,
-        itemProps: {
-          active,
-          className: 'dropdown-item',
+        to: {
+          pathname: Utils.getRoutePath('posts.list'),
+          search: qs.stringify({ ...this.getQuery(), cat: category.slug }),
         },
-        componentProps: {
-          // will be passed to component defined above
-          _id: category._id,
-          parentId: category.parentId,
-          category,
-          index,
-          currentUser: this.props.currentUser,
-          active,
-          expanded,
+        label: category.name,
+        linkProps: {
+          isActive: () => {
+            return currentCategory && currentCategory.slug === category.slug;
+          },
         },
       };
     });
 
-    // add `childrenItems` on each item in categoriesClone
-    const nestedCategories = Utils.unflatten(categoriesClone, {
-      idProperty: 'componentProps._id',
-      parentIdProperty: 'componentProps.parentId',
-      childrenProperty: 'childrenItems',
-    });
-
-    return nestedCategories;
+    return categoriesItems;
   };
 
   /*
@@ -101,7 +69,7 @@ class CategoriesMenu extends PureComponent {
 
   */
   getMenuItems = () => {
-    const menuItems = [this.getResetCategoriesItem(), ...this.getCategoriesItems()];
+    const menuItems = [this.getAllCategoriesItem(), ...this.getCategoriesItems()];
     return menuItems;
   };
 
@@ -130,7 +98,6 @@ CategoriesMenu.propTypes = {
 
 const options = {
   collection: Categories,
-  queryName: 'categoriesListQuery',
   fragmentName: 'CategoriesList',
   limit: 0,
   pollInterval: 0,
@@ -139,5 +106,5 @@ const options = {
 registerComponent({
   name: 'CategoriesMenu',
   component: CategoriesMenu,
-  hocs: [withRouter, withApollo, [withList, options], withCurrentUser],
+  hocs: [withRouter, withApollo, [withMulti, options], withCurrentUser],
 });

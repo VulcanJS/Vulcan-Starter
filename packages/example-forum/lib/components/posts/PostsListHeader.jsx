@@ -2,7 +2,6 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 import React from 'react';
 
 const PostsListHeader = () => {
-
   return (
     <div>
       <div className="posts-list-header">
@@ -10,12 +9,12 @@ const PostsListHeader = () => {
           <Components.CategoriesMenu />
         </div>
         <Components.PostsViews />
-        <Components.SearchForm/>
+        <Components.SearchForm />
       </div>
     </div>
-  )
-}
+  );
+};
 
-PostsListHeader.displayName = "PostsListHeader";
+PostsListHeader.displayName = 'PostsListHeader';
 
 registerComponent({ name: 'PostsListHeader', component: PostsListHeader });
