@@ -21,7 +21,7 @@ class CategoriesMenu extends PureComponent {
     const { cat, ...allCategoriesQuery } = this.getQuery();
 
     const menuItem = {
-      to: { pathname: Utils.getRoutePath('posts.list'), query: allCategoriesQuery },
+      to: { pathname: Utils.getRoutePath('posts.list'), search: qs.stringify(allCategoriesQuery) },
       linkProps: {
         isActive: () => {
           return !this.getQuery().cat;
