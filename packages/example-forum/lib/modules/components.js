@@ -60,4 +60,3 @@ import '../components/users/UsersProfileCheck.jsx';
 import '../components/users/UsersAvatar.jsx';
 import '../components/users/UsersName.jsx';
 import '../components/users/UsersMenu.jsx';
-import '../components/users/UsersAccountMenu.jsx';

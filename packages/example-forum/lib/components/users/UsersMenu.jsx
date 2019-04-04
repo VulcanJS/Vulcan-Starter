@@ -4,8 +4,24 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import Users from 'meteor/vulcan:users';
 import { withApollo } from 'react-apollo';
+import { FormattedMessage } from 'meteor/vulcan:i18n';
+import { STATES } from 'meteor/vulcan:accounts';
 
-const UsersMenu = ({ currentUser, client }) => {
+const UsersMenu = ({ currentUser, currentUserLoading, client, state }) => {
+  return (
+    <div className="users-menu">
+      {currentUserLoading ? (
+        <Components.Loading />
+      ) : currentUser ? (
+        <UserLoggedInMenu currentUser={currentUser} client={client} />
+      ) : (
+        <UserLoggedOutMenu state={state} />
+      )}
+    </div>
+  );
+};
+
+const UserLoggedInMenu = ({ currentUser, client }) => {
   const menuItems = [
     {
       to: `/users/${currentUser.slug}`,
@@ -36,21 +52,34 @@ const UsersMenu = ({ currentUser, client }) => {
   });
 
   return (
-    <div className="users-menu">
-      <Components.Dropdown
-        buttonProps={{ variant: 'secondary' }}
-        id="user-dropdown"
-        trigger={
-          <div className="dropdown-toggle-inner">
-            <Components.Avatar size="small" user={currentUser} addLink={false} />
-            <div className="users-menu-name">{Users.getDisplayName(currentUser)}</div>
-          </div>
-        }
-        menuItems={menuItems}
-      />
-    </div>
+    <Components.Dropdown
+      buttonProps={{ variant: 'secondary' }}
+      id="user-dropdown"
+      trigger={
+        <div className="dropdown-toggle-inner">
+          <Components.Avatar size="small" user={currentUser} addLink={false} />
+          <div className="users-menu-name">{Users.getDisplayName(currentUser)}</div>
+        </div>
+      }
+      menuItems={menuItems}
+    />
   );
 };
+
+const UserLoggedOutMenu = ({ state }) => (
+  <Components.Dropdown
+    buttonProps={{ variant: ' btn-secondary' }}
+    id="accounts-dropdown"
+    className="users-account-menu"
+    trigger={
+      <div className="dropdown-toggle-inner">
+        <Components.Icon name="user" />
+        <FormattedMessage id="users.sign_up_log_in" />
+      </div>
+    }
+    menuContents={<Components.AccountsLoginForm formState={state ? STATES[state] : STATES.SIGN_UP} />}
+  />
+);
 
 UsersMenu.propsTypes = {
   currentUser: PropTypes.object,
