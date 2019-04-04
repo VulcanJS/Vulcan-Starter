@@ -1,4 +1,4 @@
-import { Components, registerComponent, withList, withCurrentUser, Utils } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMulti, withCurrentUser, Utils } from 'meteor/vulcan:core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Posts } from '../../modules/posts/index.js';
@@ -77,4 +77,4 @@ const options = {
   fragmentName: 'PostsList',
 };
 
-registerComponent({ name: 'PostsList', component: PostsList, hocs: [withCurrentUser, [withList, options]] });
+registerComponent({ name: 'PostsList', component: PostsList, hocs: [withCurrentUser, [withMulti, options]] });
