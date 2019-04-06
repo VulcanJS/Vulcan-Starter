@@ -36,6 +36,7 @@ By the way, a useful companion to the Meteor Shell is Meteor's [database access]
 `,`
 ~~~sh
 meteor mongo
+use meteor
 ~~~
 `,`
 For example, here's how you would display all movies in your database:
