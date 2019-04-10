@@ -7,6 +7,7 @@ feel free to remove them if that's not what you're using.
 //import 'meteor/vulcan:ui-material/lib/stylesheets/bootstrap.min.css';
 
 // load UI components
+import React from 'react'
 import 'meteor/vulcan:ui-material/lib/modules/components.js';
 // TODO: load relevant components Like the theme
 
