@@ -51,25 +51,10 @@ module.exports = ({ config }) => {
     // this way node_modules are always those of current project and not of Vulcan
     alias: {
       ...config.resolve.alias,
-
-      // Components
- //     CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-core/lib/modules/components.js`),
-//      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
-//      UILibrary: path.resolve(__dirname, pathToUILibrary),
-      //'meteor/vulcan:ui-bootstrap': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-bootstrap`),
-      //'meteor/vulcan:ui-material': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-material`),
-
-      // Locales
-      //EnUS: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-en-us/lib/en_US.js`),
-      //EsES: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-es-es/lib/es_ES.js`),
-      //FrFR: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-fr-fr/lib/fr_FR.js`),
-
       // Vulcan Packages
-      //'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
-      //'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
-      //'meteor/vulcan:events': path.resolve(__dirname, './helpers.js'),
+      'meteor/vulcan:email': path.resolve(__dirname, './mocks/vulcan-email'),
       //'meteor/vulcan:i18n': 'react-intl',
-      //'meteor/vulcan:users': path.resolve(__dirname, './helpers'),
+      // Other packages
       'meteor/apollo': path.resolve(__dirname, './mocks/meteor-apollo')
     },
   };
@@ -99,7 +84,10 @@ module.exports = ({ config }) => {
         loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
         options:{
           // those package will be preserved, we provide a mock instead
-          preserve: ['meteor/apollo']
+          preserve: [
+            'meteor/apollo',
+            'meteor/vulcan:email'
+          ]
         }
       },
       {
@@ -107,8 +95,8 @@ module.exports = ({ config }) => {
         options: {
           vulcanPackagesDir: pathToVulcanPackages,
           environment: 'client',
-          // those package are mocked using an alias instead
-          //exclude: ['meteor/vulcan:i18n']
+          // those package are mocked using an alias instead or just ignored
+          exclude: ['meteor/vulcan:email', 'meteor/vulcan:accounts']
         },
       },
       // add your loaders for your own local vulcan-packages

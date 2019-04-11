@@ -4,5 +4,6 @@ module.exports = {
     startup: () => { },
     _localStorage: window ? window.localStorage : { setItem: () => {}, getItem: () => {} },
     isClient: () => true,
-    isServer: () => false
+    isServer: () => false,
+    absoluteUrl: () => 'http://vulcanjs.org/'
 }

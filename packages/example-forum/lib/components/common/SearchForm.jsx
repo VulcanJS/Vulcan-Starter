@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import queryString from 'querystring';
 
-const Input = FRC.Input;
+//const Input = FRC.Input;
 
 // see: http://stackoverflow.com/questions/1909441/jquery-keyup-delay
 const delay = (function() {
