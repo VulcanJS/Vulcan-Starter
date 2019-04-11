@@ -13,7 +13,7 @@ module.exports = function loader(source) {
         preservedRegex = new RegExp(preserve.join('|'))
     }
     // ignore vulcan package
-    return source.replace(/^.*meteor\/(?!vulcan).*$/mg, (match) => {
+    return source.replace(/^.*meteor\/.*$/mg, (match) => {
         console.log("Found Meteor package", match)
         const isPreserved = preservedRegex && !!match.match(preservedRegex)
         if (isPreserved) {

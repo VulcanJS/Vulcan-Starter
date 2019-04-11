@@ -96,6 +96,13 @@ module.exports = ({ config }) => {
     exclude: /node_modules/,
     loaders: [
       {
+        loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
+        options:{
+          // those package will be preserved, we provide a mock instead
+          preserve: ['meteor/apollo']
+        }
+      },
+      {
         loader: path.resolve(__dirname, './loaders/vulcan-loader'),
         options: {
           vulcanPackagesDir: pathToVulcanPackages,
@@ -104,13 +111,14 @@ module.exports = ({ config }) => {
           //exclude: ['meteor/vulcan:i18n']
         },
       },
+      // add your loaders for your own local vulcan-packages
       {
-        loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
-        options:{
-          // those package will be preserved, we provide a mock instead
-          preserve: ['meteor/apollo']
-        }
-      }
+        loader: path.resolve(__dirname, './loaders/starter-example-loader'),
+        options: {
+          packagesDir: path.resolve(__dirname, '../packages'),
+          environment: 'client',
+        },
+      },
     ]
   });
   /*
