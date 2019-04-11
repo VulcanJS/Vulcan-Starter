@@ -53,7 +53,7 @@ module.exports = ({ config }) => {
       ...config.resolve.alias,
 
       // Components
-      CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-core/lib/modules/components.js`),
+ //     CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-core/lib/modules/components.js`),
 //      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
 //      UILibrary: path.resolve(__dirname, pathToUILibrary),
       //'meteor/vulcan:ui-bootstrap': path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-ui-bootstrap`),
@@ -126,7 +126,8 @@ module.exports = ({ config }) => {
         query: {
           presets: ['@babel/react', {
             plugins: [
-              '@babel/plugin-proposal-class-properties'
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-syntax-dynamic-import'
             ]
           }],
         }

@@ -105,10 +105,12 @@
     "underscore": "^1.8.3",
     "universal-cookie-express": "^2.1.5",
     "url": "^0.11.0",
-    "webpack": "^4.29.5"
+    "webpack": "4.28.4"
+
   },
   "private": true,
   "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
