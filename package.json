@@ -106,12 +106,11 @@
     "universal-cookie-express": "^2.1.5",
     "url": "^0.11.0",
     "webpack": "4.28.4"
-
   },
   "private": true,
   "devDependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/core": "^7.3.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "@storybook/addon-actions": "^5.0.1",
@@ -131,7 +130,9 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-meteor": "^4.2.1",
     "eslint-plugin-react": "^6.7.1",
-    "storybook-react-router": "^1.0.2"
+    "scrap-meteor-loader": "0.0.1",
+    "storybook-react-router": "^1.0.2",
+    "vulcan-loader": "0.0.1"
   },
   "postcss": {
     "plugins": {

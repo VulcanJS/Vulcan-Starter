@@ -81,7 +81,7 @@ module.exports = ({ config }) => {
     exclude: /node_modules/,
     loaders: [
       {
-        loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
+        loader: 'scrap-meteor-loader',
         options:{
           // those package will be preserved, we provide a mock instead
           preserve: [
@@ -91,7 +91,7 @@ module.exports = ({ config }) => {
         }
       },
       {
-        loader: path.resolve(__dirname, './loaders/vulcan-loader'),
+        loader: 'vulcan-loader',
         options: {
           vulcanPackagesDir: pathToVulcanPackages,
           environment: 'client',
