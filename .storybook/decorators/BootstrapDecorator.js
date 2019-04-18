@@ -1,10 +1,6 @@
-/*
-
-Note: the following stylesheets are used for Bootstrap-based apps,
-feel free to remove them if that's not what you're using.
-
-*/
-
+/**
+ * Use this decorator to setup Bootstrap
+ */
 import React from 'react'
 
 import 'meteor/vulcan:ui-bootstrap/lib/stylesheets/bootstrap.min.css';

@@ -1,11 +1,17 @@
 /*
 
-Modify
+Webpack setup
+
+Adapt with your own loaders and config if necessary
 
 */
 
 const path = require('path');
 const webpack = require('webpack')
+
+
+// Find Vulcan install, should not be modified
+
 /**
  * Smart function to find Vulcan packages
  * 
@@ -36,16 +42,10 @@ const findPathToVulcanPackages = () => {
 // path to your Vulcan repo (see 2-repo install in docs)
 const pathToVulcanPackages = path.resolve(__dirname, findPathToVulcanPackages());
 
-// path to your Vulcan UI library package
-//const pathToUILibrary = `${pathToVulcanPackages}/vulcan-ui-bootstrap`;
 
-/*
-
-Do Not Modify
-
-*/
 
 module.exports = ({ config }) => {
+  // Define aliases. Allow to mock some packages.
   config.resolve = {
     ...config.resolve,
     // this way node_modules are always those of current project and not of Vulcan
@@ -58,12 +58,7 @@ module.exports = ({ config }) => {
       'meteor/apollo': path.resolve(__dirname, './mocks/meteor-apollo')
     },
   };
-
-  // force the config to use local node_modules instead the modules from Vulcan install
-  config.resolve.modules.push(
-      path.resolve(__dirname, '../node_modules')
-  )
-
+  // Mock global variables
   config.plugins.push(
     new webpack.ProvidePlugin({
       // mock global variables
@@ -75,11 +70,19 @@ module.exports = ({ config }) => {
   )
 
 
+  // force the config to use local node_modules instead the modules from Vulcan install
+  // Should not be modified
+  config.resolve.modules.push(
+      path.resolve(__dirname, '../node_modules')
+  )
+
   // handle meteor packages
+  // Add your custom loaders here if necessary
   config.module.rules.push({
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
     loaders: [
+      // Remove meteor package (last step)
       {
         loader: 'scrap-meteor-loader',
         options:{
@@ -90,6 +93,7 @@ module.exports = ({ config }) => {
           ]
         }
       },
+      // Load Vulcan core packages
       {
         loader: 'vulcan-loader',
         options: {
@@ -99,7 +103,8 @@ module.exports = ({ config }) => {
           exclude: ['meteor/vulcan:email', 'meteor/vulcan:accounts']
         },
       },
-      // add your loaders for your own local vulcan-packages
+      // Add your loaders here for your own local vulcan-packages
+      // Example for Vulcan Starter:
       {
         loader: path.resolve(__dirname, './loaders/starter-example-loader'),
         options: {
@@ -109,11 +114,9 @@ module.exports = ({ config }) => {
       },
     ]
   });
-  /*
 
-  Parse JSX files outside of Storybook directory
-
-  */
+  // Parse JSX files outside of Storybook directory
+  // Should not be modified
   config.module.rules.push({
     test: /\.(js|jsx)$/,
     loaders: [
@@ -130,11 +133,8 @@ module.exports = ({ config }) => {
       }],
   });
 
-  /*
-
-  Parse SCSS files
-
-  */
+  // Parse SCSS files
+  // Should not be modfied
   config.module.rules.push({
     test: /\.scss$/,
     loaders: ["style-loader", "css-loader", "sass-loader"],

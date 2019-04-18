@@ -1,9 +1,13 @@
+/**
+ * Global configuration of the stories
+ */
 import { addDecorator, configure } from '@storybook/react';
 
-// init UI
+// init UI using a Decorator
 import BootstrapDecorator from './decorators/BootstrapDecorator'
-//import MaterialUIDecorator from './decorators/MaterialUIDecorator'
 addDecorator(BootstrapDecorator)
+// Uncomment to activate material UI instead
+//import MaterialUIDecorator from './decorators/MaterialUIDecorator'
 //addDecorator(MaterialUIDecorator)
 
 /*
@@ -28,15 +32,10 @@ addDecorator(StoryRouter());
 
 /*
 
-Components
+Vulcan core Components
 
 */
 
-// load custom UI components
-//import 'UIComponentsLoader';
-// load core components
-//import 'CoreComponentsLoader';
-console.log('importing components')
 import 'meteor/vulcan:core'
 
 /*
