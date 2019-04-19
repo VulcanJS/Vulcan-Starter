@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import { intlShape } from 'meteor/vulcan:i18n';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import queryString from 'querystring';
 
-//const Input = FRC.Input;
+import qs from 'qs';
 
 // see: http://stackoverflow.com/questions/1909441/jquery-keyup-delay
 const delay = (function() {
@@ -19,27 +18,26 @@ const delay = (function() {
 class SearchForm extends Component {
   constructor(props) {
     super(props);
-    this.search = this.search.bind(this);
     this.state = {
       pathname: props.location.pathname,
-      search: this.getQuery().query || ''
+      search: this.getQuery().query || '',
     };
   }
 
   getQuery = () => {
-    return  queryString.parse(this.props.location.search);
-  }
+    return qs.parse(this.props.location.search, { ignoreQueryPrefix: true }) || {};
+  };
 
   // note: why do we need this?
   componentWillReceiveProps(nextProps) {
     this.setState({
-      search: this.getQuery().query || ''
+      search: this.getQuery().query || '',
     });
   }
 
-  search(e) {
+  handleSearch = e => {
     const value = e.target.value;
-    const router = this.props.router;
+    const { location, history } = this.props;
     const routerQuery = this.getQuery();
     delete routerQuery.query;
 
@@ -48,18 +46,20 @@ class SearchForm extends Component {
 
     delay(() => {
       // only update the route if the path hasn't changed in the meantime
-      if (this.state.pathname === router.location.pathname) {
-        router.push({
+      if (this.state.pathname === location.pathname) {
+        history.push({
           pathname: Utils.getRoutePath('posts.list'),
-          query,
+          search: qs.stringify(query),
         });
       }
     }, 700);
-  }
+  };
 
   render() {
-    const resetQuery = this.getQuery();
-    delete resetQuery.query;
+    const { history } = this.props;
+    const { search } = this.state;
+    // eslint-disable-next-line no-unused-vars
+    const { query, ...resetQuery } = this.getQuery();
 
     return (
       <div className="search-form">
@@ -67,17 +67,27 @@ class SearchForm extends Component {
           <Components.FormComponentText
             inputProperties={{
               name: 'searchQuery',
-              value: this.state.search,
+              value: search,
               placeholder: this.context.intl.formatMessage({ id: 'posts.search' }),
               type: 'text',
               layout: 'elementOnly',
-              onChange: this.search,
+              onChange: this.handleSearch,
             }}
           />
           {this.state.search !== '' ? (
-            <Link className="search-form-reset" to={{ pathname: '/', query: resetQuery }}>
+            <button
+              className="search-form-reset"
+              onClick={(e) => {
+                e.preventDefault();
+                this.setState({ search: '' });
+                history.push({
+                  pathname: Utils.getRoutePath('posts.list'),
+                  search: qs.stringify(resetQuery),
+                });
+              }}
+            >
               <Components.Icon name="close" />
-            </Link>
+            </button>
           ) : null}
         </Components.FormElement>
       </div>
@@ -92,5 +102,5 @@ SearchForm.contextTypes = {
 registerComponent({
   name: 'SearchForm',
   component: SearchForm,
-  hocs: [withRouter]
+  hocs: [withRouter],
 });

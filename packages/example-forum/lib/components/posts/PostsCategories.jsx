@@ -9,7 +9,7 @@ const PostsCategories = ({ post }) => {
         <Link
           className="posts-category"
           key={category._id}
-          to={{ pathname: '/', query: { cat: category.slug } }}
+          to={{ pathname: '/', search: `cat=${category.slug}` }}
         >
           {category.name}
         </Link>

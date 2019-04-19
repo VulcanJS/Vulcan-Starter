@@ -1,12 +1,14 @@
 import { Components, registerComponent } from 'meteor/vulcan:core';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import isEmpty from 'lodash/isEmpty';
+import qs from 'qs';
 
-const PostsHome = (props, context) => {
-  const terms = _.isEmpty(props.location && props.location.query) ? {view: 'top'}: props.location.query;
-  return <Components.PostsList terms={terms}/>
+const PostsHome = ({ location }) => {
+  const query = qs.parse(location.search, { ignoreQueryPrefix: true }) || {};
+  const terms = isEmpty(query) ? { view: 'top' } : query;
+  return <Components.PostsList terms={terms} />;
 };
 
-PostsHome.displayName = "PostsHome";
+PostsHome.displayName = 'PostsHome';
 
 registerComponent({ name: 'PostsHome', component: PostsHome });

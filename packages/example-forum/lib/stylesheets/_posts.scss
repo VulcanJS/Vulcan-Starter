@@ -59,6 +59,14 @@
   }
 }
 
+.search-form-reset{
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
 .posts-list-content{
   border-top: $border;
   // padding-top: 15px;

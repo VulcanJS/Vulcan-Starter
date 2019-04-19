@@ -52,7 +52,6 @@ import '../components/categories/CategoriesDashboard.jsx';
 
 // users
 
-import '../components/users/UsersSingle.jsx';
 import '../components/users/UsersAccount.jsx';
 import '../components/users/UsersEditForm.jsx';
 import '../components/users/UsersProfile.jsx';
@@ -60,4 +59,3 @@ import '../components/users/UsersProfileCheck.jsx';
 import '../components/users/UsersAvatar.jsx';
 import '../components/users/UsersName.jsx';
 import '../components/users/UsersMenu.jsx';
-import '../components/users/UsersAccountMenu.jsx';
