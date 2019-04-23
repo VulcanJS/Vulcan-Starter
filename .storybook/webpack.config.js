@@ -1,10 +1,17 @@
 /*
 
-Modify
+Webpack setup
+
+Adapt with your own loaders and config if necessary
 
 */
 
 const path = require('path');
+const webpack = require('webpack')
+
+
+// Find Vulcan install, should not be modified
+
 /**
  * Smart function to find Vulcan packages
  * 
@@ -35,76 +42,99 @@ const findPathToVulcanPackages = () => {
 // path to your Vulcan repo (see 2-repo install in docs)
 const pathToVulcanPackages = path.resolve(__dirname, findPathToVulcanPackages());
 
-// path to your Vulcan UI library package
-const pathToUILibrary = `${pathToVulcanPackages}/vulcan-ui-bootstrap`;
 
-/*
-
-Do Not Modify
-
-*/
 
 module.exports = ({ config }) => {
+  // Define aliases. Allow to mock some packages.
   config.resolve = {
     ...config.resolve,
+    // this way node_modules are always those of current project and not of Vulcan
     alias: {
       ...config.resolve.alias,
-
-      // Components
-      CoreComponentsLoader: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-core/lib/modules/components.js`),
-      UIComponentsLoader: path.resolve(__dirname, `${pathToUILibrary}/lib/modules/components.js`),
-      UILibrary: path.resolve(__dirname, pathToUILibrary),
-
-      // Locales
-      EnUS: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-en-us/lib/en_US.js`),
-      EsES: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-es-es/lib/es_ES.js`),
-      FrFR: path.resolve(__dirname, `${pathToVulcanPackages}/vulcan-i18n-fr-fr/lib/fr_FR.js`),
-
       // Vulcan Packages
-      'meteor/vulcan:lib': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:core': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:events': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:users': path.resolve(__dirname, './helpers.js'),
-      'meteor/vulcan:i18n': 'react-intl',
-      'meteor/vulcan:users': path.resolve(__dirname, './helpers')
+      'meteor/vulcan:email': path.resolve(__dirname, './mocks/vulcan-email'),
+      //'meteor/vulcan:i18n': 'react-intl',
+      // Other packages
+      'meteor/apollo': path.resolve(__dirname, './mocks/meteor-apollo')
     },
   };
+  // Mock global variables
+  config.plugins.push(
+    new webpack.ProvidePlugin({
+      // mock global variables
+      'Meteor': path.resolve(__dirname, './mocks/Meteor'),
+      'Vulcan': path.resolve(__dirname, './mocks/Vulcan'),
+      'Mongo': path.resolve(__dirname, './mocks/Mongo'),
+      '_': 'underscore',
+    })
+  )
 
-  /*
 
-  Parse JSX files outside of Storybook directory
+  // force the config to use local node_modules instead the modules from Vulcan install
+  // Should not be modified
+  config.resolve.modules.push(
+      path.resolve(__dirname, '../node_modules')
+  )
 
-  */
+  // handle meteor packages
+  // Add your custom loaders here if necessary
+  config.module.rules.push({
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    loaders: [
+      // Remove meteor package (last step)
+      {
+        loader: 'scrap-meteor-loader',
+        options:{
+          // those package will be preserved, we provide a mock instead
+          preserve: [
+            'meteor/apollo',
+            'meteor/vulcan:email'
+          ]
+        }
+      },
+      // Load Vulcan core packages
+      {
+        loader: 'vulcan-loader',
+        options: {
+          vulcanPackagesDir: pathToVulcanPackages,
+          environment: 'client',
+          // those package are mocked using an alias instead or just ignored
+          exclude: ['meteor/vulcan:email', 'meteor/vulcan:accounts']
+        },
+      },
+      // Add your loaders here for your own local vulcan-packages
+      // Example for Vulcan Starter:
+      {
+        loader: path.resolve(__dirname, './loaders/starter-example-loader'),
+        options: {
+          packagesDir: path.resolve(__dirname, '../packages'),
+          environment: 'client',
+        },
+      },
+    ]
+  });
+
+  // Parse JSX files outside of Storybook directory
+  // Should not be modified
   config.module.rules.push({
     test: /\.(js|jsx)$/,
     loaders: [
-  /*    {
-        loader: path.resolve(__dirname, './loaders/vulcan-loader'),
-        options: {
-          vulcanPackagesDir: pathToVulcanPackages
-        },
-      },
-      {
-        loader: path.resolve(__dirname, './loaders/scrap-meteor-loader'),
-      },
-      */
       {
         loader: 'babel-loader',
         query: {
           presets: ['@babel/react', {
             plugins: [
-              '@babel/plugin-proposal-class-properties'
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-syntax-dynamic-import'
             ]
           }],
         }
       }],
   });
 
-  /*
-
-  Parse SCSS files
-
-  */
+  // Parse SCSS files
+  // Should not be modfied
   config.module.rules.push({
     test: /\.scss$/,
     loaders: ["style-loader", "css-loader", "sass-loader"],

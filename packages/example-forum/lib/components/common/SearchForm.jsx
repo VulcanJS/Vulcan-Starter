@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { intlShape } from 'meteor/vulcan:i18n';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+
 import qs from 'qs';
 
 // see: http://stackoverflow.com/questions/1909441/jquery-keyup-delay

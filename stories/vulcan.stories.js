@@ -4,11 +4,23 @@ import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
 
-import { Components, capitalize } from 'meteor/vulcan:core';
+import { Components } from 'meteor/vulcan:core';
+// and then load them in the app so that <Component.Whatever /> is defined
+import { populateComponentsApp, initializeFragments } from 'meteor/vulcan:lib';
+// we need registered fragments to be initialized because populateComponentsApp will run
+// hocs, like withUpdate, that rely on fragments
+initializeFragments();
+// actually fills the Components object
+populateComponentsApp();
 
 const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
 
+function capitalize(string) {
+  return string.replace(/\-/, ' ').split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
 /*
 
 UI Components Stories

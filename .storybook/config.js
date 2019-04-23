@@ -1,4 +1,14 @@
+/**
+ * Global configuration of the stories
+ */
 import { addDecorator, configure } from '@storybook/react';
+
+// init UI using a Decorator
+import BootstrapDecorator from './decorators/BootstrapDecorator'
+addDecorator(BootstrapDecorator)
+// Uncomment to activate material UI instead
+//import MaterialUIDecorator from './decorators/MaterialUIDecorator'
+//addDecorator(MaterialUIDecorator)
 
 /*
 
@@ -22,14 +32,11 @@ addDecorator(StoryRouter());
 
 /*
 
-Components
+Vulcan core Components
 
 */
 
-// load UI components
-import 'UIComponentsLoader';
-// load core components
-import 'CoreComponentsLoader';
+import 'meteor/vulcan:core'
 
 /*
 
@@ -52,7 +59,7 @@ En
 */
 import enLocaleData from 'react-intl/locale-data/en';
 addLocaleData(enLocaleData);
-import 'EnUS';
+//import 'EnUS';
 
 // Set intl configuration
 setIntlConfig({
