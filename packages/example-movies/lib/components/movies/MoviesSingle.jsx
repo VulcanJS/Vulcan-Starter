@@ -1,17 +1,17 @@
 import React from 'react';
 import { registerComponent, Components, withSingle } from 'meteor/vulcan:core';
 import Movies from '../../modules/movies/collection';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 /**
  * MoviesSingle - Top level component at the route /movie/:id
  *  It just passes the param id (passed by the router, from the url) to MoviesSingleInner that is wrapped with withSingle to fetch the data
  * @param  {object} props
  */
-function MoviesSingle(props) {
+function MoviesSingle({ match }) {
   return (
     <div style={{ maxWidth: '500px', margin: '20px auto' }}>
-      <Components.MoviesSingleInner documentId={props.params.id} />
+      <Components.MoviesSingleInner documentId={match.params.id} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ Wrapped with the "withCurrentUser" container.
 
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Movies from '../../modules/movies/collection.js';
 
