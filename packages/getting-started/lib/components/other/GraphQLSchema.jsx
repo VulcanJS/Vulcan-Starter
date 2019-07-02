@@ -1,5 +1,5 @@
 import React from 'react';
-import { registerComponent, Loading, Components } from 'meteor/vulcan:core';
+import { registerComponent, Components } from 'meteor/vulcan:core';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
 

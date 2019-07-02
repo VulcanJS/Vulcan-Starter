@@ -6,13 +6,13 @@ Wrapped with the "withList" and "withCurrentUser" containers.
 */
 
 import React from 'react';
-import { registerComponent, Components, withList, withCurrentUser, Loading } from 'meteor/vulcan:core';
+import { registerComponent, Components, withList, withCurrentUser } from 'meteor/vulcan:core';
 import Pics from '../../modules/pics/collection.js';
 
 const PicsList = ({results = [], currentUser, loading, loadMore, count, totalCount}) => (
   <div className="pics-list">
     {loading ?
-      <Loading /> :
+      <Components.Loading /> :
       <div className="pics-list-content">
         <div className="pics-list-grid">
             {results.map(pic => <Components.PicsItem key={pic._id} pic={pic} currentUser={currentUser} />)}

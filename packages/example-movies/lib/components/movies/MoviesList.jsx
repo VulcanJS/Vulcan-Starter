@@ -6,7 +6,7 @@ Wrapped with the "withMulti" and "withCurrentUser" containers.
 */
 
 import React from 'react';
-import { registerComponent, replaceComponent, Components, withMulti, withCurrentUser, Loading } from 'meteor/vulcan:core';
+import { registerComponent, replaceComponent, Components, withMulti, withCurrentUser } from 'meteor/vulcan:core';
 
 import Movies from '../../modules/movies/collection.js';
 
@@ -19,7 +19,7 @@ const MoviesList = ({ results = [], currentUser, loading, loadMore, count, total
     </div>
 
     {loading ? (
-      <Loading />
+      <Components.Loading />
     ) : (
       <div className="movies">
         {/* new document form */}
