@@ -1,4 +1,4 @@
-import { SyncedCron } from 'meteor/percolatestudio:synced-cron';
+import { SyncedCron } from 'meteor/littledata:synced-cron';
 // import moment from 'moment';
 import { Posts } from '../../modules/posts/index.js';
 
