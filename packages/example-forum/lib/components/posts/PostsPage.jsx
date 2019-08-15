@@ -1,9 +1,9 @@
-import { Components, registerComponent, withSingle, withCurrentUser, getActions, withMutation } from 'meteor/vulcan:core';
+import { Components, registerComponent, withSingle, withCurrentUser, /* getActions */, withMutation } from 'meteor/vulcan:core';
 import { Posts } from '../../modules/posts/index.js';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import mapProps from 'recompose/mapProps';
 
