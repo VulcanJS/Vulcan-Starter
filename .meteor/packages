@@ -14,16 +14,15 @@ accounts-password@1.5.1
 
 ############ Your Packages ############
 
-getting-started
+# getting-started
 
 # example-simple
 # example-movies
 # example-instagram
-# example-forum
+example-forum
 # example-customization
 # example-permissions
 # example-membership
 # example-interfaces
 # example-reactions
 # example-forms
-tmeasday:check-npm-versions
