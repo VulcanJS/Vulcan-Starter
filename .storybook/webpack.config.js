@@ -14,7 +14,7 @@ const webpack = require('webpack')
 
 /**
  * Smart function to find Vulcan packages
- * 
+ *
  * You can either provide a path to Vulcan as VULCAN_DIR env
  * or set the METEOR_PACKAGE_DIR variable
  */
@@ -55,7 +55,8 @@ module.exports = ({ config }) => {
       'meteor/vulcan:email': path.resolve(__dirname, './mocks/vulcan-email'),
       //'meteor/vulcan:i18n': 'react-intl',
       // Other packages
-      'meteor/apollo': path.resolve(__dirname, './mocks/meteor-apollo')
+      'meteor/apollo': path.resolve(__dirname, './mocks/meteor-apollo'),
+      'meteor/server-render': path.resolve(__dirname, './mocks/meteor-server-render')
     },
   };
   // Mock global variables
