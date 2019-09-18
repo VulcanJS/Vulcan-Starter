@@ -74,7 +74,7 @@ module.exports = ({ config }) => {
   // force the config to use local node_modules instead the modules from Vulcan install
   // Should not be modified
   config.resolve.modules.push(
-      path.resolve(__dirname, '../node_modules')
+    path.resolve(__dirname, '../node_modules')
   )
 
   // handle meteor packages
@@ -86,11 +86,12 @@ module.exports = ({ config }) => {
       // Remove meteor package (last step)
       {
         loader: 'scrap-meteor-loader',
-        options:{
+        options: {
           // those package will be preserved, we provide a mock instead
           preserve: [
             'meteor/apollo',
-            'meteor/vulcan:email'
+            'meteor/vulcan:email',
+            'meteor/server-render'
           ]
         }
       },
