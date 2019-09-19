@@ -7,7 +7,7 @@ const text = `
 Congrats! You've made it all the way to the end of this tutorial. Let's review all the things we learned:
 
 - How to [create routes](http://docs.vulcanjs.org/routing.html#Adding-Routes).
-- How to [register](http://docs.vulcanjs.org/theming.html#Registering-Components) and [use](/theming.html#Using-Components) components.
+- How to [register](http://docs.vulcanjs.org/theming.html#Registering-Components) and [use](http://docs.vulcanjs.org/theming.html#Using-Components) components.
 - How to use [core components](http://docs.vulcanjs.org/theming.html#Core-Components).
 - How to write a [schema](http://docs.vulcanjs.org/schemas.html).
 - How to create a [collection](http://docs.vulcanjs.org/schemas.html#Creating-Collections).
