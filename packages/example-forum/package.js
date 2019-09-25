@@ -28,7 +28,7 @@ Package.onUse(function (api) {
     'vulcan:embed@1.13.1',
     'vulcan:admin@1.13.1',
 
-    'percolatestudio:synced-cron',
+    'littledata:synced-cron',
   ]);
 
   api.addAssets([
@@ -55,7 +55,7 @@ Package.onUse(function (api) {
     'lib/server/email/templates/newsletter/newsletter.handlebars',
     'lib/server/email/templates/newsletter/newsletterConfirmation.handlebars',
     'lib/server/email/templates/newsletter/postItem.handlebars',
-    
+
   ], ['server']);
 
   api.addFiles([
