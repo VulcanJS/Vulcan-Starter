@@ -1,10 +1,10 @@
 # see http://docs.vulcanjs.org/packages
 
-vulcan:core@=1.13.1
+vulcan:core@=1.13.2
 
 ############ Language Packages ############
 
-vulcan:i18n-en-us@=1.13.1
+vulcan:i18n-en-us@=1.13.2
 
 ############ Accounts Packages ############
 
