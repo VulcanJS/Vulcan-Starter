@@ -1,0 +1,15 @@
+.ResidentsListItemContainer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(auto-fill, 2%);
+}
+.ResidentsListItemContainerWarning {
+    color: red;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(auto-fill, 2%);
+}
+
+.IDPadding {
+    padding-right: 10px;
+}

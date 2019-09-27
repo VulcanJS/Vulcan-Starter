@@ -1,0 +1,18 @@
+
+.ServiceBlockContainer {
+display: grid;
+grid-template-rows: repeat(auto-fill, 2%);
+direction: row;
+}
+
+.HeaderPadding {
+  /* color: $dashboard-table-data-color; */
+  padding-bottom: 10px;
+  float: right;
+}
+
+.Title {
+  color: whitesmoke;
+  font-size: 12px;
+  padding-bottom: 10px;
+}

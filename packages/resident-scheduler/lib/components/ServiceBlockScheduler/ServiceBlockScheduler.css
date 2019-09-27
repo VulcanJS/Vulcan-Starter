@@ -1,0 +1,27 @@
+/* .ServiceBlockSchedulerContainer {
+    display: grid;
+    grid-template-columns: 80% 15% 5%;
+    grid-column-gap: 10px;
+    grid-row-gap: 1px;
+} */
+
+.ServiceBlockSchedulerContainer {
+  display: grid;
+  grid-template-columns: 1fr, 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    'scheduletable residentlist'
+}
+
+.ScheduleTable {
+  grid-area: scheduletable;
+}
+
+.ResidentList {
+  grid-area: residentlist;
+}
+
+.DoneButton {
+    grid-area: donebutton;
+  }
+  

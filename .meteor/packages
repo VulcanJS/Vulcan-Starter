@@ -14,8 +14,8 @@ accounts-password@1.5.1
 
 ############ Your Packages ############
 
-getting-started
-
+# getting-started
+resident-scheduler
 # example-simple
 # example-movies
 # example-instagram
@@ -26,3 +26,4 @@ getting-started
 # example-interfaces
 # example-reactions
 # example-forms
+vulcan:debug

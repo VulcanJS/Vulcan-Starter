@@ -1,0 +1,21 @@
+.datacard-label{
+  width: 120px;
+}
+
+a:link, a:visited {
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
+}
+
+.SchedulesContainer {
+  display: flex;
+  direction: row;
+  overflow-x: scroll;
+}

@@ -1,0 +1,49 @@
+.TableContainer {
+  color: black;
+} 
+
+Table {
+  width: 100%;
+  height: 100%;
+  background: lightblue;
+  color: white;
+}
+
+.TableSpacing {
+  padding-top: 10px;
+  border-spacing: 1px;
+  text-align: left;
+}
+
+table {
+  overflow-x:auto;
+  border: 1px solid;
+  border-collapse: collapse;
+  align-self: center;
+}
+
+th {
+  border: 1px solid black;
+  font-size: 20px;
+  padding: 10px 10px 10px 10px;
+  color: whitesmoke;
+  background: rgb(66, 162, 194);
+  text-align: center;
+}
+
+td {
+  border: 1px solid black;
+  font-size: 10px;
+  max-width: max-content;
+  min-width: max-content;
+  padding: 1px 1px 1px 1px;
+  text-align: center;
+}
+
+.dateTooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.day {
+  font-size: 15px;
+}

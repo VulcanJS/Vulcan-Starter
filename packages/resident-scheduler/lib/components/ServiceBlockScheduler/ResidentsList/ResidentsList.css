@@ -1,0 +1,5 @@
+.ResidentsListContainer {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(auto-fill, 2%);
+}
