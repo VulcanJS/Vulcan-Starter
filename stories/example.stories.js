@@ -18,7 +18,7 @@ populateComponentsApp();
 
 
 
-storiesOf('example-forum')
+storiesOf('example-forum', module)
 .add('PostsNoMore', () => (
     <Components.PostsNoMore />
 ))
