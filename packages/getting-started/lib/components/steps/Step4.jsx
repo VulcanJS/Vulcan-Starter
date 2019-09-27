@@ -21,11 +21,11 @@ As we said previously, in Vulcan any registered component can be accessed as \`<
 
 const Step4 = () => (
   <Components.Step step={4} text={text} after={after}>
-    {/* 
+    {
     <Components.ModalTrigger component={<a href="#">Click Me!</a>}>
       <div>Hello World!</div>
     </Components.ModalTrigger> 
-    */}
+    }
   </Components.Step>
 );
 

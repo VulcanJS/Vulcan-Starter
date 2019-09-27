@@ -19,4 +19,4 @@ Now let's learn a couple more Vulcan basics before we start building our little 
 
 const Step3 = () => <Components.Step step={3} text={text} after={after}/>;
 
-// registerComponent({ name: 'Step3', component: Step3 }); // uncomment on #Step2
+registerComponent({ name: 'Step3', component: Step3 }); // uncomment on #Step2

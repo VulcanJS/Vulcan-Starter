@@ -2,9 +2,9 @@ import { addRoute } from 'meteor/vulcan:core';
 
 addRoute({ name: 'step0', path: '/', componentName: 'Step0' });
 addRoute({ name: 'step1', path: '/step/1', componentName: 'Step1' });
-// addRoute({ name: 'step2', path: '/step/2', componentName: 'Step2' });  // uncomment me on #Step1
-// addRoute({ name: 'step3', path: '/step/3', componentName: 'Step3' });  // uncomment me on #Step2
-// addRoute({ name: 'step4', path: '/step/4', componentName: 'Step4' });  // uncomment me on #Step3
+addRoute({ name: 'step2', path: '/step/2', componentName: 'Step2' });  // uncomment me on #Step1
+addRoute({ name: 'step3', path: '/step/3', componentName: 'Step3' });  // uncomment me on #Step2
+addRoute({ name: 'step4', path: '/step/4', componentName: 'Step4' });  // uncomment me on #Step3
 addRoute({ name: 'step5', path: '/step/5', componentName: 'Step5' });
 addRoute({ name: 'step6', path: '/step/6', componentName: 'Step6' });
 addRoute({ name: 'step7', path: '/step/7', componentName: 'Step7' });

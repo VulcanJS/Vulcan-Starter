@@ -7,10 +7,11 @@ const MoviesApp2 = () => (
   <div className="app-content">
     <div className="movies-app">
       <Components.MoviesUsers />
+      <Components.Test />
       <Components.Datatable 
         collection={Movies} 
         columns={['name', 'review']}
-        // options={{ terms: { view: 'alphabetical' } }} // uncomment on #Step18
+        options={{ terms: { view: 'alphabetical' } }} // uncomment on #Step18
       />
     </div>
   </div>

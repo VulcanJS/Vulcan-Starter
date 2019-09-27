@@ -35,4 +35,4 @@ const Step7 = ({ data }) => (
   </Components.Step>
 );
 
-registerComponent({ name: 'Step7', component: Step7, hocs: [/* withGraphQLSchema */] }); // uncomment on #Step7
+registerComponent({ name: 'Step7', component: Step7, hocs: [ withGraphQLSchema ] }); // uncomment on #Step7
