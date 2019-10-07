@@ -71,8 +71,8 @@ const checks = {
     return props.mutations && !!props.mutations.fields.find(r => r.name === 'createMovie');
   },
 
-  step15: (props) => {
-    return containsChild(Components.MoviesNew, 'GraphQL');
+  step15: () => {
+    return containsChild(Components.MoviesNew, 'Wrapped') || containsChild(Components.MoviesNew, 'GraphQL');
   },
 
   step16: () => {
