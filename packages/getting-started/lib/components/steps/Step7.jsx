@@ -1,7 +1,7 @@
-import React from 'react';
-import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
+import React from "react";
+import { Components, registerComponent, Collections } from "meteor/vulcan:core";
 
-import withGraphQLSchema from '../../hocs/withGraphQLSchema.js';
+import withGraphQLSchema from "../../hocs/withGraphQLSchema.js";
 
 // The GraphQL Schema
 
@@ -31,8 +31,12 @@ By the way, this would be a great time to start using the [React Devtools](https
 
 const Step7 = ({ data }) => (
   <Components.Step step={7} text={text} after={after} data={data}>
-    {data && <Components.GraphQLSchema data={data}/>}
+    {data && <Components.GraphQLSchema data={data} />}
   </Components.Step>
 );
 
-registerComponent({ name: 'Step7', component: Step7, hocs: [/* withGraphQLSchema */] }); // uncomment on #Step7
+registerComponent({
+  name: "Step7",
+  component: Step7,
+  hocs: [withGraphQLSchema]
+}); // uncomment on #Step7

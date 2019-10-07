@@ -17,18 +17,18 @@ Uncomment on #Step6:
 
 */
 
-// Movies = createCollection({
+Movies = createCollection({
 
-//   collectionName: 'Movies',
+    collectionName: 'Movies',
 
-//   typeName: 'Movie',
+    typeName: 'Movie',
 
-//   schema,
-  
-//   // resolvers: getDefaultResolvers('Movies'), // Uncomment on #Step9
+    schema,
 
-//   // mutations: getDefaultMutations('Movies'), // Uncomment on #Step14
+    resolvers: getDefaultResolvers('Movies'), // Uncomment on #Step9
 
-// });
+    mutations: getDefaultMutations('Movies'), // Uncomment on #Step14
+
+});
 
 export default Movies;

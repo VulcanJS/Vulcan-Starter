@@ -72,7 +72,7 @@ const checks = {
   },
 
   step15: (props) => {
-    return containsChild(Components.MoviesNew, 'GraphQL');
+    return containsChild(Components.MoviesNew, 'Wrapped') || containsChild(Components.MoviesNew, 'GraphQL');
   },
 
   step16: () => {

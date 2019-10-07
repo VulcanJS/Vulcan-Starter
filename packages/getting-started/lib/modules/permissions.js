@@ -13,4 +13,4 @@ const membersActions = [
   'movie.update.own',
   'movie.delete.own',
 ];
-// Users.groups.members.can(membersActions);
+Users.groups.members.can(membersActions);
