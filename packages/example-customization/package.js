@@ -5,8 +5,8 @@ Package.describe({
 Package.onUse( function(api) {
 
   api.use([
-    'vulcan:core@1.13.3',
-    'example-forum@1.13.3',
+    'vulcan:core@1.13.4',
+    'example-forum@1.13.4',
 
     'fourseven:scss@4.5.0',
   ]);
