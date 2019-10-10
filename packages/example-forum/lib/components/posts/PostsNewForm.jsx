@@ -61,7 +61,9 @@ const options = {
   queryName: 'categoriesListQuery',
   fragmentName: 'CategoriesList',
   limit: 0,
-  pollInterval: 0,
+  queryOptions: {
+    pollInterval: 0,
+  }
 };
 
 registerComponent({ name: 'PostsNewForm', component: PostsNewForm, hocs: [withRouter, withMessages, [withList, options]] });

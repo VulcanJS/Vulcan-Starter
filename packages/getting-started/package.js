@@ -10,17 +10,17 @@ Package.onUse(function (api) {
     'fourseven:scss@4.5.0',
 
     // vulcan core
-    'vulcan:core@1.13.4',
+    'vulcan:core@=1.13.4',
 
     // vulcan packages
-    'vulcan:forms@1.13.4',
-    'vulcan:accounts@1.13.4',
-    'vulcan:ui-bootstrap@1.13.4',
-    
+    'vulcan:forms@=1.13.4',
+    'vulcan:accounts@=1.13.4',
+    'vulcan:ui-bootstrap@=1.13.4',
+
   ]);
 
   api.addFiles('lib/stylesheets/style.scss');
-  
+
   api.mainModule('lib/server/main.js', 'server');
   api.mainModule('lib/client/main.js', 'client');
 

@@ -1,26 +1,32 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Components, registerComponent, withMessages, withCurrentUser } from 'meteor/vulcan:core';
-import { intlShape } from 'meteor/vulcan:i18n';
-import { Posts } from '../../modules/posts/index.js';
-import Users from 'meteor/vulcan:users';
-import { withRouter } from 'react-router-dom'
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import {
+  Components,
+  registerComponent,
+  withMessages,
+  withCurrentUser
+} from "meteor/vulcan:core";
+import { intlShape } from "meteor/vulcan:i18n";
+import { Posts } from "../../modules/posts/index.js";
+import Users from "meteor/vulcan:users";
+import { withRouter } from "react-router-dom";
 
 class PostsEditForm extends PureComponent {
-
   renderAdminArea() {
     return (
-      <Components.ShowIf check={Posts.options.mutations.edit.check} document={this.props.post}>
+      <Components.ShowIf
+        check={Posts.options.mutations.edit.check}
+        document={this.props.post}
+      >
         <div className="posts-edit-form-admin">
           <div className="posts-edit-form-id">ID: {this.props.post._id}</div>
           <Components.PostsStats post={this.props.post} />
         </div>
       </Components.ShowIf>
-    )
+    );
   }
 
   render() {
-
     return (
       <div className="posts-edit-form">
         {Users.isAdmin(this.props.currentUser) ? this.renderAdminArea() : null}
@@ -29,17 +35,25 @@ class PostsEditForm extends PureComponent {
           documentId={this.props.post._id}
           successCallback={post => {
             this.props.closeModal();
-            this.props.flash({ id: 'posts.edit_success', properties: { title: post.title }, type: 'success'});
+            this.props.flash({
+              id: "posts.edit_success",
+              properties: { title: post.title },
+              type: "success"
+            });
           }}
           mutationFragmentName="PostsPage"
           removeSuccessCallback={({ documentId, documentTitle }) => {
             // post edit form is being included from a single post, redirect to index
             // note: this.props.params is in the worst case an empty obj (from react-router)
-            if (this.props.params._id) {
-              this.props.history.push('/');
+            if (this.props.match.params._id) {
+              this.props.history.push("/");
             }
 
-            this.props.flash({ id: 'posts.delete_success' , properties: { title: documentTitle }, type: 'success'});
+            this.props.flash({
+              id: "posts.delete_success",
+              properties: { title: documentTitle },
+              type: "success"
+            });
             // todo: handle events in collection callbacks
             // this.context.events.track("post deleted", {_id: documentId});
           }}
@@ -47,7 +61,6 @@ class PostsEditForm extends PureComponent {
         />
       </div>
     );
-
   }
 }
 
@@ -55,10 +68,15 @@ PostsEditForm.propTypes = {
   closeModal: PropTypes.func,
   flash: PropTypes.func,
   post: PropTypes.object.isRequired,
-}
+  match: PropTypes.object
+};
 
 PostsEditForm.contextTypes = {
   intl: intlShape
-}
+};
 
-registerComponent({ name: 'PostsEditForm', component: PostsEditForm, hocs: [withMessages, withRouter, withCurrentUser] });
+registerComponent({
+  name: "PostsEditForm",
+  component: PostsEditForm,
+  hocs: [withMessages, withRouter, withCurrentUser]
+});
