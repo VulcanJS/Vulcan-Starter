@@ -7,7 +7,11 @@ A collection in VulcanJS is basically is a model, a type of data, like posts, co
 
 */
 
-import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
+import {
+  createCollection,
+  getDefaultResolvers,
+  getDefaultMutations,
+} from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
 import schema from './schema.js';
 
@@ -15,31 +19,44 @@ import schema from './schema.js';
 
 Movies collection definition
 
-We create a new collection with the createCollection function
+We create a new collection with the createModel function
+
 */
 const Movies = createCollection({
-
-  // It takes the collection name...
+  // We also pick a name for the collection
   collectionName: 'Movies',
 
-  // ...the type name, which is it's name of that type's singular instance
-  // usually it is the same as the collection name but singular.
-  // It comes in useful when it is time to build our GraphQL schema...
+  // We also pick a name for the model's GraphQL type,
+  // typically the same word but singular instead of plural
   typeName: 'Movie',
 
-  // ...this is a JS schema, not GraphQL...
+  // This is the JavaScript schema that will be used to generate the GraphQL schema,
+  // among other things
   schema,
-  
+
   // ...then our default resolvers and default mutations...
 
   // A resolver is the thing that gives you data, that fetches it in the database and sends it to the client.
   // There are two default resolvers: multi - for a list of documents, and single - for a single document.
-  // You can code your own too. Check out the next example, the movies example to do so...
-  resolvers: getDefaultResolvers('Movies'),
+  // You can code your own too.
+  resolvers: getDefaultResolvers({ typeName: 'Movie' }),
 
   // A mutation is the act of changing data on the server.
-  // There are three default mutaitons: creating a new document, updating an existing document, and deleting a document. You can only do this if you own it.
-  mutations: getDefaultMutations('Movies'),
+  // There are three default mutaitons: creating a new document, updating an existing document, and deleting a document.
+  mutations: getDefaultMutations({ typeName: 'Movie' }),
+
+  permissions: {
+    canRead: ['members'],
+    canCreate: ['members'],
+    canUpdate: ['owners', 'admins'],
+    canDelete: ['owners', 'admins'],
+  },
+
+  defaultInput: {
+    orderBy: {
+      createdAt: 'desc'
+    },
+  },
 
 });
 
@@ -52,9 +69,9 @@ Permissions for members (regular users)
 */
 const membersActions = [
   // ...these are the actions that members can do...
-  'movies.new',
-  'movies.edit.own',
-  'movies.remove.own',
+  'movie.create',
+  'movie.update.own',
+  'movie.delete.own',
 ];
 Users.groups.members.can(membersActions);
 
@@ -72,12 +89,9 @@ Movies.addDefaultView(terms => ({
       // This gets passed to MongoDB.
       // This will insert in the same order on the server and the client,
       // which is how the app knew where to put our new Jaws 14 entry in the page.
-      createdAt: -1
-    }
-  }
+      createdAt: -1,
+    },
+  },
 }));
 
 export default Movies;
-
-// There were three things I mentioned that you might not have heard of:
-// schema, resolvers, and mutations. I will talk about them in the next steps.
