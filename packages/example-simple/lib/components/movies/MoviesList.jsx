@@ -13,6 +13,7 @@ This component is a React component. We only have one but it does a bunch of thi
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withMulti, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
+import Users from 'meteor/vulcan:users';
 
 import Movies from '../../modules/movies/collection.js';
 
@@ -21,15 +22,8 @@ import Movies from '../../modules/movies/collection.js';
   In this case, to create the parent we wrapped the component in "Higer Order Compoents" (See the Higer Order Compoents section below.) 
     By doing this, we can pass on those props to the children of he HOCs and give them access to the props... */
 }
-const MoviesList = ({
-  results = [],
-  currentUser,
-  loading,
-  loadMore,
-  count,
-  totalCount
-}) => (
-  <div style={{ maxWidth: "500px", margin: "20px auto" }}>
+const MoviesList = ({ results = [], currentUser, loading, loadMore, count, totalCount }) => (
+  <div style={{ maxWidth: '500px', margin: '20px auto' }}>
     {/* First, this is a Helment tag. It's a React package that loads head tags. We're using it to load the Bootstrap stylesheet. 
       This is not Vulcan specific but it is an easy way to add tags to the head... */}
     <Helmet>
@@ -45,9 +39,9 @@ const MoviesList = ({
 
     <div
       style={{
-        padding: "20px 0",
-        marginBottom: "20px",
-        borderBottom: "1px solid #ccc"
+        padding: '20px 0',
+        marginBottom: '20px',
+        borderBottom: '1px solid #ccc',
       }}
     >
       {/* ...This is the log in form component. It allowed you to create an account in our web app.
@@ -64,12 +58,12 @@ const MoviesList = ({
         {/* new document form - this if for inserting new documents. Because the collection has the schema, when we generate the form, it know what the colleciton should look like
           You only need to specify the colleciton. You don't need to code any of the form. Validation will work and it will show you fields based on your user permission...*/}
 
-        {Movies.options.mutations.create.check(currentUser) ? (
+        {Users.canCreate({ collection: Movies, user: currentUser }) ? (
           <div
             style={{
-              marginBottom: "20px",
-              paddingBottom: "20px",
-              borderBottom: "1px solid #ccc"
+              marginBottom: '20px',
+              paddingBottom: '20px',
+              borderBottom: '1px solid #ccc',
             }}
           >
             <h4>Create New Document</h4>
@@ -81,7 +75,7 @@ const MoviesList = ({
 
         {results.map(movie => (
           <Components.Card
-            fields={["name", "year", "review"]}
+            fields={['name', 'year', 'review']}
             key={movie._id}
             collection={Movies}
             document={movie}
