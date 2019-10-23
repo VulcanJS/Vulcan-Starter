@@ -1,7 +1,7 @@
 import { registerFragment } from 'meteor/vulcan:core';
 
 registerFragment(/* GraphQL */`
-  fragment MoviesFragment on Movie {
+  fragment MovieFragment on Movie {
     _id
     createdAt
     name

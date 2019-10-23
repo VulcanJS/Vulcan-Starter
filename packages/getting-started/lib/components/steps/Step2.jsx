@@ -18,6 +18,8 @@ With the \`Step3\` component registered, we can now reference it inside a route.
 const after = `
 Nicely done. In Vulcan, components are available globally as \`<Components.Foobar/>\` once registered. 
 
+Note that the standard \`export\` and \`import\` will also work just fine in this scenario. After all, Vulcan components are just regular React components. But registering components can be useful, especially when building reusable Vulcan components.
+
 You can review them all by accessing the [Components dashboard](/debug/components) (note that most of the components you'll see in there belong to various Vulcan packages, such as \`vulcan:core\`, \`vulcan:forms\`, etc.).
 `;
 

@@ -11,7 +11,7 @@ const withMoviesCount = component => {
     `, {
       alias: 'withMoviesCount',
       options: {
-        pollInterval: 1000
+        pollInterval: 2000
       },
       props(props) {
         return {
