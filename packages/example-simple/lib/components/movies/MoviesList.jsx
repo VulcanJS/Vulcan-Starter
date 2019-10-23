@@ -64,7 +64,7 @@ const MoviesList = ({
         {/* new document form - this if for inserting new documents. Because the collection has the schema, when we generate the form, it know what the colleciton should look like
           You only need to specify the colleciton. You don't need to code any of the form. Validation will work and it will show you fields based on your user permission...*/}
 
-        {Movies.options.mutations.create.check(currentUser) ? (
+        {currentUser ? (
           <div
             style={{
               marginBottom: "20px",
