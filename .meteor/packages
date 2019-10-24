@@ -17,6 +17,10 @@ accounts-password@1.5.1
 getting-started
 
 # example-simple
+# example-forms
+
+# Note: the following example apps are not currently up to date
+
 # example-movies
 # example-instagram
 # example-forum
@@ -25,4 +29,3 @@ getting-started
 # example-membership
 # example-interfaces
 # example-reactions
-# example-forms
