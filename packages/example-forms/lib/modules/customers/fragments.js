@@ -7,7 +7,11 @@ registerFragment(`
     name
     notes
     meetingDate
-    addresses
+    addresses{
+      street
+      country
+      zipCode
+    }
     categories
     isVIP
     product{
