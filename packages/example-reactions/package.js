@@ -9,13 +9,13 @@ Package.onUse(function (api) {
     'promise',
 
     // vulcan core
-    'vulcan:core@=1.13.4',
+    'vulcan:core@=1.13.5',
 
     // vulcan packages
-    'vulcan:voting@=1.13.4',
-    'vulcan:forms@=1.13.4',
-    'vulcan:accounts@=1.13.4',
-    'vulcan:ui-bootstrap@=1.13.4',
+    'vulcan:voting@=1.13.5',
+    'vulcan:forms@=1.13.5',
+    'vulcan:accounts@=1.13.5',
+    'vulcan:ui-bootstrap@=1.13.5',
 
   ]);
 
