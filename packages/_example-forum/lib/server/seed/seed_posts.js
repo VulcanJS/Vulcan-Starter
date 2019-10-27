@@ -1,12 +1,10 @@
 /* global Vulcan */
 import moment from 'moment';
-import { newMutation, registerSetting, getSetting } from 'meteor/vulcan:core';
+import { newMutation, getSetting } from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
 import { Promise } from 'meteor/promise';
 import { Posts } from '../../modules/posts/index.js';
 import { Comments } from '../../modules/comments/index.js';
-
-registerSetting('forum.seedOnStart', true, 'Seed the app with dummy content on startup');
 
 if (getSetting('forum.seedOnStart')) {
 

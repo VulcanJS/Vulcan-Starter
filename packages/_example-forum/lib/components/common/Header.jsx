@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getSetting, Components, registerComponent } from 'meteor/vulcan:core';
+import { withCurrentUser, getSetting, Components, registerComponent } from 'meteor/vulcan:core';
 import { Posts } from '../../modules/posts/index.js';
 
-const Header = () => {
-  const logoUrl = getSetting('logoUrl');
-  const siteTitle = getSetting('title', 'My App');
-  const tagline = getSetting('tagline');
+const logoUrl = getSetting('logoUrl');
+const siteTitle = getSetting('title', 'My App');
+const tagline = getSetting('tagline');
 
+const Header = ({ currentUser }) => {
   return (
     <div className="header-wrapper">
       <header className="header">
@@ -22,9 +22,7 @@ const Header = () => {
           </div>
 
           <div className="nav-new-post">
-            <Components.ShowIf check={Posts.options.mutations.new.check}>
-              <Components.PostsNewButton />
-            </Components.ShowIf>
+            {Users.canCreate({ collection: Posts, user: currentUser }) && <Components.PostsNewButton />}
           </div>
         </div>
       </header>
@@ -38,4 +36,4 @@ Header.propTypes = {
   currentUser: PropTypes.object,
 };
 
-registerComponent({ name: 'Header', component: Header });
+registerComponent({ name: 'Header', component: Header, hocs: [withCurrentUser] });

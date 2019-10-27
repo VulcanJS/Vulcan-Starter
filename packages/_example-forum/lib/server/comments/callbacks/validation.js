@@ -1,18 +1,20 @@
 import Users from 'meteor/vulcan:users';
-import { getSetting, registerSetting } from 'meteor/vulcan:core';
+import { getSetting } from 'meteor/vulcan:core';
 import { Comments } from '../../../modules/comments/index.js';
+import { timeSinceLast } from '../../helpers.js';
 
-registerSetting('forum.commentInterval', 15, 'How long users should wait in between comments (in seconds)');
-
-export function rateLimit ({ document: comment, currentUser: user}) {
-  if (!Users.isAdmin(user)) {
-    const timeSinceLastComment = Users.timeSinceLast(user, Comments);
-    const commentInterval = Math.abs(parseInt(getSetting('forum.commentInterval',15)));
-
-    // check that user waits more than 15 seconds between comments
-    if((timeSinceLastComment < commentInterval)) {
-      throw new Error(Utils.encodeIntlError({id: 'comments.rate_limit_error', value: commentInterval-timeSinceLastComment}));
+export function rateLimit(validationErrors, { currentUser }) {
+  if (!Users.isAdmin(currentUser)) {
+    const timeSinceLastComment = timeSinceLast(currentUser, Comments);
+    const commentInterval = Math.abs(
+      parseInt(getSetting('forum.commentInterval', 15))
+    );
+    if (timeSinceLastComment < commentInterval) {
+      validationErrors.push({
+        id: 'comments.rate_limit_error',
+        properties: { value: commentInterval - timeSinceLastComment },
+      });
     }
   }
-  return comment;
+  return validationErrors;
 }

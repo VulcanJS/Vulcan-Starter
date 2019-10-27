@@ -6,7 +6,6 @@ import { withVote, hasVotedClient } from 'meteor/vulcan:voting';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
 
 class Vote extends PureComponent {
-
   constructor() {
     super();
     this.vote = this.vote.bind(this);
@@ -15,30 +14,23 @@ class Vote extends PureComponent {
   }
 
   vote(e) {
-
     e.preventDefault();
 
-    const document = this.props.document;
-    const collection = this.props.collection;
-    const user = this.props.currentUser;
+    const { document, collection, user, currentUser } = this.props;
 
-    if(!user){
-      this.props.flash({id: 'users.please_log_in'});
+    if (!user) {
+      this.props.flash({ id: 'users.please_log_in' });
     } else {
-      this.props.vote({document, voteType: 'upvote', collection, currentUser: this.props.currentUser});
-    } 
+      this.props.vote({ document, voteType: 'upvote', collection, currentUser });
+    }
   }
 
   hasVoted() {
-    return hasVotedClient({document: this.props.document, voteType: 'upvote'})
+    return hasVotedClient({ document: this.props.document, voteType: 'upvote' });
   }
 
   getActionClass() {
-
-    const actionsClass = classNames(
-      'vote-button',
-      {upvoted: this.hasVoted()},
-    );
+    const actionsClass = classNames('vote-button', { upvoted: this.hasVoted() });
 
     return actionsClass;
   }
@@ -48,13 +40,14 @@ class Vote extends PureComponent {
       <div className={this.getActionClass()}>
         <a className="upvote-button" onClick={this.vote}>
           <Components.Icon name="upvote" />
-          <div className="sr-only"><FormattedMessage id="voting.upvote"/></div>
+          <div className="sr-only">
+            <FormattedMessage id="voting.upvote" />
+          </div>
           <div className="vote-count">{this.props.document.baseScore || 0}</div>
         </a>
       </div>
-    )
+    );
   }
-
 }
 
 Vote.propTypes = {
@@ -65,7 +58,7 @@ Vote.propTypes = {
 };
 
 Vote.contextTypes = {
-  intl: intlShape
+  intl: intlShape,
 };
 
 registerComponent({ name: 'Vote', component: Vote, hocs: [withMessages, withVote] });

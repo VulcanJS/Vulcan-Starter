@@ -12,42 +12,16 @@ Callbacks to:
 
 import { Posts } from '../../../modules/posts/index.js'
 import Users from 'meteor/vulcan:users';
-import { Connectors, addCallback, getSetting, registerSetting, runCallbacks, runCallbacksAsync } from 'meteor/vulcan:core';
+import { Connectors, addCallback, getSetting } from 'meteor/vulcan:core';
 import Events from 'meteor/vulcan:events';
-
-registerSetting('forum.trackClickEvents', true, 'Track clicks to posts pages');
 
 /**
  * @summary Increment the user's post count
  */
-function PostsNewIncrementPostCount(post) {
+export function incrementUserPostCount(post) {
   var userId = post.userId;
   Users.update({ _id: userId }, { $inc: { 'postCount': 1 } });
 }
-addCallback('posts.new.async', PostsNewIncrementPostCount);
-
-//////////////////////////////////////////////////////
-// posts.edit.sync                                  //
-//////////////////////////////////////////////////////
-
-function PostsEditRunPostApprovedSyncCallbacks(modifier, post) {
-  if (modifier.$set && Posts.isApproved(modifier.$set) && !Posts.isApproved(post)) {
-    modifier = runCallbacks('posts.approve.sync', modifier, post);
-  }
-  return modifier;
-}
-addCallback('posts.edit.sync', PostsEditRunPostApprovedSyncCallbacks);
-
-//////////////////////////////////////////////////////
-// posts.edit.async                                 //
-//////////////////////////////////////////////////////
-
-function PostsEditRunPostApprovedAsyncCallbacks(post, oldPost) {
-  if (Posts.isApproved(post) && !Posts.isApproved(oldPost)) {
-    runCallbacksAsync('posts.approve.async', post);
-  }
-}
-addCallback('posts.edit.async', PostsEditRunPostApprovedAsyncCallbacks);
 
 //////////////////////////////////////////////////////
 // posts.remove.sync                                //
@@ -83,7 +57,7 @@ addCallback('users.remove.async', UsersRemoveDeletePosts);
 //  * @param {string} ip – the IP of the current user
 //  */
 
-function PostsClickTracking(post, ip) {
+function clickTracking(post, ip) {
   if (getSetting('forum.trackClickEvents', true)) {
     Events.track('post.click', { title: post.title, postId: post._id });
     Connectors.update(Posts, post._id, { $inc: { clickCount: 1 } });
@@ -95,13 +69,3 @@ function PostsClickTracking(post, ip) {
 // in our server-side route /out -> sending an event would create a new anonymous 
 // user: the free limit of 1,000 unique users per month would be reached quickly
 addCallback('posts.click.async', PostsClickTracking);
-
-//////////////////////////////////////////////////////
-// posts.approve.sync                              //
-//////////////////////////////////////////////////////
-
-function PostsApprovedSetPostedAt(modifier, post) {
-  modifier.$set.postedAt = new Date();
-  return modifier;
-}
-addCallback('posts.approve.sync', PostsApprovedSetPostedAt);

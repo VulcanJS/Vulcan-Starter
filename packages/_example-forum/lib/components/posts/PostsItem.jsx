@@ -8,8 +8,7 @@ import moment from 'moment';
 
 class PostsItem extends PureComponent {
   renderCategories() {
-    return this.props.post.categories &&
-      this.props.post.categories.length > 0 ? (
+    return this.props.post.categories && this.props.post.categories.length > 0 ? (
       <Components.PostsCategories post={this.props.post} />
     ) : (
       ''
@@ -17,8 +16,7 @@ class PostsItem extends PureComponent {
   }
 
   renderCommenters() {
-    return this.props.post.commenters &&
-      this.props.post.commenters.length > 0 ? (
+    return this.props.post.commenters && this.props.post.commenters.length > 0 ? (
       <Components.PostsCommenters post={this.props.post} />
     ) : (
       ''
@@ -51,22 +49,14 @@ class PostsItem extends PureComponent {
     return (
       <div className={postClass}>
         <div className="posts-item-vote">
-          <Components.Vote
-            collection={Posts}
-            document={post}
-            currentUser={this.props.currentUser}
-          />
+          <Components.Vote collection={Posts} document={post} currentUser={this.props.currentUser} />
         </div>
 
         {post.thumbnailUrl ? <Components.PostsThumbnail post={post} /> : null}
 
         <div className="posts-item-content">
           <h3 className="posts-item-title">
-            <Link
-              to={Posts.getLink(post)}
-              className="posts-item-title-link"
-              target={Posts.getLinkTarget(post)}
-            >
+            <Link to={Posts.getLink(post)} className="posts-item-title-link" target={Posts.getLinkTarget(post)}>
               {post.title}
             </Link>
             {this.renderCategories()}
@@ -93,18 +83,12 @@ class PostsItem extends PureComponent {
                 ) : post.commentCount === 1 ? (
                   <FormattedMessage id="comments.count_1" />
                 ) : (
-                  <FormattedMessage
-                    id="comments.count_2"
-                    values={{ count: post.commentCount }}
-                  />
+                  <FormattedMessage id="comments.count_2" values={{ count: post.commentCount }} />
                 )}
               </Link>
             </div>
-            {this.props.currentUser && this.props.currentUser.isAdmin ? (
-              <Components.PostsStats post={post} />
-            ) : null}
-            {Posts.options.mutations.edit.check(this.props.currentUser, post) &&
-              this.renderActions()}
+            {this.props.currentUser && this.props.currentUser.isAdmin ? <Components.PostsStats post={post} /> : null}
+            {Users.canUpdate({ collection: Posts, document: post, user: currentUser }) && this.renderActions()}
           </div>
         </div>
 
@@ -117,7 +101,7 @@ class PostsItem extends PureComponent {
 PostsItem.propTypes = {
   currentUser: PropTypes.object,
   post: PropTypes.object.isRequired,
-  terms: PropTypes.object
+  terms: PropTypes.object,
 };
 
 registerComponent({ name: 'PostsItem', component: PostsItem });

@@ -1,9 +1,7 @@
-import { Components, registerComponent, getSetting, registerSetting } from 'meteor/vulcan:core';
+import { Components, registerComponent, getSetting } from 'meteor/vulcan:core';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-
-registerSetting('forum.numberOfDays', 5, 'Number of days to display in Daily view');
 
 const PostsDaily = props => {
   // const terms = props.location && props.location.query;
