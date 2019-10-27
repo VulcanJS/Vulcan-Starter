@@ -5,20 +5,10 @@ Posts schema
 */
 
 import Users from 'meteor/vulcan:users';
-import {
-  Utils,
-  getSetting,
-  registerSetting,
-} from 'meteor/vulcan:core';
+import { Utils, getSetting } from 'meteor/vulcan:core';
 import moment from 'moment';
 import { isFuture, getHTML } from './helpers.js';
 import { statusesOptions } from '../data.js';
-
-registerSetting(
-  'forum.postExcerptLength',
-  30,
-  'Length of posts excerpts in words'
-);
 
 /**
  * @summary Posts config namespace
@@ -138,6 +128,7 @@ const schema = {
     searchable: true,
     onCreate: ({ document }) => getHTML(document.body, true),
     onUpdate: ({ data }) => getHTML(data.body, true),
+  },
   /**
     Count of how many times the post's page was viewed
   */
