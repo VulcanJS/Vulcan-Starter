@@ -28,7 +28,6 @@ Package.onUse(function (api) {
     'vulcan:embed@1.13.4',
     'vulcan:admin@1.13.4',
 
-    'percolatestudio:synced-cron',
   ]);
 
   api.addAssets([

@@ -12,7 +12,7 @@ import { createNotification } from '../../email/notifications.js';
 /**
  * @summary Add notification callback when a post is approved
  */
-function PostsApprovedNotification (post) {
+export function approvedNotification (post) {
   createNotification(post.userId, 'postApproved', {documentId: post._id});
 }
 addCallback('posts.approve.async', PostsApprovedNotification);
@@ -21,7 +21,7 @@ addCallback('posts.approve.async', PostsApprovedNotification);
 /**
  * @summary Add new post notification callback on post submit
  */
-function PostsNewNotifications (post) {
+export function createNotifications (post) {
 
   const adminUsers = Connectors.find(Users, { isAdmin: true }, { fields: { _id: 1 }});
   let adminIds = _.pluck(adminUsers, '_id');

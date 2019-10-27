@@ -73,8 +73,7 @@ PostsList.contextTypes = {
 
 const options = {
   collection: Posts,
-  queryName: 'postsListQuery',
-  fragmentName: 'PostsList',
+  fragmentName: 'PostItem',
 };
 
 registerComponent({ name: 'PostsList', component: PostsList, hocs: [withCurrentUser, [withMulti, options]] });

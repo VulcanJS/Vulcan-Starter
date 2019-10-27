@@ -1,10 +1,10 @@
 import Users from 'meteor/vulcan:users';
-import { addCallback, getSetting, registerSetting } from 'meteor/vulcan:core';
+import { getSetting, registerSetting } from 'meteor/vulcan:core';
 import { Comments } from '../../../modules/comments/index.js';
 
 registerSetting('forum.commentInterval', 15, 'How long users should wait in between comments (in seconds)');
 
-function CommentsNewRateLimit (comment, user) {
+export function rateLimit ({ document: comment, currentUser: user}) {
   if (!Users.isAdmin(user)) {
     const timeSinceLastComment = Users.timeSinceLast(user, Comments);
     const commentInterval = Math.abs(parseInt(getSetting('forum.commentInterval',15)));
@@ -16,4 +16,3 @@ function CommentsNewRateLimit (comment, user) {
   }
   return comment;
 }
-addCallback('comments.new.validate', CommentsNewRateLimit);

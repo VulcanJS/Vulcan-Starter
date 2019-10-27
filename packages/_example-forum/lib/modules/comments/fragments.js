@@ -1,10 +1,8 @@
 import { registerFragment } from 'meteor/vulcan:core';
 
-// ----------------------------- Comments ------------------------------ //
-
 registerFragment(/* GraphQL */`
-  fragment CommentsList on Comment {
-    # vulcan:comments
+  fragment CommentItem on Comment {
+
     _id
     postId
     parentCommentId
@@ -12,12 +10,12 @@ registerFragment(/* GraphQL */`
     body
     htmlBody
     postedAt
-    # vulcan:users
+
     userId
     user {
       ...UsersMinimumInfo
     }
-    # vulcan:posts
+
     post {
       _id
       commentCount
@@ -25,7 +23,7 @@ registerFragment(/* GraphQL */`
         ...UsersMinimumInfo
       }
     }
-    # voting
+
     currentUserVotes{
       ...VoteFragment
     }

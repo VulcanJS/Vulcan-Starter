@@ -20,18 +20,17 @@ import Users from 'meteor/vulcan:users';
 
    schema,
 
-   resolvers: getDefaultResolvers('Comments'),
-
-   mutations: getDefaultMutations('Comments'),
+   permissions: {
+    canRead,
+    canCreate: ['members'],
+    canUpdate: ['owners'],
+    canDelete: ['owners'],
+  },
 
 });
 
-Comments.checkAccess = (currentUser, comment) => {
-  if (Users.isAdmin(currentUser) || Users.owns(currentUser, comment)) { // admins can always see everything, users can always see their own posts
-    return true;
-  } else if (comment.isDeleted) {
-    return false;
-  } else { 
-    return true;
-  }
+
+// user can view comment if it's not deleted, or they are its owner; or they are admin
+const canRead = ({ document: comment, currentUser}) => {
+  return !comment.isDeleted || Users.owns(currentUser, comment) || Users.isAdmin(currentUser);
 }

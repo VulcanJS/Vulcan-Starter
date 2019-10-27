@@ -8,7 +8,7 @@ import { Comments } from '../../../modules/comments/index.js';
 // comments.new.sync                                //
 //////////////////////////////////////////////////////
 
-function CommentsNewOperations (comment) {
+export function updateUserPost (comment) {
 
   var userId = comment.userId;
 
@@ -26,7 +26,6 @@ function CommentsNewOperations (comment) {
 
   return comment;
 }
-addCallback('comments.new.sync', CommentsNewOperations);
 
 //////////////////////////////////////////////////////
 // comments.new.async                               //

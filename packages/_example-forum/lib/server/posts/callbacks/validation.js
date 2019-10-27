@@ -15,7 +15,7 @@ registerSetting('forum.maxPostsPerDay', 5, 'Maximum number of posts a user can c
 /**
  * @summary Rate limiting
  */
-function PostsNewRateLimit (post, user) {
+export function rateLimit ({ document: post, currentUser: user}) {
 
   if(!Users.isAdmin(user)){
 
@@ -39,12 +39,11 @@ function PostsNewRateLimit (post, user) {
 
   return post;
 }
-addCallback('posts.new.validate', PostsNewRateLimit);
 
 /**
  * @summary Check for duplicate links
  */
-function PostsNewDuplicateLinksCheck (post, user) {
+export function duplicateLinksCheck ({ document: post }) {
   if(!!post.url && Posts.checkForSameUrl(post.url)) {
     const DuplicateError = createError('posts.link_already_posted', {message: 'posts.link_already_posted'});
     throw new DuplicateError({
@@ -58,26 +57,4 @@ function PostsNewDuplicateLinksCheck (post, user) {
   }
   return post;
 }
-addCallback('posts.new.sync', PostsNewDuplicateLinksCheck);
 
-
-/**
- * @summary Check for duplicate links
- */
-function PostsEditDuplicateLinksCheck (modifier, post) {
-  if(post.url !== modifier.$set.url && !!modifier.$set.url) {
-    if (Posts.checkForSameUrl(modifier.$set.url)){
-      const DuplicateError = createError('posts.link_already_posted', {message: 'posts.link_already_posted'});
-      throw new DuplicateError({
-        data: {
-          break: true,
-          id: 'posts.link_already_posted',
-          path: 'url',
-          properties: { url: post.url },
-        },
-      });
-    }
-  }
-  return modifier;
-}
-addCallback('posts.edit.sync', PostsEditDuplicateLinksCheck);

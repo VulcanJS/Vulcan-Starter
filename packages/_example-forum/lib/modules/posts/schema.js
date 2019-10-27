@@ -5,11 +5,20 @@ Posts schema
 */
 
 import Users from 'meteor/vulcan:users';
-import { Utils, getSetting, registerSetting, getCollection } from 'meteor/vulcan:core';
+import {
+  Utils,
+  getSetting,
+  registerSetting,
+  getCollection,
+} from 'meteor/vulcan:core';
 import moment from 'moment';
 import marked from 'marked';
 
-registerSetting('forum.postExcerptLength', 30, 'Length of posts excerpts in words');
+registerSetting(
+  'forum.postExcerptLength',
+  30,
+  'Length of posts excerpts in words'
+);
 
 /**
  * @summary Posts config namespace
@@ -18,8 +27,8 @@ registerSetting('forum.postExcerptLength', 30, 'Length of posts excerpts in word
 const formGroups = {
   admin: {
     name: 'admin',
-    order: 2
-  }
+    order: 2,
+  },
 };
 
 /**
@@ -44,7 +53,7 @@ const schema = {
     canRead: ['admins'],
     onCreate: () => {
       return new Date();
-    }
+    },
   },
   /**
     Timestamp of post first appearing on the site (i.e. being approved)
@@ -57,18 +66,25 @@ const schema = {
     canUpdate: ['admins'],
     input: 'datetime',
     group: formGroups.admin,
-    onCreate: ({document: post, currentUser}) => {
+    onCreate: ({ document: post, currentUser }) => {
       // Set the post's postedAt if it's going to be approved
-      if (!post.postedAt && getCollection('Posts').getDefaultStatus(currentUser) === getCollection('Posts').config.STATUS_APPROVED) {
+      if (
+        !post.postedAt &&
+        getCollection('Posts').getDefaultStatus(currentUser) ===
+          getCollection('Posts').config.STATUS_APPROVED
+      ) {
         return new Date();
       }
     },
-    onUpdate: ({data, document: post}) => {
+    onUpdate: ({ data, document: post }) => {
       // Set the post's postedAt if it's going to be approved
-      if (!post.postedAt && data.status === getCollection('Posts').config.STATUS_APPROVED) {
+      if (
+        !post.postedAt &&
+        data.status === getCollection('Posts').config.STATUS_APPROVED
+      ) {
         return new Date();
       }
-    }
+    },
   },
   /**
     URL
@@ -102,7 +118,7 @@ const schema = {
     canUpdate: ['members'],
     input: 'text',
     order: 20,
-    searchable: true
+    searchable: true,
   },
   /**
     Slug
@@ -111,14 +127,14 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({document: post}) => {
+    onCreate: ({ document: post }) => {
       return Utils.slugify(post.title);
     },
-    onUpdate: ({data}) => {
+    onUpdate: ({ data }) => {
       if (data.title) {
         return Utils.slugify(data.title);
       }
-    }
+    },
   },
   /**
     Post body (markdown)
@@ -131,7 +147,7 @@ const schema = {
     canCreate: ['members'],
     canUpdate: ['members'],
     input: 'textarea',
-    order: 30
+    order: 30,
   },
   /**
     HTML version of the post body
@@ -140,16 +156,16 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({document: post}) => {
+    onCreate: ({ document: post }) => {
       if (post.body) {
         return Utils.sanitize(marked(post.body));
       }
     },
-    onUpdate: ({data}) => {
+    onUpdate: ({ data }) => {
       if (data.body) {
         return Utils.sanitize(marked(data.body));
       }
-    }
+    },
   },
   /**
    Post Excerpt
@@ -159,19 +175,19 @@ const schema = {
     optional: true,
     canRead: ['guests'],
     searchable: true,
-    onCreate: ({document: post}) => {
+    onCreate: ({ document: post }) => {
       if (post.body) {
         // excerpt length is configurable via the settings (30 words by default, ~255 characters)
-        const excerptLength = getSetting('forum.postExcerptLength', 30); 
+        const excerptLength = getSetting('forum.postExcerptLength', 30);
         return Utils.trimHTML(Utils.sanitize(marked(post.body)), excerptLength);
       }
     },
-    onUpdate: ({data}) => {
+    onUpdate: ({ data }) => {
       if (data.body) {
-        const excerptLength = getSetting('forum.postExcerptLength', 30); 
+        const excerptLength = getSetting('forum.postExcerptLength', 30);
         return Utils.trimHTML(Utils.sanitize(marked(data.body)), excerptLength);
       }
-    }
+    },
   },
   /**
     Count of how many times the post's page was viewed
@@ -180,7 +196,7 @@ const schema = {
     type: Number,
     optional: true,
     canRead: ['admins'],
-    defaultValue: 0
+    defaultValue: 0,
   },
   /**
     Timestamp of the last comment
@@ -197,7 +213,7 @@ const schema = {
     type: Number,
     optional: true,
     canRead: ['admins'],
-    defaultValue: 0
+    defaultValue: 0,
   },
   /**
     The post's status. One of pending (`1`), approved (`2`), or deleted (`3`)
@@ -209,19 +225,19 @@ const schema = {
     canCreate: ['admins'],
     canUpdate: ['admins'],
     input: 'select',
-    onCreate: ({document: document, currentUser}) => {
+    onCreate: ({ document: document, currentUser }) => {
       if (!document.status) {
         return getCollection('Posts').getDefaultStatus(currentUser);
       }
     },
-    onUpdate: ({data, currentUser}) => {
+    onUpdate: ({ data, currentUser }) => {
       // if for some reason post status has been removed, give it default status
       if (data.status === null) {
         return getCollection('Posts').getDefaultStatus(currentUser);
       }
     },
     options: () => getCollection('Posts').statuses,
-    group: formGroups.admin
+    group: formGroups.admin,
   },
   /**
     Whether a post is scheduled in the future or not
@@ -230,7 +246,7 @@ const schema = {
     type: Boolean,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({document: post}) => {
+    onCreate: ({ document: post }) => {
       // Set the post's isFuture to true if necessary
       if (post.postedAt) {
         const postTime = new Date(post.postedAt).getTime();
@@ -238,7 +254,7 @@ const schema = {
         return postTime > currentTime; // round up to the second
       }
     },
-    onUpdate: ({data, document: post}) => {
+    onUpdate: ({ data, document: post }) => {
       // Set the post's isFuture to true if necessary
       if (data.postedAt) {
         const postTime = new Date(data.postedAt).getTime();
@@ -251,7 +267,7 @@ const schema = {
           return false;
         }
       }
-    }
+    },
   },
   /**
     Whether the post is sticky (pinned to the top of posts lists)
@@ -265,16 +281,16 @@ const schema = {
     canUpdate: ['admins'],
     input: 'checkbox',
     group: formGroups.admin,
-    onCreate: ({document: post}) => {
-      if(!post.sticky) {
+    onCreate: ({ document: post }) => {
+      if (!post.sticky) {
         return false;
       }
     },
-    onUpdate: ({data}) => {
+    onUpdate: ({ data }) => {
       if (!data.sticky) {
         return false;
       }
-    }
+    },
   },
   /**
     Save info for later spam checking on a post. We will use this for the akismet package
@@ -301,12 +317,12 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onUpdate: ({data}) => {
+    onUpdate: ({ data }) => {
       // if userId is changing, change the author name too
       if (data.userId) {
-        return Users.getDisplayNameById(data.userId)
+        return Users.getDisplayNameById(data.userId);
       }
-    }
+    },
   },
   /**
     The post author's `_id`.
@@ -321,22 +337,79 @@ const schema = {
     resolveAs: {
       fieldName: 'user',
       type: 'User',
-      resolver: async (post, args, context) => {
-        if (!post.userId) return null;
-        const user = await context.Users.loader.load(post.userId);
-        return context.Users.restrictViewableFields(context.currentUser, context.Users, user);
-      },
-      addOriginalField: true
     },
+  },
+  categoriesIds: {
+    type: Array,
+    input: 'checkboxgroup',
+    optional: true,
+    canCreate: ['members'],
+    canUpdate: ['members'],
+    canRead: ['guests'],
+    options: props => {
+      return getCategoriesAsOptions(props.data.categories.results);
+    },
+    query: `
+        categories{
+          results{
+            _id
+            name
+            slug
+            order
+          }
+        }
+      `,
+    resolveAs: {
+      fieldName: 'categories',
+      type: '[Category]',
+      // resolver: async (post, args, { currentUser, Users, Categories }) => {
+      //   if (!post.categoriesIds) return [];
+      //   const categories = _.compact(
+      //     await Categories.loader.loadMany(post.categoriesIds)
+      //   );
+      //   return Users.restrictViewableFields(
+      //     currentUser,
+      //     Categories,
+      //     categories
+      //   );
+      // },
+      // addOriginalField: true,
+    },
+  },
+  'categoriesIds.$': {
+    type: String,
+    optional: true,
   },
 
   /**
-    Used to keep track of when a post has been included in a newsletter
+    Count of the post's comments
   */
-  scheduledAt: {
-    type: Date,
+  commentCount: {
+    type: Number,
     optional: true,
-    canRead: ['admins'],
+    defaultValue: 0,
+    canRead: ['guests'],
+  },
+  /**
+  An array containing the `_id`s of commenters
+  */
+  commentersIds: {
+    type: Array,
+    optional: true,
+    resolveAs: {
+      fieldName: 'commenters',
+      type: '[User]',
+      // resolver: async (post, args, { currentUser, Users }) => {
+      //   if (!post.commenters) return [];
+      //   const commenters = await Users.loader.loadMany(post.commenters);
+      //   return Users.restrictViewableFields(currentUser, Users, commenters);
+      // },
+    },
+    canRead: ['guests'],
+  },
+  'commentersIds.$': {
+    type: String,
+    optional: true,
   },
 
   // GraphQL-only fields
@@ -350,7 +423,7 @@ const schema = {
       resolver: (post, args, context) => {
         return Utils.getDomain(post.url);
       },
-    }
+    },
   },
 
   pageUrl: {
@@ -362,7 +435,7 @@ const schema = {
       resolver: (post, args, { Posts }) => {
         return Posts.getPageUrl(post, true);
       },
-    }
+    },
   },
 
   linkUrl: {
@@ -372,9 +445,11 @@ const schema = {
     resolveAs: {
       type: 'String',
       resolver: (post, args, { Posts }) => {
-        return post.url ? Utils.getOutgoingUrl(post.url) : Posts.getPageUrl(post, true);
+        return post.url
+          ? Utils.getOutgoingUrl(post.url)
+          : Posts.getPageUrl(post, true);
       },
-    }
+    },
   },
 
   postedAtFormatted: {
@@ -385,8 +460,8 @@ const schema = {
       type: 'String',
       resolver: (post, args, context) => {
         return moment(post.postedAt).format('dddd, MMMM Do YYYY');
-      }
-    }
+      },
+    },
   },
 
   commentsCount: {
@@ -399,7 +474,7 @@ const schema = {
         const commentsCount = Comments.find({ postId: post._id }).count();
         return commentsCount;
       },
-    }
+    },
   },
 
   comments: {
@@ -413,12 +488,18 @@ const schema = {
         const comments = Comments.find({ postId: post._id }, { limit }).fetch();
 
         // restrict documents fields
-        const viewableComments = _.filter(comments, comments => Comments.checkAccess(currentUser, comments));
-        const restrictedComments = Users.restrictViewableFields(currentUser, Comments, viewableComments);
+        const viewableComments = _.filter(comments, comments =>
+          Comments.checkAccess(currentUser, comments)
+        );
+        const restrictedComments = Users.restrictViewableFields(
+          currentUser,
+          Comments,
+          viewableComments
+        );
 
         return restrictedComments;
-      }
-    }
+      },
+    },
   },
 
   emailShareUrl: {
@@ -427,10 +508,8 @@ const schema = {
     canRead: ['guests'],
     resolveAs: {
       type: 'String',
-      resolver: (post, args, { Posts }) => {
-        return Posts.getEmailShareUrl(post);
-      }
-    }
+      resolver: (post, args, { Posts }) => Posts.getEmailShareUrl(post),
+    },
   },
 
   twitterShareUrl: {
@@ -439,10 +518,8 @@ const schema = {
     canRead: ['guests'],
     resolveAs: {
       type: 'String',
-      resolver: (post, args, { Posts }) => {
-        return Posts.getTwitterShareUrl(post);
-      }
-    }
+      resolver: (post, args, { Posts }) => Posts.getTwitterShareUrl(post),
+    },
   },
 
   facebookShareUrl: {
@@ -451,12 +528,9 @@ const schema = {
     canRead: ['guests'],
     resolveAs: {
       type: 'String',
-      resolver: (post, args, { Posts }) => {
-        return Posts.getFacebookShareUrl(post);
-      }
-    }
+      resolver: (post, args, { Posts }) => Posts.getFacebookShareUrl(post),
+    },
   },
-
 };
 
 export default schema;

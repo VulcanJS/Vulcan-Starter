@@ -1,0 +1,685 @@
+
+scalar JSON
+scalar Date
+
+# see https://docs.hasura.io/1.0/graphql/manual/queries/query-filters.html
+
+input String_Selector {
+  _eq: String
+  #_gt: String
+  #_gte: String
+  #_ilike: String
+  _in: [String!]
+  #_is_null: Boolean
+  #_like: String
+  #_lt: String
+  #_lte: String
+  #_neq: String
+  #_nilike: String
+  #_nin: [String!]
+  #_nlike: String
+  #_nsimilar: String
+  #_similar: String
+}
+
+input String_Array_Selector {
+  contains: String_Selector
+  # contains_all: [String_Selector]
+}
+
+input Int_Selector {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  #_is_null: Boolean
+  _lt: Int
+  _lte: Int
+  #_neq: Int
+  #_nin: [Int!]
+}
+
+input Int_Array_Selector {
+  contains: Int_Selector
+  # contains_all: [Int_Selector]
+}
+
+input Float_Selector {
+  _eq: Float
+  _gt: Float
+  _gte: Float
+  _in: [Float!]
+  #_is_null: Boolean
+  _lt: Float
+  _lte: Float
+  #_neq: Float
+  #_nin: [Float!]
+}
+
+input Float_Array_Selector {
+  contains: Float_Selector
+  # contains_all: [Float_Selector]
+}
+
+input Boolean_Selector {
+  _eq: Boolean
+  #_neq: Boolean
+}
+
+input Boolean_Array_Selector {
+  contains: Boolean_Selector
+  # contains_all: [Boolean_Selector]
+}
+
+input Date_Selector {
+  _eq: Date
+  _gt: Date
+  _gte: Date
+  _in: [Date!]
+  #_is_null: Boolean
+  _lt: Date
+  _lte: Date
+  #_neq: Date
+  #_nin: [Date!]
+}
+
+input Date_Array_Selector {
+  contains: Date_Selector
+  # contains_all: [Date_Selector]
+}
+
+# column ordering options
+enum OrderBy {
+  asc
+  desc
+}
+
+type Site {
+  title: String
+  url: String
+  logoUrl: String
+  sourceVersion: String
+}
+type IntlValue {
+  locale: String
+  value: String
+}
+input IntlValueInput{
+  locale: String
+  value: String
+}
+directive @intl on FIELD_DEFINITION
+
+# A user object
+type User {
+  _id: String 
+  username: String 
+  emails: [JSON] 
+  createdAt: Date 
+  isAdmin: Boolean 
+  locale: String 
+  profile: JSON 
+  services: JSON 
+  displayName: String 
+  email: String 
+  emailHash: String 
+  avatarUrl: String 
+  slug: String 
+  twitterUsername: String 
+  groups: [String] 
+  pageUrl: String 
+  pagePath: String 
+  editUrl: String 
+}
+
+
+input DeleteUserInput{
+  where: UserWhereInput
+  selector: UserSelectorUniqueInput
+}
+
+input SingleUserInput {
+  # filtering
+  where: UserWhereInput
+  orderBy: UserOrderByInput
+  search: String
+  filter: String
+  _id: String
+
+  # backwards-compatibility
+  selector: UserSelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiUserInput {
+
+  # filtering
+  where: UserWhereInput
+  orderBy: UserOrderByInput
+  search: String
+  offset: Int
+  limit: Int
+  filter: String
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleUserOutput{
+  result: User
+}
+
+type MultiUserOutput{
+  results: [User]
+  totalCount: Int
+}
+
+type UserOutput{
+  data: User
+}
+
+input CreateUserInput {
+  data: CreateUserDataInput!
+}
+
+input CreateUserDataInput {
+  username: String 
+  isAdmin: Boolean 
+  locale: String 
+  profile: JSON 
+  displayName: String 
+  email: String 
+  twitterUsername: String 
+  groups: [String] 
+}
+
+input UpdateUserInput{
+  where: UserWhereInput
+  selector: UserSelectorUniqueInput
+  data: UpdateUserDataInput!
+}
+
+input UpsertUserInput{
+  where: UserWhereInput
+  selector: UserSelectorUniqueInput
+  data: UpdateUserDataInput!
+}
+
+input UpdateUserDataInput {
+  username: String 
+  isAdmin: Boolean 
+  locale: String 
+  displayName: String 
+  email: String 
+  twitterUsername: String 
+  groups: [String] 
+}
+
+input UserWhereInput {
+  _and: [UserWhereInput]
+  _not: UserWhereInput
+  _or: [UserWhereInput]
+  _id: String_Selector
+  username: String_Selector
+
+  createdAt: Date_Selector
+  isAdmin: Boolean_Selector
+  locale: String_Selector
+
+  displayName: String_Selector
+  email: String_Selector
+  emailHash: String_Selector
+  avatarUrl: String_Selector
+  slug: String_Selector
+  twitterUsername: String_Selector
+
+  pageUrl: String_Selector
+  pagePath: String_Selector
+  editUrl: String_Selector
+}
+
+input UserOrderByInput {
+  _id: OrderBy
+  username: OrderBy
+  emails: OrderBy
+  createdAt: OrderBy
+  isAdmin: OrderBy
+  locale: OrderBy
+  services: OrderBy
+  displayName: OrderBy
+  email: OrderBy
+  emailHash: OrderBy
+  avatarUrl: OrderBy
+  slug: OrderBy
+  twitterUsername: OrderBy
+  groups: OrderBy
+  pageUrl: OrderBy
+  pagePath: OrderBy
+  editUrl: OrderBy
+}
+
+input UserSelectorInput {
+  _and: [UserSelectorInput]
+  _or: [UserSelectorInput]
+
+}
+
+input UserSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Settings
+type Setting {
+  name: String 
+  value: JSON 
+  defaultValue: JSON 
+  isPublic: Boolean 
+  description: String 
+}
+
+
+input DeleteSettingInput{
+  where: SettingWhereInput
+  selector: SettingSelectorUniqueInput
+}
+
+input SingleSettingInput {
+  # filtering
+  where: SettingWhereInput
+  orderBy: SettingOrderByInput
+  search: String
+  filter: String
+  _id: String
+
+  # backwards-compatibility
+  selector: SettingSelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiSettingInput {
+
+  # filtering
+  where: SettingWhereInput
+  orderBy: SettingOrderByInput
+  search: String
+  offset: Int
+  limit: Int
+  filter: String
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleSettingOutput{
+  result: Setting
+}
+
+type MultiSettingOutput{
+  results: [Setting]
+  totalCount: Int
+}
+
+type SettingOutput{
+  data: Setting
+}
+
+input SettingWhereInput {
+  _and: [SettingWhereInput]
+  _not: SettingWhereInput
+  _or: [SettingWhereInput]
+  name: String_Selector
+
+
+  isPublic: Boolean_Selector
+  description: String_Selector
+}
+
+input SettingOrderByInput {
+  name: OrderBy
+  value: OrderBy
+  defaultValue: OrderBy
+  isPublic: OrderBy
+  description: OrderBy
+}
+
+input SettingSelectorInput {
+  _and: [SettingSelectorInput]
+  _or: [SettingSelectorInput]
+
+}
+
+input SettingSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Callbacks
+type Callback {
+  name: String 
+  iterator: JSON 
+  properties: [JSON] 
+  runs: String 
+  newSyntax: Boolean 
+  returns: String 
+  description: String 
+  hooks: [String] 
+}
+
+
+input DeleteCallbackInput{
+  where: CallbackWhereInput
+  selector: CallbackSelectorUniqueInput
+}
+
+input SingleCallbackInput {
+  # filtering
+  where: CallbackWhereInput
+  orderBy: CallbackOrderByInput
+  search: String
+  filter: String
+  _id: String
+
+  # backwards-compatibility
+  selector: CallbackSelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiCallbackInput {
+
+  # filtering
+  where: CallbackWhereInput
+  orderBy: CallbackOrderByInput
+  search: String
+  offset: Int
+  limit: Int
+  filter: String
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleCallbackOutput{
+  result: Callback
+}
+
+type MultiCallbackOutput{
+  results: [Callback]
+  totalCount: Int
+}
+
+type CallbackOutput{
+  data: Callback
+}
+
+input CallbackWhereInput {
+  _and: [CallbackWhereInput]
+  _not: CallbackWhereInput
+  _or: [CallbackWhereInput]
+  name: String_Selector
+
+
+  runs: String_Selector
+  newSyntax: Boolean_Selector
+  returns: String_Selector
+  description: String_Selector
+
+}
+
+input CallbackOrderByInput {
+  name: OrderBy
+  iterator: OrderBy
+  properties: OrderBy
+  runs: OrderBy
+  newSyntax: OrderBy
+  returns: OrderBy
+  description: OrderBy
+  hooks: OrderBy
+}
+
+input CallbackSelectorInput {
+  _and: [CallbackSelectorInput]
+  _or: [CallbackSelectorInput]
+
+}
+
+input CallbackSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Movies
+type Movie {
+  _id: String 
+  createdAt: Date 
+  userId: String 
+  user: User 
+  name: String 
+  year: String 
+  review: String 
+}
+
+
+input DeleteMovieInput{
+  where: MovieWhereInput
+  selector: MovieSelectorUniqueInput
+}
+
+input SingleMovieInput {
+  # filtering
+  where: MovieWhereInput
+  orderBy: MovieOrderByInput
+  search: String
+  filter: String
+  _id: String
+
+  # backwards-compatibility
+  selector: MovieSelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiMovieInput {
+
+  # filtering
+  where: MovieWhereInput
+  orderBy: MovieOrderByInput
+  search: String
+  offset: Int
+  limit: Int
+  filter: String
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleMovieOutput{
+  result: Movie
+}
+
+type MultiMovieOutput{
+  results: [Movie]
+  totalCount: Int
+}
+
+type MovieOutput{
+  data: Movie
+}
+
+input CreateMovieInput {
+  data: CreateMovieDataInput!
+}
+
+input CreateMovieDataInput {
+  name: String 
+  year: String 
+  review: String 
+}
+
+input UpdateMovieInput{
+  where: MovieWhereInput
+  selector: MovieSelectorUniqueInput
+  data: UpdateMovieDataInput!
+}
+
+input UpsertMovieInput{
+  where: MovieWhereInput
+  selector: MovieSelectorUniqueInput
+  data: UpdateMovieDataInput!
+}
+
+input UpdateMovieDataInput {
+  name: String 
+  year: String 
+  review: String 
+}
+
+input MovieWhereInput {
+  _and: [MovieWhereInput]
+  _not: MovieWhereInput
+  _or: [MovieWhereInput]
+  _id: String_Selector
+  createdAt: Date_Selector
+  userId: String_Selector
+  name: String_Selector
+  year: String_Selector
+  review: String_Selector
+}
+
+input MovieOrderByInput {
+  _id: OrderBy
+  createdAt: OrderBy
+  userId: OrderBy
+  name: OrderBy
+  year: OrderBy
+  review: OrderBy
+}
+
+input MovieSelectorInput {
+  _and: [MovieSelectorInput]
+  _or: [MovieSelectorInput]
+
+}
+
+input MovieSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+
+
+type Query {
+  SiteData: Site
+  
+  currentUser: User
+  
+  # A single User document fetched by ID or slug
+  user(input: SingleUserInput): SingleUserOutput
+  
+  # A list of User documents matching a set of query terms
+  users(input: MultiUserInput): MultiUserOutput
+  
+  settings(input: MultiSettingInput): MultiSettingOutput
+  
+  callbacks(input: MultiCallbackInput): MultiCallbackOutput
+  
+  # A single Movie document fetched by ID or slug
+  movie(input: SingleMovieInput): SingleMovieOutput
+  
+  # A list of Movie documents matching a set of query terms
+  movies(input: MultiMovieInput): MultiMovieOutput
+  
+}
+  
+
+type Mutation {
+  # Mutation for creating new User documents
+  createUser(data: CreateUserDataInput!) : UserOutput
+
+  # Mutation for updating a User document
+  updateUser(where: UserWhereInput, _id: String, selector: UserSelectorUniqueInput, data: UpdateUserDataInput! ) : UserOutput
+
+  # Mutation for upserting a User document
+  upsertUser(where: UserWhereInput, _id: String, selector: UserSelectorUniqueInput, data: UpdateUserDataInput! ) : UserOutput
+
+  # Mutation for deleting a User document
+  deleteUser(where: UserWhereInput, _id: String, selector: UserSelectorUniqueInput) : UserOutput
+
+  # Mutation for creating new Movie documents
+  createMovie(data: CreateMovieDataInput!) : MovieOutput
+
+  # Mutation for updating a Movie document
+  updateMovie(where: MovieWhereInput, _id: String, selector: MovieSelectorUniqueInput, data: UpdateMovieDataInput! ) : MovieOutput
+
+  # Mutation for upserting a Movie document
+  upsertMovie(where: MovieWhereInput, _id: String, selector: MovieSelectorUniqueInput, data: UpdateMovieDataInput! ) : MovieOutput
+
+  # Mutation for deleting a Movie document
+  deleteMovie(where: MovieWhereInput, _id: String, selector: MovieSelectorUniqueInput) : MovieOutput
+
+}
+
+
