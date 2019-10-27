@@ -9,10 +9,10 @@ import {
   Utils,
   getSetting,
   registerSetting,
-  getCollection,
 } from 'meteor/vulcan:core';
 import moment from 'moment';
-import marked from 'marked';
+import { isFuture, getHTML } from './helpers.js';
+import { statusesOptions } from '../data.js';
 
 registerSetting(
   'forum.postExcerptLength',
@@ -53,37 +53,6 @@ const schema = {
     canRead: ['admins'],
     onCreate: () => {
       return new Date();
-    },
-  },
-  /**
-    Timestamp of post first appearing on the site (i.e. being approved)
-  */
-  postedAt: {
-    type: Date,
-    optional: true,
-    canRead: ['guests'],
-    canCreate: ['admins'],
-    canUpdate: ['admins'],
-    input: 'datetime',
-    group: formGroups.admin,
-    onCreate: ({ document: post, currentUser }) => {
-      // Set the post's postedAt if it's going to be approved
-      if (
-        !post.postedAt &&
-        getCollection('Posts').getDefaultStatus(currentUser) ===
-          getCollection('Posts').config.STATUS_APPROVED
-      ) {
-        return new Date();
-      }
-    },
-    onUpdate: ({ data, document: post }) => {
-      // Set the post's postedAt if it's going to be approved
-      if (
-        !post.postedAt &&
-        data.status === getCollection('Posts').config.STATUS_APPROVED
-      ) {
-        return new Date();
-      }
     },
   },
   /**
@@ -156,16 +125,8 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({ document: post }) => {
-      if (post.body) {
-        return Utils.sanitize(marked(post.body));
-      }
-    },
-    onUpdate: ({ data }) => {
-      if (data.body) {
-        return Utils.sanitize(marked(data.body));
-      }
-    },
+    onCreate: ({ document }) => getHTML(document.body),
+    onUpdate: ({ data }) => getHTML(data.body),
   },
   /**
    Post Excerpt
@@ -175,20 +136,8 @@ const schema = {
     optional: true,
     canRead: ['guests'],
     searchable: true,
-    onCreate: ({ document: post }) => {
-      if (post.body) {
-        // excerpt length is configurable via the settings (30 words by default, ~255 characters)
-        const excerptLength = getSetting('forum.postExcerptLength', 30);
-        return Utils.trimHTML(Utils.sanitize(marked(post.body)), excerptLength);
-      }
-    },
-    onUpdate: ({ data }) => {
-      if (data.body) {
-        const excerptLength = getSetting('forum.postExcerptLength', 30);
-        return Utils.trimHTML(Utils.sanitize(marked(data.body)), excerptLength);
-      }
-    },
-  },
+    onCreate: ({ document }) => getHTML(document.body, true),
+    onUpdate: ({ data }) => getHTML(data.body, true),
   /**
     Count of how many times the post's page was viewed
   */
@@ -225,50 +174,86 @@ const schema = {
     canCreate: ['admins'],
     canUpdate: ['admins'],
     input: 'select',
-    onCreate: ({ document: document, currentUser }) => {
-      if (!document.status) {
-        return getCollection('Posts').getDefaultStatus(currentUser);
+    onCreate: ({ document, currentUser }) => {
+      if (isFuture(document)) {
+        return statuses.scheduled;
+      } else if (Users.isAdmin(currentUser)) {
+        return document.status || statuses.approved;
+      } else {
+        return getSetting('forum.requirePostsApproval', false)
+          ? statuses.pending
+          : statuses.approved;
       }
     },
-    onUpdate: ({ data, currentUser }) => {
-      // if for some reason post status has been removed, give it default status
-      if (data.status === null) {
-        return getCollection('Posts').getDefaultStatus(currentUser);
+    onUpdate: ({ data }) => {
+      // if postedAt date is manually being changed, force status to scheduled or approved
+      if (data.postedAt) {
+        return isFuture(data) ? statuses.scheduled : statuses.approved;
       }
     },
-    options: () => getCollection('Posts').statuses,
+    options: () => statusesOptions,
     group: formGroups.admin,
+  },
+
+  /**
+    Timestamp of post first appearing on the site (i.e. being approved)
+  */
+  postedAt: {
+    type: Date,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['admins'],
+    canUpdate: ['admins'],
+    input: 'datetime',
+    group: formGroups.admin,
+    onCreate: ({ document: post }) => {
+      if (post.status === statuses.approved) {
+        return new Date();
+      }
+    },
+    onUpdate: ({ data, document: post }) => {
+      if (!post.postedAt && data.status === statuses.approved) {
+        return new Date();
+      }
+    },
+    resolveAs: {
+      type: 'String',
+      name: 'postedAtFormatted',
+      resolver: post => {
+        return moment(post.postedAt).format('dddd, MMMM Do YYYY');
+      },
+    },
   },
   /**
     Whether a post is scheduled in the future or not
   */
-  isFuture: {
-    type: Boolean,
-    optional: true,
-    canRead: ['guests'],
-    onCreate: ({ document: post }) => {
-      // Set the post's isFuture to true if necessary
-      if (post.postedAt) {
-        const postTime = new Date(post.postedAt).getTime();
-        const currentTime = new Date().getTime() + 1000;
-        return postTime > currentTime; // round up to the second
-      }
-    },
-    onUpdate: ({ data, document: post }) => {
-      // Set the post's isFuture to true if necessary
-      if (data.postedAt) {
-        const postTime = new Date(data.postedAt).getTime();
-        const currentTime = new Date().getTime() + 1000;
-        if (postTime > currentTime) {
-          // if a post's postedAt date is in the future, set isFuture to true
-          return true;
-        } else if (post.isFuture) {
-          // else if a post has isFuture to true but its date is in the past, set isFuture to false
-          return false;
-        }
-      }
-    },
-  },
+  // isFuture: {
+  //   type: Boolean,
+  //   optional: true,
+  //   canRead: ['guests'],
+  //   onCreate: ({ document: post }) => {
+  //     // Set the post's isFuture to true if necessary
+  //     if (post.postedAt) {
+  //       const postTime = new Date(post.postedAt).getTime();
+  //       const currentTime = new Date().getTime() + 1000;
+  //       return postTime > currentTime; // round up to the second
+  //     }
+  //   },
+  //   onUpdate: ({ data, document: post }) => {
+  //     // Set the post's isFuture to true if necessary
+  //     if (data.postedAt) {
+  //       const postTime = new Date(data.postedAt).getTime();
+  //       const currentTime = new Date().getTime() + 1000;
+  //       if (postTime > currentTime) {
+  //         // if a post's postedAt date is in the future, set isFuture to true
+  //         return true;
+  //       } else if (post.isFuture) {
+  //         // else if a post has isFuture to true but its date is in the past, set isFuture to false
+  //         return false;
+  //       }
+  //     }
+  //   },
+  // },
   /**
     Whether the post is sticky (pinned to the top of posts lists)
   */
@@ -281,16 +266,6 @@ const schema = {
     canUpdate: ['admins'],
     input: 'checkbox',
     group: formGroups.admin,
-    onCreate: ({ document: post }) => {
-      if (!post.sticky) {
-        return false;
-      }
-    },
-    onUpdate: ({ data }) => {
-      if (!data.sticky) {
-        return false;
-      }
-    },
   },
   /**
     Save info for later spam checking on a post. We will use this for the akismet package
@@ -309,20 +284,6 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['admins'],
-  },
-  /**
-    The post author's name
-  */
-  author: {
-    type: String,
-    optional: true,
-    canRead: ['guests'],
-    onUpdate: ({ data }) => {
-      // if userId is changing, change the author name too
-      if (data.userId) {
-        return Users.getDisplayNameById(data.userId);
-      }
-    },
   },
   /**
     The post author's `_id`.
@@ -448,18 +409,6 @@ const schema = {
         return post.url
           ? Utils.getOutgoingUrl(post.url)
           : Posts.getPageUrl(post, true);
-      },
-    },
-  },
-
-  postedAtFormatted: {
-    type: String,
-    optional: true,
-    canRead: ['guests'],
-    resolveAs: {
-      type: 'String',
-      resolver: (post, args, context) => {
-        return moment(post.postedAt).format('dddd, MMMM Do YYYY');
       },
     },
   },
