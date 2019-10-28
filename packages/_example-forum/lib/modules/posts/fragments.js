@@ -20,10 +20,10 @@ registerFragment(/* GraphQL */`
       ...UsersMinimumInfo
     }
     # embedly
-    thumbnailUrl
+    # thumbnailUrl
     # categories
     categories {
-      ...CategoriesMinimumInfo
+      ...CategoryItem
     }
     # comments
     commentCount
@@ -41,7 +41,7 @@ registerFragment(/* GraphQL */`
 
 registerFragment(/* GraphQL */`
   fragment PostPage on Post {
-    ...PostsList
+    ...PostItem
     body
     htmlBody
   }

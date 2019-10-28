@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withCurrentUser, getSetting, Components, registerComponent } from 'meteor/vulcan:core';
 import { Posts } from '../../modules/posts/index.js';
+import Users from 'meteor/vulcan:users';
 
 const logoUrl = getSetting('logoUrl');
 const siteTitle = getSetting('title', 'My App');

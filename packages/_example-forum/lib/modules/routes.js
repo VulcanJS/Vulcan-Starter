@@ -9,5 +9,9 @@ addRoute([
   {name: 'users.profile',    path: '/users/:slug',           componentName: 'UsersProfile'},
   {name: 'users.account',    path: '/account',               componentName: 'UsersAccount'},
   {name: 'users.edit',       path: '/users/:slug/edit',      componentName: 'UsersAccount'},
-  {name: 'admin.categories', path: '/admin/categories',      componentName: 'CategoriesDashboard'},
+
+  // {name: 'admin.categories', path: '/admin/categories',      componentName: 'AdminCategories'},
+  // {name: 'admin.categories', path: '/admin/comments',        componentName: 'AdminComments'},
+  // {name: 'admin.categories', path: '/admin/posts',           componentName: 'AdminPosts'},
+  // {name: 'admin.categories', path: '/admin/users',           componentName: 'AdminUsers'},
 ]);

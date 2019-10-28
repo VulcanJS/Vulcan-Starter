@@ -6,7 +6,7 @@ import {
   upvoteOwnPost,
   createNotifications,
   incrementUserPostCount,
-} from '../callbacks/index.js';
+} from './callbacks/index.js';
 
 extendCollection(Posts, {
   callbacks: {

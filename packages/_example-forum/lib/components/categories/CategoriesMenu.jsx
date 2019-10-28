@@ -98,7 +98,7 @@ CategoriesMenu.propTypes = {
 
 const options = {
   collection: Categories,
-  fragmentName: 'CategoriesList',
+  fragmentName: 'CategoryItem',
   limit: 0,
   pollInterval: 0,
 };

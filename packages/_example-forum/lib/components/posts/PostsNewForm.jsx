@@ -25,7 +25,7 @@ const PostsNewForm = ({ loading, currentUser, redirect, closeModal, history, fla
     <div className="posts-new-form">
       <Components.SmartForm
         collection={Posts}
-        mutationFragment={getFragment('PostsPage')}
+        mutationFragment={getFragment('PostPage')}
         successCallback={post => {
           closeModal();
           history.push({ pathname: redirect || Posts.getPageUrl(post) });
@@ -59,7 +59,7 @@ PostsNewForm.displayName = 'PostsNewForm';
 const options = {
   collectionName: 'Categories',
   queryName: 'categoriesListQuery',
-  fragmentName: 'CategoriesList',
+  fragmentName: 'CategoryItem',
   limit: 0,
   pollInterval: 0,
 };

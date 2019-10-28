@@ -7,8 +7,15 @@ Posts schema
 import Users from 'meteor/vulcan:users';
 import { Utils, getSetting } from 'meteor/vulcan:core';
 import moment from 'moment';
-import { isFuture, getHTML } from './helpers.js';
-import { statusesOptions } from '../data.js';
+import {
+  isFuture,
+  getHTML,
+  getTwitterShareUrl,
+  getEmailShareUrl,
+  getFacebookShareUrl,
+  getPageUrl,
+} from './helpers.js';
+import { statuses, statusesOptions } from '../data.js';
 
 /**
  * @summary Posts config namespace
@@ -385,7 +392,7 @@ const schema = {
     resolveAs: {
       type: 'String',
       resolver: (post, args, { Posts }) => {
-        return Posts.getPageUrl(post, true);
+        return getPageUrl(post, true);
       },
     },
   },
@@ -399,7 +406,7 @@ const schema = {
       resolver: (post, args, { Posts }) => {
         return post.url
           ? Utils.getOutgoingUrl(post.url)
-          : Posts.getPageUrl(post, true);
+          : getPageUrl(post, true);
       },
     },
   },
@@ -448,7 +455,7 @@ const schema = {
     canRead: ['guests'],
     resolveAs: {
       type: 'String',
-      resolver: (post, args, { Posts }) => Posts.getEmailShareUrl(post),
+      resolver: (post, args, { Posts }) => getEmailShareUrl(post),
     },
   },
 
@@ -458,7 +465,7 @@ const schema = {
     canRead: ['guests'],
     resolveAs: {
       type: 'String',
-      resolver: (post, args, { Posts }) => Posts.getTwitterShareUrl(post),
+      resolver: (post, args, { Posts }) => getTwitterShareUrl(post),
     },
   },
 
@@ -468,7 +475,7 @@ const schema = {
     canRead: ['guests'],
     resolveAs: {
       type: 'String',
-      resolver: (post, args, { Posts }) => Posts.getFacebookShareUrl(post),
+      resolver: (post, args, { Posts }) => getFacebookShareUrl(post),
     },
   },
 };

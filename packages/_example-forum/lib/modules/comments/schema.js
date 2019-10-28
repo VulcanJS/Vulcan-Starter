@@ -7,6 +7,7 @@ Comments schema
 import Users from 'meteor/vulcan:users';
 import marked from 'marked';
 import { Utils } from 'meteor/vulcan:core';
+import { getPageUrl } from './helpers.js';
 
 /**
  * @summary Comments schema
@@ -206,7 +207,7 @@ const schema = {
       fieldName: 'pageUrl',
       type: 'String',
       resolver: (comment, args, context) => {
-        return context.Comments.getPageUrl(comment, true);
+        return getPageUrl(comment, true);
       },
     }
   },

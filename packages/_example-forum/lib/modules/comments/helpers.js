@@ -4,9 +4,9 @@ Comments helpers
 
 */
 
-import { Comments } from './index.js';
 import { Posts } from '../posts/index.js';
 import Users from 'meteor/vulcan:users';
+import { getPageUrl as getPostPageUrl } from '../posts/helpers.js';
 
 //////////////////
 // Link Helpers //
@@ -16,9 +16,9 @@ import Users from 'meteor/vulcan:users';
  * @summary Get URL of a comment page.
  * @param {Object} comment
  */
-Comments.getPageUrl = function(comment, isAbsolute = false){
+export const getPageUrl = function(comment, isAbsolute = false){
   const post = Posts.findOne(comment.postId);
-  return `${Posts.getPageUrl(post, isAbsolute)}/#${comment._id}`;
+  return `${getPostPageUrl(post, isAbsolute)}/#${comment._id}`;
 };
 
 ///////////////////
@@ -29,7 +29,7 @@ Comments.getPageUrl = function(comment, isAbsolute = false){
  * @summary Get a comment author's name
  * @param {Object} comment
  */
-Comments.getAuthorName = function (comment) {
+export const getAuthorName = function (comment) {
   var user = Users.findOne(comment.userId);
   return user ? Users.getDisplayName(user) : comment.author;
 };

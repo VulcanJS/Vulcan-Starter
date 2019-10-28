@@ -18,26 +18,26 @@ import marked from 'marked';
  * @summary Return a post's link if it has one, else return its post page URL
  * @param {Object} post
  */
-Posts.getLink = function(post, isAbsolute = false, isRedirected = true) {
+export const getLink = function(post, isAbsolute = false, isRedirected = true) {
   const url = isRedirected ? Utils.getOutgoingUrl(post.url) : post.url;
-  return !!post.url ? url : Posts.getPageUrl(post, isAbsolute);
+  return !!post.url ? url : getPageUrl(post, isAbsolute);
 };
 
 /**
  * @summary Depending on the settings, return either a post's URL link (if it has one) or its page URL.
  * @param {Object} post
  */
-Posts.getShareableLink = function(post) {
+export const getShareableLink = function(post) {
   return getSetting('forum.outsideLinksPointTo', 'link') === 'link'
-    ? Posts.getLink(post)
-    : Posts.getPageUrl(post, true);
+    ? getLink(post)
+    : getPageUrl(post, true);
 };
 
 /**
  * @summary Whether a post's link should open in a new tab or not
  * @param {Object} post
  */
-Posts.getLinkTarget = function(post) {
+export const getLinkTarget = function(post) {
   return !!post.url ? '_blank' : '';
 };
 
@@ -45,7 +45,7 @@ Posts.getLinkTarget = function(post) {
  * @summary Get URL of a post page.
  * @param {Object} post
  */
-Posts.getPageUrl = function(post, isAbsolute = false) {
+export const getPageUrl = function(post, isAbsolute = false) {
   const prefix = isAbsolute ? Utils.getSiteUrl().slice(0, -1) : '';
   return `${prefix}/posts/${post._id}/${post.slug}`;
 };
@@ -58,7 +58,7 @@ Posts.getPageUrl = function(post, isAbsolute = false) {
  * @summary Get a post author's name
  * @param {Object} post
  */
-Posts.getAuthorName = function(post) {
+export const getAuthorName = function(post) {
   var user = Users.findOne(post.userId);
   if (user) {
     return Users.getDisplayName(user);
@@ -68,44 +68,11 @@ Posts.getAuthorName = function(post) {
 };
 
 /**
- * @summary Get default status for new posts.
- * @param {Object} user
- */
-Posts.getDefaultStatus = function(user) {
-  const canPostApproved =
-    typeof user === 'undefined'
-      ? false
-      : Users.canDo(user, 'posts.new.approved');
-  if (!getSetting('forum.requirePostsApproval', false) || canPostApproved) {
-    // if user can post straight to 'approved', or else post approval is not required
-    return Posts.config.STATUS_APPROVED;
-  } else {
-    return Posts.config.STATUS_PENDING;
-  }
-};
-
-/**
  * @summary Get status name
  * @param {Object} user
  */
-Posts.getStatusName = function(post) {
+export const getStatusName = function(post) {
   return Utils.findWhere(Posts.statuses, { value: post.status }).label;
-};
-
-/**
- * @summary Check if a post is approved
- * @param {Object} post
- */
-Posts.isApproved = function(post) {
-  return post.status === Posts.config.STATUS_APPROVED;
-};
-
-/**
- * @summary Check if a post is pending
- * @param {Object} post
- */
-Posts.isPending = function(post) {
-  return post.status === Posts.config.STATUS_PENDING;
 };
 
 /**
@@ -113,7 +80,7 @@ Posts.isPending = function(post) {
  * We need the current user so we know who to upvote the existing post as.
  * @param {String} url
  */
-Posts.checkForSameUrl = function(url) {
+export const checkForSameUrl = function(url) {
   // check that there are no previous posts with the same link in the past 6 months
   var sixMonthsAgo = moment()
     .subtract(6, 'months')
@@ -127,17 +94,10 @@ Posts.checkForSameUrl = function(url) {
 };
 
 /**
- * @summary When on a post page, return the current post
- */
-Posts.current = function() {
-  return Posts.findOne('foo');
-};
-
-/**
  * @summary Check to see if a post is a link to a video
  * @param {Object} post
  */
-Posts.isVideo = function(post) {
+export const isVideo = function(post) {
   return post.media && post.media.type === 'video';
 };
 
@@ -145,7 +105,7 @@ Posts.isVideo = function(post) {
  * @summary Get the complete thumbnail url whether it is hosted on Embedly or on an external website, or locally in the app.
  * @param {Object} post
  */
-Posts.getThumbnailUrl = post => {
+export const getThumbnailUrl = post => {
   const thumbnailUrl = post.thumbnailUrl;
   if (!!thumbnailUrl) {
     return thumbnailUrl.indexOf('//') > -1
@@ -158,22 +118,22 @@ Posts.getThumbnailUrl = post => {
  * @summary Get URL for sharing on Twitter.
  * @param {Object} post
  */
-Posts.getTwitterShareUrl = post => {
+export const getTwitterShareUrl = post => {
   const via = getSetting('twitterAccount', null)
     ? `&via=${getSetting('twitterAccount')}`
     : '';
   return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
     post.title
-  )}%20${encodeURIComponent(Posts.getLink(post, true))}${via}`;
+  )}%20${encodeURIComponent(getLink(post, true))}${via}`;
 };
 
 /**
  * @summary Get URL for sharing on Facebook.
  * @param {Object} post
  */
-Posts.getFacebookShareUrl = post => {
+export const getFacebookShareUrl = post => {
   return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-    Posts.getLink(post, true)
+    getLink(post, true)
   )}`;
 };
 
@@ -181,12 +141,12 @@ Posts.getFacebookShareUrl = post => {
  * @summary Get URL for sharing by Email.
  * @param {Object} post
  */
-Posts.getEmailShareUrl = post => {
+export const getEmailShareUrl = post => {
   const subject = `Interesting link: ${post.title}`;
   const body = `I thought you might find this interesting:
 
 ${post.title}
-${Posts.getLink(post, true, false)}
+${getLink(post, true, false)}
 
 (found via ${getSetting('siteUrl')})
   `;

@@ -12,7 +12,7 @@ Callbacks to:
 
 import { Posts } from '../../../modules/posts/index.js'
 import Users from 'meteor/vulcan:users';
-import { Connectors, addCallback, getSetting } from 'meteor/vulcan:core';
+import { Connectors, getSetting } from 'meteor/vulcan:core';
 import Events from 'meteor/vulcan:events';
 
 /**
@@ -31,7 +31,7 @@ function PostsRemoveOperations(post) {
   Users.update({ _id: post.userId }, { $inc: { 'postCount': -1 } });
   return post;
 }
-addCallback('posts.remove.sync', PostsRemoveOperations);
+// addCallback('posts.remove.sync', PostsRemoveOperations);
 
 //////////////////////////////////////////////////////
 // users.remove.async                               //
@@ -45,7 +45,7 @@ function UsersRemoveDeletePosts(user, options) {
     // Posts.update({userId: userId}, {$set: {author: '\[deleted\]'}}, {multi: true});
   }
 }
-addCallback('users.remove.async', UsersRemoveDeletePosts);
+// addCallback('users.remove.async', UsersRemoveDeletePosts);
 
 //////////////////////////////////////////////////////
 // posts.click.async                                //
@@ -68,4 +68,4 @@ function clickTracking(post, ip) {
 // note: this event is not sent to segment cause we cannot access the current user 
 // in our server-side route /out -> sending an event would create a new anonymous 
 // user: the free limit of 1,000 unique users per month would be reached quickly
-addCallback('posts.click.async', PostsClickTracking);
+// addCallback('posts.click.async', PostsClickTracking);

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 const Error = ({error}) => <Components.Alert className="flash-message" variant="danger"><FormattedMessage id={error.id} values={{value: error.value}}/>{error.message}</Components.Alert>
 
-const PostsList = ({className, results, loading, count, totalCount, loadMore, showHeader = true, showLoadMore = true, networkStatus, currentUser, error, terms}) => {
+const PostsList = ({className, results, loading, count, totalCount, loadMore, showHeader = true, showLoadMore = true, networkStatus, currentUser, error, terms = {}}) => {
 
   const loadingMore = networkStatus === 2;
 

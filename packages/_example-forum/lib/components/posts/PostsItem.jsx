@@ -1,10 +1,12 @@
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { Link } from 'react-router-dom';
 import { Posts } from '../../modules/posts/index.js';
 import moment from 'moment';
+import { getLink, getLinkTarget, getPageUrl } from '../../modules/posts/helpers.js';
+import Users from 'meteor/vulcan:users';
 
 class PostsItem extends PureComponent {
   renderCategories() {
@@ -41,7 +43,7 @@ class PostsItem extends PureComponent {
   }
 
   render() {
-    const { post } = this.props;
+    const { post, currentUser } = this.props;
 
     let postClass = 'posts-item';
     if (post.sticky) postClass += ' posts-sticky';
@@ -49,14 +51,14 @@ class PostsItem extends PureComponent {
     return (
       <div className={postClass}>
         <div className="posts-item-vote">
-          <Components.Vote collection={Posts} document={post} currentUser={this.props.currentUser} />
+          <Components.Vote collection={Posts} document={post} currentUser={currentUser} />
         </div>
 
         {post.thumbnailUrl ? <Components.PostsThumbnail post={post} /> : null}
 
         <div className="posts-item-content">
           <h3 className="posts-item-title">
-            <Link to={Posts.getLink(post)} className="posts-item-title-link" target={Posts.getLinkTarget(post)}>
+            <Link to={getLink(post)} className="posts-item-title-link" target={getLinkTarget(post)}>
               {post.title}
             </Link>
             {this.renderCategories()}
@@ -77,7 +79,7 @@ class PostsItem extends PureComponent {
               )}
             </div>
             <div className="posts-item-comments">
-              <Link to={Posts.getPageUrl(post)}>
+              <Link to={getPageUrl(post)}>
                 {!post.commentCount || post.commentCount === 0 ? (
                   <FormattedMessage id="comments.count_0" />
                 ) : post.commentCount === 1 ? (
@@ -87,7 +89,7 @@ class PostsItem extends PureComponent {
                 )}
               </Link>
             </div>
-            {this.props.currentUser && this.props.currentUser.isAdmin ? <Components.PostsStats post={post} /> : null}
+            {Users.isAdmin(currentUser) && <Components.PostsStats post={post} />}
             {Users.canUpdate({ collection: Posts, document: post, user: currentUser }) && this.renderActions()}
           </div>
         </div>
@@ -104,4 +106,4 @@ PostsItem.propTypes = {
   terms: PropTypes.object,
 };
 
-registerComponent({ name: 'PostsItem', component: PostsItem });
+registerComponent({ name: 'PostsItem', component: PostsItem, hocs: [withCurrentUser] });

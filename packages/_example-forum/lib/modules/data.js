@@ -1,4 +1,4 @@
-export const satuses = {
+export const statuses = {
   pending: 1,
   approved: 2,
   rejected: 3,

@@ -9,6 +9,15 @@ import { createCollection } from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
 import { statuses } from '../data.js';
 
+// user can view post if it's approved, or they are its owner; or they are admin
+const canRead = ({ document, user }) => {
+  return (
+    document.status === statuses.approved ||
+    Users.owns(user, document) ||
+    Users.isAdmin(user)
+  );
+};
+
 /**
  * @summary The global namespace for Posts.
  * @namespace Posts
@@ -27,12 +36,3 @@ export const Posts = createCollection({
     canDelete: ['owners'],
   },
 });
-
-// user can view post if it's approved, or they are its owner; or they are admin
-const canRead = ({ document: post, currentUser }) => {
-  return (
-    post.status === statuses.approved ||
-    Users.owns(currentUser, post) ||
-    Users.isAdmin(currentUser)
-  );
-};

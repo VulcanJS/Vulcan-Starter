@@ -29,7 +29,7 @@ class PostsEditForm extends PureComponent {
             this.props.closeModal();
             this.props.flash({ id: 'posts.edit_success', properties: { title: post.title }, type: 'success' });
           }}
-          mutationFragmentName="PostsPage"
+          mutationFragmentName="PostPage"
           removeSuccessCallback={({ documentId, documentTitle }) => {
             // post edit form is being included from a single post, redirect to index
             // note: this.props.params is in the worst case an empty obj (from react-router)
