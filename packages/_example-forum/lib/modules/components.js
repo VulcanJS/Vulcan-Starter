@@ -54,5 +54,12 @@ import '../components/users/UsersEditForm.jsx';
 import '../components/users/UsersProfile.jsx';
 import '../components/users/UsersProfileCheck.jsx';
 import '../components/users/UsersAvatar.jsx';
-import '../components/users/UsersName.jsx';
 import '../components/users/UsersMenu.jsx';
+import '../components/users/UsersName.jsx';
+
+// admin
+
+import '../components/admin/AdminUsers.jsx';
+import '../components/admin/AdminPosts.jsx';
+import '../components/admin/AdminCategories.jsx';
+import '../components/admin/AdminComments.jsx';

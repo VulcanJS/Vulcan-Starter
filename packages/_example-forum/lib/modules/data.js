@@ -5,7 +5,16 @@ export const statuses = {
   spam: 4,
   deleted: 5,
   scheduled: 6,
-}
+};
+
+export const statusesReverse = {
+  1: 'pending',
+  2: 'approved',
+  3: 'rejected',
+  4: 'span',
+  5: 'deleted',
+  6: 'scheduled',
+};
 
 export const statusesOptions = [
   {
@@ -38,4 +47,4 @@ export const statusesOptions = [
     label: 'Scheduled',
     description: 'Item has been scheduled for future publication.',
   },
-]
+];

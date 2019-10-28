@@ -1,5 +1,5 @@
 import { extendCollection } from 'meteor/vulcan:core';
-import Comments from '../../modules/comments/collection.js';
+import { Comments } from '../../modules/comments/collection.js';
 import {
   rateLimit,
   upvoteOwnComment,

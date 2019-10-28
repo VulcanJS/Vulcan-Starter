@@ -42,6 +42,14 @@ const UserLoggedInMenu = ({ currentUser, client }) => {
       to: `/admin/categories`,
       labelId: 'admin.categories',
     });
+    menuItems.push({
+      to: `/admin/comments`,
+      labelId: 'admin.comments',
+    });
+    menuItems.push({
+      to: `/admin/posts`,
+      labelId: 'admin.posts',
+    });
   }
 
   menuItems.push({
