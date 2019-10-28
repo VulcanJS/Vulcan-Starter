@@ -305,16 +305,18 @@ const schema = {
     canCreate: ['members'],
     canUpdate: ['members'],
     canRead: ['guests'],
-    options: props => {
-      return getCategoriesAsOptions(props.data.categories.results);
-    },
+    options: ({ data }) =>
+      data.categories.results.map(category => ({
+        value: category._id,
+        label: category.name,
+        slug: category.slug,
+      })),
     query: `
         categories{
           results{
             _id
             name
             slug
-            order
           }
         }
       `,

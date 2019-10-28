@@ -55,7 +55,7 @@ PostsCommentsThread.propTypes = {
 const options = {
   collectionName: 'Comments',
   queryName: 'commentsListQuery',
-  fragmentName: 'CommentsList',
+  fragmentName: 'CommentItem',
   limit: 0,
 };
 

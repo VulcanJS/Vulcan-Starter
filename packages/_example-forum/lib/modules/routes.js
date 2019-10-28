@@ -8,6 +8,7 @@ addRoute([
   {name: 'posts.new',        path: '/new',                   componentName: 'PostsHome'}, 
   {name: 'posts.best',       path: '/best',                  componentName: 'PostsHome'},
   {name: 'posts.daily',      path: '/daily',                 componentName: 'PostsDaily'},
+  {name: 'posts.category',   path: '/category/:slug',        componentName: 'PostsCategory'},
   {name: 'posts.single',     path: '/posts/:_id/:slug?',     componentName: 'PostsPage'},
   
   // users

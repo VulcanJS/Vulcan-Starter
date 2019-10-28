@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { Comments } from '../../modules/comments/index.js';
 import moment from 'moment';
+import Users from 'meteor/vulcan:users';
 
 class CommentsItem extends PureComponent {
   constructor() {

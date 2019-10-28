@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Comments } from '../../modules/comments/index.js';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
+import Users from 'meteor/vulcan:users';
 
 const CommentsNewForm = ({ currentUser, postId, parentComment, successCallback, type, cancelCallback }) => {
   let prefilledProps = { postId };
@@ -16,11 +17,11 @@ const CommentsNewForm = ({ currentUser, postId, parentComment, successCallback, 
     };
   }
 
-  return Users.canCreate({ collection: Comments, currentUser }) ? (
+  return Users.canCreate({ collection: Comments, user: currentUser }) ? (
     <div className="comments-new-form">
       <Components.SmartForm
         collection={Comments}
-        mutationFragment={getFragment('CommentsList')}
+        mutationFragment={getFragment('CommentItem')}
         successCallback={successCallback}
         cancelCallback={type === 'reply' ? cancelCallback : null}
         prefilledProps={prefilledProps}

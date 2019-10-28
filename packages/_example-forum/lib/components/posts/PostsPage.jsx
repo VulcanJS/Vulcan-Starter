@@ -37,7 +37,7 @@ class PostsPage extends Component {
       return (
         <div className="posts-page">
           <Components.HeadTags
-            url={Posts.getPageUrl(post, true)}
+            url={post.pageUrl}
             title={post.title}
             image={post.thumbnailUrl}
             description={post.excerpt}
@@ -106,7 +106,7 @@ PostsPage.propTypes = {
 const queryOptions = {
   collection: Posts,
   queryName: 'postsSingleQuery',
-  fragmentName: 'PostsPage'
+  fragmentName: 'PostPage'
 };
 
 const mutationOptions = {

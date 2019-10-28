@@ -6,14 +6,7 @@ Categories schema
 
 import { Utils } from 'meteor/vulcan:core';
 
-// export function getCategoriesAsOptions (categories) {
-//   // give the form component (here: checkboxgroup) exploitable data
-//   return categories.map(category => ({
-//     value: category._id,
-//     label: category.name,
-//     // slug: category.slug, // note: it may be used to look up from prefilled props
-//   }));
-// }
+
 
 // export function getCategoriesAsNestedOptions (categories) {
 //   // give the form component (here: checkboxgroup) exploitable data

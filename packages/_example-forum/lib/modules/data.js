@@ -48,3 +48,21 @@ export const statusesOptions = [
     description: 'Item has been scheduled for future publication.',
   },
 ];
+
+export const postViews = [
+  {
+    name: 'posts.top',
+    orderBy: 'score',
+    path: '/',
+  },
+  {
+    name: 'posts.best',
+    orderBy: 'baseScore',
+    path: '/best',
+  },
+  {
+    name: 'posts.new',
+    orderBy: 'postedAt',
+    path: '/new',
+  },
+];

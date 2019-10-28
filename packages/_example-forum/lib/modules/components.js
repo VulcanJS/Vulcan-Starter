@@ -13,6 +13,7 @@ import '../components/common/Vote.jsx';
 // posts
 
 import '../components/posts/PostsHome.jsx';
+import '../components/posts/PostsCategory.jsx';
 import '../components/posts/PostsNewButton.jsx';
 import '../components/posts/PostsLoadMore.jsx';
 import '../components/posts/PostsNoMore.jsx';

@@ -14,7 +14,7 @@ const CommentsEditForm = ({ comment, successCallback, cancelCallback, removeSucc
         cancelCallback={cancelCallback}
         removeSuccessCallback={removeSuccessCallback}
         showRemove={true}
-        mutationFragment={getFragment('CommentsList')}
+        mutationFragment={getFragment('CommentItem')}
       />
     </div>
   )
