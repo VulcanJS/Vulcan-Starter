@@ -1,6 +1,5 @@
 import './voting.js';
 import './components.js';
-import './config.js';
 import './routes.js';
 import './headtags.js';
 import './i18n/index.js';

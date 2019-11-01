@@ -41,7 +41,7 @@ const CategoriesIds = ({ document: post }) => (
 );
 
 const CategoryItem = ({ document: category }) => (
-  <Link className="posts-category category-item" key={category._id} to={category.pageUrl}>
+  <Link className="posts-category category-item" key={category._id} to={category.pagePath}>
     {category.name}
   </Link>
 );

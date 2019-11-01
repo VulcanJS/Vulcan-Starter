@@ -1,6 +1,5 @@
-import { Components, registerComponent, withMulti2, withCurrentUser, Utils } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMulti2, withCurrentUser } from 'meteor/vulcan:core';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Posts } from '../../modules/posts/index.js';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import classNames from 'classnames';
@@ -61,13 +60,12 @@ const PostsList = ({
   totalCount,
   loadMore,
   showHeader = true,
-  showLoadMore = true,
+  showFooter = true,
   networkStatus,
   currentUser,
   error,
   terms = {},
 }) => {
-
   const loadingMore = networkStatus === 2;
   const hasResults = results && results.length > 0;
   const hasMore = results && totalCount > results.length;
@@ -105,7 +103,7 @@ const PostsList = ({
       {showHeader && <Components.PostsListHeader />}
       {error && <Error error={error} />}
       <div className="posts-list-content">{renderContents()}</div>
-      <div className="posts-list-footer">{renderFooter()}</div>
+      {showFooter && <div className="posts-list-footer">{renderFooter()}</div>}
     </div>
   );
 };

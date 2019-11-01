@@ -35,14 +35,20 @@ const schema = {
     resolveAs: {
       fieldName: 'parentComment',
       type: 'Comment',
-      resolver: async (comment, args, {currentUser, Users, Comments}) => {
+      resolver: async (comment, args, { currentUser, Users, Comments }) => {
         if (!comment.parentCommentId) return null;
-        const parentComment = await Comments.loader.load(comment.parentCommentId);
-        return Users.restrictViewableFields(currentUser, Comments, parentComment);
+        const parentComment = await Comments.loader.load(
+          comment.parentCommentId
+        );
+        return Users.restrictViewableFields(
+          currentUser,
+          Comments,
+          parentComment
+        );
       },
-      addOriginalField: true
+      addOriginalField: true,
     },
-    hidden: true // never show this
+    hidden: true, // never show this
   },
   /**
     The `_id` of the top-level parent comment, if there is one
@@ -57,14 +63,20 @@ const schema = {
     resolveAs: {
       fieldName: 'topLevelComment',
       type: 'Comment',
-      resolver: async (comment, args, {currentUser, Users, Comments}) => {
+      resolver: async (comment, args, { currentUser, Users, Comments }) => {
         if (!comment.topLevelCommentId) return null;
-        const topLevelComment = await Comments.loader.load(comment.topLevelCommentId);
-        return Users.restrictViewableFields(currentUser, Comments, topLevelComment);
+        const topLevelComment = await Comments.loader.load(
+          comment.topLevelCommentId
+        );
+        return Users.restrictViewableFields(
+          currentUser,
+          Comments,
+          topLevelComment
+        );
       },
-      addOriginalField: true
+      addOriginalField: true,
     },
-    hidden: true // never show this
+    hidden: true, // never show this
   },
   /**
     The timestamp of comment creation
@@ -75,7 +87,7 @@ const schema = {
     canRead: ['admins'],
     onCreate: () => {
       return new Date();
-    }
+    },
   },
   /**
     The timestamp of the comment being posted. For now, comments are always created and posted at the same time
@@ -86,7 +98,7 @@ const schema = {
     canRead: ['guests'],
     onCreate: () => {
       return new Date();
-    }
+    },
   },
   /**
     The comment body (Markdown)
@@ -97,7 +109,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    input: "textarea"
+    input: 'textarea',
   },
   /**
     The HTML version of the comment body
@@ -106,16 +118,16 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onCreate: ({document: comment}) => {
+    onCreate: ({ document: comment }) => {
       if (comment.body) {
         return Utils.sanitize(marked(comment.body));
       }
     },
-    onUpdate: ({data}) => {
+    onUpdate: ({ data }) => {
       if (data.body) {
         return Utils.sanitize(marked(data.body));
       }
-    }
+    },
   },
   /**
     The comment author's name
@@ -124,12 +136,12 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    onUpdate: ({data}) => {
+    onUpdate: ({ data }) => {
       // if userId is changing, change the author name too
       if (data.userId) {
-        return Users.getDisplayNameById(data.userId)
+        return Users.getDisplayNameById(data.userId);
       }
-    }
+    },
   },
   /**
     The post's `_id`
@@ -144,14 +156,14 @@ const schema = {
     resolveAs: {
       fieldName: 'post',
       type: 'Post',
-      resolver: async (comment, args, {currentUser, Users, Posts}) => {
+      resolver: async (comment, args, { currentUser, Users, Posts }) => {
         if (!comment.postId) return null;
         const post = await Posts.loader.load(comment.postId);
         return Users.restrictViewableFields(currentUser, Posts, post);
       },
-      addOriginalField: true
+      addOriginalField: true,
     },
-    hidden: true // never show this
+    hidden: true, // never show this
   },
   /**
     The comment author's `_id`
@@ -165,12 +177,12 @@ const schema = {
     resolveAs: {
       fieldName: 'user',
       type: 'User',
-      resolver: async (comment, args, {currentUser, Users}) => {
+      resolver: async (comment, args, { currentUser, Users }) => {
         if (!comment.userId) return null;
         const user = await Users.loader.load(comment.userId);
         return Users.restrictViewableFields(currentUser, Users, user);
       },
-      addOriginalField: true
+      addOriginalField: true,
     },
   },
   /**
@@ -199,17 +211,22 @@ const schema = {
 
   // GraphQL only fields
 
+  pagePath: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    resolveAs: {
+      resolver: comment => getPageUrl(comment, false),
+    },
+  },
+
   pageUrl: {
     type: String,
     optional: true,
     canRead: ['guests'],
     resolveAs: {
-      fieldName: 'pageUrl',
-      type: 'String',
-      resolver: (comment, args, context) => {
-        return getPageUrl(comment, true);
-      },
-    }
+      resolver: comment => getPageUrl(comment, true),
+    },
   },
 };
 

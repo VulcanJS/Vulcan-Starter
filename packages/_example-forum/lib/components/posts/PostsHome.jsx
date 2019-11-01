@@ -8,7 +8,7 @@ const getOrderProperty = currentRoute => {
 };
 
 const PostsHome = ({ currentRoute }) => (
-  <Components.PostsList input={{ limit: 3, orderBy: { [getOrderProperty(currentRoute)]: 'desc' } }} />
+  <Components.PostsList input={{ orderBy: { [getOrderProperty(currentRoute)]: 'desc' } }} />
 );
 
 registerComponent({ name: 'PostsHome', component: PostsHome });
