@@ -33,7 +33,7 @@ const Header = ({ currentUser, flash, history }) => {
             {currentUser ? (
               <Components.NewButton
                 collection={Posts}
-                title={<FormattedMessage id="posts.new_post" />}
+                label={<FormattedMessage id="posts.new_post" />}
                 component={<NewPostButton />}
                 mutationFragmentName="PostPage"
                 successCallback={post => {

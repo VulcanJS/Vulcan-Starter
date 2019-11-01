@@ -7,7 +7,7 @@ Notifications for new posts and post approval.
 import { Posts } from '../../../modules/posts/index.js'
 import Users from 'meteor/vulcan:users';
 import { Connectors } from 'meteor/vulcan:core';
-import { createNotification } from '../../email/notifications.js';
+import { createNotification } from '../../emails/notifications.js';
 
 /**
  * @summary Add notification callback when a post is approved
