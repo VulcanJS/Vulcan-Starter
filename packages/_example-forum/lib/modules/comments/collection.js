@@ -36,3 +36,5 @@ export const Comments = createCollection({
     canDelete: ['owners'],
   },
 });
+
+export default Comments;

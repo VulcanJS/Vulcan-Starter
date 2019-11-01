@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
-import { withList, withCurrentUser, Components, registerComponent, Utils } from 'meteor/vulcan:core';
+import { withMulti2, withCurrentUser, Components, registerComponent, Utils } from 'meteor/vulcan:core';
 
-const PostsCommentsThread = ({ loading, terms: { postId }, results, totalCount, currentUser }) => {
+const PostsCommentsThread = ({ loading, postId, results, totalCount, currentUser }) => {
   if (loading) {
     return (
       <div className="posts-comments-thread">
@@ -62,5 +62,5 @@ const options = {
 registerComponent({
   name: 'PostsCommentsThread',
   component: PostsCommentsThread,
-  hocs: [[withList, options], withCurrentUser],
+  hocs: [[withMulti2, options], withCurrentUser],
 });

@@ -2,6 +2,7 @@ import { addStrings } from 'meteor/vulcan:core';
 
 addStrings('en', {
 
+  'posts.sort_by': 'Sort by',
   'posts.new_post': 'New Post',
   'posts.edit': 'Edit',
   'posts.edit_success': 'Post “{title}” edited.',
@@ -87,5 +88,7 @@ addStrings('en', {
 
   'admin.categories': 'Categories (admin)',
   'admin.users': 'Users (admin)',
+  'admin.comments': 'Comments (admin)',
+  'admin.posts': 'Posts (admin)',
   
 });

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withMessages, withCurrentUser, getSetting, Components, registerComponent } from 'meteor/vulcan:core';
 import { Posts } from '../../modules/posts/index.js';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
+import { withRouter } from "react-router-dom";
 
 const logoUrl = getSetting('logoUrl');
 const siteTitle = getSetting('title', 'My App');
@@ -14,7 +15,7 @@ const NewPostButton = () => (
   </Components.Button>
 );
 
-const Header = ({ currentUser, flash }) => {
+const Header = ({ currentUser, flash, history }) => {
   return (
     <div className="header-wrapper">
       <header className="header">
@@ -63,4 +64,4 @@ Header.propTypes = {
   currentUser: PropTypes.object,
 };
 
-registerComponent({ name: 'Header', component: Header, hocs: [withCurrentUser, withMessages] });
+registerComponent({ name: 'Header', component: Header, hocs: [withCurrentUser, withMessages, withRouter] });

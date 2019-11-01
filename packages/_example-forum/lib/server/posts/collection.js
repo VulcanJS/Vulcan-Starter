@@ -1,5 +1,6 @@
-import { extendCollection } from 'meteor/vulcan:core';
+import { Connectors, extendCollection } from 'meteor/vulcan:core';
 import Posts from '../../modules/posts/collection.js';
+import Categories from '../../modules/categories/collection.js';
 import {
   rateLimit,
   duplicateLinksCheck,
@@ -9,14 +10,23 @@ import {
 } from './callbacks/index.js';
 
 extendCollection(Posts, {
-  callbacks: {
-    create: {
-      validate: [rateLimit, duplicateLinksCheck],
-      after: [upvoteOwnPost],
-      async: [createNotifications, incrementUserPostCount],
-    },
-    update: {
-      validate: [duplicateLinksCheck],
+  // callbacks: {
+  //   create: {
+  //     validate: [rateLimit, duplicateLinksCheck],
+  //     after: [upvoteOwnPost],
+  //     async: [createNotifications, incrementUserPostCount],
+  //   },
+  //   update: {
+  //     validate: [duplicateLinksCheck],
+  //   },
+  // },
+  filters: {
+    category: async ({ filterArguments }) => {
+      const { slug } = filterArguments;
+      const category = await Connectors.get(Categories, { slug });
+      return {
+        selector: { categoriesIds: category._id },
+      };
     },
   },
 });

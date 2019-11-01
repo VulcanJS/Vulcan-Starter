@@ -22,11 +22,14 @@ registerFragment(/* GraphQL */`
     # embedly
     # thumbnailUrl
     # categories
+    categoriesIds
     categories {
       ...CategoryItem
     }
-    # comments
-    commentCount
+    # commentCount
+    comments{
+      _id
+    }
     commenters {
       ...UsersMinimumInfo
     }

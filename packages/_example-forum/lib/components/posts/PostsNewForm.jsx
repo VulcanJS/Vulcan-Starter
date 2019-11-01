@@ -61,7 +61,9 @@ const options = {
   queryName: 'categoriesListQuery',
   fragmentName: 'CategoryItem',
   limit: 0,
-  pollInterval: 0,
+  queryOptions: {
+    pollInterval: 0,
+  },
 };
 
 registerComponent({

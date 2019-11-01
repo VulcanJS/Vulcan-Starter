@@ -27,26 +27,24 @@
 }
 
 .posts-views{
-  @include small{
-    margin-bottom: $vmargin;
-    .btn-group{
-      margin-right: 0;
-      width: 100%;
-    }
-    .dropdown-toggle{
-      width: 100%;
-    }
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  li{
+    margin-right: 5px;
   }
-  a.btn{
-    @include border;
-    // @include border-radius;
-    // padding: 3px 5px;
-    // margin-right: 5px;
-    &.posts-view-inactive{
-      @include activeHover;
-    }
-    &.posts-view-active{
-      background: $light-blue;
+}
+
+.posts-view{
+  &::after{
+    content: "|";
+    display: inline-block;
+    padding-left: 5px;
+  }
+  &:last-child{
+    &::after{
+      display: none;
     }
   }
 }
@@ -80,13 +78,18 @@
   @include border;
   @include border-radius;
   font-size: $large-font;
-  padding: 10px 20px;
-  @include activeHover;
   width: 100%;
-  background: $white;
   color: $active-color;
+  a{
+    display: block;
+    width: 100%;
+    @include activeHover;
+    padding: 10px 20px;
+  }
 }
-
+.posts-load-more-loader{
+  padding: 10px 20px;
+}
 .posts-load-more-loading{
   padding: 21px 0;
 }
@@ -183,15 +186,16 @@
     margin-left: 5px;
   }
   @include flex-center;
-  a{
-    display: block;
-    font-size: $small-font;
-    @include border;
-    @include border-radius;
-    margin-right: 5px;
-    padding: 2px 6px;
-    @include activeHover;
-  }
+}
+
+.category-item{
+  display: block;
+  font-size: $small-font;
+  @include border;
+  @include border-radius;
+  margin-right: 5px;
+  padding: 2px 6px;
+  @include activeHover;
 }
 
 .posts-item-meta{
@@ -317,4 +321,8 @@
   @include flex-center;
   justify-content: space-between;
   margin-bottom: $vmargin * 2;
+}
+
+.posts-no-more{
+  text-align: center;
 }

@@ -1,14 +1,11 @@
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
-import qs from 'qs';
+import get from 'lodash/get';
 
-const PostsCategory = ({ location }) => {
-  const query = qs.parse(location.search, { ignoreQueryPrefix: true }) || {};
-  const path = '';
-  const orderProperty = getOrderProperty(path);
-
-  const input = { orderBy: { [orderProperty]: 'desc' } };
+const PostsCategory = ({ match }) => {
+  const slug = get(match, 'params.slug');
+  // const input = { where: { categoriesIds: { _arrayContains: categoryId } } };
+  const input = { filter: 'category', filterArguments: { slug } };
   return <Components.PostsList input={input} />;
 };
 

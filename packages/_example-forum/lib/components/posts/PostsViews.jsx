@@ -10,7 +10,7 @@ const PostsViews = () => (
       <FormattedMessage id="posts.sort_by" />
     </li>
     {postViews.map(({ name, path }) => (
-      <li key={name}>
+      <li className="posts-view" key={name}>
         <Link to={path}>
           <FormattedMessage id={name} />
         </Link>

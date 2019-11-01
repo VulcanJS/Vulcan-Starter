@@ -31,3 +31,5 @@ export const Categories = createCollection({
     },
   },
 });
+
+export default Categories;

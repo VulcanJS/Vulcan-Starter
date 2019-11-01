@@ -6,8 +6,6 @@ Categories schema
 
 import { Utils } from 'meteor/vulcan:core';
 
-
-
 // export function getCategoriesAsNestedOptions (categories) {
 //   // give the form component (here: checkboxgroup) exploitable data
 //   const formattedCategories = categories.map(function (category) {
@@ -42,18 +40,26 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    onCreate: ({document: category}) => {
+    onCreate: ({ document: category }) => {
       // if no slug has been provided, generate one
       const slug = category.slug || Utils.slugify(category.name);
       return Utils.getUnusedSlugByCollectionName('Categories', slug);
     },
-    onUpdate: ({data, document: category}) => {
+    onUpdate: ({ data, document: category }) => {
       // if slug is changing
       if (data.slug && data.slug !== category.slug) {
         const slug = data.slug;
         return Utils.getUnusedSlugByCollectionName('Categories', slug);
       }
-    }
+    },
+  },
+  pageUrl: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    resolveAs: {
+      resolver: ({ slug }) => `/category/${slug}`,
+    },
   },
   // parentId: {
   //   type: String,

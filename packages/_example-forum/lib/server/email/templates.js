@@ -10,7 +10,5 @@ VulcanEmail.addTemplates({
   newReply:                 Assets.getText("lib/server/email/templates/comments/newReply.handlebars"),
   accountApproved:          Assets.getText("lib/server/email/templates/users/accountApproved.handlebars"),
   newUser:                  Assets.getText("lib/server/email/templates/users/newUser.handlebars"),
-  newsletter:               Assets.getText("lib/server/email/templates/newsletter/newsletter.handlebars"),
-  newsletterConfirmation:   Assets.getText("lib/server/email/templates/newsletter/newsletterConfirmation.handlebars"),
   postItem:                 Assets.getText("lib/server/email/templates/newsletter/postItem.handlebars"),
 });

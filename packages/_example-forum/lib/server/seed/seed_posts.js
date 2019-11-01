@@ -1,6 +1,6 @@
 /* global Vulcan */
 import moment from 'moment';
-import { newMutation, getSetting } from 'meteor/vulcan:core';
+import { createMutator, getSetting } from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
 import { Promise } from 'meteor/promise';
 import { Posts } from '../../modules/posts/index.js';
@@ -37,7 +37,7 @@ if (getSetting('forum.seedOnStart')) {
   const createPost = async (slug, postedAt, username, thumbnail) => {
     const currentUser = await Users.rawCollection().findOne({ username: username });
     const document = {
-      postedAt: postedAt,
+      postedAt,
       body: Assets.getText("lib/assets/content/" + slug + ".md"),
       title: toTitleCase(slug.replace(/_/g, ' ')),
       dummySlug: slug,
@@ -49,7 +49,7 @@ if (getSetting('forum.seedOnStart')) {
       document.thumbnailUrl = "/packages/example-forum/lib/assets/images/" + thumbnail;
     }
 
-    return newMutation({
+    return createMutator({
       collection: Posts, 
       document,
       currentUser,

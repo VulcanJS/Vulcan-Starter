@@ -10,7 +10,7 @@ import { Comments } from '../../../modules/comments/index.js';
 
 export function updateUserPost (comment) {
 
-  var userId = comment.userId;
+  const { userId, postId } = comment;
 
   // increment comment count
   Users.update({_id: userId}, {
@@ -18,7 +18,7 @@ export function updateUserPost (comment) {
   });
 
   // update post
-  Posts.update(comment.postId, {
+  Posts.update(postId, {
     $inc:       {commentCount: 1},
     $set:       {lastCommentedAt: new Date()},
     $addToSet:  {commenters: userId}

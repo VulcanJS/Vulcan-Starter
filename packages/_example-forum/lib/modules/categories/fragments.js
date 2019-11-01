@@ -5,5 +5,6 @@ registerFragment(/* GraphQL */`
     _id
     name
     slug
+    pageUrl
   }
 `);

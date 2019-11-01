@@ -36,3 +36,5 @@ export const Posts = createCollection({
     canDelete: ['owners'],
   },
 });
+
+export default Posts;

@@ -5,7 +5,7 @@ Posts schema
 */
 
 import Users from 'meteor/vulcan:users';
-import { Utils, getSetting } from 'meteor/vulcan:core';
+import { Connectors, Utils, getSetting } from 'meteor/vulcan:core';
 import moment from 'moment';
 import {
   isFuture,
@@ -189,7 +189,7 @@ const schema = {
         return isFuture(data) ? statuses.scheduled : statuses.approved;
       }
     },
-    options: () => statusesOptions,
+    options: statusesOptions,
     group: formGroups.admin,
   },
 
@@ -216,7 +216,7 @@ const schema = {
     },
     resolveAs: {
       type: 'String',
-      name: 'postedAtFormatted',
+      fieldName: 'postedAtFormatted',
       resolver: post => {
         return moment(post.postedAt).format('dddd, MMMM Do YYYY');
       },
@@ -302,9 +302,9 @@ const schema = {
     type: Array,
     input: 'checkboxgroup',
     optional: true,
+    canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-    canRead: ['guests'],
     options: ({ data }) =>
       data.categories.results.map(category => ({
         value: category._id,
@@ -323,6 +323,7 @@ const schema = {
     resolveAs: {
       fieldName: 'categories',
       type: '[Category]',
+      relation: 'hasMany',
       // resolver: async (post, args, { currentUser, Users, Categories }) => {
       //   if (!post.categoriesIds) return [];
       //   const categories = _.compact(
@@ -413,18 +414,11 @@ const schema = {
     },
   },
 
-  commentsCount: {
-    type: Number,
-    optional: true,
-    canRead: ['guests'],
-    resolveAs: {
-      type: 'Int',
-      resolver: (post, args, { Comments }) => {
-        const commentsCount = Comments.find({ postId: post._id }).count();
-        return commentsCount;
-      },
-    },
-  },
+  // commentCount: {
+  //   type: Number,
+  //   optional: true,
+  //   canRead: ['guests'],
+  // },
 
   comments: {
     type: Object,
@@ -433,20 +427,17 @@ const schema = {
     resolveAs: {
       arguments: 'limit: Int = 5',
       type: '[Comment]',
-      resolver: (post, { limit }, { currentUser, Users, Comments }) => {
-        const comments = Comments.find({ postId: post._id }, { limit }).fetch();
-
-        // restrict documents fields
-        const viewableComments = _.filter(comments, comments =>
-          Comments.checkAccess(currentUser, comments)
-        );
-        const restrictedComments = Users.restrictViewableFields(
-          currentUser,
+      resolver: async (post, { limit }, { currentUser, Users, Comments }) => {
+        const comments = await Connectors.find(
           Comments,
-          viewableComments
+          { postId: post._id },
+          { limit }
         );
-
-        return restrictedComments;
+        return Users.restrictDocuments({
+          user: currentUser,
+          collection: Comments,
+          documents: comments,
+        });
       },
     },
   },

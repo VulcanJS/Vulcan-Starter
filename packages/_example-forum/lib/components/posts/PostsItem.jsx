@@ -25,7 +25,7 @@ const PostsItem = ({ post, currentUser }) => {
           <Link to={getLink(post)} className="posts-item-title-link" target={getLinkTarget(post)}>
             {post.title}
           </Link>
-          {post.categories && posts.categories.length > 0 && <Components.PostsCategories post={post} />}
+          {post.categories && post.categories.length > 0 && <Components.PostsCategories post={post} />}
         </h3>
 
         <div className="posts-item-meta">
@@ -40,12 +40,12 @@ const PostsItem = ({ post, currentUser }) => {
           </div>
           <div className="posts-item-comments">
             <Link to={getPageUrl(post)}>
-              {!post.commentCount || post.commentCount === 0 ? (
+              {!post.comments || post.comments.length === 0 ? (
                 <FormattedMessage id="comments.count_0" />
-              ) : post.commentCount === 1 ? (
+              ) : post.comments.length === 1 ? (
                 <FormattedMessage id="comments.count_1" />
               ) : (
-                <FormattedMessage id="comments.count_2" values={{ count: post.commentCount }} />
+                <FormattedMessage id="comments.count_2" values={{ count: post.comments.length }} />
               )}
             </Link>
           </div>

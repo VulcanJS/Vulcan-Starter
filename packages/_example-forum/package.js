@@ -23,7 +23,6 @@ Package.onUse(function (api) {
     'vulcan:accounts@1.13.4',
     'vulcan:email@1.13.4',
     'vulcan:forms@1.13.4',
-    'vulcan:newsletter@1.13.4',
     'vulcan:events@1.13.4',
     'vulcan:embed@1.13.4',
     'vulcan:admin@1.13.4',
@@ -51,9 +50,6 @@ Package.onUse(function (api) {
     'lib/server/email/templates/posts/postApproved.handlebars',
     'lib/server/email/templates/users/accountApproved.handlebars',
     'lib/server/email/templates/users/newUser.handlebars',
-    'lib/server/email/templates/newsletter/newsletter.handlebars',
-    'lib/server/email/templates/newsletter/newsletterConfirmation.handlebars',
-    'lib/server/email/templates/newsletter/postItem.handlebars',
     
   ], ['server']);
 

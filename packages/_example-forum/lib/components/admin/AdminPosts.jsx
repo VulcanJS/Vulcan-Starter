@@ -12,6 +12,8 @@ import { Components, registerComponent, withAccess } from 'meteor/vulcan:core';
 import moment from 'moment';
 import { statusesReverse } from '../../modules/data.js';
 import { Posts } from '../../modules/posts/collection.js';
+import { FormattedMessage } from 'meteor/vulcan:i18n';
+import { Link } from 'react-router-dom';
 
 const Title = ({ document: post }) => (
   <div>
@@ -32,10 +34,17 @@ const Status = ({ document: post }) => (
   </span>
 );
 
-const CategoryToken = ({ document: category }) => (
-  <span className="admin-posts-category category-item">{category.name}</span>
+const CategoriesIds = ({ document: post }) => (
+  <span>
+    {post.categories && post.categories.map(category => <CategoryItem key={category._id} document={category} />)}
+  </span>
 );
-registerComponent({ name: 'CategoryToken', component: CategoryToken });
+
+const CategoryItem = ({ document: category }) => (
+  <Link className="posts-category category-item" key={category._id} to={category.pageUrl}>
+    {category.name}
+  </Link>
+);
 
 const CardItemDate = ({ value }) => {
   const m = moment(new Date(value));
@@ -60,18 +69,18 @@ const AdminPosts = () => (
       columns={[
         { name: 'createdAt', label: 'Created', sortable: true, contents: 'date', filterable: true },
         { name: 'postedAt', label: 'Posted', sortable: true, contents: 'date', filterable: true },
-        { name: 'scheduledAt', label: 'Sched.', sortable: true, contents: 'date', filterable: true },
+        // { name: 'scheduledAt', label: 'Sched.', sortable: true, contents: 'date', filterable: true },
         { name: 'title', component: Title },
-        { name: 'htmlBody', contents: 'html' },
+        { name: 'excerpt' },
         {
           name: 'categoriesIds',
           label: 'Categories',
           filterable: true,
-          // component: CategoriesIds
+          component: CategoriesIds,
         },
-        { name: 'thumbnailUrl', contents: 'image' },
         {
           name: 'userId',
+          label: 'User',
           //  component: User
         },
         { name: 'status', filterable: true, component: Status },
@@ -82,13 +91,12 @@ const AdminPosts = () => (
       }}
       showNew={true}
       showEdit={true}
-      newFormOptions={{
-        queryFragmentName: 'PostItem',
+      newFormProps={{
+        label: <FormattedMessage id="posts.new_post" />,
       }}
-      editFormOptions={{
-        queryFragmentName: 'PostItem',
-        addFields: ['clickCount'],
-      }}
+      // editFormProps={{
+      //   addFields: ['clickCount'],
+      // }}
       components={{
         CardItemDate,
       }}

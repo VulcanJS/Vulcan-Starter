@@ -42,7 +42,7 @@ registerFragment(/* GraphQL */`
     # vulcan:posts
     postCount
     # vulcan:comments
-    commentCount
+    # commentCount
   }
 `);
 

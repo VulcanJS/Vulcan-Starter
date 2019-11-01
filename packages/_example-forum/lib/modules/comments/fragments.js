@@ -18,7 +18,7 @@ registerFragment(/* GraphQL */`
 
     post {
       _id
-      commentCount
+      # commentCount
       commenters {
         ...UsersMinimumInfo
       }

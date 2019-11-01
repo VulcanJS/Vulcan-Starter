@@ -4,7 +4,7 @@ import {
   withSingle,
   withCurrentUser,
   /* getActions */
-  withMutation
+  withMutation,
 } from 'meteor/vulcan:core';
 import { Posts } from '../../modules/posts/index.js';
 import React, { Component } from 'react';
@@ -43,21 +43,11 @@ class PostsPage extends Component {
             description={post.excerpt}
           />
 
-          <Components.PostsItem
-            post={post}
-            currentUser={this.props.currentUser}
-          />
+          <Components.PostsItem post={post} currentUser={this.props.currentUser} />
 
-          {post.htmlBody ? (
-            <div
-              className="posts-page-body"
-              dangerouslySetInnerHTML={htmlBody}
-            ></div>
-          ) : null}
+          {post.htmlBody ? <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div> : null}
 
-          <Components.PostsCommentsThread
-            terms={{ postId: post._id, view: 'postComments' }}
-          />
+          <Components.PostsCommentsThread postId={post._id} input={{ where: { postId: { _eq: post._id } } }} />
         </div>
       );
     }
@@ -69,7 +59,7 @@ class PostsPage extends Component {
       // destructure the relevant props
       const {
         // from the parent component, used in withDocument, GraphQL HOC
-        documentId
+        documentId,
         // from connect, Redux HOC
         // setViewed, // TODO: re-enable
         // postsViewed, // TODO: re-enable
@@ -100,18 +90,18 @@ PostsPage.propTypes = {
   document: PropTypes.object,
   postsViewed: PropTypes.array,
   setViewed: PropTypes.func,
-  increasePostViewCount: PropTypes.func
+  increasePostViewCount: PropTypes.func,
 };
 
 const queryOptions = {
   collection: Posts,
   queryName: 'postsSingleQuery',
-  fragmentName: 'PostPage'
+  fragmentName: 'PostPage',
 };
 
 const mutationOptions = {
   name: 'increasePostViewCount',
-  args: { postId: 'String' }
+  args: { postId: 'String' },
 };
 
 // TODO: re-enable?
@@ -120,7 +110,7 @@ const mutationOptions = {
 
 const mapPropsFunction = props => ({
   ...props,
-  documentId: props.match && props.match.params._id
+  documentId: props.match && props.match.params._id,
 });
 
 registerComponent(
