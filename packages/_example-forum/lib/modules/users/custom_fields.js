@@ -1,4 +1,5 @@
 import Users from 'meteor/vulcan:users';
+import SimpleSchema from 'simpl-schema';
 
 const notificationsGroup = {
   name: 'notifications',
