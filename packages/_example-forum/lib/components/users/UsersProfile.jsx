@@ -1,4 +1,4 @@
-import { Components, registerComponent, withDocument, withCurrentUser } from 'meteor/vulcan:core';
+import { Components, registerComponent, withSingle2, withCurrentUser } from 'meteor/vulcan:core';
 import React from 'react';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import Users from 'meteor/vulcan:users';
@@ -14,15 +14,12 @@ const UsersProfile = ({ currentUser, loading, document: user }) => {
       </div>
     );
   } else if (!user) {
-    // console.log(`// missing user (_id/slug: ${props.documentId || props.slug})`);
     return (
       <div className="page users-profile">
         <FormattedMessage id="app.404" />
       </div>
     );
   } else {
-    const terms = { view: 'userPosts', userId: user._id };
-
     return (
       <div className="page users-profile">
         <Components.HeadTags url={Users.getProfileUrl(user, true)} title={Users.getDisplayName(user)} />
@@ -50,7 +47,7 @@ const UsersProfile = ({ currentUser, loading, document: user }) => {
         <h3>
           <FormattedMessage id="users.posts" />
         </h3>
-        <Components.PostsList terms={terms} showHeader={false} />
+        <Components.PostsList input={{ filter: { userId: { _eq: user._id } } }} showHeader={false} />
       </div>
     );
   }
@@ -60,15 +57,14 @@ UsersProfile.displayName = 'UsersProfile';
 
 const options = {
   collection: Users,
-  queryName: 'usersSingleQuery',
   fragmentName: 'UsersProfile',
 };
 
 // make router slug param available as `slug` prop
-const mapPropsFunction = props => ({ ...props, slug: get(props, 'match.params.slug') });
+const mapPropsFunction = props => ({ ...props, input: { filter: { slug: { _eq: get(props, 'match.params.slug') } } } });
 
 registerComponent({
   name: 'UsersProfile',
   component: UsersProfile,
-  hocs: [mapProps(mapPropsFunction), withCurrentUser, [withDocument, options]],
+  hocs: [mapProps(mapPropsFunction), withCurrentUser, [withSingle2, options]],
 });

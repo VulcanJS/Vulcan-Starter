@@ -6,9 +6,6 @@ const PostsStats = ({post}) => {
   return (
     <div className="posts-stats">
       {post.score ? <span className="posts-stats-item" title="Score"><Components.Icon name="score"/> {Math.floor((post.score || 0)*10000)/10000} <span className="sr-only">Score</span></span> : ""}
-      <span className="posts-stats-item" title="Upvotes"><Components.Icon name="upvote"/> {post.baseScore || 0} <span className="sr-only">Upvotes</span></span>
-      <span className="posts-stats-item" title="Clicks"><Components.Icon name="clicks"/> {post.clickCount || 0} <span className="sr-only">Clicks</span></span>
-      <span className="posts-stats-item" title="Views"><Components.Icon name="views"/> {post.viewCount || 0} <span className="sr-only">Views</span></span>
     </div>
   )
 }

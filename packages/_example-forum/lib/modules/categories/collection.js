@@ -26,7 +26,7 @@ export const Categories = createCollection({
   },
 
   defaultInput: {
-    orderBy: {
+    sort: {
       name: 'asc',
     },
   },

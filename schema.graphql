@@ -89,7 +89,7 @@ input Date_Array_Selector {
 }
 
 # column ordering options
-enum OrderBy {
+enum SortOptions {
   asc
   desc
 }
@@ -109,6 +109,7 @@ input IntlValueInput{
   value: String
 }
 directive @intl on FIELD_DEFINITION
+union Voteable = Post | Comment
 
 # A user object
 type User {
@@ -130,20 +131,30 @@ type User {
   pageUrl: String 
   pagePath: String 
   editUrl: String 
+  votes(collectionName: String): [Vote] 
+  postCount: Float 
+  posts(limit: Int = 5): [Post] 
+  bio: String 
+  htmlBio: String 
+  website: String 
+  commentCount: Float 
+  notifications_users: Boolean 
+  notifications_posts: Boolean 
+  notifications_comments: Boolean 
+  notifications_replies: Boolean 
 }
 
 
 input DeleteUserInput{
-  where: UserWhereInput
+  filter: UserFilterInput
   selector: UserSelectorUniqueInput
 }
 
 input SingleUserInput {
   # filtering
-  where: UserWhereInput
-  orderBy: UserOrderByInput
+  filter: UserFilterInput
+  orderBy: UserSortInput
   search: String
-  filter: String
   _id: String
 
   # backwards-compatibility
@@ -159,12 +170,11 @@ input SingleUserInput {
 input MultiUserInput {
 
   # filtering
-  where: UserWhereInput
-  orderBy: UserOrderByInput
+  filter: UserFilterInput
+  sort: UserSortInput
   search: String
   offset: Int
   limit: Int
-  filter: String
 
   # backwards-compatibility
   # A JSON object that contains the query terms used to fetch data
@@ -176,6 +186,18 @@ input MultiUserInput {
   # Whether to calculate totalCount for this query
   enableTotal: Boolean
   
+}
+
+input MutationUserInput {
+  # filtering
+  filter: UserFilterInput
+  sort: UserSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: UserSelectorUniqueInput
+
 }
 
 type SingleUserOutput{
@@ -204,16 +226,22 @@ input CreateUserDataInput {
   email: String 
   twitterUsername: String 
   groups: [String] 
+  bio: String 
+  website: String 
+  notifications_users: Boolean 
+  notifications_posts: Boolean 
+  notifications_comments: Boolean 
+  notifications_replies: Boolean 
 }
 
 input UpdateUserInput{
-  where: UserWhereInput
+  filter: UserFilterInput
   selector: UserSelectorUniqueInput
   data: UpdateUserDataInput!
 }
 
 input UpsertUserInput{
-  where: UserWhereInput
+  filter: UserFilterInput
   selector: UserSelectorUniqueInput
   data: UpdateUserDataInput!
 }
@@ -226,12 +254,20 @@ input UpdateUserDataInput {
   email: String 
   twitterUsername: String 
   groups: [String] 
+  bio: String 
+  website: String 
+  notifications_users: Boolean 
+  notifications_posts: Boolean 
+  notifications_comments: Boolean 
+  notifications_replies: Boolean 
 }
 
-input UserWhereInput {
-  _and: [UserWhereInput]
-  _not: UserWhereInput
-  _or: [UserWhereInput]
+input UserFilterInput {
+  _and: [UserFilterInput]
+  _not: UserFilterInput
+  _or: [UserFilterInput]
+
+
   _id: String_Selector
   username: String_Selector
 
@@ -249,26 +285,48 @@ input UserWhereInput {
   pageUrl: String_Selector
   pagePath: String_Selector
   editUrl: String_Selector
+
+  postCount: Float_Selector
+
+  bio: String_Selector
+  htmlBio: String_Selector
+  website: String_Selector
+  commentCount: Float_Selector
+  notifications_users: Boolean_Selector
+  notifications_posts: Boolean_Selector
+  notifications_comments: Boolean_Selector
+  notifications_replies: Boolean_Selector
 }
 
-input UserOrderByInput {
-  _id: OrderBy
-  username: OrderBy
-  emails: OrderBy
-  createdAt: OrderBy
-  isAdmin: OrderBy
-  locale: OrderBy
-  services: OrderBy
-  displayName: OrderBy
-  email: OrderBy
-  emailHash: OrderBy
-  avatarUrl: OrderBy
-  slug: OrderBy
-  twitterUsername: OrderBy
-  groups: OrderBy
-  pageUrl: OrderBy
-  pagePath: OrderBy
-  editUrl: OrderBy
+input UserSortInput {
+  _id: SortOptions
+  username: SortOptions
+  emails: SortOptions
+  createdAt: SortOptions
+  isAdmin: SortOptions
+  locale: SortOptions
+  services: SortOptions
+  displayName: SortOptions
+  email: SortOptions
+  emailHash: SortOptions
+  avatarUrl: SortOptions
+  slug: SortOptions
+  twitterUsername: SortOptions
+  groups: SortOptions
+  pageUrl: SortOptions
+  pagePath: SortOptions
+  editUrl: SortOptions
+  votes: SortOptions
+  postCount: SortOptions
+  posts: SortOptions
+  bio: SortOptions
+  htmlBio: SortOptions
+  website: SortOptions
+  commentCount: SortOptions
+  notifications_users: SortOptions
+  notifications_posts: SortOptions
+  notifications_comments: SortOptions
+  notifications_replies: SortOptions
 }
 
 input UserSelectorInput {
@@ -278,6 +336,116 @@ input UserSelectorInput {
 }
 
 input UserSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Emails
+type Email {
+  name: String 
+  template: String 
+  subject: String 
+  path: String 
+}
+
+
+input DeleteEmailInput{
+  filter: EmailFilterInput
+  selector: EmailSelectorUniqueInput
+}
+
+input SingleEmailInput {
+  # filtering
+  filter: EmailFilterInput
+  orderBy: EmailSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: EmailSelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiEmailInput {
+
+  # filtering
+  filter: EmailFilterInput
+  sort: EmailSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+input MutationEmailInput {
+  # filtering
+  filter: EmailFilterInput
+  sort: EmailSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: EmailSelectorUniqueInput
+
+}
+
+type SingleEmailOutput{
+  result: Email
+}
+
+type MultiEmailOutput{
+  results: [Email]
+  totalCount: Int
+}
+
+type EmailOutput{
+  data: Email
+}
+
+input EmailFilterInput {
+  _and: [EmailFilterInput]
+  _not: EmailFilterInput
+  _or: [EmailFilterInput]
+
+
+  name: String_Selector
+  template: String_Selector
+  subject: String_Selector
+  path: String_Selector
+}
+
+input EmailSortInput {
+  name: SortOptions
+  template: SortOptions
+  subject: SortOptions
+  path: SortOptions
+}
+
+input EmailSelectorInput {
+  _and: [EmailSelectorInput]
+  _or: [EmailSelectorInput]
+
+}
+
+input EmailSelectorUniqueInput {
   _id: String
   documentId: String # OpenCRUD backwards compatibility
   slug: String
@@ -296,16 +464,15 @@ type Setting {
 
 
 input DeleteSettingInput{
-  where: SettingWhereInput
+  filter: SettingFilterInput
   selector: SettingSelectorUniqueInput
 }
 
 input SingleSettingInput {
   # filtering
-  where: SettingWhereInput
-  orderBy: SettingOrderByInput
+  filter: SettingFilterInput
+  orderBy: SettingSortInput
   search: String
-  filter: String
   _id: String
 
   # backwards-compatibility
@@ -321,12 +488,11 @@ input SingleSettingInput {
 input MultiSettingInput {
 
   # filtering
-  where: SettingWhereInput
-  orderBy: SettingOrderByInput
+  filter: SettingFilterInput
+  sort: SettingSortInput
   search: String
   offset: Int
   limit: Int
-  filter: String
 
   # backwards-compatibility
   # A JSON object that contains the query terms used to fetch data
@@ -338,6 +504,18 @@ input MultiSettingInput {
   # Whether to calculate totalCount for this query
   enableTotal: Boolean
   
+}
+
+input MutationSettingInput {
+  # filtering
+  filter: SettingFilterInput
+  sort: SettingSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: SettingSelectorUniqueInput
+
 }
 
 type SingleSettingOutput{
@@ -353,10 +531,12 @@ type SettingOutput{
   data: Setting
 }
 
-input SettingWhereInput {
-  _and: [SettingWhereInput]
-  _not: SettingWhereInput
-  _or: [SettingWhereInput]
+input SettingFilterInput {
+  _and: [SettingFilterInput]
+  _not: SettingFilterInput
+  _or: [SettingFilterInput]
+
+
   name: String_Selector
 
 
@@ -364,12 +544,12 @@ input SettingWhereInput {
   description: String_Selector
 }
 
-input SettingOrderByInput {
-  name: OrderBy
-  value: OrderBy
-  defaultValue: OrderBy
-  isPublic: OrderBy
-  description: OrderBy
+input SettingSortInput {
+  name: SortOptions
+  value: SortOptions
+  defaultValue: SortOptions
+  isPublic: SortOptions
+  description: SortOptions
 }
 
 input SettingSelectorInput {
@@ -400,16 +580,15 @@ type Callback {
 
 
 input DeleteCallbackInput{
-  where: CallbackWhereInput
+  filter: CallbackFilterInput
   selector: CallbackSelectorUniqueInput
 }
 
 input SingleCallbackInput {
   # filtering
-  where: CallbackWhereInput
-  orderBy: CallbackOrderByInput
+  filter: CallbackFilterInput
+  orderBy: CallbackSortInput
   search: String
-  filter: String
   _id: String
 
   # backwards-compatibility
@@ -425,12 +604,11 @@ input SingleCallbackInput {
 input MultiCallbackInput {
 
   # filtering
-  where: CallbackWhereInput
-  orderBy: CallbackOrderByInput
+  filter: CallbackFilterInput
+  sort: CallbackSortInput
   search: String
   offset: Int
   limit: Int
-  filter: String
 
   # backwards-compatibility
   # A JSON object that contains the query terms used to fetch data
@@ -442,6 +620,18 @@ input MultiCallbackInput {
   # Whether to calculate totalCount for this query
   enableTotal: Boolean
   
+}
+
+input MutationCallbackInput {
+  # filtering
+  filter: CallbackFilterInput
+  sort: CallbackSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: CallbackSelectorUniqueInput
+
 }
 
 type SingleCallbackOutput{
@@ -457,10 +647,12 @@ type CallbackOutput{
   data: Callback
 }
 
-input CallbackWhereInput {
-  _and: [CallbackWhereInput]
-  _not: CallbackWhereInput
-  _or: [CallbackWhereInput]
+input CallbackFilterInput {
+  _and: [CallbackFilterInput]
+  _not: CallbackFilterInput
+  _or: [CallbackFilterInput]
+
+
   name: String_Selector
 
 
@@ -471,15 +663,15 @@ input CallbackWhereInput {
 
 }
 
-input CallbackOrderByInput {
-  name: OrderBy
-  iterator: OrderBy
-  properties: OrderBy
-  runs: OrderBy
-  newSyntax: OrderBy
-  returns: OrderBy
-  description: OrderBy
-  hooks: OrderBy
+input CallbackSortInput {
+  name: SortOptions
+  iterator: SortOptions
+  properties: SortOptions
+  runs: SortOptions
+  newSyntax: SortOptions
+  returns: SortOptions
+  description: SortOptions
+  hooks: SortOptions
 }
 
 input CallbackSelectorInput {
@@ -496,33 +688,32 @@ input CallbackSelectorUniqueInput {
 }
 
 
-# Type for Movies
-type Movie {
+# Type for Votes
+type Vote {
   _id: String 
-  createdAt: Date 
+  documentId: String 
+  collectionName: String 
   userId: String 
-  user: User 
-  name: String 
-  year: String 
-  review: String 
+  voteType: String 
+  power: Float 
+  votedAt: Date 
 }
 
 
-input DeleteMovieInput{
-  where: MovieWhereInput
-  selector: MovieSelectorUniqueInput
+input DeleteVoteInput{
+  filter: VoteFilterInput
+  selector: VoteSelectorUniqueInput
 }
 
-input SingleMovieInput {
+input SingleVoteInput {
   # filtering
-  where: MovieWhereInput
-  orderBy: MovieOrderByInput
+  filter: VoteFilterInput
+  orderBy: VoteSortInput
   search: String
-  filter: String
   _id: String
 
   # backwards-compatibility
-  selector: MovieSelectorUniqueInput
+  selector: VoteSelectorUniqueInput
 
   # options
   # Whether to enable caching for this query
@@ -531,15 +722,14 @@ input SingleMovieInput {
   allowNull: Boolean
 }
 
-input MultiMovieInput {
+input MultiVoteInput {
 
   # filtering
-  where: MovieWhereInput
-  orderBy: MovieOrderByInput
+  filter: VoteFilterInput
+  sort: VoteSortInput
   search: String
   offset: Int
   limit: Int
-  filter: String
 
   # backwards-compatibility
   # A JSON object that contains the query terms used to fetch data
@@ -553,75 +743,637 @@ input MultiMovieInput {
   
 }
 
-type SingleMovieOutput{
-  result: Movie
+input MutationVoteInput {
+  # filtering
+  filter: VoteFilterInput
+  sort: VoteSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: VoteSelectorUniqueInput
+
 }
 
-type MultiMovieOutput{
-  results: [Movie]
+type SingleVoteOutput{
+  result: Vote
+}
+
+type MultiVoteOutput{
+  results: [Vote]
   totalCount: Int
 }
 
-type MovieOutput{
-  data: Movie
+type VoteOutput{
+  data: Vote
 }
 
-input CreateMovieInput {
-  data: CreateMovieDataInput!
+input VoteFilterInput {
+  _and: [VoteFilterInput]
+  _not: VoteFilterInput
+  _or: [VoteFilterInput]
+
+
+  _id: String_Selector
+  documentId: String_Selector
+  collectionName: String_Selector
+  userId: String_Selector
+  voteType: String_Selector
+  power: Float_Selector
+  votedAt: Date_Selector
 }
 
-input CreateMovieDataInput {
-  name: String 
-  year: String 
-  review: String 
+input VoteSortInput {
+  _id: SortOptions
+  documentId: SortOptions
+  collectionName: SortOptions
+  userId: SortOptions
+  voteType: SortOptions
+  power: SortOptions
+  votedAt: SortOptions
 }
 
-input UpdateMovieInput{
-  where: MovieWhereInput
-  selector: MovieSelectorUniqueInput
-  data: UpdateMovieDataInput!
+input VoteSelectorInput {
+  _and: [VoteSelectorInput]
+  _or: [VoteSelectorInput]
+
 }
 
-input UpsertMovieInput{
-  where: MovieWhereInput
-  selector: MovieSelectorUniqueInput
-  data: UpdateMovieDataInput!
+input VoteSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
 }
 
-input UpdateMovieDataInput {
-  name: String 
-  year: String 
-  review: String 
+
+# Type for Posts
+type Post {
+  _id: String 
+  createdAt: Date 
+  url: String 
+  title: String 
+  slug: String 
+  body: String 
+  htmlBody: String 
+  excerpt: String 
+  viewCount: Float 
+  lastCommentedAt: Date 
+  clickCount: Float 
+  status: Float 
+  postedAt: Date 
+  postedAtFormatted: String 
+  sticky: Boolean 
+  userIP: String 
+  userAgent: String 
+  referrer: String 
+  userId: String 
+  user: User 
+  categoriesIds: [String] 
+  categories: [Category] 
+  commentCount: Float 
+  commentersIds: [String] 
+  commenters: [User] 
+  domain: String 
+  pageUrl: String 
+  linkUrl: String 
+  comments(limit: Int = 5): [Comment] 
+  emailShareUrl: String 
+  twitterShareUrl: String 
+  facebookShareUrl: String 
+  currentUserVotes: [Vote] 
+  allVotes: [Vote] 
+  voters: [User] 
+  baseScore: Float 
+  score: Float 
 }
 
-input MovieWhereInput {
-  _and: [MovieWhereInput]
-  _not: MovieWhereInput
-  _or: [MovieWhereInput]
+
+input DeletePostInput{
+  filter: PostFilterInput
+  selector: PostSelectorUniqueInput
+}
+
+input SinglePostInput {
+  # filtering
+  filter: PostFilterInput
+  orderBy: PostSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: PostSelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiPostInput {
+
+  # filtering
+  filter: PostFilterInput
+  sort: PostSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+input MutationPostInput {
+  # filtering
+  filter: PostFilterInput
+  sort: PostSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: PostSelectorUniqueInput
+
+}
+
+type SinglePostOutput{
+  result: Post
+}
+
+type MultiPostOutput{
+  results: [Post]
+  totalCount: Int
+}
+
+type PostOutput{
+  data: Post
+}
+
+input CreatePostInput {
+  data: CreatePostDataInput!
+}
+
+input CreatePostDataInput {
+  url: String 
+  title: String 
+  body: String 
+  status: Float 
+  postedAt: Date 
+  sticky: Boolean 
+  userId: String 
+  categoriesIds: [String] 
+}
+
+input UpdatePostInput{
+  filter: PostFilterInput
+  selector: PostSelectorUniqueInput
+  data: UpdatePostDataInput!
+}
+
+input UpsertPostInput{
+  filter: PostFilterInput
+  selector: PostSelectorUniqueInput
+  data: UpdatePostDataInput!
+}
+
+input UpdatePostDataInput {
+  url: String 
+  title: String 
+  body: String 
+  status: Float 
+  postedAt: Date 
+  sticky: Boolean 
+  categoriesIds: [String] 
+}
+
+input PostFilterInput {
+  _and: [PostFilterInput]
+  _not: PostFilterInput
+  _or: [PostFilterInput]
+  _byCategory: PostByCategoryFilterInput
+
   _id: String_Selector
   createdAt: Date_Selector
+  url: String_Selector
+  title: String_Selector
+  slug: String_Selector
+  body: String_Selector
+  htmlBody: String_Selector
+  excerpt: String_Selector
+  viewCount: Float_Selector
+  lastCommentedAt: Date_Selector
+  clickCount: Float_Selector
+  status: Float_Selector
+  postedAt: Date_Selector
+  sticky: Boolean_Selector
+  userIP: String_Selector
+  userAgent: String_Selector
+  referrer: String_Selector
   userId: String_Selector
+
+  commentCount: Float_Selector
+
+  domain: String_Selector
+  pageUrl: String_Selector
+  linkUrl: String_Selector
+
+  emailShareUrl: String_Selector
+  twitterShareUrl: String_Selector
+  facebookShareUrl: String_Selector
+
+
+
+  baseScore: Float_Selector
+  score: Float_Selector
+}
+
+input PostByCategoryFilterInput{
+  slug: String
+}
+
+input PostSortInput {
+  _id: SortOptions
+  createdAt: SortOptions
+  url: SortOptions
+  title: SortOptions
+  slug: SortOptions
+  body: SortOptions
+  htmlBody: SortOptions
+  excerpt: SortOptions
+  viewCount: SortOptions
+  lastCommentedAt: SortOptions
+  clickCount: SortOptions
+  status: SortOptions
+  postedAt: SortOptions
+  sticky: SortOptions
+  userIP: SortOptions
+  userAgent: SortOptions
+  referrer: SortOptions
+  userId: SortOptions
+  categoriesIds: SortOptions
+  commentCount: SortOptions
+  commentersIds: SortOptions
+  domain: SortOptions
+  pageUrl: SortOptions
+  linkUrl: SortOptions
+  comments: SortOptions
+  emailShareUrl: SortOptions
+  twitterShareUrl: SortOptions
+  facebookShareUrl: SortOptions
+  currentUserVotes: SortOptions
+  allVotes: SortOptions
+  voters: SortOptions
+  baseScore: SortOptions
+  score: SortOptions
+}
+
+input PostSelectorInput {
+  _and: [PostSelectorInput]
+  _or: [PostSelectorInput]
+
+}
+
+input PostSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Comments
+type Comment {
+  _id: String 
+  parentCommentId: String 
+  parentComment: Comment 
+  topLevelCommentId: String 
+  topLevelComment: Comment 
+  createdAt: Date 
+  postedAt: Date 
+  body: String 
+  htmlBody: String 
+  author: String 
+  postId: String 
+  post: Post 
+  userId: String 
+  user: User 
+  isDeleted: Boolean 
+  userIP: String 
+  userAgent: String 
+  referrer: String 
+  pagePath: String 
+  pageUrl: String 
+  currentUserVotes: [Vote] 
+  allVotes: [Vote] 
+  voters: [User] 
+  baseScore: Float 
+  score: Float 
+}
+
+
+input DeleteCommentInput{
+  filter: CommentFilterInput
+  selector: CommentSelectorUniqueInput
+}
+
+input SingleCommentInput {
+  # filtering
+  filter: CommentFilterInput
+  orderBy: CommentSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: CommentSelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiCommentInput {
+
+  # filtering
+  filter: CommentFilterInput
+  sort: CommentSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+input MutationCommentInput {
+  # filtering
+  filter: CommentFilterInput
+  sort: CommentSortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: CommentSelectorUniqueInput
+
+}
+
+type SingleCommentOutput{
+  result: Comment
+}
+
+type MultiCommentOutput{
+  results: [Comment]
+  totalCount: Int
+}
+
+type CommentOutput{
+  data: Comment
+}
+
+input CreateCommentInput {
+  data: CreateCommentDataInput!
+}
+
+input CreateCommentDataInput {
+  parentCommentId: String 
+  topLevelCommentId: String 
+  body: String 
+  postId: String 
+  userId: String 
+}
+
+input UpdateCommentInput{
+  filter: CommentFilterInput
+  selector: CommentSelectorUniqueInput
+  data: UpdateCommentDataInput!
+}
+
+input UpsertCommentInput{
+  filter: CommentFilterInput
+  selector: CommentSelectorUniqueInput
+  data: UpdateCommentDataInput!
+}
+
+input UpdateCommentDataInput {
+  body: String 
+}
+
+input CommentFilterInput {
+  _and: [CommentFilterInput]
+  _not: CommentFilterInput
+  _or: [CommentFilterInput]
+
+
+  _id: String_Selector
+  parentCommentId: String_Selector
+  topLevelCommentId: String_Selector
+  createdAt: Date_Selector
+  postedAt: Date_Selector
+  body: String_Selector
+  htmlBody: String_Selector
+  author: String_Selector
+  postId: String_Selector
+  userId: String_Selector
+  isDeleted: Boolean_Selector
+  userIP: String_Selector
+  userAgent: String_Selector
+  referrer: String_Selector
+  pagePath: String_Selector
+  pageUrl: String_Selector
+
+
+
+  baseScore: Float_Selector
+  score: Float_Selector
+}
+
+input CommentSortInput {
+  _id: SortOptions
+  parentCommentId: SortOptions
+  topLevelCommentId: SortOptions
+  createdAt: SortOptions
+  postedAt: SortOptions
+  body: SortOptions
+  htmlBody: SortOptions
+  author: SortOptions
+  postId: SortOptions
+  userId: SortOptions
+  isDeleted: SortOptions
+  userIP: SortOptions
+  userAgent: SortOptions
+  referrer: SortOptions
+  pagePath: SortOptions
+  pageUrl: SortOptions
+  currentUserVotes: SortOptions
+  allVotes: SortOptions
+  voters: SortOptions
+  baseScore: SortOptions
+  score: SortOptions
+}
+
+input CommentSelectorInput {
+  _and: [CommentSelectorInput]
+  _or: [CommentSelectorInput]
+
+}
+
+input CommentSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Categories
+type Category {
+  _id: String 
+  name: String 
+  slug: String 
+  pagePath: String 
+  pageUrl: String 
+}
+
+
+input DeleteCategoryInput{
+  filter: CategoryFilterInput
+  selector: CategorySelectorUniqueInput
+}
+
+input SingleCategoryInput {
+  # filtering
+  filter: CategoryFilterInput
+  orderBy: CategorySortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: CategorySelectorUniqueInput
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiCategoryInput {
+
+  # filtering
+  filter: CategoryFilterInput
+  sort: CategorySortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  terms: JSON
+
+  # options
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+input MutationCategoryInput {
+  # filtering
+  filter: CategoryFilterInput
+  sort: CategorySortInput
+  search: String
+  _id: String
+
+  # backwards-compatibility
+  selector: CategorySelectorUniqueInput
+
+}
+
+type SingleCategoryOutput{
+  result: Category
+}
+
+type MultiCategoryOutput{
+  results: [Category]
+  totalCount: Int
+}
+
+type CategoryOutput{
+  data: Category
+}
+
+input CreateCategoryInput {
+  data: CreateCategoryDataInput!
+}
+
+input CreateCategoryDataInput {
+  name: String 
+  slug: String 
+}
+
+input UpdateCategoryInput{
+  filter: CategoryFilterInput
+  selector: CategorySelectorUniqueInput
+  data: UpdateCategoryDataInput!
+}
+
+input UpsertCategoryInput{
+  filter: CategoryFilterInput
+  selector: CategorySelectorUniqueInput
+  data: UpdateCategoryDataInput!
+}
+
+input UpdateCategoryDataInput {
+  name: String 
+  slug: String 
+}
+
+input CategoryFilterInput {
+  _and: [CategoryFilterInput]
+  _not: CategoryFilterInput
+  _or: [CategoryFilterInput]
+
+
+  _id: String_Selector
   name: String_Selector
-  year: String_Selector
-  review: String_Selector
+  slug: String_Selector
+  pagePath: String_Selector
+  pageUrl: String_Selector
 }
 
-input MovieOrderByInput {
-  _id: OrderBy
-  createdAt: OrderBy
-  userId: OrderBy
-  name: OrderBy
-  year: OrderBy
-  review: OrderBy
+input CategorySortInput {
+  _id: SortOptions
+  name: SortOptions
+  slug: SortOptions
+  pagePath: SortOptions
+  pageUrl: SortOptions
 }
 
-input MovieSelectorInput {
-  _and: [MovieSelectorInput]
-  _or: [MovieSelectorInput]
+input CategorySelectorInput {
+  _and: [CategorySelectorInput]
+  _or: [CategorySelectorInput]
 
 }
 
-input MovieSelectorUniqueInput {
+input CategorySelectorUniqueInput {
   _id: String
   documentId: String # OpenCRUD backwards compatibility
   slug: String
@@ -637,48 +1389,101 @@ type Query {
   currentUser: User
   
   # A single User document fetched by ID or slug
-  user(input: SingleUserInput): SingleUserOutput
+  user(_id: String, input: SingleUserInput): SingleUserOutput
   
   # A list of User documents matching a set of query terms
   users(input: MultiUserInput): MultiUserOutput
+  
+  emails(input: MultiEmailInput): MultiEmailOutput
   
   settings(input: MultiSettingInput): MultiSettingOutput
   
   callbacks(input: MultiCallbackInput): MultiCallbackOutput
   
-  # A single Movie document fetched by ID or slug
-  movie(input: SingleMovieInput): SingleMovieOutput
+  # A single Vote document fetched by ID or slug
+  vote(_id: String, input: SingleVoteInput): SingleVoteOutput
   
-  # A list of Movie documents matching a set of query terms
-  movies(input: MultiMovieInput): MultiMovieOutput
+  # A list of Vote documents matching a set of query terms
+  votes(input: MultiVoteInput): MultiVoteOutput
+  
+  # A single Post document fetched by ID or slug
+  post(_id: String, input: SinglePostInput): SinglePostOutput
+  
+  # A list of Post documents matching a set of query terms
+  posts(input: MultiPostInput): MultiPostOutput
+  
+  # A single Comment document fetched by ID or slug
+  comment(_id: String, input: SingleCommentInput): SingleCommentOutput
+  
+  # A list of Comment documents matching a set of query terms
+  comments(input: MultiCommentInput): MultiCommentOutput
+  
+  # A single Category document fetched by ID or slug
+  category(_id: String, input: SingleCategoryInput): SingleCategoryOutput
+  
+  # A list of Category documents matching a set of query terms
+  categories(input: MultiCategoryInput): MultiCategoryOutput
   
 }
   
 
 type Mutation {
+  vote(documentId: String, voteType: String, collectionName: String, voteId: String) : Voteable
+
+  getEmbedData(url: String) : JSON
+
+  increasePostViewCount(postId: String): Float
+
   # Mutation for creating new User documents
   createUser(data: CreateUserDataInput!) : UserOutput
 
   # Mutation for updating a User document
-  updateUser(where: UserWhereInput, _id: String, selector: UserSelectorUniqueInput, data: UpdateUserDataInput! ) : UserOutput
+  updateUser(input: MutationUserInput, _id: String, selector: UserSelectorUniqueInput, data: UpdateUserDataInput! ) : UserOutput
 
   # Mutation for upserting a User document
-  upsertUser(where: UserWhereInput, _id: String, selector: UserSelectorUniqueInput, data: UpdateUserDataInput! ) : UserOutput
+  upsertUser(input: MutationUserInput, _id: String, selector: UserSelectorUniqueInput, data: UpdateUserDataInput! ) : UserOutput
 
   # Mutation for deleting a User document
-  deleteUser(where: UserWhereInput, _id: String, selector: UserSelectorUniqueInput) : UserOutput
+  deleteUser(input: MutationUserInput, _id: String, selector: UserSelectorUniqueInput) : UserOutput
 
-  # Mutation for creating new Movie documents
-  createMovie(data: CreateMovieDataInput!) : MovieOutput
+  # Mutation for deleting a Vote document
+  deleteVote(input: MutationVoteInput, _id: String, selector: VoteSelectorUniqueInput) : VoteOutput
 
-  # Mutation for updating a Movie document
-  updateMovie(where: MovieWhereInput, _id: String, selector: MovieSelectorUniqueInput, data: UpdateMovieDataInput! ) : MovieOutput
+  # Mutation for creating new Post documents
+  createPost(data: CreatePostDataInput!) : PostOutput
 
-  # Mutation for upserting a Movie document
-  upsertMovie(where: MovieWhereInput, _id: String, selector: MovieSelectorUniqueInput, data: UpdateMovieDataInput! ) : MovieOutput
+  # Mutation for updating a Post document
+  updatePost(input: MutationPostInput, _id: String, selector: PostSelectorUniqueInput, data: UpdatePostDataInput! ) : PostOutput
 
-  # Mutation for deleting a Movie document
-  deleteMovie(where: MovieWhereInput, _id: String, selector: MovieSelectorUniqueInput) : MovieOutput
+  # Mutation for upserting a Post document
+  upsertPost(input: MutationPostInput, _id: String, selector: PostSelectorUniqueInput, data: UpdatePostDataInput! ) : PostOutput
+
+  # Mutation for deleting a Post document
+  deletePost(input: MutationPostInput, _id: String, selector: PostSelectorUniqueInput) : PostOutput
+
+  # Mutation for creating new Comment documents
+  createComment(data: CreateCommentDataInput!) : CommentOutput
+
+  # Mutation for updating a Comment document
+  updateComment(input: MutationCommentInput, _id: String, selector: CommentSelectorUniqueInput, data: UpdateCommentDataInput! ) : CommentOutput
+
+  # Mutation for upserting a Comment document
+  upsertComment(input: MutationCommentInput, _id: String, selector: CommentSelectorUniqueInput, data: UpdateCommentDataInput! ) : CommentOutput
+
+  # Mutation for deleting a Comment document
+  deleteComment(input: MutationCommentInput, _id: String, selector: CommentSelectorUniqueInput) : CommentOutput
+
+  # Mutation for creating new Category documents
+  createCategory(data: CreateCategoryDataInput!) : CategoryOutput
+
+  # Mutation for updating a Category document
+  updateCategory(input: MutationCategoryInput, _id: String, selector: CategorySelectorUniqueInput, data: UpdateCategoryDataInput! ) : CategoryOutput
+
+  # Mutation for upserting a Category document
+  upsertCategory(input: MutationCategoryInput, _id: String, selector: CategorySelectorUniqueInput, data: UpdateCategoryDataInput! ) : CategoryOutput
+
+  # Mutation for deleting a Category document
+  deleteCategory(input: MutationCategoryInput, _id: String, selector: CategorySelectorUniqueInput) : CategoryOutput
 
 }
 

@@ -41,6 +41,7 @@ import '../components/categories/CategoriesMenu.jsx';
 // users
 
 import '../components/users/UsersAccount.jsx';
+import '../components/users/UsersEdit.jsx';
 import '../components/users/UsersEditForm.jsx';
 import '../components/users/UsersProfile.jsx';
 import '../components/users/UsersProfileCheck.jsx';

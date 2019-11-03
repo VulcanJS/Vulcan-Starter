@@ -52,17 +52,17 @@ export const statusesOptions = [
 export const postViews = [
   {
     name: 'posts.top',
-    orderBy: 'score',
+    sort: 'score',
     path: '/',
   },
   {
     name: 'posts.best',
-    orderBy: 'baseScore',
+    sort: 'baseScore',
     path: '/best',
   },
   {
     name: 'posts.new',
-    orderBy: 'postedAt',
+    sort: 'postedAt',
     path: '/new',
   },
 ];

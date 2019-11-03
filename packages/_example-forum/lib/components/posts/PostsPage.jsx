@@ -1,16 +1,6 @@
-import {
-  Components,
-  registerComponent,
-  withSingle,
-  withCurrentUser,
-  /* getActions */
-  withMutation,
-} from 'meteor/vulcan:core';
+import { Components, registerComponent, withSingle, withCurrentUser } from 'meteor/vulcan:core';
 import { Posts } from '../../modules/posts/index.js';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import mapProps from 'recompose/mapProps';
 
@@ -23,7 +13,6 @@ class PostsPage extends Component {
         </div>
       );
     } else if (!this.props.document) {
-      // console.log(`// missing post (_id: ${this.props.documentId})`);
       return (
         <div className="posts-page">
           <FormattedMessage id="app.404" />
@@ -52,61 +41,13 @@ class PostsPage extends Component {
       );
     }
   }
-
-  // triggered after the component did mount on the client
-  async componentDidMount() {
-    try {
-      // destructure the relevant props
-      const {
-        // from the parent component, used in withDocument, GraphQL HOC
-        documentId,
-        // from connect, Redux HOC
-        // setViewed, // TODO: re-enable
-        // postsViewed, // TODO: re-enable
-        // from withMutation, GraphQL HOC
-        // increasePostViewCount, // TODO: re-enable
-      } = this.props;
-
-      // TODO: re-enable
-      // // a post id has been found & it's has not been seen yet on this client session
-      // if (documentId && !postsViewed.includes(documentId)) {
-
-      //   // trigger the asynchronous mutation with postId as an argument
-      //   await increasePostViewCount({postId: documentId});
-
-      //   // once the mutation is done, update the redux store
-      //   setViewed(documentId);
-      // }
-    } catch (error) {
-      console.log(error); // eslint-disable-line
-    }
-  }
 }
-
-PostsPage.displayName = 'PostsPage';
-
-PostsPage.propTypes = {
-  documentId: PropTypes.string,
-  document: PropTypes.object,
-  postsViewed: PropTypes.array,
-  setViewed: PropTypes.func,
-  increasePostViewCount: PropTypes.func,
-};
 
 const queryOptions = {
   collection: Posts,
   queryName: 'postsSingleQuery',
   fragmentName: 'PostPage',
 };
-
-const mutationOptions = {
-  name: 'increasePostViewCount',
-  args: { postId: 'String' },
-};
-
-// TODO: re-enable?
-// const mapStateToProps = state => ({ postsViewed: state.postsViewed });
-// const mapDispatchToProps = dispatch => bindActionCreators(getActions().postsViewed, dispatch);
 
 const mapPropsFunction = props => ({
   ...props,
@@ -122,9 +63,5 @@ registerComponent(
   // HOC to give access to the current user
   withCurrentUser,
   // HOC to load the data of the document, based on queryOptions & a documentId props
-  [withSingle, queryOptions],
-  // HOC to provide a single mutation, based on mutationOptions
-  withMutation(mutationOptions)
-  // HOC to give access to the redux store & related actions
-  // connect(mapStateToProps, mapDispatchToProps), // TODO: re-enable?
+  [withSingle, queryOptions]
 );
