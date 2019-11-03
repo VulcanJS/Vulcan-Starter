@@ -47,7 +47,7 @@ class PostsPage extends Component {
 
           {post.htmlBody ? <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div> : null}
 
-          <Components.PostsCommentsThread postId={post._id} input={{ where: { postId: { _eq: post._id } } }} />
+          <Components.PostsCommentsThread postId={post._id} input={{ filter: { postId: { _eq: post._id } } }} />
         </div>
       );
     }

@@ -20,13 +20,17 @@ extendCollection(Posts, {
   //     validate: [duplicateLinksCheck],
   //   },
   // },
-  filters: {
-    category: async ({ filterArguments }) => {
-      const { slug } = filterArguments;
-      const category = await Connectors.get(Categories, { slug });
-      return {
-        selector: { categoriesIds: category._id },
-      };
+  customFilters: [
+    {
+      name: '_byCategory',
+      arguments: 'slug: String',
+      filter: async ({ filterArguments }) => {
+        const { slug } = filterArguments;
+        const category = await Connectors.get(Categories, { slug });
+        return {
+          selector: { categoriesIds: category._id },
+        };
+      },
     },
-  },
+  ],
 });

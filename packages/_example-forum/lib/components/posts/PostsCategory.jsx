@@ -4,8 +4,7 @@ import get from 'lodash/get';
 
 const PostsCategory = ({ match }) => {
   const slug = get(match, 'params.slug');
-  // const input = { where: { categoriesIds: { _arrayContains: categoryId } } };
-  const input = { filter: 'category', filterArguments: { slug } };
+  const input = { filter: { _byCategory: { slug } } };
   return <Components.PostsList input={input} />;
 };
 
