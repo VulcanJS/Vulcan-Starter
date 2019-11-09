@@ -27,7 +27,7 @@ export function incrementUserPostCount(post) {
 // posts.remove.sync                                //
 //////////////////////////////////////////////////////
 
-function PostsRemoveOperations(post) {
+export function PostsRemoveOperations(post) {
   Users.update({ _id: post.userId }, { $inc: { 'postCount': -1 } });
   return post;
 }
@@ -37,7 +37,7 @@ function PostsRemoveOperations(post) {
 // users.remove.async                               //
 //////////////////////////////////////////////////////
 
-function UsersRemoveDeletePosts(user, options) {
+export function UsersRemoveDeletePosts(user, options) {
   if (options.deletePosts) {
     Posts.remove({ userId: user._id });
   } else {
@@ -57,7 +57,7 @@ function UsersRemoveDeletePosts(user, options) {
 //  * @param {string} ip – the IP of the current user
 //  */
 
-function clickTracking(post, ip) {
+export function clickTracking(post, ip) {
   if (getSetting('forum.trackClickEvents', true)) {
     Events.track('post.click', { title: post.title, postId: post._id });
     Connectors.update(Posts, post._id, { $inc: { clickCount: 1 } });

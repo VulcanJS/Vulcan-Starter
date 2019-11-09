@@ -5,6 +5,9 @@
   margin-bottom: $spacing;
   background: #eee;
   padding: $spacing/2;
+  .form-group{
+    margin: 0;
+  }
 }
 
 .datatable {
@@ -79,5 +82,11 @@
 .datatable-item-excerpt{
   .cell-contents{
     max-width: 300px;
+  }
+}
+
+.datatable-item-categories{
+  .category-item{
+    margin-bottom: 5px;
   }
 }

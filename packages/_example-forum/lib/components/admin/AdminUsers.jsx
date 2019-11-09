@@ -14,6 +14,24 @@ const AdminUsers = () => (
   <div className="admin-users">
     <Components.Datatable
       collection={Users}
+      columns={[
+        {
+          name: 'createdAt',
+          sortable: true,
+        },
+        {
+          name: 'displayName',
+          sortable: true,
+        },
+        {
+          name: 'email',
+          sortable: true,
+        },
+        {
+          name: 'groups',
+          filterable: true,
+        },
+      ]}
     />
   </div>
 );

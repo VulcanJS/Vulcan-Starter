@@ -4,7 +4,31 @@ import { Comments } from '../../modules/comments/collection.js';
 
 const AdminComments = () => (
   <div className="admin-comments">
-    <Components.Datatable collection={Comments} />
+    <Components.Datatable
+      collection={Comments}
+      options={{
+        fragmentName: 'CommentItemAdmin',
+      }}
+      columns={[
+        {
+          name: 'createdAt',
+        },
+        {
+          name: 'postedAt',
+        },
+        {
+          name: 'body',
+        },
+        {
+          name: 'postId',
+          label: 'Post',
+        },
+        {
+          name: 'userId',
+          label: 'User',
+        },
+      ]}
+    />
   </div>
 );
 

@@ -1,5 +1,5 @@
 import Users from 'meteor/vulcan:users';
-import SimpleSchema from 'simpl-schema';
+import { Connectors } from 'meteor/vulcan:core';
 
 const notificationsGroup = {
   name: 'notifications',
@@ -31,64 +31,46 @@ Users.addField([
       resolveAs: {
         arguments: 'limit: Int = 5',
         type: '[Post]',
-        resolver: (user, { limit }, { currentUser, Users, Posts }) => {
-          const posts = Posts.find({ userId: user._id }, { limit }).fetch();
-
-          // restrict documents fields
-          const viewablePosts = _.filter(posts, post =>
-            Posts.checkAccess(currentUser, post)
-          );
-          const restrictedPosts = Users.restrictViewableFields(
-            currentUser,
+        resolver: async (user, { limit }, { currentUser, Users, Posts }) => {
+          const posts = await Connectors.find(
             Posts,
-            viewablePosts
+            { userId: user._id },
+            { limit }
           );
-          return restrictedPosts;
+          return Users.restrictDocuments({
+            user: currentUser,
+            collection: Posts,
+            documents: posts,
+          });
         },
       },
     },
   },
   /**
-  User's bio (Markdown version)
+  The user's associated comments (GraphQL only)
 */
   {
-    fieldName: 'bio',
+    fieldName: 'comments',
     fieldSchema: {
-      type: String,
-      optional: true,
-      input: 'textarea',
-      canCreate: ['members'],
-      canUpdate: ['members'],
-      canRead: ['guests'],
-      order: 30,
-      searchable: true,
-    },
-  },
-  /**
-  User's bio (Markdown version)
-*/
-  {
-    fieldName: 'htmlBio',
-    fieldSchema: {
-      type: String,
+      type: Object,
       optional: true,
       canRead: ['guests'],
-    },
-  },
-  /**
-  A link to the user's homepage
-*/
-  {
-    fieldName: 'website',
-    fieldSchema: {
-      type: String,
-      regEx: SimpleSchema.RegEx.Url,
-      optional: true,
-      input: 'text',
-      canCreate: ['members'],
-      canUpdate: ['members'],
-      canRead: ['guests'],
-      order: 50,
+      resolveAs: {
+        arguments: 'limit: Int = 5',
+        type: '[Comment]',
+        resolver: async (user, { limit }, { currentUser, Users, Comments }) => {
+          const comments = await Connectors.find(
+            Comments,
+            { userId: user._id },
+            { limit }
+          );
+          return Users.restrictDocuments({
+            user: currentUser,
+            collection: Comments,
+            documents: comments,
+          });
+        },
+      },
     },
   },
   // count of the user's comments

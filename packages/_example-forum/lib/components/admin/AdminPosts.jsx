@@ -15,6 +15,16 @@ import { Posts } from '../../modules/posts/collection.js';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { Link } from 'react-router-dom';
 
+const PostToken = ({ document: post }) => <Link to={post.pagePath}>{post.title}</Link>;
+registerComponent({ name: 'PostToken', component: PostToken });
+
+const CategoryToken = ({ document: category }) => (
+  <Link className="posts-category category-item" key={category._id} to={category.pagePath}>
+    {category.name}
+  </Link>
+);
+registerComponent({ name: 'CategoryToken', component: CategoryToken });
+
 const Title = ({ document: post }) => (
   <div>
     <div>
@@ -32,18 +42,6 @@ const Status = ({ document: post }) => (
   <span className={`status-indicator status-indicator-${statusesReverse[post.status]}`}>
     {statusesReverse[post.status]}
   </span>
-);
-
-const CategoriesIds = ({ document: post }) => (
-  <span>
-    {post.categories && post.categories.map(category => <CategoryItem key={category._id} document={category} />)}
-  </span>
-);
-
-const CategoryItem = ({ document: category }) => (
-  <Link className="posts-category category-item" key={category._id} to={category.pagePath}>
-    {category.name}
-  </Link>
 );
 
 const CardItemDate = ({ value }) => {
@@ -76,7 +74,7 @@ const AdminPosts = () => (
           name: 'categoriesIds',
           label: 'Categories',
           filterable: true,
-          component: CategoriesIds,
+          // component: CategoriesIds,
         },
         {
           name: 'userId',

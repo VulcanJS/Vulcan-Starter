@@ -10,16 +10,16 @@ import {
 } from './callbacks/index.js';
 
 extendCollection(Posts, {
-  // callbacks: {
-  //   create: {
-  //     validate: [rateLimit, duplicateLinksCheck],
-  //     after: [upvoteOwnPost],
-  //     async: [createNotifications, incrementUserPostCount],
-  //   },
-  //   update: {
-  //     validate: [duplicateLinksCheck],
-  //   },
-  // },
+  callbacks: {
+    create: {
+      validate: [rateLimit, duplicateLinksCheck],
+      after: [upvoteOwnPost],
+      async: [createNotifications, incrementUserPostCount],
+    },
+    update: {
+      validate: [duplicateLinksCheck],
+    },
+  },
   customFilters: [
     {
       name: '_byCategory',

@@ -38,7 +38,7 @@ export function updateUserPost (comment) {
  * @param {object} user - The user doing the operation
  * @param {object} collection - The collection the item belongs to
  */
-function UpvoteAsyncCallbacksAfterDocumentInsert(item, user, collection) {
+export function UpvoteAsyncCallbacksAfterDocumentInsert(item, user, collection) {
   runCallbacksAsync('upvote.async', item, user, collection, 'upvote');
 }
 
@@ -48,7 +48,7 @@ addCallback('comments.new.async', UpvoteAsyncCallbacksAfterDocumentInsert);
 // comments.remove.async                            //
 //////////////////////////////////////////////////////
 
-function CommentsRemovePostCommenters (comment, currentUser) {
+export function CommentsRemovePostCommenters (comment, currentUser) {
   const { userId, postId } = comment;
 
   // dec user's comment count
@@ -72,7 +72,7 @@ function CommentsRemovePostCommenters (comment, currentUser) {
 
 addCallback('comments.remove.async', CommentsRemovePostCommenters);
 
-function CommentsRemoveChildrenComments (comment, currentUser) {
+export function CommentsRemoveChildrenComments (comment, currentUser) {
 
   const childrenComments = Comments.find({parentCommentId: comment._id}).fetch();
 
@@ -95,7 +95,7 @@ addCallback('comments.remove.async', CommentsRemoveChildrenComments);
 // other                                            //
 //////////////////////////////////////////////////////
 
-function UsersRemoveDeleteComments (user, options) {
+export function UsersRemoveDeleteComments (user, options) {
   if (options.deleteComments) {
     Comments.remove({userId: user._id});
   } else {

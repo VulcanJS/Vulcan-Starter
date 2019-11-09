@@ -296,6 +296,7 @@ const schema = {
     resolveAs: {
       fieldName: 'user',
       type: 'User',
+      relation: 'hasOne',
     },
   },
   categoriesIds: {
@@ -388,13 +389,25 @@ const schema = {
     },
   },
 
+  pagePath: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    resolveAs: {
+      type: 'String',
+      resolver: post => {
+        return getPageUrl(post, false);
+      },
+    },
+  },
+
   pageUrl: {
     type: String,
     optional: true,
     canRead: ['guests'],
     resolveAs: {
       type: 'String',
-      resolver: (post, args, { Posts }) => {
+      resolver: post => {
         return getPageUrl(post, true);
       },
     },

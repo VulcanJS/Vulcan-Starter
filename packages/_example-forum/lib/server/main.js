@@ -7,7 +7,6 @@ export * from '../modules/index.js';
 import './emails/index.js';
 import './seed/index.js';
 import './comments/index.js';
-import './categories/index.js';
 import './posts/index.js';
 import './settings.js';
 import './rss.js';

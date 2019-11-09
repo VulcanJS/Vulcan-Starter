@@ -16,8 +16,11 @@ registerFragment(/* GraphQL */`
       ...UsersMinimumInfo
     }
 
+    postId
     post {
       _id
+      title
+      pagePath
       # commentCount
       commenters {
         ...UsersMinimumInfo
@@ -29,6 +32,17 @@ registerFragment(/* GraphQL */`
     }
     baseScore
     score
+  }
+`);
+
+
+registerFragment(/* GraphQL */`
+  fragment CommentItemAdmin on Comment {
+
+    ...CommentItem
+    
+    createdAt
+    
   }
 `);
 

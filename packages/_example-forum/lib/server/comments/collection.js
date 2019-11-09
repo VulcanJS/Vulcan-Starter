@@ -9,11 +9,10 @@ import {
 
 extendCollection(Comments, {
   callbacks: {
-    // create: {
-    //   validate: [rateLimit],
-    //   before: [],
-    //   after: [upvoteOwnComment, updateUserPost],
-    //   async: [notifications],
-    // },
+    create: {
+      validate: [rateLimit],
+      after: [upvoteOwnComment, updateUserPost],
+      async: [notifications],
+    },
   },
 });
