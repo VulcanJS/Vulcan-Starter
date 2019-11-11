@@ -223,36 +223,6 @@ const schema = {
     },
   },
   /**
-    Whether a post is scheduled in the future or not
-  */
-  // isFuture: {
-  //   type: Boolean,
-  //   optional: true,
-  //   canRead: ['guests'],
-  //   onCreate: ({ document: post }) => {
-  //     // Set the post's isFuture to true if necessary
-  //     if (post.postedAt) {
-  //       const postTime = new Date(post.postedAt).getTime();
-  //       const currentTime = new Date().getTime() + 1000;
-  //       return postTime > currentTime; // round up to the second
-  //     }
-  //   },
-  //   onUpdate: ({ data, document: post }) => {
-  //     // Set the post's isFuture to true if necessary
-  //     if (data.postedAt) {
-  //       const postTime = new Date(data.postedAt).getTime();
-  //       const currentTime = new Date().getTime() + 1000;
-  //       if (postTime > currentTime) {
-  //         // if a post's postedAt date is in the future, set isFuture to true
-  //         return true;
-  //       } else if (post.isFuture) {
-  //         // else if a post has isFuture to true but its date is in the past, set isFuture to false
-  //         return false;
-  //       }
-  //     }
-  //   },
-  // },
-  /**
     Whether the post is sticky (pinned to the top of posts lists)
   */
   sticky: {
@@ -325,18 +295,6 @@ const schema = {
       fieldName: 'categories',
       type: '[Category]',
       relation: 'hasMany',
-      // resolver: async (post, args, { currentUser, Users, Categories }) => {
-      //   if (!post.categoriesIds) return [];
-      //   const categories = _.compact(
-      //     await Categories.loader.loadMany(post.categoriesIds)
-      //   );
-      //   return Users.restrictViewableFields(
-      //     currentUser,
-      //     Categories,
-      //     categories
-      //   );
-      // },
-      // addOriginalField: true,
     },
   },
   'categoriesIds.$': {
@@ -362,11 +320,7 @@ const schema = {
     resolveAs: {
       fieldName: 'commenters',
       type: '[User]',
-      // resolver: async (post, args, { currentUser, Users }) => {
-      //   if (!post.commenters) return [];
-      //   const commenters = await Users.loader.loadMany(post.commenters);
-      //   return Users.restrictViewableFields(currentUser, Users, commenters);
-      // },
+      relation: 'hasMany',
     },
     canRead: ['guests'],
   },

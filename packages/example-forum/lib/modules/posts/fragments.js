@@ -14,6 +14,10 @@ registerFragment(/* GraphQL */`
     excerpt
     viewCount
     clickCount
+
+    pagePath
+    pageUrl
+    
     # users
     userId
     user {

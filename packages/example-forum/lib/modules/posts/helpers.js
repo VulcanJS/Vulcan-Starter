@@ -17,7 +17,7 @@ import marked from 'marked';
  * @summary Return a post's link if it has one, else return its post page URL
  * @param {Object} post
  */
-export const getLink = function(post, isAbsolute = false, isRedirected = true) {
+export const getLink = function(post, isAbsolute = false, isRedirected = false) {
   const url = isRedirected ? Utils.getOutgoingUrl(post.url) : post.url;
   return !!post.url ? url : getPageUrl(post, isAbsolute);
 };

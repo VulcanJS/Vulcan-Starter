@@ -2,8 +2,6 @@ import { registerComponent, Components, Utils } from 'meteor/vulcan:core';
 import React, { Component } from 'react';
 import { intlShape } from 'meteor/vulcan:i18n';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
-
 import qs from 'qs';
 
 // see: http://stackoverflow.com/questions/1909441/jquery-keyup-delay
@@ -20,7 +18,7 @@ class SearchForm extends Component {
     super(props);
     this.state = {
       pathname: props.location.pathname,
-      search: this.getQuery().query || '',
+      searchValue: this.getQuery().search || '',
     };
   }
 
@@ -31,25 +29,26 @@ class SearchForm extends Component {
   // note: why do we need this?
   componentWillReceiveProps(nextProps) {
     this.setState({
-      search: this.getQuery().query || '',
+      searchValue: this.getQuery().search || '',
     });
   }
 
   handleSearch = e => {
-    const value = e.target.value;
+    const searchValue = e.target.value;
+    this.setState({ searchValue });
+
     const { location, history } = this.props;
     const routerQuery = this.getQuery();
-    delete routerQuery.query;
+    delete routerQuery.search;
 
-    const query = value === '' ? routerQuery : { ...routerQuery, query: value };
-    this.setState({ search: value });
+    const search = searchValue === '' ? routerQuery : { ...routerQuery, search: searchValue };
 
     delay(() => {
       // only update the route if the path hasn't changed in the meantime
       if (this.state.pathname === location.pathname) {
         history.push({
           pathname: Utils.getRoutePath('posts.list'),
-          search: qs.stringify(query),
+          search: qs.stringify(search),
         });
       }
     }, 700);
@@ -57,9 +56,9 @@ class SearchForm extends Component {
 
   render() {
     const { history } = this.props;
-    const { search } = this.state;
+    const { searchValue } = this.state;
     // eslint-disable-next-line no-unused-vars
-    const { query, ...resetQuery } = this.getQuery();
+    const { search, ...resetQuery } = this.getQuery();
 
     return (
       <div className="search-form">
@@ -67,7 +66,7 @@ class SearchForm extends Component {
           <Components.FormComponentText
             inputProperties={{
               name: 'searchQuery',
-              value: search,
+              value: searchValue,
               placeholder: this.context.intl.formatMessage({ id: 'posts.search' }),
               type: 'text',
               layout: 'elementOnly',

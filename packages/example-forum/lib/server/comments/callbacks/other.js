@@ -21,7 +21,7 @@ export function updateUserPost (comment) {
   Posts.update(postId, {
     $inc:       {commentCount: 1},
     $set:       {lastCommentedAt: new Date()},
-    $addToSet:  {commenters: userId}
+    $addToSet:  {commentersIds: userId}
   });
 
   return comment;

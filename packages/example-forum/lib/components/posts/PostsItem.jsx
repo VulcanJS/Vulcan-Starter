@@ -1,14 +1,14 @@
-import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
+import { Components, registerComponent, withCurrentUser, withMessages } from 'meteor/vulcan:core';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { Link } from 'react-router-dom';
 import { Posts } from '../../modules/posts/index.js';
 import moment from 'moment';
-import { getLink, getLinkTarget, getPageUrl } from '../../modules/posts/helpers.js';
 import Users from 'meteor/vulcan:users';
+import { withRouter } from 'react-router-dom';
 
-const PostsItem = ({ post, currentUser }) => {
+const PostsItem = ({ post, currentUser, match, history, flash }) => {
   let postClass = 'posts-item';
   if (post.sticky) postClass += ' posts-sticky';
 
@@ -18,13 +18,17 @@ const PostsItem = ({ post, currentUser }) => {
         <Components.Vote collection={Posts} document={post} currentUser={currentUser} />
       </div>
 
-      {post.thumbnailUrl ? <Components.PostsThumbnail post={post} /> : null}
-
       <div className="posts-item-content">
         <h3 className="posts-item-title">
-          <Link to={getLink(post)} className="posts-item-title-link" target={getLinkTarget(post)}>
-            {post.title}
-          </Link>
+          {post.url ? (
+            <a className="posts-item-title-link" href={post.url} target="_blank">
+              {post.title}
+            </a>
+          ) : (
+            <Link to={post.pagePath} className="posts-item-title-link">
+              {post.title}
+            </Link>
+          )}
           {post.categories && post.categories.length > 0 && <Components.PostsCategories post={post} />}
         </h3>
 
@@ -39,7 +43,7 @@ const PostsItem = ({ post, currentUser }) => {
             {post.postedAt ? moment(new Date(post.postedAt)).fromNow() : <FormattedMessage id="posts.dateNotDefined" />}
           </div>
           <div className="posts-item-comments">
-            <Link to={getPageUrl(post)}>
+            <Link to={post.pagePath}>
               {!post.comments || post.comments.length === 0 ? (
                 <FormattedMessage id="comments.count_0" />
               ) : post.comments.length === 1 ? (
@@ -55,6 +59,16 @@ const PostsItem = ({ post, currentUser }) => {
               <Components.EditButton
                 collection={Posts}
                 documentId={post._id}
+                successCallback={post => {
+                  flash({ id: 'posts.edit_success', properties: { title: post.title }, type: 'success' });
+                }}
+                removeSuccessCallback={() => {
+                  // redirect to index
+                  if (match.params._id) {
+                    history.push('/');
+                  }
+                  flash({ id: 'posts.delete_success', properties: { title: post.title }, type: 'success' });
+                }}
                 component={
                   <a className="posts-action-edit">
                     <FormattedMessage id="posts.edit" />
@@ -76,4 +90,4 @@ PostsItem.propTypes = {
   terms: PropTypes.object,
 };
 
-registerComponent({ name: 'PostsItem', component: PostsItem, hocs: [withCurrentUser] });
+registerComponent({ name: 'PostsItem', component: PostsItem, hocs: [withCurrentUser, withRouter, withMessages] });

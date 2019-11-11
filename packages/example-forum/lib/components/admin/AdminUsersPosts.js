@@ -1,5 +1,4 @@
 import React from 'react';
-import { Posts } from '../../modules/posts/index.js';
 import { Link } from 'react-router-dom';
 
 const AdminUsersPosts = ({ document: user }) => (
@@ -7,7 +6,7 @@ const AdminUsersPosts = ({ document: user }) => (
     {user.posts &&
       user.posts.map(post => (
         <li key={post._id}>
-          <Link to={Posts.getLink(post)}>{post.title}</Link>
+          <Link to={post.pagePath}>{post.title}</Link>
         </li>
       ))}
   </ul>

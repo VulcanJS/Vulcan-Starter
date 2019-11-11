@@ -155,12 +155,6 @@ const schema = {
       fieldName: 'post',
       type: 'Post',
       relation: 'hasOne',
-      // resolver: async (comment, args, { currentUser, Users, Posts }) => {
-      //   if (!comment.postId) return null;
-      //   const post = await Posts.loader.load(comment.postId);
-      //   return Users.restrictViewableFields(currentUser, Posts, post);
-      // },
-      // addOriginalField: true,
     },
     hidden: true, // never show this
   },
@@ -177,12 +171,6 @@ const schema = {
       fieldName: 'user',
       type: 'User',
       relation: 'hasOne',
-      // resolver: async (comment, args, { currentUser, Users }) => {
-      //   if (!comment.userId) return null;
-      //   const user = await Users.loader.load(comment.userId);
-      //   return Users.restrictViewableFields(currentUser, Users, user);
-      // },
-      // addOriginalField: true,
     },
   },
   /**

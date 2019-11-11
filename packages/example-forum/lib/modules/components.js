@@ -21,8 +21,6 @@ import '../components/posts/PostsCategories.jsx';
 import '../components/posts/PostsCommenters.jsx';
 import '../components/posts/PostsPage.jsx';
 import '../components/posts/PostsStats.jsx';
-import '../components/posts/PostsEditForm.jsx';
-import '../components/posts/PostsNewForm.jsx';
 import '../components/posts/PostsCommentsThread.jsx';
 
 // comments

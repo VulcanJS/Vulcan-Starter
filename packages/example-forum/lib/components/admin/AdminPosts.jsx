@@ -28,13 +28,13 @@ registerComponent({ name: 'CategoryToken', component: CategoryToken });
 const Title = ({ document: post }) => (
   <div>
     <div>
-      <a target="_blank" href={post.url}>
+      <Link to={post.pagePath}>
         {post.title}
-      </a>
+      </Link>
     </div>
-    <span>
+    {post.domain && <span>
       <span className="post-domain">{post.domain}</span>
-    </span>
+    </span>}
   </div>
 );
 
