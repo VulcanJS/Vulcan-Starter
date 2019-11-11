@@ -6,7 +6,7 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 const text = [`
 Learning about collections and schemas, seeding data, loading it on the client, inserting new documents… we've come a long way since step 1. 
 
-And now that we've learned about so many concepts, let's take a look at a core component that brings them all together, the mighty [Datatable](http://docs.vulcanjs.org/core-components.html#Datatable). 
+And now that we've learned about so many concepts, let's take a look at a core component that brings them all together, the mighty [Datatable](http://docs.vulcanjs.org/datatable.html). 
 
 Datatables are a super-quick way to load and display a bunch of data, without having to worry about HoCs or components. Just specify a few options and you're good to go!
 
@@ -16,7 +16,7 @@ For example, here's how you'd display a basic Datatable for the \`Movies\` colle
 <Components.Datatable collection={Movies} />
 ~~~
 `,`
-We already have a Datatable ready to go in a \`MoviesApp2\` component, which we'll use to [replace](http://docs.vulcanjs.org/theming.html#Replacing-Components) the existing \`MoviesApp\` component.
+We already have a Datatable ready to go in a \`MoviesApp2\` component, which we'll use to [replace](http://docs.vulcanjs.org/components.html#Replacing-Components) the existing \`MoviesApp\` component.
 
 To do so find \`lib/modules/components.js\` and uncomment the \`MoviesApp2\` import.
 

@@ -28,9 +28,9 @@ const schema = {
     optional: true,
     canRead: ['guests'],
     resolveAs: {
-      // this will automatically a "hasOne" relationship on the Users collection
       fieldName: 'user',
       type: 'User',
+      relation: 'hasOne',
     },
   },
 

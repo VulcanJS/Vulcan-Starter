@@ -4,7 +4,7 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 // Registering Components
 
 const text = `
-You've just created your first route. Next up on the menu, let's take a look at [registering components](http://docs.vulcanjs.org/theming.html#Registering-Components). 
+You've just created your first route. Next up on the menu, let's take a look at [registering components](http://docs.vulcanjs.org/components.html#Registering-Components). 
 
 Find the component for Step 3, which you can find in \`lib/components/steps/Step3.jsx\`, and uncomment that last \`registerComponent\` line. This will register the component with Vulcan, and make it available to use inside \`addRoute\`. 
 

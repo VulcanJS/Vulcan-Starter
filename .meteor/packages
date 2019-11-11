@@ -1,10 +1,10 @@
 # see http://docs.vulcanjs.org/packages
 
-vulcan:core@=1.13.4
+vulcan:core@=1.13.5
 
 ############ Language Packages ############
 
-vulcan:i18n-en-us@=1.13.4
+vulcan:i18n-en-us@=1.13.5
 
 ############ Accounts Packages ############
 
@@ -17,12 +17,15 @@ accounts-password@1.5.1
 getting-started
 
 # example-simple
+# example-forms
+# example-forum
+
+# Note: the following example apps are not currently up to date
+
 # example-movies
 # example-instagram
-# example-forum
 # example-customization
 # example-permissions
 # example-membership
 # example-interfaces
 # example-reactions
-# example-forms
