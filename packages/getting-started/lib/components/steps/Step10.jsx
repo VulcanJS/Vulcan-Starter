@@ -4,7 +4,7 @@ import { Components, registerComponent } from 'meteor/vulcan:core';
 // Loading Data
 
 const text = `
-We already know that Vulcan uses HoCs to load data. Up to now, we've been using specific pre-written HoCs as part of this tutorial, but just like we've looked at default resolvers, we'll now look at Vulcan's core default HoCs. 
+We already know that Vulcan uses HoCs to load data. Up to now, we've been using specific pre-written HoCs as part of this tutorial, but just like we've looked at collection query resolvers, we'll now look at Vulcan's core query HoCs. 
 
 These two HoCs, \`withMulti\` and \`withSingle\`, can be used to load a list of documents or a single document respectively with a minimal amount of manual work. 
 

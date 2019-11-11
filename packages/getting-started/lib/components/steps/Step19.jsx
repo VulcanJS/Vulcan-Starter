@@ -20,6 +20,12 @@ addStrings('en', {
 `];
 
 const after = `
+A whole other aspect of Vulcan's internationalization support is the ability to have multiple versions of your **content**, too. Let's give this a quick try before we move on.
+
+In \`lib/modules/schema.js\`, uncomment \`intl: true\` in the \`name\` field definition. This will enable internationalization for this field. Because we've already registered English and French as our app's two locales in \`lib/modules/i18n.js\`, our field will now offer both languages in the “Edit” form. 
+
+Of course, Vulcan also offers ways of detecting the user's locale or manually changing it on the fly to display the correct language, but that's a matter for another day.  
+
 Congrats, you're almost to the end of the tutorial!
 `;
 

@@ -4,7 +4,7 @@ Products
 
 */
 
-import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core'
+import { createCollection } from 'meteor/vulcan:core'
 import schema from './schema.js'
 
 const Products = createCollection({
@@ -15,9 +15,12 @@ const Products = createCollection({
 
   schema,
   
-  resolvers: getDefaultResolvers('Products'),
-
-  mutations: getDefaultMutations('Products'),
+  permissions: {
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['owners'],
+    canDelete: ['owners']
+  },
 
 });
 

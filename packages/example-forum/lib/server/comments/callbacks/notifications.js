@@ -5,13 +5,12 @@ Comment notification callbacks
 */
 
 import Users from 'meteor/vulcan:users';
-import { addCallback } from 'meteor/vulcan:core';
-import { createNotification } from '../../email/notifications.js';
+import { createNotification } from '../../emails/notifications.js';
 import { Posts } from '../../../modules/posts/index.js';
 import { Comments } from '../../../modules/comments/index.js';
 
 // add new comment notification callback on comment submit
-function CommentsNewNotifications (comment) {
+export function notifications ({ document: comment }) {
 
   // note: dummy content has disableNotifications set to true
   if(Meteor.isServer && !comment.disableNotifications) {
@@ -51,4 +50,3 @@ function CommentsNewNotifications (comment) {
 
   }
 }
-addCallback('comments.new.async', CommentsNewNotifications);

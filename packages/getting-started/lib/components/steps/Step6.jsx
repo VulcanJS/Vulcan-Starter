@@ -20,9 +20,7 @@ const Movies = createCollection({
 });
 ~~~
 `,`
-Find the \`lib/modules/collection.js\` file and uncomment the \`createCollection\` definition (don't worry about \`resolvers\` and \`mutations\` for now, that will come later).
-
-Once you do, your collection should appear in the list below:
+Find the \`lib/modules/collection.js\` file and uncomment the \`createCollection\` definition. Once you do, your collection should appear in the list below:
 `];
 
 const after = `
@@ -34,7 +32,7 @@ As you can see, out of the box Vulcan already includes a \`Users\` collection, u
 const Step6 = () => (
   <Components.Step step={6} text={text} after={after}>
     <ul>
-      {Collections.map((c, i) => <li key={i}><code>{c.options.collectionName}</code></li>)}
+      {Collections.filter(c => !['Settings', 'Callbacks'].includes(c.options.collectionName)).map((c, i) => <li key={i}><code>{c.options.collectionName}</code></li>)}
     </ul>
   </Components.Step>
 );

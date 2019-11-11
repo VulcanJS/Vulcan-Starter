@@ -4,8 +4,9 @@ The main Movies collection definition file.
 
 */
 
-import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
+import { createCollection } from 'meteor/vulcan:core';
 import schema from './schema.js';
+import permissions from './permissions.js';
 
 let Movies;
 
@@ -24,11 +25,11 @@ Uncomment on #Step6:
 //   typeName: 'Movie',
 
 //   schema,
+
+//   // permissions, // uncomment on #Step17
+
+//   // defaultInput: { orderBy: { createdAt: 'desc' } } // uncomment on #Step18
   
-//   // resolvers: getDefaultResolvers('Movies'), // Uncomment on #Step9
-
-//   // mutations: getDefaultMutations('Movies'), // Uncomment on #Step14
-
 // });
 
 export default Movies;

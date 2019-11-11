@@ -5,33 +5,36 @@ Comments collection
 */
 
 import schema from './schema.js';
-import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
+import { createCollection } from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
+import { statuses } from '../data.js';
+
+// user can view comment if it's approved, or they are its owner; or they are admin
+const canRead = ({ document, user }) => {
+  return (
+    document.status === statuses.approved ||
+    Users.owns(user, document) ||
+    Users.isAdmin(user)
+  );
+};
 
 /**
  * @summary The global namespace for Comments.
  * @namespace Comments
  */
- export const Comments = createCollection({
+export const Comments = createCollection({
+  collectionName: 'Comments',
 
-   collectionName: 'Comments',
+  typeName: 'Comment',
 
-   typeName: 'Comment',
+  schema,
 
-   schema,
-
-   resolvers: getDefaultResolvers('Comments'),
-
-   mutations: getDefaultMutations('Comments'),
-
+  permissions: {
+    canRead,
+    canCreate: ['members'],
+    canUpdate: ['owners'],
+    canDelete: ['owners'],
+  },
 });
 
-Comments.checkAccess = (currentUser, comment) => {
-  if (Users.isAdmin(currentUser) || Users.owns(currentUser, comment)) { // admins can always see everything, users can always see their own posts
-    return true;
-  } else if (comment.isDeleted) {
-    return false;
-  } else { 
-    return true;
-  }
-}
+export default Comments;

@@ -15,7 +15,7 @@ Find the \`options\` object in the \`MoviesList\` component's file and add a \`f
 That fragment has already been defined, and it looks something like this:
 `,`
 ~~~gq
-fragment MoviesFragment on Movie {
+fragment MovieFragment on Movie {
   _id
   createdAt
   name

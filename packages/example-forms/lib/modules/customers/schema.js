@@ -1,4 +1,4 @@
-import SimpleSchema from 'simpl-schema';
+import addressSchema from './address_schema.js';
 
 const addressGroup = {
   name: 'addresses',
@@ -6,36 +6,6 @@ const addressGroup = {
   order: 10
 }
 
-/*
-
-Define a sub-schema for addresses
-
-*/
-export const addressSchema = new SimpleSchema({
-  street: {
-    type: String,
-    optional: false,
-    canRead: ['guests'],
-    canUpdate: ['members'],
-    canCreate: ['members'],
-    max: 100, // limit street address to 100 characters
-  },
-  country: {
-    type: String,
-    optional: true,
-    canRead: ['guests'],
-    canUpdate: ['members'],
-    canCreate: ['members'],
-  },
-  zipCode: {
-    type: Number,
-    optional: true,
-    canRead: ['guests'],
-    canUpdate: ['members'],
-    canCreate: ['members'],
-    input: 'number',
-  },
-});
 
 const schema = {
   _id: {
@@ -115,9 +85,6 @@ const schema = {
     resolveAs: {
       fieldName: 'product',
       type: 'Product',
-      resolver: (customer, args, { Products }) =>
-        customer.productId && Products.loader.load(customer.productId),
-      addOriginalField: true,
     },
     input: 'select',
   },

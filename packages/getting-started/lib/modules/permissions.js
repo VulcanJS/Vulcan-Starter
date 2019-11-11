@@ -1,16 +1,8 @@
-import Users from 'meteor/vulcan:users';
+const permissions = {
+  canRead: ['guests'],
+  canCreate: ['members'],
+  canUpdate: ['owners'],
+  canDelete: ['owners'],
+};
 
-/*
-
-Permissions for members (regular users)
-
-Uncomment on #Step17
-
-*/
-
-const membersActions = [
-  'movie.create',
-  'movie.update.own',
-  'movie.delete.own',
-];
-// Users.groups.members.can(membersActions);
+export default permissions;

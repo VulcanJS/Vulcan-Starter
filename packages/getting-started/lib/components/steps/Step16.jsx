@@ -10,13 +10,10 @@ And now that we've learned about so many concepts, let's take a look at a core c
 
 Datatables are a super-quick way to load and display a bunch of data, without having to worry about HoCs or components. Just specify a few options and you're good to go!
 
-For example, here's how you'd display a Datatable for the \`Movies\` collection, featuring the \`name\` and \`review\` columns (note that you do need to manually specify a list of columns so that the datatable knows what fields to ask for).
+For example, here's how you'd display a basic Datatable for the \`Movies\` collection:
 `,`
 ~~~js
-<Components.Datatable 
-  collection={Movies} 
-  columns={['name', 'review']}
-/>
+<Components.Datatable collection={Movies} />
 ~~~
 `,`
 We already have a Datatable ready to go in a \`MoviesApp2\` component, which we'll use to [replace](http://docs.vulcanjs.org/theming.html#Replacing-Components) the existing \`MoviesApp\` component.
@@ -30,7 +27,7 @@ If you take a closer look at \`MoviesApp2.jsx\`, you'll notice that it uses \`re
 
 By the way, did you see the \`review\` field is back? That's because we're not using our fragment to load data anymore, instead the Datatable is doing its best to “guess” the appropriate list of fields. That being said, if you want to be safe then manually specifying a fragment is always a good idea.
 
-Also, as an extra feature, the \`Datatable\` component also includes a search function. The \`name\` and \`review\` fields happen to have the \`searchable: true\` property in our schema, which makes them searchable. Try it now!
+Also, as an extra feature, the \`Datatable\` component also includes a search function. The \`name\` and \`review\` fields happen to have the \`searchable: true\` property in our schema, which makes them searchable. Type in “classic” to try it now!
 `;
 
 const Step16 = () => (

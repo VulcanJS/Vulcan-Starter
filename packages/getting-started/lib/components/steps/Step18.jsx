@@ -1,34 +1,24 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 
-// Sorting
+// Sorting & Filtering
 
 const text = [`
-By default, data is sorted according to its \`createdAt\` timestamp in descending order (meaning more recent items appear at the top of the list).
+By default, our movies data will be unsorted. But what if we wanted to sort our list of movies alphabetically instead? Or generally have more control over what data we show? We can do all of this using [filtering and ordering](http://docs.vulcanjs.org/filtering.html). 
 
-But what if we wanted to sort our list of movies alphabetically instead? We can do this using [views](http://docs.vulcanjs.org/terms-parameters.html#Using-Views). A view is just an easy way to group a set of sorting and filtering parameters. It's also handy because it means you can hardcode the exact set of options the server will support, instead of just accepting any random property from the client and opening yourself to security risks. 
-
-The first step towards enabling our view is to tell our Datatable to use it. In \`MoviesApp2\`, uncomment the \`options={{ terms: { view: 'alphabetical' } }}\` line. 
-
-Now let's take care of the view itself. Uncomment the following code in \`lib/modules/views.js\`:
-`,`
-~~~js
-Movies.addView('alphabetical', terms => ({
-  options: {
-    sort: {name: 1}
-  }
-}));
-~~~
+First, we'll use the \`defaultInput\` collection option to provide default sorting options for the \`Movies\` collection. These will then be used whenever no other sorting options are explicitly provided. In  \'lib/modules/collection.js\', uncomment the \`defaultInput: { orderBy: { createdAt: 'desc' } }\` line.
 `];
 
 const after = `
-If we've done our job correctly, *Citizen Kane* should now be in top position. 
+Nice! If we've done our job correctly, you can add a new movie and it should now appear in top position. 
 
-Let's take a look at our code. The \`addView\` function takes two arguments: first, the name of the view (which we'll use to reference it), and second a function that takes a set of \`terms\` and returns a \`parameters\` object. 
+Now let's look at controlling ordering for a *specific* list of items. In \`MoviesApp2\`, uncomment the \`options={{ input: { orderBy: { name: 'asc' } } }}\` line. 
 
-\`terms\` is one of the arguments of the GraphQL query used to fetch our data, and as such will be passed to the List resolver, and from there fed to our view function. 
+The datatable's \`options\` prop is being passed on to the \`multi\` query responsible for loading its data. And that \`input\` is the query's single argument, used to control what dataset the server returns. All this means that once you uncomment that line, our list of movies should no longer be sorted in reverse chronological order, but in alphabetical order instead.
 
-Our view function's job is then to output a \`parameters\` object that can be used as a MongoDB specifier. You can now see why it's so important to have the view act as an intermediary between the client and our database!
+If you'd like, you can also try **filtering** the list. Replace the \`options\` line by \`options={{ input: { where: { name: { _in: ['Die Hard', 'Die Hard III'] } } } }}\` and see what happens! Just don't forget to change it back after.
+
+Once you get all this working, feel free to move on to the next step.
 `;
 
 const Step18 = () => (

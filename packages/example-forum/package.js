@@ -18,17 +18,15 @@ Package.onUse(function (api) {
     'vulcan:core@=1.13.4',
 
     // vulcan packages
-    'vulcan:ui-bootstrap@=1.13.4',
-    'vulcan:voting@=1.13.4',
-    'vulcan:accounts@=1.13.4',
-    'vulcan:email@=1.13.4',
-    'vulcan:forms@=1.13.4',
-    'vulcan:newsletter@=1.13.4',
-    'vulcan:events@=1.13.4',
-    'vulcan:embed@=1.13.4',
-    'vulcan:admin@=1.13.4',
+    'vulcan:ui-bootstrap@1.13.4',
+    'vulcan:voting@1.13.4',
+    'vulcan:accounts@1.13.4',
+    'vulcan:email@1.13.4',
+    'vulcan:forms@1.13.4',
+    'vulcan:events@1.13.4',
+    'vulcan:embed@1.13.4',
+    'vulcan:admin@1.13.4',
 
-    'littledata:synced-cron',
   ]);
 
   api.addAssets([
@@ -43,19 +41,16 @@ Package.onUse(function (api) {
     'lib/assets/content/getting_help.md',
     'lib/assets/content/removing_getting_started_posts.md',
 
-    'lib/server/email/templates/common/test.handlebars',
-    'lib/server/email/templates/common/wrapper.handlebars',
-    'lib/server/email/templates/comments/newComment.handlebars',
-    'lib/server/email/templates/comments/newReply.handlebars',
-    'lib/server/email/templates/posts/newPendingPost.handlebars',
-    'lib/server/email/templates/posts/newPost.handlebars',
-    'lib/server/email/templates/posts/postApproved.handlebars',
-    'lib/server/email/templates/users/accountApproved.handlebars',
-    'lib/server/email/templates/users/newUser.handlebars',
-    'lib/server/email/templates/newsletter/newsletter.handlebars',
-    'lib/server/email/templates/newsletter/newsletterConfirmation.handlebars',
-    'lib/server/email/templates/newsletter/postItem.handlebars',
-
+    'lib/server/emails/templates/common/test.handlebars',
+    'lib/server/emails/templates/common/wrapper.handlebars',
+    'lib/server/emails/templates/comments/newComment.handlebars',
+    'lib/server/emails/templates/comments/newReply.handlebars',
+    'lib/server/emails/templates/posts/newPendingPost.handlebars',
+    'lib/server/emails/templates/posts/newPost.handlebars',
+    'lib/server/emails/templates/posts/postApproved.handlebars',
+    'lib/server/emails/templates/users/accountApproved.handlebars',
+    'lib/server/emails/templates/users/newUser.handlebars',
+    
   ], ['server']);
 
   api.addFiles([

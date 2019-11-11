@@ -1,108 +1,55 @@
-import { Components, registerComponent, withMulti, Utils, withCurrentUser } from 'meteor/vulcan:core';
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import { Components, registerComponent, withMulti, withCurrentUser } from 'meteor/vulcan:core';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Categories } from '../../modules/categories/index.js';
 import { withApollo } from 'react-apollo';
-import qs from 'qs';
+import get from 'lodash/get';
 
-class CategoriesMenu extends PureComponent {
-  getQuery = () => {
-    return qs.parse(this.props.location.search, { ignoreQueryPrefix: true }) || {};
-  };
+const CategoriesMenu = props => {
+  const { match, results } = props;
 
-  /*
-
-  Menu item for the "All Categories" link
-
-  */
-  getAllCategoriesItem = () => {
-    // eslint-disable-next-line no-unused-vars
-    const { cat, ...allCategoriesQuery } = this.getQuery();
-
-    const menuItem = {
-      to: { pathname: Utils.getRoutePath('posts.list'), search: qs.stringify(allCategoriesQuery) },
-      linkProps: {
-        isActive: () => {
-          return !this.getQuery().cat;
-        },
-      },
+  let menuItems = [
+    {
+      to: '/',
       labelId: 'categories.all',
-    };
+    },
+  ];
 
-    return menuItem;
-  };
-
-  /*
-
-  Menu items for categories
-
-  */
-  getCategoriesItems = () => {
-    const categories = this.props.results || [];
-
-    // check if a category is currently active in the route
-    const currentCategory = categories.find(category => category.slug === this.getQuery().cat);
-
-    // decorate categories with active property
-    const categoriesItems = categories.map((category, index) => {
-      return {
-        to: {
-          pathname: Utils.getRoutePath('posts.list'),
-          search: qs.stringify({ ...this.getQuery(), cat: category.slug }),
-        },
-        label: category.name,
-        linkProps: {
-          isActive: () => {
-            return currentCategory && currentCategory.slug === category.slug;
+  if (results) {
+    menuItems = [
+      ...menuItems,
+      ...results.map(({ name, slug }) => {
+        return {
+          to: {
+            pathname: `/category/${slug}`,
           },
-        },
-      };
-    });
-
-    return categoriesItems;
-  };
-
-  /*
-
-  Get all menu items
-
-  */
-  getMenuItems = () => {
-    const menuItems = [this.getAllCategoriesItem(), ...this.getCategoriesItems()];
-    return menuItems;
-  };
-
-  render() {
-    return (
-      <div>
-        {this.props.loading ? (
-          <Components.Loading />
-        ) : (
-          <Components.Dropdown
-            buttonProps={{ variant: 'secondary' }}
-            className="categories-list"
-            labelId={'categories'}
-            id="categories-dropdown"
-            menuItems={this.getMenuItems()}
-          />
-        )}
-      </div>
-    );
+          label: name,
+          linkProps: {
+            isActive: () => get(match, 'params.slug') === slug,
+          },
+        };
+      }),
+    ];
   }
-}
 
-CategoriesMenu.propTypes = {
-  results: PropTypes.array,
+  return (
+    <Components.Dropdown
+      buttonProps={{ variant: 'secondary' }}
+      className="categories-list"
+      labelId={'categories'}
+      id="categories-dropdown"
+      menuItems={menuItems}
+    />
+  );
 };
 
 const options = {
   collection: Categories,
-  fragmentName: 'CategoriesList',
+  fragmentName: 'CategoryItem',
   limit: 0,
   queryOptions: {
-    pollInterval: 0
-  }
+    pollInterval: 0,
+  },
 };
 
 registerComponent({

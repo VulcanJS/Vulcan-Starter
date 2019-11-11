@@ -27,10 +27,6 @@ const schema = {
     // resolveAs: {
     //   fieldName: 'user',
     //   type: 'User',
-    //   resolver: async (movie, args, context) => {
-    //     return await context.Users.loader.load(movie.userId);
-    //   },
-    //   addOriginalField: true,
     // },
   },
 
@@ -42,6 +38,7 @@ const schema = {
     canCreate: ['members'],
     canUpdate: ['members'],
     searchable: true,
+    // intl: true, // Uncomment on #Step19
   },
 
   review: {

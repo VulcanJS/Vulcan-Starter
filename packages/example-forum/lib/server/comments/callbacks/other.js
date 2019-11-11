@@ -8,9 +8,9 @@ import { Comments } from '../../../modules/comments/index.js';
 // comments.new.sync                                //
 //////////////////////////////////////////////////////
 
-function CommentsNewOperations (comment) {
+export function updateUserPost (comment) {
 
-  var userId = comment.userId;
+  const { userId, postId } = comment;
 
   // increment comment count
   Users.update({_id: userId}, {
@@ -18,7 +18,7 @@ function CommentsNewOperations (comment) {
   });
 
   // update post
-  Posts.update(comment.postId, {
+  Posts.update(postId, {
     $inc:       {commentCount: 1},
     $set:       {lastCommentedAt: new Date()},
     $addToSet:  {commenters: userId}
@@ -26,7 +26,6 @@ function CommentsNewOperations (comment) {
 
   return comment;
 }
-addCallback('comments.new.sync', CommentsNewOperations);
 
 //////////////////////////////////////////////////////
 // comments.new.async                               //
@@ -39,7 +38,7 @@ addCallback('comments.new.sync', CommentsNewOperations);
  * @param {object} user - The user doing the operation
  * @param {object} collection - The collection the item belongs to
  */
-function UpvoteAsyncCallbacksAfterDocumentInsert(item, user, collection) {
+export function UpvoteAsyncCallbacksAfterDocumentInsert(item, user, collection) {
   runCallbacksAsync('upvote.async', item, user, collection, 'upvote');
 }
 
@@ -49,7 +48,7 @@ addCallback('comments.new.async', UpvoteAsyncCallbacksAfterDocumentInsert);
 // comments.remove.async                            //
 //////////////////////////////////////////////////////
 
-function CommentsRemovePostCommenters (comment, currentUser) {
+export function CommentsRemovePostCommenters (comment, currentUser) {
   const { userId, postId } = comment;
 
   // dec user's comment count
@@ -73,7 +72,7 @@ function CommentsRemovePostCommenters (comment, currentUser) {
 
 addCallback('comments.remove.async', CommentsRemovePostCommenters);
 
-function CommentsRemoveChildrenComments (comment, currentUser) {
+export function CommentsRemoveChildrenComments (comment, currentUser) {
 
   const childrenComments = Comments.find({parentCommentId: comment._id}).fetch();
 
@@ -96,7 +95,7 @@ addCallback('comments.remove.async', CommentsRemoveChildrenComments);
 // other                                            //
 //////////////////////////////////////////////////////
 
-function UsersRemoveDeleteComments (user, options) {
+export function UsersRemoveDeleteComments (user, options) {
   if (options.deleteComments) {
     Comments.remove({userId: user._id});
   } else {

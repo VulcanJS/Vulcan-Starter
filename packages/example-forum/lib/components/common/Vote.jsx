@@ -1,4 +1,4 @@
-import { Components, registerComponent, withMessages } from 'meteor/vulcan:core';
+import { Components, registerComponent, withMessages, withCurrentUser } from 'meteor/vulcan:core';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -6,55 +6,31 @@ import { withVote, hasVotedClient } from 'meteor/vulcan:voting';
 import { FormattedMessage, intlShape } from 'meteor/vulcan:i18n';
 
 class Vote extends PureComponent {
-
-  constructor() {
-    super();
-    this.vote = this.vote.bind(this);
-    this.getActionClass = this.getActionClass.bind(this);
-    this.hasVoted = this.hasVoted.bind(this);
-  }
-
-  vote(e) {
-
+  vote = e => {
     e.preventDefault();
-
-    const document = this.props.document;
-    const collection = this.props.collection;
-    const user = this.props.currentUser;
-
-    if(!user){
-      this.props.flash({id: 'users.please_log_in'});
+    const { document, collection, currentUser, flash, vote } = this.props;
+    if (!currentUser) {
+      flash({ id: 'users.please_log_in' });
     } else {
-      this.props.vote({document, voteType: 'upvote', collection, currentUser: this.props.currentUser});
-    } 
-  }
+      vote({ document, voteType: 'upvote', collection, currentUser });
+    }
+  };
 
-  hasVoted() {
-    return hasVotedClient({document: this.props.document, voteType: 'upvote'})
-  }
-
-  getActionClass() {
-
-    const actionsClass = classNames(
-      'vote-button',
-      {upvoted: this.hasVoted()},
-    );
-
-    return actionsClass;
-  }
+  hasVoted = () => hasVotedClient({ document: this.props.document, voteType: 'upvote' });
 
   render() {
     return (
-      <div className={this.getActionClass()}>
+      <div className={classNames('vote-button', { upvoted: this.hasVoted() })}>
         <a className="upvote-button" onClick={this.vote}>
           <Components.Icon name="upvote" />
-          <div className="sr-only"><FormattedMessage id="voting.upvote"/></div>
+          <div className="sr-only">
+            <FormattedMessage id="voting.upvote" />
+          </div>
           <div className="vote-count">{this.props.document.baseScore || 0}</div>
         </a>
       </div>
-    )
+    );
   }
-
 }
 
 Vote.propTypes = {
@@ -65,7 +41,7 @@ Vote.propTypes = {
 };
 
 Vote.contextTypes = {
-  intl: intlShape
+  intl: intlShape,
 };
 
-registerComponent({ name: 'Vote', component: Vote, hocs: [withMessages, withVote] });
+registerComponent({ name: 'Vote', component: Vote, hocs: [withMessages, withVote, withCurrentUser] });

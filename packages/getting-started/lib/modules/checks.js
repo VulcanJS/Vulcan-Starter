@@ -5,7 +5,8 @@ import schema from '../modules/schema.js';
 import Movies from '../modules/collection.js';
 
 const containsChild = (component, childName) => {
-  return !!component && component().props.children && component().props.children.type.name === childName;
+  const type = component && component().props.children && component().props.children.type;
+  return type && [type.name, type.displayName].includes(childName);
 }
 
 const checks = {
@@ -46,8 +47,8 @@ const checks = {
     return props.moviesCount >= 8;
   },
 
-  step9: (props) => {
-    return props.resolvers && props.resolvers.fields.find(r => r.name === 'movies');
+  step9: () => {
+    return containsChild(Components.Step9, 'withQueryResolvers(Resolvers)');
   },
 
   step10: () => {
@@ -59,7 +60,7 @@ const checks = {
     return hocs[0] && hocs[0][1] && hocs[0][1].fragmentName;
   },
 
-  step12: (props) => {
+  step12: () => {
     return schema.userId.resolveAs;
   },
 
@@ -67,12 +68,12 @@ const checks = {
     return props.currentUser;
   },
 
-  step14: (props) => {
-    return props.mutations && !!props.mutations.fields.find(r => r.name === 'createMovie');
+  step14: () => {
+    return containsChild(Components.Step14, 'withMutationResolvers(Mutations)');
   },
 
   step15: () => {
-    return containsChild(Components.MoviesNew, 'Wrapped') || containsChild(Components.MoviesNew, 'GraphQL');
+    return containsChild(Components.MoviesNew, 'withCurrentUser');
   },
 
   step16: () => {
@@ -80,11 +81,11 @@ const checks = {
   },
 
   step17: () => {
-    return Users.groups.members.actions.includes('movie.create');
+    return Movies && Movies.options && !!Movies.options.permissions;
   },
 
   step18: () => {
-    return Movies && Movies.views && Movies.views.alphabetical;
+    return Movies && Movies.options && !!Movies.options.defaultInput;
   },
 
   step19: () => {

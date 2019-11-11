@@ -1,19 +1,16 @@
 .layout{
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 400px;
+  column-gap: $spacing*3;
   padding: $spacing*1.5;
 }
 .sidebar{
-  margin-right: $spacing*3;
   padding: $spacing;
   background: #eee;
 
 }
 .main-content{
-  margin-right: $spacing*3;
 }
 
 .app-content{
-  flex: 1;
-  width: 400px;
-  min-width: 400px;
 }

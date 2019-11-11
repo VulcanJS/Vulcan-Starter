@@ -15,7 +15,7 @@ const PostsCommenters = ({ post }) => {
         <Link to={Posts.getPageUrl(post)}>
           <Components.Icon name="comment" />
           <span className="posts-commenters-comments-count">
-            {post.commentCount}
+            {post.comments && post.comments.length}
           </span>
           <span className="sr-only">Comments</span>
         </Link>

@@ -3,17 +3,24 @@
 //   padding: $spacing;
 // }
 
-.step-after{
+.step-after {
   border-top: 1px solid #ddd;
   padding-top: 20px;
 }
 
-.code-block{
+.code-block {
   margin-bottom: 1rem;
 }
 
-.movies-count{
+.movies-count {
   border: 3px solid #ddd;
   padding: $spacing;
   margin-bottom: 1rem;
+}
+
+.graphql-schema {
+  width: 100%;
+  pre {
+    width: 100%;
+  }
 }

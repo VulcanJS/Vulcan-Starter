@@ -47,5 +47,7 @@ Other Components
 
 import '../components/other/Schema.jsx';
 import '../components/other/GraphQLSchema.jsx';
+import '../components/other/Resolvers.jsx';
+import '../components/other/Mutations.jsx';
 import '../components/other/Layout.jsx';
 import '../components/other/Nav.jsx';

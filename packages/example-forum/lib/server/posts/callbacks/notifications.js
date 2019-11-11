@@ -6,22 +6,22 @@ Notifications for new posts and post approval.
 
 import { Posts } from '../../../modules/posts/index.js'
 import Users from 'meteor/vulcan:users';
-import { Connectors, addCallback } from 'meteor/vulcan:core';
-import { createNotification } from '../../email/notifications.js';
+import { Connectors } from 'meteor/vulcan:core';
+import { createNotification } from '../../emails/notifications.js';
 
 /**
  * @summary Add notification callback when a post is approved
  */
-function PostsApprovedNotification (post) {
+export function approvedNotification (post) {
   createNotification(post.userId, 'postApproved', {documentId: post._id});
 }
-addCallback('posts.approve.async', PostsApprovedNotification);
+// addCallback('posts.approve.async', PostsApprovedNotification);
 
 
 /**
  * @summary Add new post notification callback on post submit
  */
-function PostsNewNotifications (post) {
+export function createNotifications (post) {
 
   const adminUsers = Connectors.find(Users, { isAdmin: true }, { fields: { _id: 1 }});
   let adminIds = _.pluck(adminUsers, '_id');
@@ -40,4 +40,4 @@ function PostsNewNotifications (post) {
   }
 
 }
-addCallback('posts.new.async', PostsNewNotifications);
+// addCallback('posts.new.async', PostsNewNotifications);

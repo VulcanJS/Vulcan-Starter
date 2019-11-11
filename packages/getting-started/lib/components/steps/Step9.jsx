@@ -1,8 +1,6 @@
 import React from 'react';
 import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
 
-import withQueryResolvers from '../../hocs/withQueryResolvers.js';
-
 // Resolvers
 
 const text = `
@@ -14,13 +12,13 @@ On the other hand, we do know that the client can connect to the GraphQL endpoin
 
 A GraphQL resolver is basically a function that waits for any GraphQL queries mentioning a specific field, and then provides some data in return. In previous steps we actually already used two resolvers in the background, \`SchemaContents\` and \`MoviesCount\`. 
 
-These two resolvers were written specifically for this tutorial and are fairly limited, but we'll now unlock the power of Vulcan's **default resolvers**.
+These two resolvers were written specifically for this tutorial and are fairly limited, but we'll now look at Vulcan's **collection resolvers**.
 
-Go back to \`lib/modules/collection.js\` and uncomment the \`resolvers: getDefaultResolvers('Movies')\` line. 
+Go to \`lib/components/steps/Step9.jsx\` and uncomment the \`<Components.Resolvers />\` line to display a list of available query resolvers. 
 `;
 
 const after = [`
-Nice work! Notice the two \`movies\`, and \`movie\` resolvers in there? Those are our default resolvers. Behind the scenes, they'll fetch the data we need in the database and pass it on to the API layer. 
+Nice work! Notice the two \`movies\`, and \`movie\` resolvers in there? Those are our auto-generated query resolvers for the \`Movies\` collection. Behind the scenes, they'll fetch the data we need in the database and pass it on to the API layer. 
 
 By the way, we didn't even have to write a custom resolver to get this list of resolvers. Turns out GraphQL supports **introspection queries**, which let you get metadata about your own schema, in this case using the following GraphQL query (try it now in [GraphiQL](http://localhost:3000/graphiql)!):
 `,`
@@ -35,21 +33,12 @@ query QueryResolvers{
 ~~~
 `]
 
-const Step9 = ({ resolvers }) => (
-  <Components.Step step={9} text={text} after={after} resolvers={resolvers}>
-    <div className="query-resolvers">
-      <ul>
-        {resolvers && resolvers.fields.map(resolver =>
-          <li key={resolver.name}>
-            {['MoviesList', 'MoviesSingle', 'MoviesTotal'].includes(resolver.name) ? 
-              <strong>{resolver.name}</strong> : 
-              <span>{resolver.name}</span>
-            }
-          </li>
-        )}
-      </ul>
-    </div>
+// uncomment the component's child on #Step9
+
+const Step9 = () => (
+  <Components.Step step={9} text={text} after={after}>
+    {/* <Components.Resolvers /> */}
   </Components.Step>
 );
 
-registerComponent({ name: 'Step9', component: Step9, hocs: [withQueryResolvers] });
+registerComponent({ name: 'Step9', component: Step9 });

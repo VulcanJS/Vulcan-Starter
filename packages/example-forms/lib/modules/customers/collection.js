@@ -2,11 +2,9 @@
 Customers
 */
 
-import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core'
+import { createCollection } from 'meteor/vulcan:core'
 import schema from './schema.js'
 import './fragments'
-import './permissions'
-
 
 const Customers = createCollection({
 
@@ -15,17 +13,14 @@ const Customers = createCollection({
   typeName: 'Customer',
 
   schema,
-  
-  resolvers: getDefaultResolvers('Customers'),
 
-  mutations: getDefaultMutations('Customers'),
+  permissions: {
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['owners'],
+    canDelete: ['owners']
+  },
 
-});
-
-Customers.addDefaultView(terms => {
-  return {
-    options: {sort: {createdAt: -1}}
-  };
 });
 
 export default Customers;

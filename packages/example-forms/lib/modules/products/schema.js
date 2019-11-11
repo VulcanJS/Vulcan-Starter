@@ -4,6 +4,7 @@ const schema = {
     optional: true,
     canRead: ['guests'],
   },
+  
   createdAt: {
     type: Date,
     optional: true,

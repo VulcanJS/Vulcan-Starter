@@ -1,7 +1,7 @@
 import { registerFragment } from 'meteor/vulcan:core';
 
 registerFragment(/* GraphQL */`
-  fragment PostsList on Post {
+  fragment PostItem on Post {
     # posts
     _id
     title
@@ -20,13 +20,16 @@ registerFragment(/* GraphQL */`
       ...UsersMinimumInfo
     }
     # embedly
-    thumbnailUrl
+    # thumbnailUrl
     # categories
+    categoriesIds
     categories {
-      ...CategoriesMinimumInfo
+      ...CategoryItem
     }
-    # comments
-    commentCount
+    # commentCount
+    comments{
+      _id
+    }
     commenters {
       ...UsersMinimumInfo
     }
@@ -40,8 +43,8 @@ registerFragment(/* GraphQL */`
 `);
 
 registerFragment(/* GraphQL */`
-  fragment PostsPage on Post {
-    ...PostsList
+  fragment PostPage on Post {
+    ...PostItem
     body
     htmlBody
   }

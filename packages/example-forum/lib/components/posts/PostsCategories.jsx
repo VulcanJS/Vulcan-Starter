@@ -5,19 +5,13 @@ import { Link } from 'react-router-dom';
 const PostsCategories = ({ post }) => {
   return (
     <div className="posts-categories">
-      {post.categories.map(category => (
-        <Link
-          className="posts-category"
-          key={category._id}
-          to={{ pathname: '/', search: `cat=${category.slug}` }}
-        >
-          {category.name}
+      {post.categories.map(({ _id, pagePath, name }) => (
+        <Link className="posts-category category-item" key={_id} to={pagePath}>
+          {name}
         </Link>
       ))}
     </div>
   );
 };
-
-PostsCategories.displayName = 'PostsCategories';
 
 registerComponent({ name: 'PostsCategories', component: PostsCategories });

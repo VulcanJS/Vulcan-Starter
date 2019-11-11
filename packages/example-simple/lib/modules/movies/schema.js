@@ -28,20 +28,9 @@ const schema = {
     optional: true,
     canRead: ['guests'],
     resolveAs: {
+      // this will automatically a "hasOne" relationship on the Users collection
       fieldName: 'user',
       type: 'User',
-      resolver: (movie, args, context) => {
-        return context.Users.findOne(
-          { _id: movie.userId },
-          {
-            fields: context.Users.getViewableFields(
-              context.currentUser,
-              context.Users
-            ),
-          }
-        );
-      },
-      addOriginalField: true,
     },
   },
 
@@ -51,10 +40,7 @@ const schema = {
     label: 'Name',
     type: String,
     optional: true,
-    // ...these next three are interesting—they take a user group that says which group can do what action.
-    // ...guests are anonymous users...
     canRead: ['guests'],
-    /// ...members can only edit documents that they own. This is part of the default mutations. Back to modules/movies/collection.js...
     canCreate: ['members'],
     canUpdate: ['members'],
   },

@@ -15,30 +15,30 @@ const seedData = [
     name: 'Star Wars',
     year: '1973',
     review: `A classic.`,
-    privateComments: `Actually, I don't really like Star Wars…`
+    privateComments: `Actually, I don't really like Star Wars…`,
   },
   {
     name: 'Die Hard',
     year: '1987',
     review: `A must-see if you like action movies.`,
-    privateComments: `I love Bruce Willis so much!`
+    privateComments: `I love Bruce Willis so much!`,
   },
   {
     name: 'Terminator',
     year: '1983',
     review: `Once again, Schwarzenegger shows why he's the boss.`,
-    privateComments: `Terminator is my favorite movie ever. `
+    privateComments: `Terminator is my favorite movie ever. `,
   },
   {
     name: 'Jaws',
     year: '1971',
     review: 'The original blockbuster.',
-    privateComments: `I'm scared of sharks…`
+    privateComments: `I'm scared of sharks…`,
   },
   {
     name: 'Die Hard II',
     year: '1991',
-    review: `Another classic.`
+    review: `Another classic.`,
   },
   {
     name: 'Rush Hour',
@@ -96,11 +96,15 @@ Meteor.startup(() => {
   if (Movies.find().fetch().length === 0) {
     // eslint-disable-next-line no-console
     console.log('// creating dummy movies');
-    Promise.awaitAll(seedData.map(document => newMutation({
-      collection: Movies,
-      document,
-      currentUser,
-      validate: false,
-    })));
+    Promise.awaitAll(
+      seedData.map(document =>
+        newMutation({
+          collection: Movies,
+          document,
+          currentUser,
+          validate: false,
+        })
+      )
+    );
   }
 });

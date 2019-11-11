@@ -5,10 +5,10 @@ const PostsListHeader = () => {
   return (
     <div>
       <div className="posts-list-header">
+        <Components.PostsViews />
         <div className="posts-list-header-categories">
           <Components.CategoriesMenu />
         </div>
-        <Components.PostsViews />
         <Components.SearchForm />
       </div>
     </div>

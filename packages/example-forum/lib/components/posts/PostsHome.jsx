@@ -1,14 +1,14 @@
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
-import qs from 'qs';
+import { postViews } from '../../modules/data.js';
 
-const PostsHome = ({ location }) => {
-  const query = qs.parse(location.search, { ignoreQueryPrefix: true }) || {};
-  const terms = isEmpty(query) ? { view: 'top' } : query;
-  return <Components.PostsList terms={terms} />;
+const getOrderProperty = currentRoute => {
+  const postView = postViews.find(({ name }) => name === currentRoute.name);
+  return postView && postView.sort;
 };
 
-PostsHome.displayName = 'PostsHome';
+const PostsHome = ({ currentRoute }) => (
+  <Components.PostsList input={{ sort: { [getOrderProperty(currentRoute)]: 'desc' } }} />
+);
 
 registerComponent({ name: 'PostsHome', component: PostsHome });
