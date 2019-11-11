@@ -104,9 +104,10 @@ const AdminPosts = () => (
 
 const accessOptions = {
   groups: ['admins'],
-  redirect: '/log-in',
+  redirect: '/',
+  message: 'Sorry, you do not have the rights to access this page.',
 };
 
-registerComponent('AdminPosts', AdminPosts);
+registerComponent('AdminPosts', AdminPosts, [withAccess, accessOptions]);
 
 export default AdminPosts;

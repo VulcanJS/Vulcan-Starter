@@ -38,9 +38,10 @@ const AdminUsers = () => (
 
 const accessOptions = {
   groups: ['admins'],
-  redirect: '/log-in',
+  redirect: '/',
+  message: 'Sorry, you do not have the rights to access this page.',
 };
 
-registerComponent('AdminUsers', AdminUsers);
+registerComponent('AdminUsers', AdminUsers, [withAccess, accessOptions]);
 
 export default AdminUsers;

@@ -34,9 +34,10 @@ const AdminComments = () => (
 
 const accessOptions = {
   groups: ['admins'],
-  redirect: '/log-in',
+  redirect: '/',
+  message: 'Sorry, you do not have the rights to access this page.',
 };
 
-registerComponent('AdminComments', AdminComments);
+registerComponent('AdminComments', AdminComments, [withAccess, accessOptions]);
 
 export default AdminComments;

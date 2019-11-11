@@ -9,6 +9,12 @@ import {
   incrementUserPostCount,
 } from './callbacks/index.js';
 
+// stupid workaround because filter cannot be async for some reason
+let categories;
+Meteor.startup(async ()=> {
+  categories = await Connectors.find(Categories, {})
+});
+
 extendCollection(Posts, {
   callbacks: {
     create: {
@@ -24,9 +30,11 @@ extendCollection(Posts, {
     {
       name: '_byCategory',
       arguments: 'slug: String',
-      filter: async ({ filterArguments }) => {
+      filter: ({ filterArguments }) => {
         const { slug } = filterArguments;
-        const category = await Connectors.get(Categories, { slug });
+        // TODO: make this work async
+        // const category = await Connectors.get(Categories, { slug });
+        const category = categories.find(c => c.slug === slug);
         return {
           selector: { categoriesIds: category._id },
         };
