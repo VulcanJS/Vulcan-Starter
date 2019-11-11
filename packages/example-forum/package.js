@@ -1,7 +1,7 @@
 Package.describe({
   name: 'example-forum',
   summary: 'Vulcan forum package',
-  version: '1.13.5',
+  version: '1.14.0',
   git: 'https://github.com/VulcanJS/Vulcan.git'
 });
 
@@ -15,17 +15,17 @@ Package.onUse(function (api) {
     'fourseven:scss@4.5.0',
 
     // vulcan core
-    'vulcan:core@1.13.5',
+    'vulcan:core@1.14.0',
 
     // vulcan packages
-    'vulcan:ui-bootstrap@1.13.5',
-    'vulcan:voting@1.13.5',
-    'vulcan:accounts@1.13.5',
-    'vulcan:email@1.13.5',
-    'vulcan:forms@1.13.5',
-    'vulcan:events@1.13.5',
-    'vulcan:embed@1.13.5',
-    'vulcan:admin@1.13.5',
+    'vulcan:ui-bootstrap@1.14.0',
+    'vulcan:voting@1.14.0',
+    'vulcan:accounts@1.14.0',
+    'vulcan:email@1.14.0',
+    'vulcan:forms@1.14.0',
+    'vulcan:events@1.14.0',
+    'vulcan:embed@1.14.0',
+    'vulcan:admin@1.14.0',
 
   ]);
 
