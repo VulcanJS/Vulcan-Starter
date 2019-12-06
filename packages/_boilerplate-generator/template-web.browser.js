@@ -22,8 +22,6 @@ export const headTemplate = ({
       })
     ).join('') + '>',
     
-    '<head>',
-
     dynamicHead,
 
     (headSections.length === 1)
