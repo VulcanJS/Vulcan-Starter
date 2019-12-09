@@ -25,6 +25,7 @@ const schema = {
 
     */
     // resolveAs: {
+    //   relation: 'hasOne',
     //   fieldName: 'user',
     //   type: 'User',
     // },
