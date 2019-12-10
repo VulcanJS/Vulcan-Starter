@@ -10,7 +10,7 @@ const MoviesApp2 = () => (
       <Components.Datatable 
         collection={Movies} 
         columns={['name', 'review']}
-        // options={{ input: { orderBy: { name: 'asc' } } }} // uncomment on #Step18
+        // options={{ input: { sort: { name: 'asc' } } }} // uncomment on #Step18
       />
     </div>
   </div>
