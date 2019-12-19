@@ -9,7 +9,11 @@
     "start": "meteor --settings settings.json",
     "lint": "eslint --cache --ext .jsx,js packages",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "cypress:headless": "cypress run",
+    "cypress:gui": "cypress open",
+    "test": "start-server-and-test start http://localhost:3000 cypress:headless",
+    "test:gui": "start-server-and-test start http://localhost:3000 cypress:gui"
   },
   "dependencies": {
     "@apollo/react-hooks": "3.1.2",
@@ -124,6 +128,7 @@
     "autoprefixer": "^6.3.6",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "cypress": "^3.8.0",
     "eslint": "^3.10.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-config-meteor": "0.0.9",
@@ -134,6 +139,7 @@
     "eslint-plugin-meteor": "^4.2.1",
     "eslint-plugin-react": "^6.7.1",
     "scrap-meteor-loader": "0.0.1",
+    "start-server-and-test": "^1.10.6",
     "storybook-react-router": "^1.0.5",
     "vulcan-loader": "0.0.1",
     "webpack": "4.28.4"
