@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+let path = 'tests/cypress/support'
+
+Cypress.Commands.add('executeDatabaseJs', (command) =>
+  cy.exec(`mongo mongodb://127.0.0.1:3001/meteor --eval "${command}"`)
+);
+
+Cypress.Commands.add('executeDatabaseScript', (filePath) =>
+  cy.exec(`mongo mongodb://127.0.0.1:3001/meteor ${path}/${filePath}`)
+);
