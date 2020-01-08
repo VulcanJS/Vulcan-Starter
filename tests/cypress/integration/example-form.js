@@ -1,4 +1,3 @@
-
 const loginWithTestAccount = () => {
   cy.executeDatabaseScript('cleanForms.js')
 
@@ -12,8 +11,20 @@ const loginWithTestAccount = () => {
 }
 
 describe('exemple forms', () => {
+  before(() => {
+    // Correctly setup the .meteor/packages file
+    cy.task('saveUserMeteorPackages')
+    cy.task('useDefaultMeteorPackages')
+    cy.exec('meteor remove getting-started')
+    cy.exec('meteor add example-forms')
+  });
+
+  after(() => {
+    cy.task('restoreUserMeteorPackages')
+  });
+
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('http://localhost:3000/', { timeout: 40000 });
   });
 
   it('datatable wrapper have a semantized classname', () => {

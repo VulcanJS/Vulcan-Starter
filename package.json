@@ -139,6 +139,7 @@
     "eslint-plugin-meteor": "^4.2.1",
     "eslint-plugin-react": "^6.7.1",
     "scrap-meteor-loader": "0.0.1",
+    "shelljs": "^0.8.3",
     "start-server-and-test": "^1.10.6",
     "storybook-react-router": "^1.0.5",
     "vulcan-loader": "0.0.1",
