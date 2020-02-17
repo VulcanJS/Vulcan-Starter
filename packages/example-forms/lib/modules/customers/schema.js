@@ -143,6 +143,7 @@ const schema = {
     canRead: ['guests'],
     canUpdate: ['members'],
     canCreate: ['members'],
+    onCreate: () => { return { hello: 'world' } }
   },
 
 };
