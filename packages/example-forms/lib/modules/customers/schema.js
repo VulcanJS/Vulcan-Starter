@@ -129,6 +129,22 @@ const schema = {
   'addresses.$': {
     type: addressSchema,
   },
+
+  // demo of a blackbox array: will generate a form, but no GraphQL type
+  blackboxNestedArray: {
+    type: Array,
+    canRead: ['guests'],
+    canUpdate: ['members'],
+    canCreate: ['members'],
+    blackbox: true
+  },
+  'blackboxNestedArray.$': {
+    type: addressSchema,
+    canRead: ['guests'],
+    canUpdate: ['members'],
+    canCreate: ['members'],
+  },
+
 };
 
 export default schema;
