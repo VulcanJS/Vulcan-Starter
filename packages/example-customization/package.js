@@ -8,7 +8,7 @@ Package.onUse(function (api) {
     'vulcan:core@=1.14.1',
     'example-forum@=1.14.1',
 
-    'fourseven:scss@4.5.0',
+    'fourseven:scss@4.12.0',
   ]);
 
   api.mainModule('server.js', 'server');
