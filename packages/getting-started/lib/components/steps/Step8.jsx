@@ -10,7 +10,7 @@ We're well on our way to sending data from the server to the client, but there's
 
 We actually already have a \`seedMovies\` function ready, we just need to call it. We can do so using the [Meteor shell](https://docs.meteor.com/commandline.html#meteorshell), a convenient way to access your live Meteor development server.
 
-In your Vulcan application directory, type:
+Open a new Terminal window in your Vulcan application directory, type:
 `,`
 ~~~sh
 meteor shell
