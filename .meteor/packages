@@ -18,6 +18,9 @@ accounts-password@1.5.1
 # example-forms
 # example-forum
 
+# Uncomment to generate an admin area on /backoffice available to users of role "admin"
+# vulcan:backoffice
+
 # Note: the following example apps are not currently up to date
 
 # example-movies
