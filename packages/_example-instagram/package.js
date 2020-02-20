@@ -18,7 +18,7 @@ Package.onUse(function (api) {
     'vulcan:ui-bootstrap@=1.14.1',
 
     // third-party packages
-    'fourseven:scss@4.5.0',
+    'fourseven:scss@4.12.0',
 
   ]);
 
