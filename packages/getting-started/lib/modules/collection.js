@@ -28,7 +28,7 @@ Uncomment on #Step6:
 
 //   // permissions, // uncomment on #Step17
 
-//   // defaultInput: { orderBy: { createdAt: 'desc' } } // uncomment on #Step18
+//   // defaultInput: { sort: { createdAt: 'desc' } } // uncomment on #Step18
   
 // });
 
