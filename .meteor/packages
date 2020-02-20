@@ -1,10 +1,10 @@
 # see http://docs.vulcanjs.org/packages
 
-vulcan:core@=1.14.0
+vulcan:core@=1.14.1
 
 ############ Language Packages ############
 
-vulcan:i18n-en-us@=1.14.0
+vulcan:i18n-en-us@=1.14.1
 
 ############ Accounts Packages ############
 
@@ -14,11 +14,12 @@ accounts-password@1.5.1
 
 ############ Your Packages ############
 
-getting-started
-
 # example-simple
 # example-forms
 # example-forum
+
+# Uncomment to generate an admin area on /backoffice available to users of role "admin"
+# vulcan:backoffice
 
 # Note: the following example apps are not currently up to date
 
@@ -29,3 +30,5 @@ getting-started
 # example-membership
 # example-interfaces
 # example-reactions
+
+getting-started

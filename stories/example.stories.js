@@ -16,9 +16,10 @@ initializeFragments();
 // actually fills the Components object
 populateComponentsApp();
 
-
-
 storiesOf('example-forum', module)
-.add('PostsNoMore', () => (
-    <Components.PostsNoMore />
-))
+    .add('PostsNoMore', () => (
+        Components.PostsNoMore
+            ? <Components.PostsNoMore />
+            : <p>This component can only be displayed when `example-forum` package is loaded.</p>
+
+    ))

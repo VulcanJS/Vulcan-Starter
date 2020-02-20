@@ -18,6 +18,7 @@ class FormFunnel extends PureComponent {
             {funnel.map((stage, i) => (
               <li key={i}>
                 <Components.Button
+                  id={`funnel-${stage}`}
                   onClick={() => {
                     this.update(stage);
                   }}

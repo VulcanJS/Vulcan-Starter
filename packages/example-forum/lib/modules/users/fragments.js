@@ -20,10 +20,10 @@ registerFragment(/* GraphQL */`
     ...UsersMinimumInfo
     createdAt
     isAdmin
-    bio
-    htmlBio
+    #bio
+    #htmlBio
     twitterUsername
-    website
+    #website
     groups
     # vulcan:posts
     postCount

@@ -10,12 +10,12 @@ Package.onUse(function (api) {
     'fourseven:scss@4.5.0',
 
     // vulcan core
-    'vulcan:core@=1.14.0',
+    'vulcan:core@=1.14.1',
 
     // vulcan packages
-    'vulcan:forms@=1.14.0',
-    'vulcan:accounts@=1.14.0',
-    'vulcan:ui-bootstrap@=1.14.0',
+    'vulcan:forms@=1.14.1',
+    'vulcan:accounts@=1.14.1',
+    'vulcan:ui-bootstrap@=1.14.1',
 
   ]);
 

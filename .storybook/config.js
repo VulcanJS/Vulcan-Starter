@@ -3,12 +3,26 @@
  */
 import { addDecorator, configure } from '@storybook/react';
 
-// init UI using a Decorator
-import BootstrapDecorator from './decorators/BootstrapDecorator'
-addDecorator(BootstrapDecorator)
-// Uncomment to activate material UI instead
-//import MaterialUIDecorator from './decorators/MaterialUIDecorator'
-//addDecorator(MaterialUIDecorator)
+if (process.env.STORYBOOK_UI === 'material') {
+  // init UI using a Decorator
+  const MaterialUIDecorator = require('./decorators/MaterialUIDecorator').default
+  addDecorator(MaterialUIDecorator)
+} else {
+  const BootstrapDecorator = require('./decorators/BootstrapDecorator').default
+  addDecorator(BootstrapDecorator);
+}
+
+import onStorybookStart from "./startup"
+onStorybookStart(() => console.log("Storybook started"))
+// load the components in the app so that <Component.Whatever /> is defined
+import { populateComponentsApp, initializeFragments } from 'meteor/vulcan:lib';
+onStorybookStart(() => {
+  // we need registered fragments to be initialized because populateComponentsApp will run
+  // hocs, like withUpdate, that rely on fragments
+  initializeFragments();
+  // actually fills the Components object
+  populateComponentsApp();
+})
 
 /*
 
