@@ -10,7 +10,7 @@ Note: the Helmet library is used to insert meta tags and link tags in the <head>
 */
 
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { replaceComponent, Components } from 'meteor/vulcan:core';
 
 const Layout = ({children}) =>
