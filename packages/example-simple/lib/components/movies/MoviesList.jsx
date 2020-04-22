@@ -11,7 +11,7 @@ This component is a React component. We only have one but it does a bunch of thi
 */
 
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { Components, withMulti, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
 

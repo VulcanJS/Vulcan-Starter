@@ -6,7 +6,7 @@ Wrapped with the "withList" and "withCurrentUser" containers.
 */
 
 import React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import {
   Components,
   replaceComponent,
