@@ -2,7 +2,7 @@ import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:co
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 const Layout = ({currentUser, children }) =>
 

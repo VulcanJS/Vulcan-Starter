@@ -1,0 +1,736 @@
+
+scalar JSON
+scalar Date
+
+# see https://docs.hasura.io/1.0/graphql/manual/queries/query-filters.html
+
+input String_Selector {
+  _eq: String
+  #_gt: String
+  #_gte: String
+  #_ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  #_lt: String
+  #_lte: String
+  #_neq: String
+  #_nilike: String
+  #_nin: [String!]
+  #_nlike: String
+  #_nsimilar: String
+  #_similar: String
+}
+
+input String_Array_Selector {
+  _in: [String!]
+  # _contains: String_Selector
+  # _contains_all: [String_Selector]
+}
+
+input Int_Selector {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  #_is_null: Boolean
+  _lt: Int
+  _lte: Int
+  #_neq: Int
+  #_nin: [Int!]
+}
+
+input Int_Array_Selector {
+  contains: Int_Selector
+  # contains_all: [Int_Selector]
+}
+
+input Float_Selector {
+  _eq: Float
+  _gt: Float
+  _gte: Float
+  _in: [Float!]
+  #_is_null: Boolean
+  _lt: Float
+  _lte: Float
+  #_neq: Float
+  #_nin: [Float!]
+}
+
+input Float_Array_Selector {
+  contains: Float_Selector
+  # contains_all: [Float_Selector]
+}
+
+input Boolean_Selector {
+  _eq: Boolean
+  #_neq: Boolean
+}
+
+input Boolean_Array_Selector {
+  contains: Boolean_Selector
+  # contains_all: [Boolean_Selector]
+}
+
+input Date_Selector {
+  _eq: Date
+  _gt: Date
+  _gte: Date
+  _in: [Date!]
+  #_is_null: Boolean
+  _lt: Date
+  _lte: Date
+  #_neq: Date
+  #_nin: [Date!]
+}
+
+input Date_Array_Selector {
+  contains: Date_Selector
+  # contains_all: [Date_Selector]
+}
+
+# column ordering options
+enum SortOptions {
+  asc
+  desc
+}
+
+input OptionsInput {
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # For single document queries, return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+type Site {
+  title: String
+  url: String
+  logoUrl: String
+  sourceVersion: String
+}
+type IntlValue {
+  locale: String
+  value: String
+}
+input IntlValueInput{
+  locale: String
+  value: String
+}
+directive @intl on FIELD_DEFINITION
+
+  input AuthPasswordInput {
+    email: String
+    password: String
+  }
+  type AuthResult {
+    token: String
+    userId: String
+  }
+  type LogoutResult {
+    userId: String
+  }
+
+  input SignupInput {
+    email: String
+    password: String
+  }
+  type SignupResult {
+    userId: String
+  }
+
+  input SetPasswordInput {
+    newPassword: String
+  }
+
+  #type SetPasswordResult # Will auth user again so we reuse AuthResult atm
+
+  input ResetPasswordInput {
+    token: String
+    newPassword: String
+  }
+  type ResetPasswordResult {
+    userId: String
+  }
+
+  input VerifyEmailInput {
+    token: String
+  }
+  type VerifyEmailResult {
+    userId: String
+  }
+
+  input AuthEmailInput {
+    email: String
+  }
+
+
+# A user object
+type User {
+  _id: String 
+  username: String 
+  emails: [JSON] 
+  createdAt: Date 
+  isAdmin: Boolean 
+  locale: String 
+  profile: JSON 
+  services: JSON 
+  displayName: String 
+  email: String 
+  emailHash: String 
+  avatarUrl: String 
+  slug: String 
+  twitterUsername: String 
+  groups: [String] 
+  pageUrl: String 
+  pagePath: String 
+  editUrl: String 
+}
+
+
+input DeleteUserInput{
+  filter: UserFilterInput
+  id: String
+}
+
+input SingleUserInput {
+  # filtering
+  filter: UserFilterInput
+  sort: UserSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  "Deprecated (use 'filter/id' fields instead)."
+  selector: UserSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiUserInput {
+
+  # filtering
+  filter: UserFilterInput
+  sort: UserSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  "Deprecated (use 'filter/id' fields instead)."
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleUserOutput{
+  result: User
+}
+
+type  MultiUserOutput{
+  results: [User]
+  totalCount: Int
+}
+
+type UserMutationOutput{
+  data: User
+}
+
+input CreateUserInput {
+  data: CreateUserDataInput!
+}
+
+input CreateUserDataInput {
+  username: String 
+  isAdmin: Boolean 
+  locale: String 
+  profile: JSON 
+  displayName: String 
+  email: String 
+  twitterUsername: String 
+  groups: [String] 
+}
+
+input UpdateUserInput{
+  filter: UserFilterInput
+  id: String
+  data: UpdateUserDataInput!
+}
+
+input UpsertUserInput{
+  filter: UserFilterInput
+  id: String
+  data: UpdateUserDataInput!
+}
+
+input UpdateUserDataInput {
+  username: String 
+  isAdmin: Boolean 
+  locale: String 
+  displayName: String 
+  email: String 
+  twitterUsername: String 
+  groups: [String] 
+}
+
+input UserFilterInput {
+  _and: [UserFilterInput]
+  _not: UserFilterInput
+  _or: [UserFilterInput]
+
+
+  _id: String_Selector
+  username: String_Selector
+
+  createdAt: Date_Selector
+  isAdmin: Boolean_Selector
+  locale: String_Selector
+
+  displayName: String_Selector
+  email: String_Selector
+  emailHash: String_Selector
+  avatarUrl: String_Selector
+  slug: String_Selector
+  twitterUsername: String_Selector
+  groups: String_Array_Selector
+  pageUrl: String_Selector
+  pagePath: String_Selector
+  editUrl: String_Selector
+}
+
+input UserSortInput {
+  _id: SortOptions
+  username: SortOptions
+  emails: SortOptions
+  createdAt: SortOptions
+  isAdmin: SortOptions
+  locale: SortOptions
+  services: SortOptions
+  displayName: SortOptions
+  email: SortOptions
+  emailHash: SortOptions
+  avatarUrl: SortOptions
+  slug: SortOptions
+  twitterUsername: SortOptions
+  groups: SortOptions
+  pageUrl: SortOptions
+  pagePath: SortOptions
+  editUrl: SortOptions
+}
+
+input UserSelectorInput {
+  _and: [UserSelectorInput]
+  _or: [UserSelectorInput]
+
+}
+
+input UserSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Emails
+type Email {
+  name: String 
+  template: String 
+  subject: String 
+  path: String 
+}
+
+
+input DeleteEmailInput{
+  filter: EmailFilterInput
+  id: String
+}
+
+input SingleEmailInput {
+  # filtering
+  filter: EmailFilterInput
+  sort: EmailSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  "Deprecated (use 'filter/id' fields instead)."
+  selector: EmailSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiEmailInput {
+
+  # filtering
+  filter: EmailFilterInput
+  sort: EmailSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  "Deprecated (use 'filter/id' fields instead)."
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleEmailOutput{
+  result: Email
+}
+
+type  MultiEmailOutput{
+  results: [Email]
+  totalCount: Int
+}
+
+type EmailMutationOutput{
+  data: Email
+}
+
+input EmailFilterInput {
+  _and: [EmailFilterInput]
+  _not: EmailFilterInput
+  _or: [EmailFilterInput]
+
+
+  name: String_Selector
+  template: String_Selector
+  subject: String_Selector
+  path: String_Selector
+}
+
+input EmailSortInput {
+  name: SortOptions
+  template: SortOptions
+  subject: SortOptions
+  path: SortOptions
+}
+
+input EmailSelectorInput {
+  _and: [EmailSelectorInput]
+  _or: [EmailSelectorInput]
+
+}
+
+input EmailSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Settings
+type Setting {
+  name: String 
+  value: JSON 
+  defaultValue: JSON 
+  isPublic: Boolean 
+  description: String 
+}
+
+
+input DeleteSettingInput{
+  filter: SettingFilterInput
+  id: String
+}
+
+input SingleSettingInput {
+  # filtering
+  filter: SettingFilterInput
+  sort: SettingSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  "Deprecated (use 'filter/id' fields instead)."
+  selector: SettingSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiSettingInput {
+
+  # filtering
+  filter: SettingFilterInput
+  sort: SettingSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  "Deprecated (use 'filter/id' fields instead)."
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleSettingOutput{
+  result: Setting
+}
+
+type  MultiSettingOutput{
+  results: [Setting]
+  totalCount: Int
+}
+
+type SettingMutationOutput{
+  data: Setting
+}
+
+input SettingFilterInput {
+  _and: [SettingFilterInput]
+  _not: SettingFilterInput
+  _or: [SettingFilterInput]
+
+
+  name: String_Selector
+
+
+  isPublic: Boolean_Selector
+  description: String_Selector
+}
+
+input SettingSortInput {
+  name: SortOptions
+  value: SortOptions
+  defaultValue: SortOptions
+  isPublic: SortOptions
+  description: SortOptions
+}
+
+input SettingSelectorInput {
+  _and: [SettingSelectorInput]
+  _or: [SettingSelectorInput]
+
+}
+
+input SettingSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+# Type for Callbacks
+type Callback {
+  name: String 
+  iterator: JSON 
+  properties: [JSON] 
+  runs: String 
+  newSyntax: Boolean 
+  returns: String 
+  description: String 
+  hooks: [String] 
+}
+
+
+input DeleteCallbackInput{
+  filter: CallbackFilterInput
+  id: String
+}
+
+input SingleCallbackInput {
+  # filtering
+  filter: CallbackFilterInput
+  sort: CallbackSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  "Deprecated (use 'filter/id' fields instead)."
+  selector: CallbackSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiCallbackInput {
+
+  # filtering
+  filter: CallbackFilterInput
+  sort: CallbackSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  "Deprecated (use 'filter/id' fields instead)."
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleCallbackOutput{
+  result: Callback
+}
+
+type  MultiCallbackOutput{
+  results: [Callback]
+  totalCount: Int
+}
+
+type CallbackMutationOutput{
+  data: Callback
+}
+
+input CallbackFilterInput {
+  _and: [CallbackFilterInput]
+  _not: CallbackFilterInput
+  _or: [CallbackFilterInput]
+
+
+  name: String_Selector
+
+
+  runs: String_Selector
+  newSyntax: Boolean_Selector
+  returns: String_Selector
+  description: String_Selector
+
+}
+
+input CallbackSortInput {
+  name: SortOptions
+  iterator: SortOptions
+  properties: SortOptions
+  runs: SortOptions
+  newSyntax: SortOptions
+  returns: SortOptions
+  description: SortOptions
+  hooks: SortOptions
+}
+
+input CallbackSelectorInput {
+  _and: [CallbackSelectorInput]
+  _or: [CallbackSelectorInput]
+
+}
+
+input CallbackSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+
+
+type Query {
+  siteData: Site
+  
+  currentUser: User
+  
+  SchemaContents: String
+  
+  MoviesCount: Int
+  
+  # A single User document fetched by ID or slug
+  user(input: SingleUserInput!): SingleUserOutput
+  
+  # A list of User documents matching a set of query terms
+  users(input: MultiUserInput):  MultiUserOutput
+  
+  emails(input: MultiEmailInput):  MultiEmailOutput
+  
+  settings(input: MultiSettingInput):  MultiSettingOutput
+  
+  callbacks(input: MultiCallbackInput):  MultiCallbackOutput
+  
+}
+  
+
+type Mutation {
+  authenticateWithPassword(input: AuthPasswordInput): AuthResult
+
+  logout: LogoutResult
+
+  signup(input: SignupInput): SignupResult
+
+  setPassword(input: SetPasswordInput): AuthResult
+
+  sendResetPasswordEmail(input: AuthEmailInput): Boolean
+
+  resetPassword(input: ResetPasswordInput): ResetPasswordResult
+
+  sendVerificationEmail(input: AuthEmailInput): Boolean
+
+  verifyEmail(input: VerifyEmailInput): VerifyEmailResult
+
+  # Mutation for creating new User documents
+  createUser(
+  input: CreateUserInput,
+  "Deprecated (use 'input' field instead)."
+  data: CreateUserDataInput
+) : UserMutationOutput
+
+  # Mutation for updating a User document
+  updateUser(
+  input: UpdateUserInput,
+  "Deprecated (use 'input' field instead)."
+  selector: UserSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateUserDataInput 
+) : UserMutationOutput
+
+  # Mutation for upserting a User document
+  upsertUser(
+  input: UpsertUserInput,
+  "Deprecated (use 'input' field instead)."
+  selector: UserSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateUserDataInput
+) : UserMutationOutput
+
+  # Mutation for deleting a User document
+  deleteUser(
+  input: DeleteUserInput,
+  "Deprecated (use 'input' field instead)."
+  selector: UserSelectorUniqueInput
+) : UserMutationOutput
+
+}
+
+

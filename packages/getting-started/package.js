@@ -1,13 +1,11 @@
 Package.describe({
-  name: 'getting-started',
+  name: "getting-started",
 });
 
 Package.onUse(function (api) {
-
   api.use([
-
     // SASS/SCSS support
-    'fourseven:scss@4.5.0',
+    "fourseven:scss@4.12.0",
 
     // vulcan core
     'vulcan:core@=1.15.0',
@@ -19,9 +17,8 @@ Package.onUse(function (api) {
 
   ]);
 
-  api.addFiles('lib/stylesheets/style.scss');
+  api.addFiles("lib/stylesheets/style.scss");
 
-  api.mainModule('lib/server/main.js', 'server');
-  api.mainModule('lib/client/main.js', 'client');
-
+  api.mainModule("lib/server/main.js", "server");
+  api.mainModule("lib/client/main.js", "client");
 });

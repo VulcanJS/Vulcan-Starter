@@ -14,7 +14,7 @@ accounts-password@1.6.0
 
 ############ Your Packages ############
 
-getting-started
+getting-started@=1.15.0
 
 # example-simple
 # example-forms
