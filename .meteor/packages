@@ -1,18 +1,20 @@
 # see http://docs.vulcanjs.org/packages
 
-vulcan:core@=1.14.1
+vulcan:core@=1.15.0
 
 ############ Language Packages ############
 
-vulcan:i18n-en-us@=1.14.1
+vulcan:i18n-en-us@=1.15.0
 
 ############ Accounts Packages ############
 
-accounts-password@1.5.1
+accounts-password@1.6.0
 # accounts-twitter
 # accounts-facebook
 
 ############ Your Packages ############
+
+getting-started
 
 # example-simple
 # example-forms
@@ -30,5 +32,3 @@ accounts-password@1.5.1
 # example-membership
 # example-interfaces
 # example-reactions
-
-getting-started

@@ -69,14 +69,17 @@ const schema = {
     canUpdate: ['members'],
     canCreate: ['members'],
     query: `
-      products{
-        results{
-          _id
-          name
+      query ProductsQuery {
+        products{
+          results{
+            _id
+            name
+          }
         }
       }
     `,
     options: props =>
+      props.data &&
       props.data.products &&
       props.data.products.results.map(product => ({
         value: product._id,
