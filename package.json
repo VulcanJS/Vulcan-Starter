@@ -51,7 +51,6 @@
     "escape-string-regexp": "^1.0.5",
     "express": "^4.16.4",
     "flat": "^4.0.0",
-    "fsevents": "^2.1.2",
     "graphql": "14.4.2",
     "graphql-anywhere": "4.1.13",
     "graphql-date": "^1.0.3",
@@ -156,6 +155,9 @@
     "style-loader": "^0.23.1",
     "vulcan-loader": "0.0.1",
     "webpack": "4.28.4"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.2"
   },
   "postcss": {
     "plugins": {
