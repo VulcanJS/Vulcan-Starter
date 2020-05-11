@@ -66,9 +66,11 @@ const schema = {
     order: 10,
     searchable: true,
     query: `
-      SiteData{
-        logoUrl
-        title
+      query SiteDataQuery {
+        siteData{
+          logoUrl
+          title
+        }
       }
     `,
   },
@@ -283,6 +285,7 @@ const schema = {
         slug: category.slug,
       })),
     query: `
+      query CategoriesQuery {
         categories{
           results{
             _id
@@ -290,6 +293,7 @@ const schema = {
             slug
           }
         }
+      }
       `,
     resolveAs: {
       fieldName: 'categories',

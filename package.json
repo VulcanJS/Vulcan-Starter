@@ -1,6 +1,6 @@
 {
   "name": "Vulcan",
-  "version": "1.14.1",
+  "version": "1.15.0",
   "engines": {
     "npm": "^3.0"
   },
@@ -22,7 +22,7 @@
     "analytics-node": "^2.1.1",
     "apollo-cache": "^1.3.2",
     "apollo-cache-inmemory": "^1.6.3",
-    "apollo-client": "^2.6.4",
+    "apollo-client": "^2.6.8",
     "apollo-engine": "^1.1.2",
     "apollo-errors": "^1.9.0",
     "apollo-link": "^1.2.12",
@@ -76,17 +76,17 @@
     "pluralize": "7.0.0",
     "prop-types": "^15.7.2",
     "qs": "^6.6.0",
-    "react": "^16.10.2",
+    "react": "^16.13.1",
     "react-addons-pure-render-mixin": "^15.4.1",
-    "react-apollo": "^3.1.2",
-    "react-bootstrap": "1.0.0-beta.5",
+    "react-apollo": "^3.1.5",
+    "react-bootstrap": "1.0.1",
     "react-bootstrap-datetimepicker": "0.0.22",
-    "react-bootstrap-typeahead": "^4.2.2",
+    "react-bootstrap-typeahead": "^5.0.0-alpha.1",
     "react-cookie": "^2.1.6",
     "react-datetime": "^2.11.1",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.13.1",
     "react-dropzone": "10.1.5",
-    "react-helmet": "^5.2.1",
+    "react-helmet": "^6.0.0",
     "react-intl": "^2.1.3",
     "react-loadable": "^4.0.3",
     "react-markdown": "^3.1.5",
@@ -94,9 +94,9 @@
     "react-overlays": "^1.0.0-beta.17",
     "react-places-autocomplete": "^5.0.0",
     "react-redux": "^5.0.6",
-    "react-router": "^5.0.1",
+    "react-router": "^5.1.2",
     "react-router-bootstrap": "0.25.0",
-    "react-router-dom": "^5.0.1",
+    "react-router-dom": "^5.1.2",
     "react-router-scroll": "^0.4.4",
     "react-select": "^1.2.1",
     "react-stripe-checkout": "^2.4.0",
@@ -155,6 +155,9 @@
     "style-loader": "^0.23.1",
     "vulcan-loader": "0.0.1",
     "webpack": "4.28.4"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.2"
   },
   "postcss": {
     "plugins": {
