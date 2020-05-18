@@ -1,6 +1,6 @@
 {
   "name": "Vulcan",
-  "version": "1.15.0",
+  "version": "1.15.1",
   "engines": {
     "npm": "^3.0"
   },
@@ -74,6 +74,7 @@
     "meteor-node-stubs": "^0.4.1",
     "mingo": "^2.2.0",
     "moment": "^2.13.0",
+    "moment-timezone": "^0.5.31",
     "node-sass": "^4.11.0",
     "pluralize": "7.0.0",
     "prop-types": "^15.7.2",

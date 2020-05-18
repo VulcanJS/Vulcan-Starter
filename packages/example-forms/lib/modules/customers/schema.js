@@ -123,31 +123,32 @@ const schema = {
   */
   addresses: {
     type: Array,
+    optional: true,
+    arrayItem: {
+      type: addressSchema,
+      optional: true,
+    },
     canRead: ['guests'],
     canUpdate: ['members'],
     canCreate: ['members'],
     group: addressGroup,
   },
 
-  'addresses.$': {
-    type: addressSchema,
-  },
-
   // demo of a blackbox array: will generate a form, but no GraphQL type
-  blackboxNestedArray: {
-    type: Array,
-    canRead: ['guests'],
-    canUpdate: ['members'],
-    canCreate: ['members'],
-    blackbox: true
-  },
-  'blackboxNestedArray.$': {
-    type: addressSchema,
-    canRead: ['guests'],
-    canUpdate: ['members'],
-    canCreate: ['members'],
-    onCreate: () => { return { hello: 'world' } }
-  },
+  // blackboxNestedArray: {
+  //   type: Array,
+  //   canRead: ['guests'],
+  //   canUpdate: ['members'],
+  //   canCreate: ['members'],
+  //   blackbox: true
+  // },
+  // 'blackboxNestedArray.$': {
+  //   type: addressSchema,
+  //   canRead: ['guests'],
+  //   canUpdate: ['members'],
+  //   canCreate: ['members'],
+  //   onCreate: () => { return { hello: 'world' } }
+  // },
 
 };
 
