@@ -24,7 +24,7 @@ input String_Selector {
 
 input String_Array_Selector {
   _in: [String!]
-  # _contains: String_Selector
+  _contains: String
   # _contains_all: [String_Selector]
 }
 
@@ -163,6 +163,13 @@ directive @intl on FIELD_DEFINITION
     email: String
   }
 
+type EmailResponse {
+  from: String
+  to: String
+  subject: String
+  success: JSON
+  error: String
+}
 
 # A user object
 type User {
@@ -179,11 +186,11 @@ type User {
   emailHash: String 
   avatarUrl: String 
   slug: String 
-  twitterUsername: String 
   groups: [String] 
   pageUrl: String 
   pagePath: String 
   editUrl: String 
+  createdAtFormatted(format: String = "YYYY/MM/DD"): String 
 }
 
 
@@ -256,7 +263,6 @@ input CreateUserDataInput {
   profile: JSON 
   displayName: String 
   email: String 
-  twitterUsername: String 
   groups: [String] 
 }
 
@@ -278,7 +284,6 @@ input UpdateUserDataInput {
   locale: String 
   displayName: String 
   email: String 
-  twitterUsername: String 
   groups: [String] 
 }
 
@@ -300,7 +305,6 @@ input UserFilterInput {
   emailHash: String_Selector
   avatarUrl: String_Selector
   slug: String_Selector
-  twitterUsername: String_Selector
   groups: String_Array_Selector
   pageUrl: String_Selector
   pagePath: String_Selector
@@ -320,7 +324,6 @@ input UserSortInput {
   emailHash: SortOptions
   avatarUrl: SortOptions
   slug: SortOptions
-  twitterUsername: SortOptions
   groups: SortOptions
   pageUrl: SortOptions
   pagePath: SortOptions
@@ -346,7 +349,7 @@ type Email {
   name: String 
   template: String 
   subject: String 
-  path: String 
+  testPath: String 
 }
 
 
@@ -417,14 +420,14 @@ input EmailFilterInput {
   name: String_Selector
   template: String_Selector
   subject: String_Selector
-  path: String_Selector
+  testPath: String_Selector
 }
 
 input EmailSortInput {
   name: SortOptions
   template: SortOptions
   subject: SortOptions
-  path: SortOptions
+  testPath: SortOptions
 }
 
 input EmailSelectorInput {
@@ -656,12 +659,342 @@ input CallbackSelectorUniqueInput {
 }
 
 
+# Type for Customers
+type Customer {
+  _id: String 
+  name: String 
+  notes: String 
+  stage: String 
+  meetingDate: Date 
+  productId: String 
+  product: Product 
+  isVIP: Boolean 
+  categories: [String] 
+  addresses: [CustomerAddresses] 
+  createdAtFormatted(format: String = "YYYY/MM/DD"): String 
+  meetingDateFormatted(format: String = "YYYY/MM/DD"): String 
+}
+
+
+input DeleteCustomerInput{
+  filter: CustomerFilterInput
+  id: String
+}
+
+input SingleCustomerInput {
+  # filtering
+  filter: CustomerFilterInput
+  sort: CustomerSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  "Deprecated (use 'filter/id' fields instead)."
+  selector: CustomerSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiCustomerInput {
+
+  # filtering
+  filter: CustomerFilterInput
+  sort: CustomerSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  "Deprecated (use 'filter/id' fields instead)."
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleCustomerOutput{
+  result: Customer
+}
+
+type  MultiCustomerOutput{
+  results: [Customer]
+  totalCount: Int
+}
+
+type CustomerMutationOutput{
+  data: Customer
+}
+
+input CreateCustomerInput {
+  data: CreateCustomerDataInput!
+}
+
+input CreateCustomerDataInput {
+  name: String 
+  notes: String 
+  stage: String 
+  meetingDate: Date 
+  productId: String 
+  isVIP: Boolean 
+  categories: [String] 
+  addresses: [CreateCustomerAddressesDataInput] 
+}
+
+input UpdateCustomerInput{
+  filter: CustomerFilterInput
+  id: String
+  data: UpdateCustomerDataInput!
+}
+
+input UpsertCustomerInput{
+  filter: CustomerFilterInput
+  id: String
+  data: UpdateCustomerDataInput!
+}
+
+input UpdateCustomerDataInput {
+  name: String 
+  notes: String 
+  stage: String 
+  meetingDate: Date 
+  productId: String 
+  isVIP: Boolean 
+  categories: [String] 
+  addresses: [UpdateCustomerAddressesDataInput] 
+}
+
+input CustomerFilterInput {
+  _and: [CustomerFilterInput]
+  _not: CustomerFilterInput
+  _or: [CustomerFilterInput]
+
+
+  _id: String_Selector
+  name: String_Selector
+  notes: String_Selector
+  stage: String_Selector
+  meetingDate: Date_Selector
+  productId: String_Selector
+  isVIP: Boolean_Selector
+  categories: String_Array_Selector
+
+}
+
+input CustomerSortInput {
+  _id: SortOptions
+  name: SortOptions
+  notes: SortOptions
+  stage: SortOptions
+  meetingDate: SortOptions
+  productId: SortOptions
+  isVIP: SortOptions
+  categories: SortOptions
+  addresses: SortOptions
+}
+
+input CustomerSelectorInput {
+  _and: [CustomerSelectorInput]
+  _or: [CustomerSelectorInput]
+
+}
+
+input CustomerSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+type CustomerAddresses {
+  street: String 
+  country: String 
+  zipCode: Float 
+}
+
+
+input CreateCustomerAddressesInput {
+  data: CreateCustomerAddressesDataInput!
+}
+
+input CreateCustomerAddressesDataInput {
+  street: String 
+  country: String 
+  zipCode: Float 
+}
+
+input UpdateCustomerAddressesInput{
+  filter: CustomerAddressesFilterInput
+  id: String
+  data: UpdateCustomerAddressesDataInput!
+}
+
+input UpsertCustomerAddressesInput{
+  filter: CustomerAddressesFilterInput
+  id: String
+  data: UpdateCustomerAddressesDataInput!
+}
+
+input UpdateCustomerAddressesDataInput {
+  street: String 
+  country: String 
+  zipCode: Float 
+}
+
+input CustomerAddressesFilterInput {
+  _and: [CustomerAddressesFilterInput]
+  _not: CustomerAddressesFilterInput
+  _or: [CustomerAddressesFilterInput]
+
+
+  street: String_Selector
+  country: String_Selector
+  zipCode: Float_Selector
+}
+
+input CustomerAddressesSortInput {
+  street: SortOptions
+  country: SortOptions
+  zipCode: SortOptions
+}
+
+
+# Type for Products
+type Product {
+  _id: String 
+  name: String 
+  createdAtFormatted(format: String = "YYYY/MM/DD"): String 
+}
+
+
+input DeleteProductInput{
+  filter: ProductFilterInput
+  id: String
+}
+
+input SingleProductInput {
+  # filtering
+  filter: ProductFilterInput
+  sort: ProductSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  "Deprecated (use 'filter/id' fields instead)."
+  selector: ProductSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+input MultiProductInput {
+
+  # filtering
+  filter: ProductFilterInput
+  sort: ProductSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  "Deprecated (use 'filter/id' fields instead)."
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  
+}
+
+type SingleProductOutput{
+  result: Product
+}
+
+type  MultiProductOutput{
+  results: [Product]
+  totalCount: Int
+}
+
+type ProductMutationOutput{
+  data: Product
+}
+
+input CreateProductInput {
+  data: CreateProductDataInput!
+}
+
+input CreateProductDataInput {
+  name: String 
+}
+
+input UpdateProductInput{
+  filter: ProductFilterInput
+  id: String
+  data: UpdateProductDataInput!
+}
+
+input UpsertProductInput{
+  filter: ProductFilterInput
+  id: String
+  data: UpdateProductDataInput!
+}
+
+input UpdateProductDataInput {
+  name: String 
+}
+
+input ProductFilterInput {
+  _and: [ProductFilterInput]
+  _not: ProductFilterInput
+  _or: [ProductFilterInput]
+
+
+  _id: String_Selector
+  name: String_Selector
+}
+
+input ProductSortInput {
+  _id: SortOptions
+  name: SortOptions
+}
+
+input ProductSelectorInput {
+  _and: [ProductSelectorInput]
+  _or: [ProductSelectorInput]
+
+}
+
+input ProductSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
 
 
 type Query {
   siteData: Site
   
   currentUser: User
+  
+  getDatabaseObject(id: String): JSON
   
   SchemaContents: String
   
@@ -678,6 +1011,18 @@ type Query {
   settings(input: MultiSettingInput):  MultiSettingOutput
   
   callbacks(input: MultiCallbackInput):  MultiCallbackOutput
+  
+  # A single Customer document fetched by ID or slug
+  customer(input: SingleCustomerInput!): SingleCustomerOutput
+  
+  # A list of Customer documents matching a set of query terms
+  customers(input: MultiCustomerInput):  MultiCustomerOutput
+  
+  # A single Product document fetched by ID or slug
+  product(input: SingleProductInput!): SingleProductOutput
+  
+  # A list of Product documents matching a set of query terms
+  products(input: MultiProductInput):  MultiProductOutput
   
 }
   
@@ -698,6 +1043,8 @@ type Mutation {
   sendVerificationEmail(input: AuthEmailInput): Boolean
 
   verifyEmail(input: VerifyEmailInput): VerifyEmailResult
+
+  testEmail(emailName: String) : EmailResponse
 
   # Mutation for creating new User documents
   createUser(
@@ -730,6 +1077,70 @@ type Mutation {
   "Deprecated (use 'input' field instead)."
   selector: UserSelectorUniqueInput
 ) : UserMutationOutput
+
+  # Mutation for creating new Customer documents
+  createCustomer(
+  input: CreateCustomerInput,
+  "Deprecated (use 'input' field instead)."
+  data: CreateCustomerDataInput
+) : CustomerMutationOutput
+
+  # Mutation for updating a Customer document
+  updateCustomer(
+  input: UpdateCustomerInput,
+  "Deprecated (use 'input' field instead)."
+  selector: CustomerSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateCustomerDataInput 
+) : CustomerMutationOutput
+
+  # Mutation for upserting a Customer document
+  upsertCustomer(
+  input: UpsertCustomerInput,
+  "Deprecated (use 'input' field instead)."
+  selector: CustomerSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateCustomerDataInput
+) : CustomerMutationOutput
+
+  # Mutation for deleting a Customer document
+  deleteCustomer(
+  input: DeleteCustomerInput,
+  "Deprecated (use 'input' field instead)."
+  selector: CustomerSelectorUniqueInput
+) : CustomerMutationOutput
+
+  # Mutation for creating new Product documents
+  createProduct(
+  input: CreateProductInput,
+  "Deprecated (use 'input' field instead)."
+  data: CreateProductDataInput
+) : ProductMutationOutput
+
+  # Mutation for updating a Product document
+  updateProduct(
+  input: UpdateProductInput,
+  "Deprecated (use 'input' field instead)."
+  selector: ProductSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateProductDataInput 
+) : ProductMutationOutput
+
+  # Mutation for upserting a Product document
+  upsertProduct(
+  input: UpsertProductInput,
+  "Deprecated (use 'input' field instead)."
+  selector: ProductSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateProductDataInput
+) : ProductMutationOutput
+
+  # Mutation for deleting a Product document
+  deleteProduct(
+  input: DeleteProductInput,
+  "Deprecated (use 'input' field instead)."
+  selector: ProductSelectorUniqueInput
+) : ProductMutationOutput
 
 }
 
