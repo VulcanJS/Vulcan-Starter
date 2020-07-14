@@ -1,6 +1,6 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import { Routes } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
 // Creating Routes
 
@@ -18,6 +18,17 @@ Well done, you've beaten level 1!
 By the way, when developing locally you can review all your routes using the [Routes dashboard](/debug/routes), if you have the [debug package](http://docs.vulcanjs.org/debug.html) enabled. You can use it anytime to double-check if a route is properly enabled, though I trust you won't use it to cheat and get ahead in the tutorial…
 `;
 
-const Step1 = () => <Step step={1} text={text} after={after}/>;
+const Step = () => (
+  <StepWrapper
+    title={Step.title}
+    text={text}
+    after={after}
+    check={() => {
+      return !!Routes.step2;
+    }}
+  />
+);
 
-export default Step1;
+Step.title = 'Creating Routes';
+
+export default Step;

@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-  Components,
-  registerComponent,
-  withCurrentUser,
-  getSetting,
-} from 'meteor/vulcan:core';
+import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 // import { docco } from 'react-syntax-highlighter/styles/hljs';
+import { useLocation } from 'react-router-dom';
 
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
@@ -16,15 +12,15 @@ import { okaidia } from 'react-syntax-highlighter/styles/prism';
 import checks from '../../modules/checks';
 import sections from '../../modules/sections.js';
 
-const isCode = t => t.slice(0, 3) === '~~~';
+const isCode = (t) => t.slice(0, 3) === '~~~';
 const languages = {
   js: 'jsx',
   gq: 'graphql',
-  sh: 'powershell'
+  sh: 'powershell',
 };
 
 // see https://github.com/rexxars/react-markdown-examples/blob/master/examples/custom-renderers/link-renderer.js
-const LinkRenderer = props =>
+const LinkRenderer = (props) =>
   props.href.match(/^(https?:)?\/\//) ? (
     <a href={props.href} target="_blank">
       {props.children}
@@ -72,17 +68,18 @@ const TextBlocks = ({ textArray, currentUser }) => (
   </div>
 );
 
-const Step = props => {
-  const { step, text, after, children, firstStep = false, currentUser } = props;
+const StepWrapper = (props) => {
+  const { text, after, children, firstStep = false, currentUser, check } = props;
+
+  const { pathname } = useLocation();
+  const step = pathname.split('/').reverse()[0];
 
   const textArray = Array.isArray(text) ? text : [text];
   const afterArray = Array.isArray(after) ? after : [after];
 
-  const buttonText = firstStep
-    ? 'Let\'s get started!'
-    : `Move on to Step ${step + 1}`;
+  const buttonText = firstStep ? "Let's get started!" : `Move on to Step ${step + 1}`;
 
-  const passCheck = getSetting('passAllChecks') || checks[`step${step}`](props);
+  const passCheck = check(props);
 
   return (
     <div className="step">
@@ -115,6 +112,4 @@ const Step = props => {
   );
 };
 
-// registerComponent({ name: 'Step', component: Step, hocs: [withCurrentUser] });
-
-export default Step;
+export default StepWrapper;

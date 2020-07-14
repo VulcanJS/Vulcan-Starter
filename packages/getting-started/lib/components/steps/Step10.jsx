@@ -1,6 +1,5 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import StepWrapper from './StepWrapper.jsx';
 
 // Loading Data
 
@@ -20,8 +19,10 @@ Wow, look at that! The \`useMulti2\` hook did its job and loaded a list of movie
 By the way, in case you're wondering the \`2\` in \`useMulti2\` and \`useSingle2\` are a temporary backwards-compatibility measure to indicate that these hooks use the newer version of Vulcan's own internal API. 
 `;
 
-const Step10 = () => (
-  <Step step={10} text={text} after={after} />
-);
+// TODO check
 
-export default Step10;
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} check={() => true} />;
+
+Step.title = 'Loading Data';
+
+export default Step;

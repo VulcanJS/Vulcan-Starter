@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Resolvers = ({ resolvers = [] }) => (
+const Queries = ({ queries = [] }) => (
   <div className="query-resolvers">
     <ul>
-      {resolvers.map((resolver) => (
+      {queries.map((resolver) => (
         <li key={resolver.name}>
           {['movies', 'movie'].includes(resolver.name) ? (
             <strong>{resolver.name}</strong>
@@ -16,4 +16,4 @@ const Resolvers = ({ resolvers = [] }) => (
   </div>
 );
 
-export default Resolvers;
+export default Queries;

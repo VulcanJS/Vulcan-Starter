@@ -24,11 +24,11 @@ const schema = {
     Uncomment on #Step12:
 
     */
-    // relation: {
-    //   fieldName: 'user',
-    //   typeName: 'User',
-    //   kind: 'hasOne'
-    // }
+    relation: {
+      fieldName: 'user',
+      typeName: 'User',
+      kind: 'hasOne'
+    }
   },
 
   name: {

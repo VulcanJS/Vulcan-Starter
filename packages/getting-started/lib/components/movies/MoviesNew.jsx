@@ -1,15 +1,13 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import { Components } from 'meteor/vulcan:core';
 
 import Movies from '../../modules/collection.js';
 
 // uncomment children on #Step15:
 const MoviesNew = () => (
   <div className="movies-new">
-    {/* <Components.SmartForm collection={Movies} mutationFragmentName="MovieFragment"/> */}
+    <Components.SmartForm collection={Movies} mutationFragmentName="MovieFragment"/>
   </div>
 );
-
-registerComponent({ name: 'MoviesNew', component: MoviesNew });
 
 export default MoviesNew;

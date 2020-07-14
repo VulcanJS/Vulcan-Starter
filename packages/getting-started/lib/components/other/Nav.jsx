@@ -1,42 +1,36 @@
 import React from 'react';
-import { registerComponent, withCurrentUser, getSetting } from 'meteor/vulcan:core';
+import { registerComponent, withCurrentUser, getSetting, Routes } from 'meteor/vulcan:core';
 import { NavLink } from 'react-router-dom';
 
 import checks from '../../modules/checks.js';
 import withQueryResolvers from '../../hocs/withQueryResolvers.js';
 import withMutationResolvers from '../../hocs/withMutationResolvers.js';
-import sections from '../../modules/sections.js';
 
-const Nav = props => {
+const Nav = (props) => {
   let allChecksPassed = true;
-
   return (
     <div className="nav">
       <ul>
-        <li className="nav-item">
-          <NavLink exact activeClassName="active" to="/">
-            {sections[0]}
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink activeClassName="active" to="/step/1">
-            1. {sections[1]}
-          </NavLink>
-        </li>
-        {_.range(1, 20).map(i => {
-          const passCheck = getSetting('passAllChecks') || checks[`step${i}`](props);
+        {_.range(0, 20).map((i) => {
+          const route = Routes[`step${i}`];
+          if (!route) {
+            return null;
+          }
+          const title = route.component.title;
+          // const passCheck = getSetting('passAllChecks') || checks[`step${i}`](props);
+          const passCheck = false;
           if (!passCheck) {
             allChecksPassed = false;
           }
           return allChecksPassed ? (
             <li className="nav-item" key={i}>
-              <NavLink activeClassName="active" to={`/step/${i + 1}`}>
-                {i + 1}. {sections[i + 1]}
+              <NavLink activeClassName="active" to={`/step/${i}`}>
+                {i}. {title}
               </NavLink>
             </li>
           ) : (
             <li className="nav-item" key={i}>
-              {i + 1}. {sections[i + 1]}
+              {i}. {title}
             </li>
           );
         })}
@@ -48,11 +42,7 @@ const Nav = props => {
 registerComponent({
   name: 'Nav',
   component: Nav,
-  hocs: [
-    withQueryResolvers,
-    withCurrentUser,
-    withMutationResolvers
-  ]
+  hocs: [withQueryResolvers, withCurrentUser, withMutationResolvers],
 });
 
 export default Nav;

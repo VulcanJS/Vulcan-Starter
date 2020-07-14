@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Components } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import StepWrapper from './StepWrapper.jsx';
 
 // The GraphQL Schema
 
@@ -28,7 +28,7 @@ Let's quickly review it.
 3. The \`Query\` type is a special type whose properties define which queries (fetching data) your GraphQL endpoint can receive. 
 4. Similarly, the \`Mutation\` type does the same thing for mutations (modifying data).
 
-By the way, this would be a great time to start using the [React Devtools](https://github.com/facebook/react-devtools). For example, if you inspect the \`Step7\` component (select the “React” tab of your devtools then search for “Step7”) you can review this component's structure.
+By the way, during local development Vulcan automatically logs out your GraphQL schema whenever your app changes. Look for a \`schema.graphql\` file at the root of this project's directory. 
 `;
 
 const query = gql`
@@ -37,14 +37,16 @@ const query = gql`
   }
 `;
 
-const Step7 = () => {
+const Step = () => {
   const items = {};
   items.data = useQuery(query).data; // uncomment on #Step7;
   return (
-    <Step step={7} text={text} after={after} items={items}>
+    <StepWrapper title={Step.title} text={text} after={after} check={() => !!items.data}>
       {items.data && <Components.GraphQLSchema data={items.data} />}
-    </Step>
+    </StepWrapper>
   );
 };
 
-export default Step7;
+Step.title = 'The GraphQL Schema';
+
+export default Step;

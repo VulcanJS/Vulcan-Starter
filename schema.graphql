@@ -354,6 +354,7 @@ type Movie {
   _id: String 
   createdAt: Date 
   userId: String 
+  user: User 
   name: String 
   review: String 
   createdAtFormatted(format: String = "YYYY/MM/DD"): String 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import StepWrapper from './StepWrapper.jsx';
 
 // Core Components
 
@@ -18,14 +18,16 @@ In Vulcan any registered component can be accessed as \`<Components.ComponentNam
 
 // uncomment the component's children on #Step4:
 
-const Step4 = () => (
-  <Step step={4} text={text} after={after}>
+const Step = () => (
+  <StepWrapper title={Step.title} text={text} after={after} check={({ children }) => !!children}>
     {/*     
     <Components.ModalTrigger component={<a href="#">Click Me!</a>}>
       <div>Hello World!</div>
     </Components.ModalTrigger> 
     */}
-  </Step>
+  </StepWrapper>
 );
 
-export default Step4;
+Step.title = 'Core Components';
+
+export default Step;

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import StepWrapper from './StepWrapper.jsx';
 
 // Next Steps
 
@@ -33,8 +32,8 @@ You shoud also always keep an eye on the [Vulcan documentation](http://docs.vulc
 Finally, if you run into any issue there's always the [Vulcan Slack channel](http://slack.vulcanjs.org/). See you very soon, and thanks for checking out Vulcan!
 `;
 
-const Step20 = () => (
-  <Step step={20} text={text} lastStep={true} />
-);
+const Step = () => <StepWrapper title={Step.title} text={text} lastStep={true} />;
 
-export default Step20;
+Step.title = 'Next Steps';
+
+export default Step;

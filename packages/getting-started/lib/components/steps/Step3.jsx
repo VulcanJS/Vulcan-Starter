@@ -1,6 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import StepWrapper from './StepWrapper.jsx';
 import { useLocation } from 'react-router-dom';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
@@ -19,16 +19,18 @@ const after = `
 This illustrate an important Vulcan principle: even though Vulcan has many of its own internal APIs, whenever possible we try to rely on standard ecosystem tools like React Router, [Apollo Client](https://www.apollographql.com/docs/react/) (for getting data to and from our GraphQL endpoint), React itself, and many other npm packages. No need to reinvent the wheel!
 `;
 
-const Step3 = () => {
+const Step = () => {
   const items = {};
   // items.pathname = useLocation().pathname; // uncomment on #Step3
   return (
-    <Step step={3} text={text} after={after} items={items}>
+    <StepWrapper title={Step.title} text={text} after={after} check={() => !!items.pathname}>
       {items.pathname && (
         <SyntaxHighlighter style={okaidia}>{`The current path is: ${items.pathname}`}</SyntaxHighlighter>
       )}
-    </Step>
+    </StepWrapper>
   );
 };
 
-export default Step3;
+Step.title = 'React Hooks';
+
+export default Step;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import StepWrapper from './StepWrapper.jsx';
+import Movies from '../../modules/collection.js';
 
 // Permissions
 
@@ -13,11 +13,13 @@ Start by signing out and creating a new account, which this time *won't* be an A
 
 Find \`lib/modules/collection.js\` and uncomment the \`permissions\` property.`;
 
-const after = [`
+const after = [
+  `
 The “New” button should be back, so try creating a new movie. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
 
 So how does this work? Let's review the permissions code we added:
-`,`
+`,
+  `
 ~~~js
 {
   canRead: ['guests'],
@@ -26,7 +28,8 @@ So how does this work? Let's review the permissions code we added:
   canDelete: ['owners'],
 }
 ~~~
-`,`
+`,
+  `
 
 First, we've declared that any user belonging to the \`guests\` group (in other words anybody accessing our API, even without being authentified) can read (i.e. access) a movie document. This is actually the default for any new collection, so specifying \`canRead\` is not strictly necessary unless you do want to restrict documents to specific groups. 
 
@@ -34,11 +37,19 @@ Then, we declare that any \`members\` (in other words any user, as long as they 
 
 Finally, for Update and Delete operations, we check if a user belongs to the \`owners\` group, in other words whether the modified document's \`userId\` property is equal to the user's own \`_id\`.
 
-You can consider these three default groups (along with the \`admins\`) like shortcuts to common user roles. But you can also create your own custom groups, or even provide your own permission checks that bypass groups altogether. 
-`];
+You can consider these three default groups (along with the \`admins\` group) like shortcuts to common user roles. But you can also create your own custom groups, or even provide your own permission checks that bypass groups altogether. 
+`,
+];
 
-const Step17 = () => (
-  <Step step={17} text={text} after={after}/>
+const Step = () => (
+  <StepWrapper
+    title={Step.title}
+    text={text}
+    after={after}
+    check={() => Movies && Movies.options && !!Movies.options.permissions}
+  />
 );
 
-export default Step17;
+Step.title = 'Permissions';
+
+export default Step;

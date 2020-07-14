@@ -1,8 +1,9 @@
 import React from 'react';
-import { Components, registerComponent, withMulti } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
-
-import withMutationResolvers from '../../hocs/withMutationResolvers.js';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import get from 'lodash/get';
+import StepWrapper from './StepWrapper.jsx';
+import Mutations from '../other/Mutations.jsx';
 
 // Mutations
 
@@ -13,21 +14,37 @@ Now don't worry, I'm not talking about giving data extra arms and the ability to
 
 Just like with resolvers, Vulcan offers some handy [auto-generated mutations](http://docs.vulcanjs.org/mutations.html#Default-Mutations).
 
-Go to \`lib/components/steps/Step14.jsx\` and uncomment the \`<Components.Mutations />\` line. 
+Go to \`lib/components/steps/Step14.jsx\` and uncomment the \`<Mutations />\` line. 
 `;
 
 const after = `
 As you can see, our three \`createMovie\`, \`updateMovie\`, and \`deleteMovie\` mutations are ready to use. In other words, if we send down the proper mutation, our GraphQL endpoint will be able to understand it and create, edit, or delete a document in our database. 
 
-By the way, we've been talking about auto-generated mutations but you can also [write your own](http://docs.vulcanjs.org/mutations.html#GraphQL-Mutations) Create, Update, and Delete mutations resolvers on the server if you need to (and the same also goes for the Multi, Single, and Total query resolvers). 
-`
+By the way, we've been talking about auto-generated mutations but you can also [write your own](http://docs.vulcanjs.org/mutations.html#GraphQL-Mutations) create, update, and delete mutations resolvers on the server if you need to (and the same also goes for the multi and single query resolvers). 
+`;
 
-// uncomment the component's child on #Step14
+const query = gql`
+  query MutationResolvers {
+    __type(name: "Mutation") {
+      fields {
+        name
+      }
+    }
+  }
+`;
 
-const Step14 = () => (
-  <Step step={14} text={text} after={after}>
-    {/* <Components.Mutations /> */}
-  </Step>
-);
+const Step = () => {
+  const items = {};
+  // uncomment the hook on #Step14
+  const { data } = useQuery(query);
+  items.mutations = get(data, '__type.fields');
+  return (
+    <StepWrapper title={Step.title} text={text} after={after} check={() => !!items.mutations}>
+      <Mutations mutations={items.mutations} />
+    </StepWrapper>
+  );
+};
 
-export default Step14;
+Step.title = 'Mutations';
+
+export default Step;

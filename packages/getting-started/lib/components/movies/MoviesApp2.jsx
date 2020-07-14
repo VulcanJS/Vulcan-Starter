@@ -2,11 +2,12 @@ import React from 'react';
 import { Components, replaceComponent } from 'meteor/vulcan:core';
 
 import Movies from '../../modules/collection.js';
+import MoviesUsers from './MoviesUsers.jsx';
 
 const MoviesApp2 = () => (
   <div className="app-content">
     <div className="movies-app">
-      <Components.MoviesUsers />
+      <MoviesUsers />
       <Components.Datatable 
         collection={Movies} 
         columns={['name', 'review']}
@@ -16,4 +17,4 @@ const MoviesApp2 = () => (
   </div>
 );
 
-replaceComponent('MoviesApp', MoviesApp2);
+export default MoviesApp2;

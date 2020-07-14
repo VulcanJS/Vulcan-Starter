@@ -2,10 +2,10 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import get from 'lodash/get';
-import Step from './Step.jsx';
-import Resolvers from '../other/Resolvers.jsx';
+import StepWrapper from './StepWrapper.jsx';
+import Queries from '../other/Queries.jsx';
 
-// Resolvers
+// Query Resolvers
 
 const text = `
 Now that our data exists on the server, let's think about transmitting it to the client. 
@@ -50,16 +50,18 @@ const query = gql`
   }
 `;
 
-// uncomment the component's child on #Step9
-
-const Step9 = () => {
+const Step = () => {
+  const item = {};
+  // uncomment the hook on #Step9
   const { data } = useQuery(query);
-  const resolvers = get(data, '__type.fields');
+  item.queries = get(data, '__type.fields');
   return (
-    <Step step={9} text={text} after={after}>
-      {/* <Resolvers resolvers={resolvers} /> */}
-    </Step>
+    <StepWrapper title={Step.title} text={text} after={after} check={() => !!item.queries}>
+      <Queries queries={item.queries} />
+    </StepWrapper>
   );
 };
 
-export default Step9;
+Step.title = 'Query Resolvers';
+
+export default Step;

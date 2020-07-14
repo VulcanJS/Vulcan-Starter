@@ -4,8 +4,17 @@ import Users from 'meteor/vulcan:users';
 import schema from '../modules/schema.js';
 import Movies from '../modules/collection.js';
 
+import Layout from '../components/other/Layout.jsx';
+
+import MoviesNew from '../components/movies/MoviesNew.jsx';
+
 const containsChild = (component, childName) => {
+  console.log(component)
+
   const type = component && component().props.children && component().props.children.type;
+  console.log(type)
+  console.log(childName)
+
   return type && [type.name, type.displayName].includes(childName);
 }
 
@@ -47,8 +56,8 @@ const checks = {
     return props.moviesCount >= 8;
   },
 
-  step9: () => {
-    return containsChild(Components.Step9, 'withQueryResolvers(Resolvers)');
+  step9: (props) => {
+    return props.queries;
   },
 
   step10: () => {
@@ -63,24 +72,24 @@ const checks = {
   },
 
   step12: () => {
-    return schema.userId.resolveAs;
+    return schema.userId.relation;
   },
 
   step13: (props) => {
     return props.currentUser;
   },
 
-  step14: () => {
-    return containsChild(Components.Step14, 'withMutationResolvers(Mutations)');
+  step14: (props) => {
+    return props.mutations;
   },
 
   step15: () => {
-    return containsChild(Components.MoviesNew, 'withCurrentUser');
+    return containsChild(MoviesNew, 'withCurrentUser');
   },
 
   step16: () => {
-    return true
-    return ComponentsTable.MoviesApp.rawComponent.name === 'MoviesApp2';
+    return true;
+    // return containsChild(Layout, 'MoviesApp2');
   },
 
   step17: () => {

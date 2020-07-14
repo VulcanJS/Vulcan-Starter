@@ -1,14 +1,16 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
-import Step from './Step.jsx';
+import StepWrapper from './StepWrapper.jsx';
 
 // Sorting & Filtering
 
-const text = [`
+const text = [
+  `
 By default, our movies data will be unsorted. But what if we wanted to sort our list of movies alphabetically instead? Or generally have more control over what data we show? We can do all of this using [filtering and ordering](http://docs.vulcanjs.org/filtering.html). 
 
 First, we'll use the \`defaultInput\` collection option to provide default sorting options for the \`Movies\` collection. These will then be used whenever no other sorting options are explicitly provided. In  \'lib/modules/collection.js\', uncomment the \`defaultInput: { sort: { createdAt: 'desc' } }\` line.
-`];
+`,
+];
 
 const after = `
 Nice! If we've done our job correctly, you can add a new movie and it should now appear in top position. 
@@ -22,8 +24,10 @@ If you'd like, you can also try **filtering** the list. Replace the \`options\` 
 Once you get all this working, feel free to move on to the next step.
 `;
 
-const Step18 = () => (
-  <Step step={18} text={text} after={after}/>
-);
+// TODO check
 
-export default Step18;
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
+
+Step.title = 'Sorting & Filtering';
+
+export default Step;
