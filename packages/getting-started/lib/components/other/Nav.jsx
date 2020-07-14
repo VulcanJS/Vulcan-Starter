@@ -1,9 +1,8 @@
 import React from 'react';
-import { registerComponent, withCurrentUser } from 'meteor/vulcan:core';
+import { registerComponent, withCurrentUser, getSetting } from 'meteor/vulcan:core';
 import { NavLink } from 'react-router-dom';
 
 import checks from '../../modules/checks.js';
-import withMoviesCount from '../../hocs/withMoviesCount.js';
 import withQueryResolvers from '../../hocs/withQueryResolvers.js';
 import withMutationResolvers from '../../hocs/withMutationResolvers.js';
 import sections from '../../modules/sections.js';
@@ -25,7 +24,8 @@ const Nav = props => {
           </NavLink>
         </li>
         {_.range(1, 20).map(i => {
-          if (!checks[`step${i}`](props)) {
+          const passCheck = getSetting('passAllChecks') || checks[`step${i}`](props);
+          if (!passCheck) {
             allChecksPassed = false;
           }
           return allChecksPassed ? (
@@ -49,9 +49,10 @@ registerComponent({
   name: 'Nav',
   component: Nav,
   hocs: [
-    withMoviesCount,
     withQueryResolvers,
     withCurrentUser,
     withMutationResolvers
   ]
 });
+
+export default Nav;

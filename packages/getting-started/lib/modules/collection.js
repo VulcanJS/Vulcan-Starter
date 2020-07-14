@@ -18,18 +18,18 @@ Uncomment on #Step6:
 
 */
 
-// Movies = createCollection({
+Movies = createCollection({
 
-//   collectionName: 'Movies',
+  collectionName: 'Movies',
 
-//   typeName: 'Movie',
+  typeName: 'Movie',
 
-//   schema,
+  schema,
 
-//   // permissions, // uncomment on #Step17
+  // permissions, // uncomment on #Step17
 
-//   // defaultInput: { sort: { createdAt: 'desc' } } // uncomment on #Step18
+  // defaultInput: { sort: { createdAt: 'desc' } } // uncomment on #Step18
   
-// });
+});
 
 export default Movies;

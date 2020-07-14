@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Collections
 
@@ -30,11 +31,11 @@ As you can see, out of the box Vulcan already includes a \`Users\` collection, u
 `;
 
 const Step6 = () => (
-  <Components.Step step={6} text={text} after={after}>
+  <Step step={6} text={text} after={after}>
     <ul>
       {Collections.filter(c => !['Settings', 'Callbacks'].includes(c.options.collectionName)).map((c, i) => <li key={i}><code>{c.options.collectionName}</code></li>)}
     </ul>
-  </Components.Step>
+  </Step>
 );
 
-registerComponent({ name: 'Step6', component: Step6 });
+export default Step6;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Forms
 
@@ -22,7 +23,7 @@ By the way, you can build forms to edit documents the same way. Just pass an add
 `;
 
 const Step15 = () => (
-  <Components.Step step={15} text={text} after={after} />
+  <Step step={15} text={text} after={after} />
 );
 
-registerComponent({ name: 'Step15', component: Step15 });
+export default Step15;

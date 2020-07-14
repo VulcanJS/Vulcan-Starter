@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Internationalization
 
@@ -30,7 +31,7 @@ Congrats, you're almost to the end of the tutorial!
 `;
 
 const Step19 = () => (
-  <Components.Step step={19} text={text} after={after}/>
+  <Step step={19} text={text} after={after}/>
 );
 
-registerComponent({ name: 'Step19', component: Step19 });
+export default Step19;

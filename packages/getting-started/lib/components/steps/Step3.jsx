@@ -1,22 +1,34 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
+import { useLocation } from 'react-router-dom';
+import SyntaxHighlighter from 'react-syntax-highlighter/prism';
+import { okaidia } from 'react-syntax-highlighter/styles/prism';
 
-// Importing Components
+// React Hooks
 
 const text = `
-Registering a component tells Vulcan about it, but it's also important to make sure our component is properly *imported*, otherwise that registration function will never be executed in the first place!
+Before moving on, you should make sure you're familiar with [React Hooks](https://reactjs.org/docs/hooks-overview.html). Hooks are special React functions that give your components access to "superpowers" like managing their own state, loading and modifying data, or manipulating the URL.
 
-It turns out that's just what happened with \`Step4.jsx\`: the component is registered just fine, but the component's *file* itself is not being imported anywhere in the rest of our codebase. Let's fix this by going into \`lib/modules/components.js\` and uncommenting the \`Step4\` import. 
+We'll dig into Vulcan hooks later, but for now let's just refresh our memory by trying out React Router's \`useLocation\` hook. 
 
-Once we've done this, we can now go ahead and uncomment the **route** for step 4, following the same pattern as in previous steps. 
+Find the file for the \`Step3.jsx\` component (in other words, the one you're looking at right now!) and uncomment the \`const { pathname } = useLocation();\` line.
 `;
 
 const after = `
-It's easy to forget to import a file. A good pattern is to have a central \`components.js\` file that imports all of your app's components.
-
-Now let's learn a couple more Vulcan basics before we start building our little app. 
+This illustrate an important Vulcan principle: even though Vulcan has many of its own internal APIs, whenever possible we try to rely on standard ecosystem tools like React Router, [Apollo Client](https://www.apollographql.com/docs/react/) (for getting data to and from our GraphQL endpoint), React itself, and many other npm packages. No need to reinvent the wheel!
 `;
 
-const Step3 = () => <Components.Step step={3} text={text} after={after}/>;
+const Step3 = () => {
+  const items = {};
+  // items.pathname = useLocation().pathname; // uncomment on #Step3
+  return (
+    <Step step={3} text={text} after={after} items={items}>
+      {items.pathname && (
+        <SyntaxHighlighter style={okaidia}>{`The current path is: ${items.pathname}`}</SyntaxHighlighter>
+      )}
+    </Step>
+  );
+};
 
-// registerComponent({ name: 'Step3', component: Step3 }); // uncomment on #Step2
+export default Step3;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { registerComponent } from 'meteor/vulcan:core';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
 
@@ -59,4 +58,4 @@ const Schema = () => (
   </div>
 );
 
-registerComponent({ name: 'Schema', component: Schema });
+export default Schema;

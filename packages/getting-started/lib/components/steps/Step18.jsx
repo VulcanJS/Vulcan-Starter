@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Sorting & Filtering
 
@@ -22,7 +23,7 @@ Once you get all this working, feel free to move on to the next step.
 `;
 
 const Step18 = () => (
-  <Components.Step step={18} text={text} after={after}/>
+  <Step step={18} text={text} after={after}/>
 );
 
-registerComponent({ name: 'Step18', component: Step18 });
+export default Step18;

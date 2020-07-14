@@ -1,24 +1,27 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Loading Data
 
 const text = `
-We already know that Vulcan uses HoCs to load data. Up to now, we've been using specific pre-written HoCs as part of this tutorial, but just like we've looked at collection query resolvers, we'll now look at Vulcan's core query HoCs. 
+We already know that Vulcan uses hooks to load data. Up to now, we've been using Apollo's regular \`useQuery\` hook as part of this tutorial, but it's now time to look at a couple Vulcan-specific hooks.
 
-These two HoCs, \`withMulti\` and \`withSingle\`, can be used to load a list of documents or a single document respectively with a minimal amount of manual work. 
+These two hooks, \`useMulti2\` and \`useSingle2\`, can be used to load a list of documents or a single document respectively without having to explicitly write out the contents of their GraphQL query.
 
-Find the \`MoviesList\` component in \`lib/components/movies/MoviesList.jsx\` and uncomment \`[withMulti, options]\` in the \`registerComponent\` line. 
+From now on, we'll start working on our little app over on the right hand side of the screen.
+
+So this time, instead of modifying this \`Step10.jsx\` component, find the \`MoviesList\` component in \`lib/components/movies/MoviesList.jsx\` and uncomment the \`useMulti2\` group of lines. 
 `;
 
 const after = `
-Wow, look at that! The \`withMulti\` component did its job and loaded a list of movies for us. And all we had to do was to pass it a \`collection\` option to indicate where to load data from.
+Wow, look at that! The \`useMulti2\` hook did its job and loaded a list of movies for us. And all we had to do was to pass it a \`collection\` option to indicate where to load data from.
 
-You might be wondering about the weird \`[withMulti, options]\` syntax. This is just a small hack to delay calling the \`withMulti\` function until later on. If that doesn't make any sense to you, feel free to ignore it for now and just copy-and-paste this syntax structure. 
+By the way, in case you're wondering the \`2\` in \`useMulti2\` and \`useSingle2\` are a temporary backwards-compatibility measure to indicate that these hooks use the newer version of Vulcan's own internal API. 
 `;
 
 const Step10 = () => (
-  <Components.Step step={10} text={text} after={after} />
+  <Step step={10} text={text} after={after} />
 );
 
-registerComponent({ name: 'Step10', component: Step10 });
+export default Step10;

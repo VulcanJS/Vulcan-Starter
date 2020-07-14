@@ -15,3 +15,5 @@ const MoviesUsers = ({ currentUser }) => (
 );
 
 registerComponent({ name: 'MoviesUsers', component: MoviesUsers, hocs: [withCurrentUser] });
+
+export default MoviesUsers;

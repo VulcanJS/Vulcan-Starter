@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Relations
 
@@ -47,7 +48,7 @@ Also, while we've used Vulcan's automatic \`hasOne\` relation here, you can also
 `;
 
 const Step12 = () => (
-  <Components.Step step={12} text={text} after={after} />
+  <Step step={12} text={text} after={after} />
 );
 
-registerComponent({ name: 'Step12', component: Step12 });
+export default Step12;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent, withMulti } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 import withMutationResolvers from '../../hocs/withMutationResolvers.js';
 
@@ -24,9 +25,9 @@ By the way, we've been talking about auto-generated mutations but you can also [
 // uncomment the component's child on #Step14
 
 const Step14 = () => (
-  <Components.Step step={14} text={text} after={after}>
+  <Step step={14} text={text} after={after}>
     {/* <Components.Mutations /> */}
-  </Components.Step>
+  </Step>
 );
 
-registerComponent({ name: 'Step14', component: Step14 });
+export default Step14;

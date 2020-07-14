@@ -1,7 +1,7 @@
 import React from 'react';
-import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
-
-import withMoviesCount from '../../hocs/withMoviesCount.js';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import Step from './Step.jsx';
 
 // Seeding
 
@@ -30,7 +30,7 @@ seedMovies()
 `];
 
 const after = [`
-Well done! Our secret informant on the server (a.k.a. the \`withMoviesCount\` HoC) has confirmed that there are now 8 movies in our database. 
+Well done! A GraphQL request to the \`moviesCount\` query has confirmed that there are now movies seeded into our database. 
 
 By the way, a useful companion to the Meteor Shell is Meteor's [database access](https://docs.meteor.com/commandline.html#meteormongo):
 `,`
@@ -60,10 +60,20 @@ db.movies.remove({})
 }
 ];
 
-const Step8 = ({ loading, moviesCount }) => (
-  <Components.Step step={8} text={text} after={after} moviesCount={moviesCount}>
-    <div className="movies-count">Current movies count: {moviesCount}</div>
-  </Components.Step>
-);
+const query = gql`
+  query moviesCount{
+      moviesCount
+    }
+`;
 
-registerComponent({ name: 'Step8', component: Step8, hocs: [withMoviesCount] });
+const Step8 = () => {
+  const items = {};
+  const { data } = useQuery(query);
+  items.moviesCount = data && data.moviesCount;
+  return (
+  <Step step={8} text={text} after={after} moviesCount={items.moviesCount}>
+    <div className="movies-count">Current movies count: {items.moviesCount}</div>
+  </Step>
+)};
+
+export default Step8;

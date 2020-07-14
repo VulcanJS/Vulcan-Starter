@@ -1,5 +1,6 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
+import Schema from '../other/Schema.jsx';
 
 // Schemas
 
@@ -10,7 +11,7 @@ In Vulcan, each type of data belongs to its own **collection** (or **model** if 
 
 Each collection features a [schema](http://docs.vulcanjs.org/schemas.html) that defines what a post, comment, or movie should look like (in other words, what fields it should have).
 
-This package already includes a pre-written schema for a \`Movies\` collection. Just find this component (\`Step5.jsx\`) and uncomment the \`<Components.Schema/>\` component to display its contents below: 
+This package already includes a pre-written schema for a \`Movies\` collection. Just find this component (\`Step5.jsx\`) and uncomment the \`<Schema/>\` component to display its contents below: 
 `;
 
 const after = `
@@ -33,9 +34,9 @@ Note that the first account you create in any Vulcan app automatically belongs t
 // uncomment the component's child on #Step5:
 
 const Step5 = () => (
-  <Components.Step step={5} text={text} after={after}>
-    {/* <Components.Schema/> */}
-  </Components.Step>
+  <Step step={5} text={text} after={after}>
+    {/* <Schema/> */}
+  </Step>
 );
 
-registerComponent({ name: 'Step5', component: Step5 });
+export default Step5;

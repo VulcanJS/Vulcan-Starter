@@ -24,7 +24,7 @@ input String_Selector {
 
 input String_Array_Selector {
   _in: [String!]
-  # _contains: String_Selector
+  _contains: String
   # _contains_all: [String_Selector]
 }
 
@@ -179,17 +179,19 @@ type User {
   emailHash: String 
   avatarUrl: String 
   slug: String 
-  twitterUsername: String 
   groups: [String] 
   pageUrl: String 
   pagePath: String 
   editUrl: String 
+  createdAtFormatted(format: String = "YYYY/MM/DD"): String 
 }
 
 
 input DeleteUserInput{
   filter: UserFilterInput
   id: String
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
 input SingleUserInput {
@@ -208,6 +210,8 @@ input SingleUserInput {
   enableCache: Boolean
   # Return null instead of throwing MissingDocumentError
   allowNull: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
 }
 
 input MultiUserInput {
@@ -229,6 +233,8 @@ input MultiUserInput {
   enableCache: Boolean
   # Whether to calculate totalCount for this query
   enableTotal: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
   
 }
 
@@ -247,6 +253,8 @@ type UserMutationOutput{
 
 input CreateUserInput {
   data: CreateUserDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
 input CreateUserDataInput {
@@ -256,7 +264,6 @@ input CreateUserDataInput {
   profile: JSON 
   displayName: String 
   email: String 
-  twitterUsername: String 
   groups: [String] 
 }
 
@@ -264,12 +271,16 @@ input UpdateUserInput{
   filter: UserFilterInput
   id: String
   data: UpdateUserDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
 input UpsertUserInput{
   filter: UserFilterInput
   id: String
   data: UpdateUserDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
 input UpdateUserDataInput {
@@ -278,7 +289,6 @@ input UpdateUserDataInput {
   locale: String 
   displayName: String 
   email: String 
-  twitterUsername: String 
   groups: [String] 
 }
 
@@ -300,7 +310,6 @@ input UserFilterInput {
   emailHash: String_Selector
   avatarUrl: String_Selector
   slug: String_Selector
-  twitterUsername: String_Selector
   groups: String_Array_Selector
   pageUrl: String_Selector
   pagePath: String_Selector
@@ -320,7 +329,6 @@ input UserSortInput {
   emailHash: SortOptions
   avatarUrl: SortOptions
   slug: SortOptions
-  twitterUsername: SortOptions
   groups: SortOptions
   pageUrl: SortOptions
   pagePath: SortOptions
@@ -341,43 +349,49 @@ input UserSelectorUniqueInput {
 }
 
 
-# Type for Emails
-type Email {
+# Type for Movies
+type Movie {
+  _id: String 
+  createdAt: Date 
+  userId: String 
   name: String 
-  template: String 
-  subject: String 
-  path: String 
+  review: String 
+  createdAtFormatted(format: String = "YYYY/MM/DD"): String 
 }
 
 
-input DeleteEmailInput{
-  filter: EmailFilterInput
+input DeleteMovieInput{
+  filter: MovieFilterInput
   id: String
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
-input SingleEmailInput {
+input SingleMovieInput {
   # filtering
-  filter: EmailFilterInput
-  sort: EmailSortInput
+  filter: MovieFilterInput
+  sort: MovieSortInput
   search: String
   id: String
 
   # backwards-compatibility
   "Deprecated (use 'filter/id' fields instead)."
-  selector: EmailSelectorUniqueInput
+  selector: MovieSelectorUniqueInput
 
   # options (backwards-compatibility)
   # Whether to enable caching for this query
   enableCache: Boolean
   # Return null instead of throwing MissingDocumentError
   allowNull: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
 }
 
-input MultiEmailInput {
+input MultiMovieInput {
 
   # filtering
-  filter: EmailFilterInput
-  sort: EmailSortInput
+  filter: MovieFilterInput
+  sort: MovieSortInput
   search: String
   offset: Int
   limit: Int
@@ -392,263 +406,84 @@ input MultiEmailInput {
   enableCache: Boolean
   # Whether to calculate totalCount for this query
   enableTotal: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
   
 }
 
-type SingleEmailOutput{
-  result: Email
+type SingleMovieOutput{
+  result: Movie
 }
 
-type  MultiEmailOutput{
-  results: [Email]
+type  MultiMovieOutput{
+  results: [Movie]
   totalCount: Int
 }
 
-type EmailMutationOutput{
-  data: Email
+type MovieMutationOutput{
+  data: Movie
 }
 
-input EmailFilterInput {
-  _and: [EmailFilterInput]
-  _not: EmailFilterInput
-  _or: [EmailFilterInput]
-
-
-  name: String_Selector
-  template: String_Selector
-  subject: String_Selector
-  path: String_Selector
+input CreateMovieInput {
+  data: CreateMovieDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
-input EmailSortInput {
-  name: SortOptions
-  template: SortOptions
-  subject: SortOptions
-  path: SortOptions
-}
-
-input EmailSelectorInput {
-  _and: [EmailSelectorInput]
-  _or: [EmailSelectorInput]
-
-}
-
-input EmailSelectorUniqueInput {
-  _id: String
-  documentId: String # OpenCRUD backwards compatibility
-  slug: String
-
-}
-
-
-# Type for Settings
-type Setting {
+input CreateMovieDataInput {
   name: String 
-  value: JSON 
-  defaultValue: JSON 
-  isPublic: Boolean 
-  description: String 
+  review: String 
 }
 
-
-input DeleteSettingInput{
-  filter: SettingFilterInput
+input UpdateMovieInput{
+  filter: MovieFilterInput
   id: String
+  data: UpdateMovieDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
-input SingleSettingInput {
-  # filtering
-  filter: SettingFilterInput
-  sort: SettingSortInput
-  search: String
+input UpsertMovieInput{
+  filter: MovieFilterInput
   id: String
-
-  # backwards-compatibility
-  "Deprecated (use 'filter/id' fields instead)."
-  selector: SettingSelectorUniqueInput
-
-  # options (backwards-compatibility)
-  # Whether to enable caching for this query
-  enableCache: Boolean
-  # Return null instead of throwing MissingDocumentError
-  allowNull: Boolean
+  data: UpdateMovieDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
 }
 
-input MultiSettingInput {
-
-  # filtering
-  filter: SettingFilterInput
-  sort: SettingSortInput
-  search: String
-  offset: Int
-  limit: Int
-
-  # backwards-compatibility
-  # A JSON object that contains the query terms used to fetch data
-  "Deprecated (use 'filter/id' fields instead)."
-  terms: JSON
-
-  # options (backwards-compatibility)
-  # Whether to enable caching for this query
-  enableCache: Boolean
-  # Whether to calculate totalCount for this query
-  enableTotal: Boolean
-  
-}
-
-type SingleSettingOutput{
-  result: Setting
-}
-
-type  MultiSettingOutput{
-  results: [Setting]
-  totalCount: Int
-}
-
-type SettingMutationOutput{
-  data: Setting
-}
-
-input SettingFilterInput {
-  _and: [SettingFilterInput]
-  _not: SettingFilterInput
-  _or: [SettingFilterInput]
-
-
-  name: String_Selector
-
-
-  isPublic: Boolean_Selector
-  description: String_Selector
-}
-
-input SettingSortInput {
-  name: SortOptions
-  value: SortOptions
-  defaultValue: SortOptions
-  isPublic: SortOptions
-  description: SortOptions
-}
-
-input SettingSelectorInput {
-  _and: [SettingSelectorInput]
-  _or: [SettingSelectorInput]
-
-}
-
-input SettingSelectorUniqueInput {
-  _id: String
-  documentId: String # OpenCRUD backwards compatibility
-  slug: String
-
-}
-
-
-# Type for Callbacks
-type Callback {
+input UpdateMovieDataInput {
   name: String 
-  iterator: JSON 
-  properties: [JSON] 
-  runs: String 
-  newSyntax: Boolean 
-  returns: String 
-  description: String 
-  hooks: [String] 
+  review: String 
 }
 
-
-input DeleteCallbackInput{
-  filter: CallbackFilterInput
-  id: String
-}
-
-input SingleCallbackInput {
-  # filtering
-  filter: CallbackFilterInput
-  sort: CallbackSortInput
-  search: String
-  id: String
-
-  # backwards-compatibility
-  "Deprecated (use 'filter/id' fields instead)."
-  selector: CallbackSelectorUniqueInput
-
-  # options (backwards-compatibility)
-  # Whether to enable caching for this query
-  enableCache: Boolean
-  # Return null instead of throwing MissingDocumentError
-  allowNull: Boolean
-}
-
-input MultiCallbackInput {
-
-  # filtering
-  filter: CallbackFilterInput
-  sort: CallbackSortInput
-  search: String
-  offset: Int
-  limit: Int
-
-  # backwards-compatibility
-  # A JSON object that contains the query terms used to fetch data
-  "Deprecated (use 'filter/id' fields instead)."
-  terms: JSON
-
-  # options (backwards-compatibility)
-  # Whether to enable caching for this query
-  enableCache: Boolean
-  # Whether to calculate totalCount for this query
-  enableTotal: Boolean
-  
-}
-
-type SingleCallbackOutput{
-  result: Callback
-}
-
-type  MultiCallbackOutput{
-  results: [Callback]
-  totalCount: Int
-}
-
-type CallbackMutationOutput{
-  data: Callback
-}
-
-input CallbackFilterInput {
-  _and: [CallbackFilterInput]
-  _not: CallbackFilterInput
-  _or: [CallbackFilterInput]
+input MovieFilterInput {
+  _and: [MovieFilterInput]
+  _not: MovieFilterInput
+  _or: [MovieFilterInput]
 
 
+  _id: String_Selector
+  createdAt: Date_Selector
+  userId: String_Selector
   name: String_Selector
-
-
-  runs: String_Selector
-  newSyntax: Boolean_Selector
-  returns: String_Selector
-  description: String_Selector
-
+  review: String_Selector
 }
 
-input CallbackSortInput {
+input MovieSortInput {
+  _id: SortOptions
+  createdAt: SortOptions
+  userId: SortOptions
   name: SortOptions
-  iterator: SortOptions
-  properties: SortOptions
-  runs: SortOptions
-  newSyntax: SortOptions
-  returns: SortOptions
-  description: SortOptions
-  hooks: SortOptions
+  review: SortOptions
 }
 
-input CallbackSelectorInput {
-  _and: [CallbackSelectorInput]
-  _or: [CallbackSelectorInput]
+input MovieSelectorInput {
+  _and: [MovieSelectorInput]
+  _or: [MovieSelectorInput]
 
 }
 
-input CallbackSelectorUniqueInput {
+input MovieSelectorUniqueInput {
   _id: String
   documentId: String # OpenCRUD backwards compatibility
   slug: String
@@ -663,9 +498,9 @@ type Query {
   
   currentUser: User
   
-  SchemaContents: String
+  schemaContents: String
   
-  MoviesCount: Int
+  moviesCount: Int
   
   # A single User document fetched by ID or slug
   user(input: SingleUserInput!): SingleUserOutput
@@ -673,11 +508,11 @@ type Query {
   # A list of User documents matching a set of query terms
   users(input: MultiUserInput):  MultiUserOutput
   
-  emails(input: MultiEmailInput):  MultiEmailOutput
+  # A single Movie document fetched by ID or slug
+  movie(input: SingleMovieInput!): SingleMovieOutput
   
-  settings(input: MultiSettingInput):  MultiSettingOutput
-  
-  callbacks(input: MultiCallbackInput):  MultiCallbackOutput
+  # A list of Movie documents matching a set of query terms
+  movies(input: MultiMovieInput):  MultiMovieOutput
   
 }
   
@@ -730,6 +565,38 @@ type Mutation {
   "Deprecated (use 'input' field instead)."
   selector: UserSelectorUniqueInput
 ) : UserMutationOutput
+
+  # Mutation for creating new Movie documents
+  createMovie(
+  input: CreateMovieInput,
+  "Deprecated (use 'input' field instead)."
+  data: CreateMovieDataInput
+) : MovieMutationOutput
+
+  # Mutation for updating a Movie document
+  updateMovie(
+  input: UpdateMovieInput,
+  "Deprecated (use 'input' field instead)."
+  selector: MovieSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateMovieDataInput 
+) : MovieMutationOutput
+
+  # Mutation for upserting a Movie document
+  upsertMovie(
+  input: UpsertMovieInput,
+  "Deprecated (use 'input' field instead)."
+  selector: MovieSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateMovieDataInput
+) : MovieMutationOutput
+
+  # Mutation for deleting a Movie document
+  deleteMovie(
+  input: DeleteMovieInput,
+  "Deprecated (use 'input' field instead)."
+  selector: MovieSelectorUniqueInput
+) : MovieMutationOutput
 
 }
 

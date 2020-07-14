@@ -11,3 +11,5 @@ const MoviesNew = () => (
 );
 
 registerComponent({ name: 'MoviesNew', component: MoviesNew });
+
+export default MoviesNew;

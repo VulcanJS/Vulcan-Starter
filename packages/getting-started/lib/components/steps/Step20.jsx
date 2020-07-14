@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Next Steps
 
@@ -33,7 +34,7 @@ Finally, if you run into any issue there's always the [Vulcan Slack channel](htt
 `;
 
 const Step20 = () => (
-  <Components.Step step={20} text={text} lastStep={true} />
+  <Step step={20} text={text} lastStep={true} />
 );
 
-registerComponent({ name: 'Step20', component: Step20 });
+export default Step20;

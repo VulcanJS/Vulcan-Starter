@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Datatables
 
@@ -31,7 +32,7 @@ Also, as an extra feature, the \`Datatable\` component also includes a search fu
 `;
 
 const Step16 = () => (
-  <Components.Step step={16} text={text} after={after}/>
+  <Step step={16} text={text} after={after}/>
 );
 
-registerComponent({ name: 'Step16', component: Step16 });
+export default Step16;

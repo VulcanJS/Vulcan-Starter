@@ -1,14 +1,16 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import MoviesUsers from './MoviesUsers';
+import MoviesNew from './MoviesNew';
+import MoviesList from './MoviesList';
 
 const MoviesApp = () => (
   <div className="app-content">
     <div className="movies-app">
-      <Components.MoviesUsers />
-      <Components.MoviesNew />
-      <Components.MoviesList/>
+      <MoviesUsers />
+      <MoviesNew />
+      <MoviesList />
     </div>
   </div>
 );
 
-registerComponent({ name: 'MoviesApp', component: MoviesApp });
+export default MoviesApp;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 const text = [`
 This interactive tutorial will teach you the basics of using Vulcan. 
@@ -22,8 +23,6 @@ lib
   |  |- other
   |  +- steps
   |
-  |- hocs             # higher-order components
-  |
   |- modules          # other JavaScript modules
   |
   |- server           # server-only code
@@ -35,8 +34,7 @@ lib
 `,`
 Everything starts with the \`package.js\` file, which defines the contents of the package. From there, two entry points in \`client/main.js\` and \`server/main.js\` tell Meteor which files to load in each environment. 
 
-By convention, every file *outside* of \`client\` and \`server\` will be loaded in *both* environments. 
-This includes React components, higher-order components (special component wrapper functions), and all the other files in \`modules\`. 
+By convention, every file *outside* of \`client\` and \`server\` will be loaded in *both* environments. This includes React components and all the other files in \`modules\`. 
 
 Throughout this tutorial, we'll be modifying files in both \`components\` and \`modules\`. But of course, feel free to take a look at the other parts of the package as well!
 
@@ -52,6 +50,6 @@ If you get stuck at any point, drop by the [Vulcan Slack group](http://slack.vul
 },
 ];
 
-const Step0 = () => <Components.Step step={0} text={text} firstStep={true}/>;
+const Step0 = () => <Step step={0} text={text} firstStep={true}/>;
 
-registerComponent({ name: 'Step0', component: Step0 });
+export default Step0;

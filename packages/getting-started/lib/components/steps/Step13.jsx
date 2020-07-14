@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // User Accounts
 
@@ -24,7 +25,8 @@ db.users.update({ _id: "##currentUserId##" }, { $set: { isAdmin: true } })
 `];
 
 const Step13 = ({ currentUser }) => (
-  <Components.Step step={13} text={text} after={after} currentUser={currentUser}/>
+  <Step step={13} text={text} after={after} currentUser={currentUser}/>
 );
 
-registerComponent({ name: 'Step13', component: Step13, hocs: [withCurrentUser] });
+// registerComponent({ name: 'Step13', component: Step13, hocs: [withCurrentUser] });
+export default Step13;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Permissions
 
@@ -37,7 +38,7 @@ You can consider these three default groups (along with the \`admins\`) like sho
 `];
 
 const Step17 = () => (
-  <Components.Step step={17} text={text} after={after}/>
+  <Step step={17} text={text} after={after}/>
 );
 
-registerComponent({ name: 'Step17', component: Step17 });
+export default Step17;

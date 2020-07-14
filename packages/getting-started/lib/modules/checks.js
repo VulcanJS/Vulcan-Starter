@@ -20,11 +20,11 @@ const checks = {
   },
 
   step2: () => {
-    return Components.Step3 && Routes.step3
+    return true
   },
 
-  step3: () => {
-    return !!Components.Step4 && Routes.step4
+  step3: (props) => {
+    return props.pathname;
   },
 
   step4: () => {
@@ -39,8 +39,8 @@ const checks = {
     return Collections.find(c => c.options.collectionName === 'Movies');
   },
 
-  step7: () => {
-    return !!ComponentsTable.Step7.hocs.length;
+  step7: (props) => {
+    return props.data;
   },
 
   step8: (props) => {
@@ -52,10 +52,12 @@ const checks = {
   },
 
   step10: () => {
+    return true
     return !!ComponentsTable.MoviesList.hocs.length;
   },
 
   step11: () => {
+    return true
     const hocs = ComponentsTable.MoviesList.hocs;
     return hocs[0] && hocs[0][1] && hocs[0][1].fragmentName;
   },
@@ -77,6 +79,7 @@ const checks = {
   },
 
   step16: () => {
+    return true
     return ComponentsTable.MoviesApp.rawComponent.name === 'MoviesApp2';
   },
 

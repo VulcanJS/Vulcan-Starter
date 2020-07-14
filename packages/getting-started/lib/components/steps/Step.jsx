@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Components,
   registerComponent,
-  withCurrentUser
+  withCurrentUser,
+  getSetting,
 } from 'meteor/vulcan:core';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -81,6 +82,8 @@ const Step = props => {
     ? 'Let\'s get started!'
     : `Move on to Step ${step + 1}`;
 
+  const passCheck = getSetting('passAllChecks') || checks[`step${step}`](props);
+
   return (
     <div className="step">
       <div className="step-text">
@@ -93,7 +96,7 @@ const Step = props => {
 
       {children && <div className="step-contents">{children}</div>}
 
-      {checks[`step${step}`](props) && (
+      {passCheck && (
         <div className="step-done">
           {after && (
             <div className="step-after">
@@ -112,4 +115,6 @@ const Step = props => {
   );
 };
 
-registerComponent({ name: 'Step', component: Step, hocs: [withCurrentUser] });
+// registerComponent({ name: 'Step', component: Step, hocs: [withCurrentUser] });
+
+export default Step;

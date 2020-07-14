@@ -1,6 +1,6 @@
 {
   "name": "Vulcan",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "engines": {
     "npm": "^3.0"
   },
@@ -74,6 +74,7 @@
     "mingo": "^2.2.0",
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.31",
+    "node-cache": "^5.1.2",
     "pluralize": "7.0.0",
     "prop-types": "^15.7.2",
     "qs": "^6.6.0",
@@ -83,7 +84,7 @@
     "react-bootstrap": "1.0.1",
     "react-bootstrap-datetimepicker": "0.0.22",
     "react-bootstrap-typeahead": "^5.0.0-alpha.1",
-    "react-cookie": "^2.1.6",
+    "react-cookie": "^4.0.3",
     "react-datetime": "^2.11.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "10.1.5",

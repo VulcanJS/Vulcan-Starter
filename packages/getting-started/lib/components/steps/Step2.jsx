@@ -1,5 +1,6 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import Step from './Step.jsx';
 
 // Registering Components
 
@@ -23,6 +24,6 @@ Note that the standard \`export\` and \`import\` will also work just fine in thi
 You can review them all by accessing the [Components dashboard](/debug/components) (note that most of the components you'll see in there belong to various Vulcan packages, such as \`vulcan:core\`, \`vulcan:forms\`, etc.).
 `;
 
-const Step2 = () => <Components.Step step={2} text={text} after={after} />;
+const Step2 = () => <Step step={2} text={text} after={after} />;
 
-registerComponent({ name: 'Step2', component: Step2 });
+export default Step2;
