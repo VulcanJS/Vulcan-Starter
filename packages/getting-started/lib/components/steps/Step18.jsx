@@ -2,7 +2,7 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-export const title = 'Sorting & Filtering';
+export const title = 'Custom Mutations';
 
 const text = [
   `

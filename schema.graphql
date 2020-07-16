@@ -363,6 +363,8 @@ type Movie {
   user: User 
   name: String 
   review: String 
+  imdbId: String 
+  score: Float 
   createdAtFormatted(format: String = "YYYY/MM/DD"): String 
 }
 
@@ -474,6 +476,7 @@ input MovieFilterInput {
   userId: String_Selector
   name: String_Selector
   review: String_Selector
+  imdbId: String_Selector
 }
 
 input MovieSortInput {
@@ -482,6 +485,7 @@ input MovieSortInput {
   userId: SortOptions
   name: SortOptions
   review: SortOptions
+  imdbId: SortOptions
 }
 
 input MovieSelectorInput {

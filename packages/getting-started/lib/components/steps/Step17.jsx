@@ -1,49 +1,33 @@
 import React from 'react';
+import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-export const title = 'Permissions';
+export const title = 'Sorting & Filtering';
 
-const text = `
-If you're logged in and your account has the proper admin privileges, you should see Edit buttons next to every item in the Datatable. That's by design: in Vulcan, admin accounts automatically pass every permission checks. 
-
-But in a real world app, you'll probably want to handle regular users as well. So let's see how we can assign [permissions](http://docs.vulcanjs.org/groups-permissions.html) to let users edit their own movies. 
-
-Start by signing out and creating a new account, which this time *won't* be an Admin account. Notice the new and edit buttons disappeared? That's because we've yet to tell our back-end who can insert and edit movies. 
-
-Find \`lib/modules/collection.js\` and uncomment the \`permissions\` property.`;
-
-const after = [
+const text = [
   `
-The “New” button should be back, so try creating a new movie. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
+By default, our movies data will be unsorted. But what if we wanted to sort our list of movies alphabetically instead? Or generally have more control over what data we show? We can do all of this using [filtering and ordering](http://docs.vulcanjs.org/filtering.html). 
 
-So how does this work? Let's review the permissions code we added:
-`,
-  `
-~~~js
-{
-  canRead: ['guests'],
-  canCreate: ['members'],
-  canUpdate: ['owners'],
-  canDelete: ['owners'],
-}
-~~~
-`,
-  `
-
-First, we've declared that any user belonging to the \`guests\` group (in other words anybody accessing our API, even without being authentified) can read (i.e. access) a movie document. This is actually the default for any new collection, so specifying \`canRead\` is not strictly necessary unless you do want to restrict documents to specific groups. 
-
-Then, we declare that any \`members\` (in other words any user, as long as they are logged in) can create a new movie. 
-
-Finally, for Update and Delete operations, we check if a user belongs to the \`owners\` group, in other words whether the modified document's \`userId\` property is equal to the user's own \`_id\`.
-
-You can consider these three default groups (along with the \`admins\` group) like shortcuts to common user roles. But you can also create your own custom groups, or even provide your own permission checks that bypass groups altogether. 
+First, we'll use the \`defaultInput\` collection option to provide default sorting options for the \`Movies\` collection. These will then be used whenever no other sorting options are explicitly provided. In  \'lib/modules/collection.js\', uncomment the \`defaultInput: { sort: { createdAt: 'desc' } }\` line.
 `,
 ];
 
+const after = `
+Nice! If we've done our job correctly, you can add a new movie and it should now appear in top position. 
+
+Now let's look at controlling ordering for a *specific* list of items. In \`MoviesApp2\`, uncomment the \`options={{ input: { sort: { name: 'asc' } } }}\` line. 
+
+The datatable's \`options\` prop is being passed on to the \`multi\` query responsible for loading its data. And that \`input\` is the query's single argument, used to control what dataset the server returns. All this means that once you uncomment that line, our list of movies should no longer be sorted in reverse chronological order, but in alphabetical order instead.
+
+If you'd like, you can also try **filtering** the list. Replace the \`options\` line by \`options={{ input: { filter: { name: { _in: ['Die Hard', 'Die Hard III'] } } } }}\` and see what happens! Just don't forget to change it back after.
+
+Once you get all this working, feel free to move on to the next step.
+`;
+
+// TODO check
+
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-Step.title = 'Permissions';
-
-export const checks = [{ file: '/lib/modules/collection.js', string: 'permissions' }];
+export const checks = [];
 
 export default Step;

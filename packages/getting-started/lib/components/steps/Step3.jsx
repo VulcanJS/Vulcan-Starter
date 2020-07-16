@@ -1,36 +1,44 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
-import { useLocation } from 'react-router-dom';
-import SyntaxHighlighter from 'react-syntax-highlighter/prism';
-import { okaidia } from 'react-syntax-highlighter/styles/prism';
+import Schema from '../other/Schema.jsx';
 
-export const title = 'React Hooks';
+export const title = 'Schemas';
 
 const text = `
-Before moving on, you should make sure you're familiar with [React Hooks](https://reactjs.org/docs/hooks-overview.html). Hooks are special React functions that give your components access to "superpowers" like managing their own state, loading and modifying data, or manipulating the URL.
+Now that you have an idea of Vulcan's basic features, let's dive into what *really* makes Vulcan special: how it handles **data**. 
 
-We'll dig into Vulcan hooks later, but for now let's just refresh our memory by trying out React Router's \`useLocation\` hook. 
+In Vulcan, each type of data belongs to its own **collection** (or **model** if you're more familiar with that term). So you could have a \`Posts\` collection, a \`Comments\` collection, a \`Movies\` collection, and so on. And each item of a collection has an associated **type**, such as a \`Post\`, \`Comment\`, or \`Movie\`.
 
-Find the file for the \`Step3.jsx\` component (in other words, the one you're looking at right now!) and uncomment the \`const { pathname } = useLocation();\` line.
+Each collection features a [schema](http://docs.vulcanjs.org/schemas.html) that defines what a post, comment, or movie should look like (in other words, what fields it should have).
+
+This package already includes a pre-written schema for a \`Movies\` collection. Just find this component (\`Step5.jsx\`) and uncomment the \`<Schema/>\` component to display its contents below: 
 `;
 
 const after = `
-This illustrate an important Vulcan principle: even though Vulcan has many of its own internal APIs, whenever possible we try to rely on standard ecosystem tools like React Router, [Apollo Client](https://www.apollographql.com/docs/react/) (for getting data to and from our GraphQL endpoint), React itself, and many other npm packages. No need to reinvent the wheel!
+Before we go to the next step, let's take a second to look at this schema. As you can see, we're defining five fields: \`_id\`, \`createdAt\`, \`userId\`, \`name\`, and \`review\`, which together make up the schema for our upcoming \`Movies\` collection. 
+
+Note that \`createdAt\` has an \`onCreate\` property, which returns a callback that will set it to the current timestamp whenever a new document is inserted. 
+
+Also of note are the \`canRead\`, \`canCreate\`, and \`canUpdate\` properties that specify which user groups can view, insert, or edit each field. Out of the box, Vulcan has four predefined groups:
+
+- \`guests\`: any user without an account.
+- \`members\`: any user *with* an account.
+- \`owners\`: any user that “owns” the document being operated on (more on that later).
+- \`admins\`: users with special admin privileges. 
+
+A field will only appear in your GraphQL schema if it has at least one of those three special properties. In other words, Vulcan will not expose any of your data unless you explicitly tell it to.
+
+Note that the first account you create in any Vulcan app automatically belongs to the \`admins\` group. But more on that later. For now, onwards to the next step!
 `;
 
-const Step = () => {
-  const items = {};
-  // items.pathname = useLocation().pathname; // uncomment on #Step3
-  return (
-    <StepWrapper title={Step.title} text={text} after={after}>
-      {items.pathname && (
-        <SyntaxHighlighter style={okaidia}>{`The current path is: ${items.pathname}`}</SyntaxHighlighter>
-      )}
-    </StepWrapper>
-  );
-};
+// uncomment the component's child on #Step5:
 
-export const checks = [{ string: 'items.pathname = useLocation().pathname' }];
+const Step = () => (
+  <StepWrapper title={Step.title} text={text} after={after}>
+    {/* <Schema/> */}
+  </StepWrapper>
+);
+
+export const checks = [{ string: '<Schema/>' }];
 
 export default Step;

@@ -1,52 +1,67 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Components } from 'meteor/vulcan:core';
+import get from 'lodash/get';
 import StepWrapper from './StepWrapper.jsx';
+import Queries from '../other/Queries.jsx';
 
-export const title = 'The GraphQL Schema';
+export const title = 'Query Resolvers';
 
 const text = `
-Collection schemas are used to make sure your data is properly formatted before inserting it in the database, but they also have one more important purpose: generating your *GraphQL* schema. 
+Now that our data exists on the server, let's think about transmitting it to the client. 
 
-[GraphQL](http://graphql.org) is the technology used to power Vulcan's data layer, in other words make your server-side data available to the browser. 
+It's important to realize that just because the data is available in our database doesn't mean the client can access all of it. After all, that wouldn't be very secure!
 
-Every GraphQL API endpoint needs a schema to indicate what data should be made available to clients, and in Vulcan that *GraphQL* schema is automatically generated for you from the *JavaScript* schema you wrote in Step 5. 
+On the other hand, we do know that the client can connect to the GraphQL endpoint. In other words, if we can connect the endpoint to our database, we'll have managed to close the loop. And we can do this using a **resolver**. 
 
-That GraphQL schema lives on the server, so in order to visualize it we need some way of fetching it from the client. That's where hooks will come in handy, more specifically Apollo Client's [\`useQuery\` hook](https://www.apollographql.com/docs/react/api/react-hooks/#usequery).
+A GraphQL resolver is basically a function that waits for any GraphQL queries mentioning a specific field, and then provides some data in return. In previous steps we actually already used two resolvers in the background, \`schemaContents\` and \`moviesCount\`. 
 
-Find the \`lib/components/steps/Step7.jsx\` file for this component, uncomment the \`useQuery\` line, and prepare to scroll down a lot.
+These two resolvers were written specifically for this tutorial and are fairly limited, but we'll now look at Vulcan's **collection resolvers**.
+
+Go to \`lib/components/steps/Step9.jsx\` and uncomment the \`<Resolvers />\` line to display a list of available query resolvers. 
 `;
 
-const after = `
-Congrats, you can now behold your GraphQL schema in all its glory!
+const after = [
+  `
+Nice work! Notice the two \`movies\`, and \`movie\` resolvers in there? Those are our auto-generated query resolvers for the \`Movies\` collection. Behind the scenes, they'll fetch the data we need in the database and pass it on to the API layer. 
 
-Let's quickly review it.
-
-1. Anything that starts with \`type\` is a GraphQL type definition. It simply declares what properties the objects that make up your schema should have. 
-2. Types starting with \`input\` are special **input types** used to define the properties of mutation arguments. 
-3. The \`Query\` type is a special type whose properties define which queries (fetching data) your GraphQL endpoint can receive. 
-4. Similarly, the \`Mutation\` type does the same thing for mutations (modifying data).
-
-By the way, during local development Vulcan automatically logs out your GraphQL schema whenever your app changes. Look for a \`schema.graphql\` file at the root of this project's directory. 
-`;
+By the way, we didn't even have to write a custom resolver to get this list of resolvers. Turns out GraphQL supports **introspection queries**, which let you get metadata about your own schema, in this case using the following GraphQL query (try it now in [GraphiQL](http://localhost:3000/graphiql)!):
+`,
+  `
+~~~gq
+query QueryResolvers{
+  __type(name:"Query") {
+    fields {
+      name
+    }
+  }
+}
+~~~
+`,
+];
 
 const query = gql`
-  query schemaContents {
-    schemaContents
+  query QueryResolvers {
+    __type(name: "Query") {
+      fields {
+        name
+      }
+    }
   }
 `;
 
 const Step = () => {
-  const items = {};
-  // items.data = useQuery(query).data; // uncomment on #Step7;
+  const item = {};
+  // uncomment the hook on #Step9
+  // const { data } = useQuery(query);
+  // item.queries = get(data, '__type.fields');
   return (
-    <StepWrapper title={Step.title} text={text} after={after}>
-      {items.data && <Components.GraphQLSchema data={items.data} />}
+    <StepWrapper title={Step.title} text={text} after={after} check={() => !!item.queries}>
+      <Queries queries={item.queries} />
     </StepWrapper>
   );
 };
 
-export const checks = [{ string: 'items.data = useQuery(query).data' }];
+export const checks = [{ string: `item.queries = get(data, '__type.fields')`}];
 
 export default Step;

@@ -32,6 +32,7 @@ const MoviesList = () => {
                       <em>– {movie.user.displayName}</em>
                     </p>
                   )}
+                  {movie.score && <p>IMDb Score: {movie.score}</p>}
                 </li>
               ))}
             </ul>

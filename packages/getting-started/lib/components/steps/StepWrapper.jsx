@@ -1,16 +1,15 @@
 import React from 'react';
-import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
+import { Components } from 'meteor/vulcan:core';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 // import { docco } from 'react-syntax-highlighter/styles/hljs';
 import { useLocation } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
-
-import checks from '../../modules/checks';
-import sections from '../../modules/sections.js';
 
 const isCode = (t) => t.slice(0, 3) === '~~~';
 const languages = {
@@ -68,32 +67,48 @@ const TextBlocks = ({ textArray, currentUser }) => (
   </div>
 );
 
-const StepWrapper = (props) => {
-  const { text, after, children, firstStep = false, currentUser, check } = props;
+const query = gql`
+  query steps {
+    steps {
+      step
+      title
+      completed
+    }
+  }
+`;
 
+const StepWrapper = (props) => {
+  const { text, after, children, firstStep = false, currentUser } = props;
+  const { loading, data } = useQuery(query);
   const { pathname } = useLocation();
-  const step = pathname.split('/').reverse()[0];
+  const step = pathname.split('/').reverse()[0] || 0;
+
+  if (loading) {
+    return <Components.Loading />;
+  }
+
+  const currentStep = data.steps.find((s) => s.step === parseInt(step));
+
+  const { title, completed } = currentStep;
 
   const textArray = Array.isArray(text) ? text : [text];
   const afterArray = Array.isArray(after) ? after : [after];
 
   const buttonText = firstStep ? "Let's get started!" : `Move on to Step ${step + 1}`;
 
-  const passCheck = check(props);
-
   return (
     <div className="step">
       <div className="step-text">
         <h2>
           {step > 0 && `${step}. `}
-          {sections[step]}
+          {title}
         </h2>
         <TextBlocks textArray={textArray} currentUser={currentUser} />
       </div>
 
       {children && <div className="step-contents">{children}</div>}
 
-      {passCheck && (
+      {completed && (
         <div className="step-done">
           {after && (
             <div className="step-after">

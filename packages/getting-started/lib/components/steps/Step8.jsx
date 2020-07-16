@@ -1,95 +1,26 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import StepWrapper from './StepWrapper.jsx';
 
-export const title = 'Seeding';
+export const title = 'Loading Data';
 
-const text = [
-  `
-We're well on our way to sending data from the server to the client, but there's just one problem: we don't *have* any data. Let's fix this by inserting a few documents into our \`Movies\` collection. 
+const text = `
+We already know that Vulcan uses hooks to load data. Up to now, we've been using Apollo's regular \`useQuery\` hook as part of this tutorial, but it's now time to look at a couple Vulcan-specific hooks.
 
-We actually already have a \`seedMovies\` function ready, we just need to call it. We can do so using the [Meteor shell](https://docs.meteor.com/commandline.html#meteorshell), a convenient way to access your live Meteor development server.
+These two hooks, \`useMulti2\` and \`useSingle2\`, can be used to load a list of documents or a single document respectively without having to explicitly write out the contents of their GraphQL query.
 
-Open a new Terminal window in your Vulcan application directory, type:
-`,
-  `
-~~~sh
-meteor shell
-~~~
-`,
-  `
-And then:
-`,
-  `
-~~~js
-import { seedMovies } from 'meteor/getting-started'
-~~~
-`,
-  `
-And finally:
-`,
-  `
-~~~js
-seedMovies()
-~~~
-`,
-];
+From now on, we'll start working on our little app over on the right hand side of the screen.
 
-const after = [
-  `
-Well done! A GraphQL request to the \`moviesCount\` query has confirmed that there are now movies seeded into our database. 
-
-By the way, a useful companion to the Meteor Shell is Meteor's [database access](https://docs.meteor.com/commandline.html#meteormongo):
-`,
-  `
-~~~sh
-meteor mongo
-~~~
-`,
-  `
-For example, here's how you would display all movies in your database:
-`,
-  `
-~~~js
-db.movies.find()
-~~~
-`,
-  `
-And here's how you would remove them all:
-`,
-  `
-~~~js
-db.movies.remove({})
-~~~
-`,
-  {
-    text: `By the way, I know you must be getting hungry so feel free to take a lunch break soon!`,
-    check: () => {
-      const date = new Date();
-      const hours = date.getHours();
-      return hours === 1 || hours === 12;
-    },
-  },
-];
-
-const query = gql`
-  query moviesCount {
-    moviesCount
-  }
+So this time, instead of modifying this \`Step10.jsx\` component, find the \`MoviesList\` component in \`lib/components/movies/MoviesList.jsx\` and uncomment the \`useMulti2\` group of lines. 
 `;
 
-const Step = () => {
-  const items = {};
-  const { data } = useQuery(query);
-  items.moviesCount = data && data.moviesCount;
-  return (
-    <StepWrapper title={Step.title} text={text} after={after}>
-      <div className="movies-count">Current movies count: {items.moviesCount}</div>
-    </StepWrapper>
-  );
-};
+const after = `
+Wow, look at that! The \`useMulti2\` hook did its job and loaded a list of movies for us. And all we had to do was to pass it a \`collection\` option to indicate where to load data from.
 
-export const checks = [{ specialCheck: 'seedCheck' }];
+By the way, in case you're wondering the \`2\` in \`useMulti2\` and \`useSingle2\` are a temporary backwards-compatibility measure to indicate that these hooks use the newer version of Vulcan's own internal API. 
+`;
+
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
+
+export const checks = [{file: '/lib/components/movies/MoviesList.jsx', string: 'useMulti2'}];
 
 export default Step;

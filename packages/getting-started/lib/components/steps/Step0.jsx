@@ -1,12 +1,10 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
 export const title = 'Welcome to Vulcan!';
 
 const text = [
-  `
-This interactive tutorial will teach you the basics of using Vulcan. 
+  `This interactive tutorial will teach you the basics of using Vulcan. 
 In fact, the tutorial itself is the Vulcan app that we'll be working on! So meta!
 
 On your left, you'll find this tutorial's **steps**. Right now they're greyed out, but as you unlock them by completing tasks you'll be able to progress forward. 
@@ -55,16 +53,7 @@ If you get stuck at any point, drop by the [Vulcan Slack group](http://slack.vul
   },
 ];
 
-const Step = () => (
-  <StepWrapper
-    title={title}
-    text={text}
-    firstStep={true}
-    check={() => {
-      return true;
-    }}
-  />
-);
+const Step = () => <StepWrapper title={title} text={text} firstStep={true} />;
 
 export const checks = [];
 

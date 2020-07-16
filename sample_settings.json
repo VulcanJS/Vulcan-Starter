@@ -1,6 +1,8 @@
 {
   "public": {
 
+    "debug": false,
+    
     "title": "Vulcan.js",
     "tagline":"The React/GraphQL Full-stack Framework",
 
@@ -22,5 +24,9 @@
       "appId": "foo",
       "secret": "bar"
     }
+  },
+
+  "omdb": {
+    "apiKey": "foobar"
   }
 }

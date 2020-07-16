@@ -1,43 +1,47 @@
 import React from 'react';
 import StepWrapper from './StepWrapper.jsx';
 
-export const title = 'Datatables';
+export const title = 'Permissions';
 
-const text = [
+const text = `
+If you're logged in and your account has the proper admin privileges, you should see Edit buttons next to every item in the Datatable. That's by design: in Vulcan, admin accounts automatically pass every permission checks. 
+
+But in a real world app, you'll probably want to handle regular users as well. So let's see how we can assign [permissions](http://docs.vulcanjs.org/groups-permissions.html) to let users edit their own movies. 
+
+Start by signing out and creating a new account, which this time *won't* be an Admin account. Notice the new and edit buttons disappeared? That's because we've yet to tell our back-end who can insert and edit movies. 
+
+Find \`lib/modules/collection.js\` and uncomment the \`permissions\` property.`;
+
+const after = [
   `
-Learning about collections and schemas, seeding data, loading it on the client, inserting new documents… we've come a long way since step 1. 
+The “New” button should be back, so try creating a new movie. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
 
-And now that we've learned about so many concepts, let's take a look at a core component that brings them all together, the mighty [Datatable](http://docs.vulcanjs.org/datatable.html). 
-
-Datatables are a super-quick way to load and display a bunch of data, without having to worry about hooks or components. Just specify a few options and you're good to go!
-
-For example, here's how you'd display a basic Datatable for the \`Movies\` collection:
+So how does this work? Let's review the permissions code we added:
 `,
   `
 ~~~js
-<Components.Datatable collection={Movies} />
+{
+  canRead: ['guests'],
+  canCreate: ['members'],
+  canUpdate: ['owners'],
+  canDelete: ['owners'],
+}
 ~~~
 `,
   `
-We already have a Datatable ready to go in a \`MoviesApp2\` component, which we'll use to [replace](http://docs.vulcanjs.org/components.html#Replacing-Components) the existing \`MoviesApp\` component.
 
-To do so find \`lib/components/other/Layout.jsx\` and replace \`<MoviesApp/>\` with \`<MoviesApp2/>\`.
+First, we've declared that any user belonging to the \`guests\` group (in other words anybody accessing our API, even without being authentified) can read (i.e. access) a movie document. This is actually the default for any new collection, so specifying \`canRead\` is not strictly necessary unless you do want to restrict documents to specific groups. 
 
+Then, we declare that any \`members\` (in other words any user, as long as they are logged in) can create a new movie. 
+
+Finally, for Update and Delete operations, we check if a user belongs to the \`owners\` group, in other words whether the modified document's \`userId\` property is equal to the user's own \`_id\`.
+
+You can consider these three default groups (along with the \`admins\` group) like shortcuts to common user roles. But you can also create your own custom groups, or even provide your own permission checks that bypass groups altogether. 
 `,
 ];
 
-const after = `
-Did you see the \`review\` field is back? That's because we're not using our fragment to load data anymore, instead the Datatable is doing its best to “guess” the appropriate list of fields. That being said, just like with forms if you want to be safe then manually specifying fragments is always a good idea.
-
-Also, as an extra feature, the \`Datatable\` component also includes a search function. The \`name\` and \`review\` fields happen to have the \`searchable: true\` property in our schema, which makes them searchable. Type in “classic” to try it now!
-
-By the way, this is out first time looking at the \`Layout\` component. This is a special component in that every Vulcan apps comes with a default layout component that automatically wraps all your other components. Here, we are *replacing* this default layout with our own three-column component that contains our table of contents, main content area, and Movies app. 
-
-Using \`replaceComponent\` lets us replace and customize any of Vulcan's internal components in this way, from layouts to forms to datatables.
-`;
-
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-export const check = [{ file: '/lib/components/other/Layout.jsx', string: '<MoviesApp2/>' }];
+export const checks = [{ file: '/lib/modules/collection.js', string: 'permissions' }];
 
 export default Step;

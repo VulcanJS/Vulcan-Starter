@@ -53,6 +53,12 @@ const schema = {
     searchable: true,
   },
 
+  imdbId: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+  },
+
 };
 
 export default schema;
