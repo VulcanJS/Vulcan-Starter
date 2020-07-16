@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import StepWrapper from './StepWrapper.jsx';
 import Mutations from '../other/Mutations.jsx';
 
-// Mutations
+export const title = 'Mutations';
 
 const text = `
 We've seen how to load data, and how to create a user account. Now how about using that fresh-out-the-oven user account to *mutate* some data?
@@ -36,8 +36,8 @@ const query = gql`
 const Step = () => {
   const items = {};
   // uncomment the hook on #Step14
-  const { data } = useQuery(query);
-  items.mutations = get(data, '__type.fields');
+  // const { data } = useQuery(query);
+  // items.mutations = get(data, '__type.fields');
   return (
     <StepWrapper title={Step.title} text={text} after={after} check={() => !!items.mutations}>
       <Mutations mutations={items.mutations} />
@@ -45,6 +45,6 @@ const Step = () => {
   );
 };
 
-Step.title = 'Mutations';
+export const checks = [{ string: `items.mutations = get(data, '__type.fields')` }];
 
 export default Step;

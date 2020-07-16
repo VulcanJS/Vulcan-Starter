@@ -2,7 +2,7 @@ import React from 'react';
 import { useCurrentUser } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// User Accounts
+export const title = 'User Accounts';
 
 const text = `
 The vast majority of apps all need some kind of user accounts management in order to be functional. 
@@ -41,6 +41,6 @@ const Step = () => {
   );
 };
 
-Step.title = 'User Accounts';
+export const checks = [{ file: '/lib/components/movies/MoviesUsers.jsx', string: 'Components.AccountsLoginForm' }];
 
 export default Step;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Collections } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Collections
+export const title = 'Collections';
 
 const text = [
   `
@@ -35,16 +35,9 @@ As you can see, out of the box Vulcan already includes a \`Users\` collection, u
 `;
 
 const Step = () => (
-  <StepWrapper
-    title={Step.title}
-    text={text}
-    after={after}
-    check={() => {
-      return Collections.find((c) => c.options.collectionName === 'Movies');
-    }}
-  >
+  <StepWrapper title={Step.title} text={text} after={after}>
     <ul>
-      {Collections.filter((c) => !['Settings', 'Callbacks'].includes(c.options.collectionName)).map((c, i) => (
+      {Collections.map((c, i) => (
         <li key={i}>
           <code>{c.options.collectionName}</code>
         </li>
@@ -53,6 +46,6 @@ const Step = () => (
   </StepWrapper>
 );
 
-Step.title = 'Collections';
+export const checks = [{ file: '/lib/modules/collection.js', string: 'createCollection' }];
 
 export default Step;

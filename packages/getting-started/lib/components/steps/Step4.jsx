@@ -1,8 +1,8 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import { Components } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Core Components
+export const title = 'Core Components';
 
 const text = `
 Now let's play around with some of Vulcan's premade [core components](http://docs.vulcanjs.org/ui-components.html), such as [the \`ModalTrigger\` component](http://docs.vulcanjs.org/ui-components.html#ModalTrigger), which lets you show info inside a modal window. 
@@ -28,6 +28,6 @@ const Step = () => (
   </StepWrapper>
 );
 
-Step.title = 'Core Components';
+export const checks = [{ string: '<Components.ModalTrigger component={<a href="#">Click Me!</a>}>'}];
 
 export default Step;

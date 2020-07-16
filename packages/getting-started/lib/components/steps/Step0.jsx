@@ -2,6 +2,8 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
+export const title = 'Welcome to Vulcan!';
+
 const text = [
   `
 This interactive tutorial will teach you the basics of using Vulcan. 
@@ -55,7 +57,7 @@ If you get stuck at any point, drop by the [Vulcan Slack group](http://slack.vul
 
 const Step = () => (
   <StepWrapper
-    title={Step.title}
+    title={title}
     text={text}
     firstStep={true}
     check={() => {
@@ -64,6 +66,6 @@ const Step = () => (
   />
 );
 
-Step.title = 'Welcome to Vulcan!';
+export const checks = [];
 
 export default Step;

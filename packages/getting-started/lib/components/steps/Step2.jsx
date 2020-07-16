@@ -2,7 +2,7 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Registering Components
+export const title = 'Registering Components';
 
 const text = `
 You've just created your first route. Next up on the menu, let's take a look at [registering components](http://docs.vulcanjs.org/components.html#Registering-Components). 
@@ -26,6 +26,6 @@ You can review them all by accessing the [Components dashboard](/debug/component
 
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-Step.title = 'Registering Components';
+export const checks = [];
 
 export default Step;

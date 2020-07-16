@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import StepWrapper from './StepWrapper.jsx';
 
-// Seeding
+export const title = 'Seeding';
 
 const text = [
   `
@@ -84,12 +84,12 @@ const Step = () => {
   const { data } = useQuery(query);
   items.moviesCount = data && data.moviesCount;
   return (
-    <StepWrapper title={Step.title} text={text} after={after} check={() => !!items.moviesCount}>
+    <StepWrapper title={Step.title} text={text} after={after}>
       <div className="movies-count">Current movies count: {items.moviesCount}</div>
     </StepWrapper>
   );
 };
 
-Step.title = 'Seeding';
+export const checks = [{ specialCheck: 'seedCheck' }];
 
 export default Step;

@@ -1,8 +1,7 @@
 import React from 'react';
 import StepWrapper from './StepWrapper.jsx';
-import Movies from '../../modules/collection.js';
 
-// Permissions
+export const title = 'Permissions';
 
 const text = `
 If you're logged in and your account has the proper admin privileges, you should see Edit buttons next to every item in the Datatable. That's by design: in Vulcan, admin accounts automatically pass every permission checks. 
@@ -41,15 +40,10 @@ You can consider these three default groups (along with the \`admins\` group) li
 `,
 ];
 
-const Step = () => (
-  <StepWrapper
-    title={Step.title}
-    text={text}
-    after={after}
-    check={() => Movies && Movies.options && !!Movies.options.permissions}
-  />
-);
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
 Step.title = 'Permissions';
+
+export const checks = [{ file: '/lib/modules/collection.js', string: 'permissions' }];
 
 export default Step;

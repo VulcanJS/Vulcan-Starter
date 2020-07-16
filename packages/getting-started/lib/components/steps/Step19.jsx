@@ -1,8 +1,7 @@
 import React from 'react';
-import { Strings } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Internationalization
+export const title = 'Internationalization';
 
 const text = [
   `
@@ -34,9 +33,9 @@ Congrats, you're almost at the end of the tutorial!
 `;
 
 const Step = () => (
-  <StepWrapper title={Step.title} text={text} after={after} check={() => Strings.en['datatable.new'] === 'New Movie'} />
+  <StepWrapper title={Step.title} text={text} after={after} />
 );
 
-Step.title = 'Internationalization';
+export const checks = [{ file: '/lib/modules/schema.js', string: 'intl: true'}];
 
 export default Step;

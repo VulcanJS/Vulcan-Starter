@@ -1,4 +1,5 @@
-import { GraphQLSchema, addGraphQLResolvers, addGraphQLQuery } from 'meteor/vulcan:core';
+import { GraphQLSchema, addGraphQLResolvers, addGraphQLQuery, addGraphQLSchema } from 'meteor/vulcan:core';
+import { getSteps } from './steps.js';
 
 /*
 
@@ -37,3 +38,28 @@ const moviesCountResolvers = {
 addGraphQLResolvers(moviesCountResolvers);
 
 addGraphQLQuery(`moviesCount: Int`);
+
+/*
+
+StepCompletion resolver
+
+Used to display step completion progress
+
+*/
+addGraphQLSchema(`
+type Step {
+  step: Int
+  completed: Boolean
+  title: String
+}`);
+
+const steps = {
+  Query: {
+    async steps() {
+      return await getSteps();
+    },
+  },
+};
+addGraphQLResolvers(steps);
+
+addGraphQLQuery(`steps: [Step]`);

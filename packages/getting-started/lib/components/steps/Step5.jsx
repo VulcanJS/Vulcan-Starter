@@ -2,7 +2,7 @@ import React from 'react';
 import StepWrapper from './StepWrapper.jsx';
 import Schema from '../other/Schema.jsx';
 
-// Schemas
+export const title = 'Schemas';
 
 const text = `
 Now that you have an idea of Vulcan's basic features, let's dive into what *really* makes Vulcan special: how it handles **data**. 
@@ -34,11 +34,11 @@ Note that the first account you create in any Vulcan app automatically belongs t
 // uncomment the component's child on #Step5:
 
 const Step = () => (
-  <StepWrapper title={Step.title} text={text} after={after} check={({ children }) => !!children}>
+  <StepWrapper title={Step.title} text={text} after={after}>
     {/* <Schema/> */}
   </StepWrapper>
 );
 
-Step.title = 'Schemas';
+export const checks = [{ string: '<Schema/>' }];
 
 export default Step;

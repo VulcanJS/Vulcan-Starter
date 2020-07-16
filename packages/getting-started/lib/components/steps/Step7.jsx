@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { Components } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// The GraphQL Schema
+export const title = 'The GraphQL Schema';
 
 const text = `
 Collection schemas are used to make sure your data is properly formatted before inserting it in the database, but they also have one more important purpose: generating your *GraphQL* schema. 
@@ -39,14 +39,14 @@ const query = gql`
 
 const Step = () => {
   const items = {};
-  items.data = useQuery(query).data; // uncomment on #Step7;
+  // items.data = useQuery(query).data; // uncomment on #Step7;
   return (
-    <StepWrapper title={Step.title} text={text} after={after} check={() => !!items.data}>
+    <StepWrapper title={Step.title} text={text} after={after}>
       {items.data && <Components.GraphQLSchema data={items.data} />}
     </StepWrapper>
   );
 };
 
-Step.title = 'The GraphQL Schema';
+export const checks = [{ string: 'items.data = useQuery(query).data' }];
 
 export default Step;

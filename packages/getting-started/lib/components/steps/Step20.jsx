@@ -1,7 +1,7 @@
 import React from 'react';
 import StepWrapper from './StepWrapper.jsx';
 
-// Next Steps
+export const title = 'Next Steps';
 
 const text = `
 Congrats! You've made it all the way to the end of this tutorial. Let's review all the things we learned:
@@ -34,6 +34,6 @@ Finally, if you run into any issue there's always the [Vulcan Slack channel](htt
 
 const Step = () => <StepWrapper title={Step.title} text={text} lastStep={true} />;
 
-Step.title = 'Next Steps';
+export const checks = [];
 
 export default Step;

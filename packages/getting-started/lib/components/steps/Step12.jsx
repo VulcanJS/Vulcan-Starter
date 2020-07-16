@@ -2,7 +2,7 @@ import React from 'react';
 import StepWrapper from './StepWrapper.jsx';
 import schema from '../../modules/schema.js';
 
-// Relations
+export const title = 'Relations';
 
 const text = [
   `
@@ -58,6 +58,9 @@ And this is out of this tutorial's scope, but note that you're not limited to in
 
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} check={() => !!schema.userId.relation} />;
 
-Step.title = 'Relations';
+export const checks = [
+  { file: '/lib/modules/schema.js', string: 'relation' },
+  { file: '/lib/modules/fragments.js', string: 'displayName' },
+];
 
 export default Step;

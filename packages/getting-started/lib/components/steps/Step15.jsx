@@ -2,7 +2,7 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Forms
+export const title = 'Forms';
 
 const text = [
   `
@@ -29,6 +29,6 @@ By the way, you can build forms to edit documents the same way. Just pass an add
 
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-Step.title = 'Forms';
+export const checks = [{ file: '/lib/components/movies/MoviesNew.jsx', string: 'SmartForm' }];
 
 export default Step;

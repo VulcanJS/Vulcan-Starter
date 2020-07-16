@@ -2,7 +2,7 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Fragments
+export const title = 'Fragments';
 
 const text = [
   `
@@ -31,10 +31,8 @@ const after = `
 As you can see, since the \`review\` field wasn't included in the fragment, it's no longer being sent to the client.
 `;
 
-// TODO check
-
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-Step.title = 'Fragments';
+export const checks = [{ file: '/lib/components/movies/MoviesList.jsx', string: 'fragmentName' }];
 
 export default Step;

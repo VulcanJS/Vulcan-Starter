@@ -1,7 +1,7 @@
 import React from 'react';
 import StepWrapper from './StepWrapper.jsx';
 
-// Datatables
+export const title = 'Datatables';
 
 const text = [
   `
@@ -21,7 +21,7 @@ For example, here's how you'd display a basic Datatable for the \`Movies\` colle
   `
 We already have a Datatable ready to go in a \`MoviesApp2\` component, which we'll use to [replace](http://docs.vulcanjs.org/components.html#Replacing-Components) the existing \`MoviesApp\` component.
 
-To do so find \`lib/components/other/Layout.jsx\` and replace \`<MoviesApp>\` with \`<MoviesApp2>\`.
+To do so find \`lib/components/other/Layout.jsx\` and replace \`<MoviesApp/>\` with \`<MoviesApp2/>\`.
 
 `,
 ];
@@ -36,10 +36,8 @@ By the way, this is out first time looking at the \`Layout\` component. This is 
 Using \`replaceComponent\` lets us replace and customize any of Vulcan's internal components in this way, from layouts to forms to datatables.
 `;
 
-// TODO check
-
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-Step.title = 'Datatables';
+export const check = [{ file: '/lib/components/other/Layout.jsx', string: '<MoviesApp2/>' }];
 
 export default Step;

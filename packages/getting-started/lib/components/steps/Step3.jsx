@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
 
-// React Hooks
+export const title = 'React Hooks';
 
 const text = `
 Before moving on, you should make sure you're familiar with [React Hooks](https://reactjs.org/docs/hooks-overview.html). Hooks are special React functions that give your components access to "superpowers" like managing their own state, loading and modifying data, or manipulating the URL.
@@ -23,7 +23,7 @@ const Step = () => {
   const items = {};
   // items.pathname = useLocation().pathname; // uncomment on #Step3
   return (
-    <StepWrapper title={Step.title} text={text} after={after} check={() => !!items.pathname}>
+    <StepWrapper title={Step.title} text={text} after={after}>
       {items.pathname && (
         <SyntaxHighlighter style={okaidia}>{`The current path is: ${items.pathname}`}</SyntaxHighlighter>
       )}
@@ -31,6 +31,6 @@ const Step = () => {
   );
 };
 
-Step.title = 'React Hooks';
+export const checks = [{ string: 'items.pathname = useLocation().pathname' }];
 
 export default Step;

@@ -1,7 +1,7 @@
 import React from 'react';
 import StepWrapper from './StepWrapper.jsx';
 
-// Loading Data
+export const title = 'Loading Data';
 
 const text = `
 We already know that Vulcan uses hooks to load data. Up to now, we've been using Apollo's regular \`useQuery\` hook as part of this tutorial, but it's now time to look at a couple Vulcan-specific hooks.
@@ -19,10 +19,8 @@ Wow, look at that! The \`useMulti2\` hook did its job and loaded a list of movie
 By the way, in case you're wondering the \`2\` in \`useMulti2\` and \`useSingle2\` are a temporary backwards-compatibility measure to indicate that these hooks use the newer version of Vulcan's own internal API. 
 `;
 
-// TODO check
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-const Step = () => <StepWrapper title={Step.title} text={text} after={after} check={() => true} />;
-
-Step.title = 'Loading Data';
+export const checks = [{file: '/lib/components/movies/MoviesList.jsx', string: 'useMulti2'}];
 
 export default Step;

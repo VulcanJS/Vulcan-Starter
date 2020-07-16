@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Creating Routes
+export const title = 'Creating Routes';
 
 const text = `
 Before we can move on to the next step, we need to create a **route** for it. 
@@ -29,6 +29,8 @@ const Step = () => (
   />
 );
 
-Step.title = 'Creating Routes';
+export const checks = [
+  { file: '/lib/modules/routes.js', string: `addRoute({ name: 'step2', path: '/step/2', component: Step2 })` },
+];
 
 export default Step;

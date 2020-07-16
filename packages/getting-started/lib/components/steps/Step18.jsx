@@ -2,7 +2,7 @@ import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
 
-// Sorting & Filtering
+export const title = 'Sorting & Filtering';
 
 const text = [
   `
@@ -28,6 +28,6 @@ Once you get all this working, feel free to move on to the next step.
 
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-Step.title = 'Sorting & Filtering';
+export const checks = [];
 
 export default Step;

@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import StepWrapper from './StepWrapper.jsx';
 import Queries from '../other/Queries.jsx';
 
-// Query Resolvers
+export const title = 'Query Resolvers';
 
 const text = `
 Now that our data exists on the server, let's think about transmitting it to the client. 
@@ -53,8 +53,8 @@ const query = gql`
 const Step = () => {
   const item = {};
   // uncomment the hook on #Step9
-  const { data } = useQuery(query);
-  item.queries = get(data, '__type.fields');
+  // const { data } = useQuery(query);
+  // item.queries = get(data, '__type.fields');
   return (
     <StepWrapper title={Step.title} text={text} after={after} check={() => !!item.queries}>
       <Queries queries={item.queries} />
@@ -62,6 +62,6 @@ const Step = () => {
   );
 };
 
-Step.title = 'Query Resolvers';
+export const checks = [{ string: `item.queries = get(data, '__type.fields')`}];
 
 export default Step;
