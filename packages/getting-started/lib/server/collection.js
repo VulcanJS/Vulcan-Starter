@@ -3,6 +3,7 @@ import Movies from '../modules/collection.js';
 
 import { apiSchema } from './apischema.js';
 
-extendCollection(Movies, {
-  apiSchema,
-});
+// uncomment on #Step11
+// extendCollection(Movies, {
+//   apiSchema,
+// });

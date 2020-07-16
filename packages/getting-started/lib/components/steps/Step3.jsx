@@ -11,7 +11,7 @@ In Vulcan, each type of data belongs to its own **collection** (or **model** if 
 
 Each collection features a [schema](http://docs.vulcanjs.org/schemas.html) that defines what a post, comment, or movie should look like (in other words, what fields it should have).
 
-This package already includes a pre-written schema for a \`Movies\` collection. Just find this component (\`Step5.jsx\`) and uncomment the \`<Schema/>\` component to display its contents below: 
+This package already includes a pre-written schema for a \`Movies\` collection. Just find this component (\`Step5.jsx\`) and uncomment the \`Schema\` component to display its contents below: 
 `;
 
 const after = `
@@ -31,7 +31,7 @@ A field will only appear in your GraphQL schema if it has at least one of those 
 Note that the first account you create in any Vulcan app automatically belongs to the \`admins\` group. But more on that later. For now, onwards to the next step!
 `;
 
-// uncomment the component's child on #Step5:
+// uncomment the component's child on #Step3:
 
 const Step = () => (
   <StepWrapper title={Step.title} text={text} after={after}>

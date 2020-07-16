@@ -21,6 +21,6 @@ By the way, in case you're wondering the \`2\` in \`useMulti2\` and \`useSingle2
 
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-export const checks = [{file: '/lib/components/movies/MoviesList.jsx', string: 'useMulti2'}];
+export const checks = [{file: '/lib/components/movies/MoviesList.jsx', string: 'const useMulti2Object = useMulti2'}];
 
 export default Step;

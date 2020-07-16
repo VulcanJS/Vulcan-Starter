@@ -23,5 +23,5 @@ const markAsWatched = {
 };
 
 // uncomment on #Step18
-addGraphQLResolvers(markAsWatched);
-addGraphQLMutation(`markAsWatched(movieId: String): Movie`);
+// addGraphQLResolvers(markAsWatched);
+// addGraphQLMutation(`markAsWatched(movieId: String): Movie`);

@@ -38,6 +38,6 @@ Using \`replaceComponent\` lets us replace and customize any of Vulcan's interna
 
 const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-export const check = [{ file: '/lib/components/other/Layout.jsx', string: '<MoviesApp2/>' }];
+export const checks = [{ file: '/lib/components/other/Layout.jsx', string: '<MoviesApp2 />' }];
 
 export default Step;

@@ -34,6 +34,6 @@ Finally, if you run into any issue there's always the [Vulcan Slack channel](htt
 
 const Step = () => <StepWrapper title={Step.title} text={text} lastStep={true} />;
 
-export const checks = [];
+export const checks = [{ specialCheck: 'finishedCheck' }];
 
 export default Step;

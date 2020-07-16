@@ -4,8 +4,12 @@ import Movies from "../modules/collection.js";
 
 const specialChecks = {
   seedCheck: async () => {
+    if (typeof Movies === 'undefined') {
+      return false;
+    }
     return (await Movies.find().count()) > 0;
   },
+  finishedCheck: () => false
 };
 
 const readFile = util.promisify(fs.readFile);
@@ -41,9 +45,10 @@ const passCheck = async (step, { file, string, specialCheck }) => {
 const cleanContents = (s) => {
   // remove JS comments
   s = s.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "$1");
-  // remove line starting with `export const checks`
+  // remove line starting with `export const checks` and `import`
   // see https://stackoverflow.com/a/7159870
-  s = s.replace(/^export const checks.*$/gm, '');
+  s = s.replace(/^export const checks.*$/gm, "");
+  s = s.replace(/^import.*$/gm, "");
   return s;
 };
 

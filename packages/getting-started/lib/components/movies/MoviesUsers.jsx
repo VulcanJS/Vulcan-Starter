@@ -1,7 +1,7 @@
 import React from 'react';
 import { Components, useCurrentUser } from 'meteor/vulcan:core';
 
-// Uncomment Components.AccountsLoginForm on #Step13:
+// Uncomment Components.AccountsLoginForm on #Step12:
 const MoviesUsers = () => {
   const { currentUser } = useCurrentUser();
   return (
@@ -12,7 +12,7 @@ const MoviesUsers = () => {
             Welcome, {currentUser.displayName} {currentUser.isAdmin && `(admin)`}
           </p>
         )}
-        <Components.AccountsLoginForm redirect={false} />
+        {/* <Components.AccountsLoginForm redirect={false} /> */}
       </div>
     </div>
   );

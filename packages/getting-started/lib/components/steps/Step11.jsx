@@ -26,6 +26,17 @@ score: {
 ~~~
 `,
 `
+We can now extend our collection with this new API schema. Find \`/lib/server/collection.js\` and uncomment the following code block:`,
+`
+~~~js
+extendCollection(Movies, {
+  apiSchema,
+});
+~~~
+`,
+`
+Note that since our GraphQL schema will be generated on the server, we only need to add the \`apiSchema\` on the server. The client does not need to be aware of it, as long as it can access the resulting GraphQL field. 
+
 One last thing! We've now added the \`score\` field to our API, but we still need to request it. Go back to \`lib/modules/fragments.js\` and uncomment the \`# score\` line.`
 ];
 
@@ -43,6 +54,7 @@ const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
 export const checks = [
   { file: '/lib/server/apischema.js', string: 'score' },
+  { file: '/lib/server/collection.js', string: 'extendCollection'},
   { file: '/lib/modules/fragments.js', string: 'score' },
 ];
 

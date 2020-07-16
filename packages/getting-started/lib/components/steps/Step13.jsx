@@ -35,7 +35,7 @@ const query = gql`
 
 const Step = () => {
   const items = {};
-  // uncomment the hook on #Step14
+  // uncomment the hook on #Step13
   // const { data } = useQuery(query);
   // items.mutations = get(data, '__type.fields');
   return (

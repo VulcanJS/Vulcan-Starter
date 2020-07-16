@@ -39,7 +39,8 @@ const query = gql`
 
 const Step = () => {
   const items = {};
-  // items.data = useQuery(query).data; // uncomment on #Step7;
+  // uncomment on #Step5
+  // items.data = useQuery(query).data; 
   return (
     <StepWrapper title={Step.title} text={text} after={after}>
       {items.data && <Components.GraphQLSchema data={items.data} />}

@@ -16,7 +16,7 @@ The \`ModalTrigger\` component takes a component or HTML snippet as \`component\
 In Vulcan any registered component can be accessed as \`<Components.ComponentName/>\`. This can include core components, components that are part of a theme or plug-in, as well as components you created yourself.
 `;
 
-// uncomment the component's children on #Step4:
+// uncomment the component's children on #Step2:
 
 const Step = () => (
   <StepWrapper title={Step.title} text={text} after={after} check={({ children }) => !!children}>

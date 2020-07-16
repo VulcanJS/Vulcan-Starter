@@ -4,14 +4,14 @@ import Nav from '../other/Nav.jsx';
 import MoviesApp from '../movies/MoviesApp.jsx';
 import MoviesApp2 from '../movies/MoviesApp2.jsx';
 
-// replace <MoviesApp/> with <MoviesApp2/> on #Step16
+// replace MoviesApp with MoviesApp2 on #Step15
 const Layout = ({ children }) => (
   <div className="layout">
     <div className="sidebar">
       <Nav />
     </div>
     <div className="main-content">{children}</div>
-    <MoviesApp2 />
+    <MoviesApp />
   </div>
 );
 

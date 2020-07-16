@@ -31,7 +31,7 @@ const Nav = () => {
   return (
     <div className="nav">
       <ul>
-        {data.steps.map(({ step, title, completed }) => {
+        {data && data.steps.map(({ step, title, completed }) => {
           return (
             <li className="nav-item" key={step}>
               {canAccess(step) ? (

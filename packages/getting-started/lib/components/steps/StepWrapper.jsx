@@ -87,7 +87,7 @@ const StepWrapper = (props) => {
     return <Components.Loading />;
   }
 
-  const currentStep = data.steps.find((s) => s.step === parseInt(step));
+  const currentStep = data && data.steps.find((s) => s.step === parseInt(step));
 
   const { title, completed } = currentStep;
 
@@ -117,7 +117,7 @@ const StepWrapper = (props) => {
           )}
 
           <div className="step-next">
-            <Link className="btn btn-primary" to={`/step/${step + 1}`}>
+            <Link className="btn btn-primary" to={`/step/${parseInt(step) + 1}`}>
               {buttonText}
             </Link>
           </div>

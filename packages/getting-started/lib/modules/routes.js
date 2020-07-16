@@ -22,6 +22,7 @@ import Step19 from '../components/steps/Step19';
 import Step20 from '../components/steps/Step20';
 
 addRoute({ name: 'step0', path: '/', component: Step0 });
+addRoute({ name: 'step0', path: '/step/0', component: Step0 });
 addRoute({ name: 'step1', path: '/step/1', component: Step1 });
 // addRoute({ name: 'step2', path: '/step/2', component: Step2 });  // uncomment me on #Step1
 addRoute({ name: 'step3', path: '/step/3', component: Step3 });

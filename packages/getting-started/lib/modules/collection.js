@@ -14,20 +14,20 @@ let Movies;
 
 Movies collection definition
 
-Uncomment on #Step6:
+Uncomment on #Step4:
 
 */
 
-Movies = createCollection({
+// Movies = createCollection({
 
-  collectionName: 'Movies',
+//   collectionName: 'Movies',
 
-  typeName: 'Movie',
+//   typeName: 'Movie',
 
-  schema,
+//   schema,
 
-  permissions, // uncomment on #Step17
+//   // permissions, // uncomment on #Step16
 
-});
+// });
 
 export default Movies;

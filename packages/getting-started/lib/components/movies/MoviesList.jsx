@@ -7,13 +7,13 @@ import Movies from '../../modules/collection.js';
 const MoviesList = () => {
   const items = {};
 
-  // uncomment on #Step10
-  const useMulti2Object = useMulti2({
-    collection: Movies,
-    fragmentName: 'MovieFragment', // uncomment on #Step11
-  });
-  items.loading = useMulti2Object.loading;
-  items.results = get(useMulti2Object, 'data.movies.results');
+  // uncomment on #Step8
+  // const useMulti2Object = useMulti2({
+  //   collection: Movies,
+  //   // fragmentName: 'MovieFragment', // uncomment on #Step9
+  // });
+  // items.loading = useMulti2Object.loading;
+  // items.results = get(useMulti2Object, 'data.movies.results');
 
   return (
     <div className="movies-list">
