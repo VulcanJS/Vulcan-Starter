@@ -5,7 +5,7 @@ import { okaidia } from 'react-syntax-highlighter/styles/prism';
 // import schema from '../../modules/schema.js';
 
 const schema = `
-{
+const schema = {
 
   _id: {
     type: String,
@@ -49,7 +49,22 @@ const schema = `
     searchable: true,
   },
 
-}
+  isWatched: {
+    label: 'Watched?',
+    type: Boolean,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+  },
+
+  imdbId: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+  },
+
+};
 `
 
 const Schema = () => (

@@ -24,16 +24,17 @@ const Nav = () => {
     return <Components.Loading />;
   }
 
+  // a step can be accessed if every step before it is completed
+  // note: step 0 can always be accessed
+  const canAccess = (step) => (step === 0 ? true : data.steps.slice(0, step).every((s) => s.completed));
+
   return (
     <div className="nav">
       <ul>
         {data.steps.map(({ step, title, completed }) => {
-          // activate this step's link if previous step has been completed
-          const previousStep = data.steps.find((s) => s.step === step - 1) || { completed: true };
-          const { completed: previousStepCompleted } = previousStep;
           return (
             <li className="nav-item" key={step}>
-              {previousStepCompleted ? (
+              {canAccess(step) ? (
                 <NavLink activeClassName="active" to={`/step/${step}`}>
                   <StepLink step={step} title={title} completed={completed} />
                 </NavLink>

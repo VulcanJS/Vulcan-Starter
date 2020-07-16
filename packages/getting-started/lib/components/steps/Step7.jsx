@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import StepWrapper from './StepWrapper.jsx';
 import Queries from '../other/Queries.jsx';
 
-export const title = 'Query Resolvers';
+export const title = 'Queries';
 
 const text = `
 Now that our data exists on the server, let's think about transmitting it to the client. 
@@ -14,11 +14,11 @@ It's important to realize that just because the data is available in our databas
 
 On the other hand, we do know that the client can connect to the GraphQL endpoint. In other words, if we can connect the endpoint to our database, we'll have managed to close the loop. And we can do this using a **resolver**. 
 
-A GraphQL resolver is basically a function that waits for any GraphQL queries mentioning a specific field, and then provides some data in return. In previous steps we actually already used two resolvers in the background, \`schemaContents\` and \`moviesCount\`. 
+A GraphQL resolver is basically a function that waits for any GraphQL query or mutation, and then provides some data in return. In previous steps we actually already used two query resolvers in the background, \`schemaContents\` and \`moviesCount\`. 
 
 These two resolvers were written specifically for this tutorial and are fairly limited, but we'll now look at Vulcan's **collection resolvers**.
 
-Go to \`lib/components/steps/Step9.jsx\` and uncomment the \`<Resolvers />\` line to display a list of available query resolvers. 
+Go to \`lib/components/steps/Step9.jsx\` and uncomment the \`<Queries />\` line to display a list of available query resolvers. 
 `;
 
 const after = [

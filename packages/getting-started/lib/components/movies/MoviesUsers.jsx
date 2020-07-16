@@ -12,7 +12,7 @@ const MoviesUsers = () => {
             Welcome, {currentUser.displayName} {currentUser.isAdmin && `(admin)`}
           </p>
         )}
-        {/* <Components.AccountsLoginForm redirect={false} /> */}
+        <Components.AccountsLoginForm redirect={false} />
       </div>
     </div>
   );

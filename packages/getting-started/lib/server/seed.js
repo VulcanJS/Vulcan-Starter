@@ -35,7 +35,7 @@ const seedData = [
     imdbId: 'tt0073195',
   },
   {
-    name: 'Die Hard with a Vengeance',
+    name: 'Die Hard 2',
     year: '1991',
     review: `Another classic.`,
     imdbId: 'tt0112864',

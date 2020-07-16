@@ -1,12 +1,12 @@
 import fs from "fs";
 import util from "util";
-import Movies from '../modules/collection.js';
+import Movies from "../modules/collection.js";
 
 const specialChecks = {
   seedCheck: async () => {
-    return await Movies.find().count() > 0;
-  }
-}
+    return (await Movies.find().count()) > 0;
+  },
+};
 
 const readFile = util.promisify(fs.readFile);
 
@@ -33,13 +33,19 @@ const passCheck = async (step, { file, string, specialCheck }) => {
   const filePath = file ? file : `/lib/components/steps/Step${step}.jsx`;
   // get file contents and remove all commented code
   const fileContents = await readFile(getFilePath(filePath), "utf8");
-  const cleanFileContents = removeComments(fileContents);
+  const cleanFileContents = cleanContents(fileContents);
   // check if file contents include check's search string
   return cleanFileContents.includes(string);
 };
 
-const removeComments = (s) =>
-  s.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "$1");
+const cleanContents = (s) => {
+  // remove JS comments
+  s = s.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "$1");
+  // remove line starting with `export const checks`
+  // see https://stackoverflow.com/a/7159870
+  s = s.replace(/^export const checks.*$/gm, '');
+  return s;
+};
 
 export const getSteps = async () => {
   // iterate over all steps
@@ -47,7 +53,7 @@ export const getSteps = async () => {
     let passAllChecks = true;
     // require step component file to get access to its metadata
     const file = require(getStepPath(step));
-    const { title = '', checks = [] } = file;
+    const { title = "", checks = [] } = file;
     // note: if there are no checks step is automatically considered completed
     for (const check of checks) {
       const isOK = await passCheck(step, check);

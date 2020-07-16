@@ -363,6 +363,7 @@ type Movie {
   user: User 
   name: String 
   review: String 
+  isWatched: Boolean 
   imdbId: String 
   score: Float 
   createdAtFormatted(format: String = "YYYY/MM/DD"): String 
@@ -442,6 +443,7 @@ input CreateMovieInput {
 input CreateMovieDataInput {
   name: String 
   review: String 
+  isWatched: Boolean 
 }
 
 input UpdateMovieInput{
@@ -463,6 +465,7 @@ input UpsertMovieInput{
 input UpdateMovieDataInput {
   name: String 
   review: String 
+  isWatched: Boolean 
 }
 
 input MovieFilterInput {
@@ -476,6 +479,7 @@ input MovieFilterInput {
   userId: String_Selector
   name: String_Selector
   review: String_Selector
+  isWatched: Boolean_Selector
   imdbId: String_Selector
 }
 
@@ -485,6 +489,7 @@ input MovieSortInput {
   userId: SortOptions
   name: SortOptions
   review: SortOptions
+  isWatched: SortOptions
   imdbId: SortOptions
 }
 
@@ -546,6 +551,8 @@ type Mutation {
   sendVerificationEmail(input: AuthEmailInput): Boolean
 
   verifyEmail(input: VerifyEmailInput): VerifyEmailResult
+
+  markAsWatched(movieId: String): Movie
 
   # Mutation for creating new User documents
   createUser(
