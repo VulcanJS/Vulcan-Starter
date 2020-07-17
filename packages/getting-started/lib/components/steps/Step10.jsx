@@ -12,7 +12,7 @@ This means that even though the \`Movies\` objects in our database only contains
 
 In Vulcan, this is done automatically through [relations](http://docs.vulcanjs.org/relations.html).
 
-Find the \`userId\` field in your \'lib/modules/schema.js\' file and add the following property to it:
+Find the \`userId\` field in your \`lib/modules/schema.js\` file and add the following property to it:
 `,
   `
 ~~~js

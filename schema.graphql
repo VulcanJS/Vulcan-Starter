@@ -356,6 +356,156 @@ input UserSelectorUniqueInput {
 }
 
 
+# Type for Movies
+type Movie {
+  _id: String 
+  createdAt: Date 
+  userId: String 
+  name: String 
+  review: String 
+  isWatched: Boolean 
+  imdbId: String 
+  createdAtFormatted(format: String = "YYYY/MM/DD"): String 
+}
+
+
+input DeleteMovieInput{
+  filter: MovieFilterInput
+  id: String
+  # An identifier to name the mutation's execution context
+  contextName: String
+}
+
+input SingleMovieInput {
+  # filtering
+  filter: MovieFilterInput
+  sort: MovieSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  "Deprecated (use 'filter/id' fields instead)."
+  selector: MovieSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
+}
+
+input MultiMovieInput {
+
+  # filtering
+  filter: MovieFilterInput
+  sort: MovieSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  "Deprecated (use 'filter/id' fields instead)."
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
+  
+}
+
+type SingleMovieOutput{
+  result: Movie
+}
+
+type  MultiMovieOutput{
+  results: [Movie]
+  totalCount: Int
+}
+
+type MovieMutationOutput{
+  data: Movie
+}
+
+input CreateMovieInput {
+  data: CreateMovieDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
+}
+
+input CreateMovieDataInput {
+  name: String 
+  review: String 
+  isWatched: Boolean 
+}
+
+input UpdateMovieInput{
+  filter: MovieFilterInput
+  id: String
+  data: UpdateMovieDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
+}
+
+input UpsertMovieInput{
+  filter: MovieFilterInput
+  id: String
+  data: UpdateMovieDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
+}
+
+input UpdateMovieDataInput {
+  name: String 
+  review: String 
+  isWatched: Boolean 
+}
+
+input MovieFilterInput {
+  _and: [MovieFilterInput]
+  _not: MovieFilterInput
+  _or: [MovieFilterInput]
+
+
+  _id: String_Selector
+  createdAt: Date_Selector
+  userId: String_Selector
+  name: String_Selector
+  review: String_Selector
+  isWatched: Boolean_Selector
+  imdbId: String_Selector
+}
+
+input MovieSortInput {
+  _id: SortOptions
+  createdAt: SortOptions
+  userId: SortOptions
+  name: SortOptions
+  review: SortOptions
+  isWatched: SortOptions
+  imdbId: SortOptions
+}
+
+input MovieSelectorInput {
+  _and: [MovieSelectorInput]
+  _or: [MovieSelectorInput]
+
+}
+
+input MovieSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
 
 
 type Query {
@@ -374,6 +524,12 @@ type Query {
   
   # A list of User documents matching a set of query terms
   users(input: MultiUserInput):  MultiUserOutput
+  
+  # A single Movie document fetched by ID or slug
+  movie(input: SingleMovieInput!): SingleMovieOutput
+  
+  # A list of Movie documents matching a set of query terms
+  movies(input: MultiMovieInput):  MultiMovieOutput
   
 }
   
@@ -426,6 +582,38 @@ type Mutation {
   "Deprecated (use 'input' field instead)."
   selector: UserSelectorUniqueInput
 ) : UserMutationOutput
+
+  # Mutation for creating new Movie documents
+  createMovie(
+  input: CreateMovieInput,
+  "Deprecated (use 'input' field instead)."
+  data: CreateMovieDataInput
+) : MovieMutationOutput
+
+  # Mutation for updating a Movie document
+  updateMovie(
+  input: UpdateMovieInput,
+  "Deprecated (use 'input' field instead)."
+  selector: MovieSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateMovieDataInput 
+) : MovieMutationOutput
+
+  # Mutation for upserting a Movie document
+  upsertMovie(
+  input: UpsertMovieInput,
+  "Deprecated (use 'input' field instead)."
+  selector: MovieSelectorUniqueInput,
+  "Deprecated (use 'input' field instead)."
+  data: UpdateMovieDataInput
+) : MovieMutationOutput
+
+  # Mutation for deleting a Movie document
+  deleteMovie(
+  input: DeleteMovieInput,
+  "Deprecated (use 'input' field instead)."
+  selector: MovieSelectorUniqueInput
+) : MovieMutationOutput
 
 }
 

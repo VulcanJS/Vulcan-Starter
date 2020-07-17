@@ -9,7 +9,6 @@ const specialChecks = {
     }
     return (await Movies.find().count()) > 0;
   },
-  finishedCheck: () => false
 };
 
 const readFile = util.promisify(fs.readFile);

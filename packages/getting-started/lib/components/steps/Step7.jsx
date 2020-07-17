@@ -18,7 +18,7 @@ A GraphQL resolver is basically a function that waits for any GraphQL query or m
 
 These two resolvers were written specifically for this tutorial and are fairly limited, but we'll now look at Vulcan's **collection resolvers**.
 
-Go to \`lib/components/steps/Step9.jsx\` and uncomment the \`<Queries />\` line to display a list of available query resolvers. 
+Go to \`lib/components/steps/Step7.jsx\` and uncomment the \`<Queries />\` line to display a list of available query resolvers. 
 `;
 
 const after = [
@@ -52,7 +52,7 @@ const query = gql`
 
 const Step = () => {
   const item = {};
-  // uncomment the hook on #Step9
+  // uncomment the hook on #Step7
   // const { data } = useQuery(query);
   // item.queries = get(data, '__type.fields');
   return (

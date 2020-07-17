@@ -31,7 +31,7 @@ Did you see the \`review\` field is back? That's because we're not using our fra
 
 Also, as an extra feature, the \`Datatable\` component also includes a search function. The \`name\` and \`review\` fields happen to have the \`searchable: true\` property in our schema, which makes them searchable. Type in “classic” to try it now!
 
-By the way, this is out first time looking at the \`Layout\` component. This is a special component in that every Vulcan apps comes with a default layout component that automatically wraps all your other components. Here, we are *replacing* this default layout with our own three-column component that contains our table of contents, main content area, and Movies app. 
+By the way, this is out first time looking at the \`Layout\` component. This is a special default layout component included in every Vulcan app that automatically wraps all your other components. Here, we are *replacing* this default layout with our own three-column component that contains our table of contents, main content area, and Movies app. 
 
 Using \`replaceComponent\` lets us replace and customize any of Vulcan's internal components in this way, from layouts to forms to datatables.
 `;

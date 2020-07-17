@@ -9,7 +9,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
-import { okaidia } from 'react-syntax-highlighter/styles/prism';
+import { solarizedlight as theme } from 'react-syntax-highlighter/styles/prism';
 
 const isCode = (t) => t.slice(0, 3) === '~~~';
 const languages = {
@@ -28,7 +28,7 @@ const LinkRenderer = (props) =>
     <Link to={props.href}>{props.children}</Link>
   );
 
-const TextBlocks = ({ textArray, currentUser }) => (
+const TextBlocks = ({ textArray, currentUser, step }) => (
   <div className="text-blocks">
     {textArray.map((block, i) => {
       let text;
@@ -48,13 +48,15 @@ const TextBlocks = ({ textArray, currentUser }) => (
         text = text.replace('##currentUserName##', currentUser.displayName);
       }
 
+      text = text.replace('##step##', step);
+
       const trimmed = text.trim();
       const language = languages[trimmed.slice(3, 5)] || 'javascript';
       const code = trimmed.slice(5, trimmed.length - 3).trim();
 
       return isCode(trimmed) ? (
         <div className="code-block" key={i}>
-          <SyntaxHighlighter language={language} style={okaidia}>
+          <SyntaxHighlighter language={language} style={theme}>
             {code}
           </SyntaxHighlighter>
         </div>
@@ -81,13 +83,13 @@ const StepWrapper = (props) => {
   const { text, after, children, firstStep = false, currentUser } = props;
   const { loading, data } = useQuery(query);
   const { pathname } = useLocation();
-  const step = pathname.split('/').reverse()[0] || 0;
+  const step = parseInt(pathname.split('/').reverse()[0]) || 0;
 
   if (loading) {
     return <Components.Loading />;
   }
 
-  const currentStep = data && data.steps.find((s) => s.step === parseInt(step));
+  const currentStep = data && data.steps.find((s) => s.step === step);
 
   const { title, completed } = currentStep;
 
@@ -103,7 +105,7 @@ const StepWrapper = (props) => {
           {step > 0 && `${step}. `}
           {title}
         </h2>
-        <TextBlocks textArray={textArray} currentUser={currentUser} />
+        <TextBlocks textArray={textArray} currentUser={currentUser} step={step}/>
       </div>
 
       {children && <div className="step-contents">{children}</div>}
@@ -117,7 +119,7 @@ const StepWrapper = (props) => {
           )}
 
           <div className="step-next">
-            <Link className="btn btn-primary" to={`/step/${parseInt(step) + 1}`}>
+            <Link className="btn btn-primary" to={`/step/${step + 1}`}>
               {buttonText}
             </Link>
           </div>

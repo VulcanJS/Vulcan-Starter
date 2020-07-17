@@ -1,6 +1,6 @@
 import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
-import { okaidia } from 'react-syntax-highlighter/styles/prism';
+import { solarizedlight as theme } from 'react-syntax-highlighter/styles/prism';
 
 // import schema from '../../modules/schema.js';
 
@@ -69,7 +69,7 @@ const schema = {
 
 const Schema = () => (
   <div className="schema">
-    <SyntaxHighlighter language="javascript" style={okaidia}>{schema}</SyntaxHighlighter>
+    <SyntaxHighlighter language="javascript" style={theme}>{schema}</SyntaxHighlighter>
   </div>
 );
 

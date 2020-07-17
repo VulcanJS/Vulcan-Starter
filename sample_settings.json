@@ -6,7 +6,7 @@
     "title": "Vulcan.js",
     "tagline":"The React/GraphQL Full-stack Framework",
 
-    "faviconUrl": "/favicon.ico",
+    "faviconUrl": "/vulcan-logo-border.svg",
 
     "locale": "en"
 

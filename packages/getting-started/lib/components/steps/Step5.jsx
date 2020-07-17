@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Components } from 'meteor/vulcan:core';
 import StepWrapper from './StepWrapper.jsx';
+import GraphQLSchema from '../other/GraphQLSchema.jsx';
 
 export const title = 'The GraphQL Schema';
 
@@ -15,7 +15,7 @@ Every GraphQL API endpoint needs a schema to indicate what data should be made a
 
 That GraphQL schema lives on the server, so in order to visualize it we need some way of fetching it from the client. That's where hooks will come in handy, more specifically Apollo Client's [\`useQuery\` hook](https://www.apollographql.com/docs/react/api/react-hooks/#usequery).
 
-Find the \`lib/components/steps/Step7.jsx\` file for this component, uncomment the \`useQuery\` line, and prepare to scroll down a lot.
+Find the \`lib/components/steps/Step5.jsx\` file for this component, uncomment the \`useQuery\` line, and prepare to scroll down a lot.
 `;
 
 const after = `
@@ -43,7 +43,7 @@ const Step = () => {
   // items.data = useQuery(query).data; 
   return (
     <StepWrapper title={Step.title} text={text} after={after}>
-      {items.data && <Components.GraphQLSchema data={items.data} />}
+      {items.data && <GraphQLSchema data={items.data} />}
     </StepWrapper>
   );
 };

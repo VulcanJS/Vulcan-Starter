@@ -14,7 +14,7 @@ Now don't worry, I'm not talking about giving data extra arms and the ability to
 
 Just like with resolvers, Vulcan offers some handy [auto-generated mutations](http://docs.vulcanjs.org/mutations.html#Default-Mutations).
 
-Go to \`lib/components/steps/Step14.jsx\` and uncomment the \`<Mutations />\` line. 
+Go to \`lib/components/steps/Step##step##.jsx\` and uncomment the \`useQuery\` hook. 
 `;
 
 const after = `

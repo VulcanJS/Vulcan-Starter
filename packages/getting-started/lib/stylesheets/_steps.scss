@@ -24,14 +24,3 @@
     width: 100%;
   }
 }
-
-.step-check{
-  display: inline-block;
-  margin-left: 2px;
-  &-complete{
-
-  }
-  &-incomplete{
-    color: #999;
-  }
-}

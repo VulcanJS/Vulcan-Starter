@@ -7,7 +7,7 @@ export const title = 'Core Components';
 const text = `
 Now let's play around with some of Vulcan's premade [core components](http://docs.vulcanjs.org/ui-components.html), such as [the \`ModalTrigger\` component](http://docs.vulcanjs.org/ui-components.html#ModalTrigger), which lets you show info inside a modal window. 
 
-Find the file for the step 4 component at \`lib/components/steps/Step4.jsx\` and uncomment the middle part (in other words, remove \`{/*\` and \`*/}\`). The results will appear below.
+Find the file for the step 2 component (the one containing the text you're reading right now!) at \`lib/components/steps/Step2.jsx\` and uncomment the middle part (in other words, remove \`{/*\` and \`*/}\`). The results will appear below.
 `;
 
 const after = `
@@ -20,14 +20,19 @@ In Vulcan any registered component can be accessed as \`<Components.ComponentNam
 
 const Step = () => (
   <StepWrapper title={Step.title} text={text} after={after} check={({ children }) => !!children}>
-    {/*     
-    <Components.ModalTrigger component={<a href="#">Click Me!</a>}>
+    
+    {/* 
+    <Components.ModalTrigger
+      title="Welcome to Vulcan"
+      component={<Components.Button style={{ marginBottom: 20 }}>Click Me!</Components.Button>}
+    >
       <div>Hello World!</div>
     </Components.ModalTrigger> 
     */}
+
   </StepWrapper>
 );
 
-export const checks = [{ string: '<Components.ModalTrigger component={<a href="#">Click Me!</a>}>'}];
+export const checks = [{ string: 'Components.ModalTrigger' }];
 
 export default Step;

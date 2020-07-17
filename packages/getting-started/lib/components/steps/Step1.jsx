@@ -13,9 +13,7 @@ Let's create a route for step 2. Open \`/lib/modules/routes.js\`, find the route
 `;
 
 const after = `
-Well done, you've beaten level 1!
-
-By the way, when developing locally you can review all your routes using the [Routes dashboard](/debug/routes), if you have the [debug package](http://docs.vulcanjs.org/debug.html) enabled. You can use it anytime to double-check if a route is properly enabled, though I trust you won't use it to cheat and get ahead in the tutorial…
+Well done, you've beaten level 1! Don't worry, things will get harder from now on… (but not *too* hard!).
 `;
 
 const Step = () => (

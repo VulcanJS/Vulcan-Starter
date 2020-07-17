@@ -38,7 +38,7 @@ const Nav = () => {
             return (
               <li className="nav-item" key={step}>
                 {canAccess(step) ? (
-                  <NavLink className="step-link" activeClassName="active" to={`/step/${step}`}>
+                  <NavLink className="step-link" activeClassName="active" to={step === 0 ? '/' : `/step/${step}`}>
                     <StepLink {...props} />
                   </NavLink>
                 ) : (
@@ -63,7 +63,6 @@ const StepLink = ({ step, title, completed, progress }) => (
         </span>
       ))}
     </span>
-    {/* {completed && ' ✓'} */}
   </span>
 );
 

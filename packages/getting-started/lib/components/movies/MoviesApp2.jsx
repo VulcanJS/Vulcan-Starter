@@ -17,7 +17,8 @@ const MoviesApp2 = () => (
           // Uncomment on #Step18
           // { name: 'isWatched', component: MoviesMarkAsWatched }
         ]}
-        // options={{ input: { sort: { name: 'asc' } } }} // uncomment on #Step17
+        // uncomment on #Step17
+        // options={{ input: { sort: { name: 'asc' } } }}
       />
     </div>
   </div>

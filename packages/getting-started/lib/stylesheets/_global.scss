@@ -1,0 +1,17 @@
+a.btn,
+button.btn {
+  &-primary {
+    &, &:not(:disabled):not(.disabled).active {
+      background: $red;
+      border-color: $red;
+    }
+  }
+}
+
+a:not(.btn) {
+  &,
+  &:link {
+    color: $red;
+    font-weight: bold;
+  }
+}
