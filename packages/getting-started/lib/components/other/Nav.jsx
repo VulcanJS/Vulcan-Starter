@@ -13,6 +13,7 @@ const query = gql`
       step
       title
       completed
+      progress
     }
   }
 `;
@@ -31,29 +32,38 @@ const Nav = () => {
   return (
     <div className="nav">
       <ul>
-        {data && data.steps.map(({ step, title, completed }) => {
-          return (
-            <li className="nav-item" key={step}>
-              {canAccess(step) ? (
-                <NavLink activeClassName="active" to={`/step/${step}`}>
-                  <StepLink step={step} title={title} completed={completed} />
-                </NavLink>
-              ) : (
-                <StepLink step={step} title={title} completed={completed} />
-              )}
-            </li>
-          );
-        })}
+        {data &&
+          data.steps.map((props) => {
+            const { step } = props;
+            return (
+              <li className="nav-item" key={step}>
+                {canAccess(step) ? (
+                  <NavLink className="step-link" activeClassName="active" to={`/step/${step}`}>
+                    <StepLink {...props} />
+                  </NavLink>
+                ) : (
+                  <StepLink {...props} />
+                )}
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
 };
 
-const StepLink = ({ step, title, completed }) => (
-  <span>
+const StepLink = ({ step, title, completed, progress }) => (
+  <span className="step-label">
     {step > 0 && `${step}. `}
     {title}
-    {completed && ' ✓'}
+    <span className="step-progress">
+      {progress.map((isCompleted, i) => (
+        <span className={`step-check step-check-${isCompleted ? 'complete' : 'incomplete'}`} key={i}>
+          ✓
+        </span>
+      ))}
+    </span>
+    {/* {completed && ' ✓'} */}
   </span>
 );
 

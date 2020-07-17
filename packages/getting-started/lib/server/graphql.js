@@ -50,6 +50,7 @@ addGraphQLSchema(`
 type Step {
   step: Int
   completed: Boolean
+  progress: [Boolean]
   title: String
 }`);
 

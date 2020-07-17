@@ -42,13 +42,19 @@ const passCheck = async (step, { file, string, specialCheck }) => {
   return cleanFileContents.includes(string);
 };
 
-const cleanContents = (s) => {
+export const cleanContents = (s) => {
+  
   // remove JS comments
   s = s.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "$1");
+
   // remove line starting with `export const checks` and `import`
   // see https://stackoverflow.com/a/7159870
-  s = s.replace(/^export const checks.*$/gm, "");
-  s = s.replace(/^import.*$/gm, "");
+  s = s.replace(/^export const checks.*$/gm, '');
+  s = s.replace(/^import.*$/gm, '');
+
+  // remove lines starting with # (GraphQL comments)
+  s = s.replace(/^ *\#.*$/gm, '');
+
   return s;
 };
 
@@ -58,10 +64,12 @@ export const getSteps = async () => {
     let passAllChecks = true;
     // require step component file to get access to its metadata
     const file = require(getStepPath(step));
-    const { title = "", checks = [] } = file;
+    const { title = '', checks = [] } = file;
+    const progress = [];
     // note: if there are no checks step is automatically considered completed
     for (const check of checks) {
       const isOK = await passCheck(step, check);
+      progress.push(isOK);
       if (!isOK) {
         passAllChecks = false;
       }
@@ -70,6 +78,7 @@ export const getSteps = async () => {
     return {
       step,
       title,
+      progress,
       completed: passAllChecks,
     };
   });

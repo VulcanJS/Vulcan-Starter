@@ -167,6 +167,7 @@ directive @intl on FIELD_DEFINITION
 type Step {
   step: Int
   completed: Boolean
+  progress: [Boolean]
   title: String
 }
 

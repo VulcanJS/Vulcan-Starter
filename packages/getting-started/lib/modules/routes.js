@@ -21,7 +21,6 @@ import Step18 from '../components/steps/Step18';
 import Step19 from '../components/steps/Step19';
 import Step20 from '../components/steps/Step20';
 
-addRoute({ name: 'step0', path: '/', component: Step0 });
 addRoute({ name: 'step0', path: '/step/0', component: Step0 });
 addRoute({ name: 'step1', path: '/step/1', component: Step1 });
 // addRoute({ name: 'step2', path: '/step/2', component: Step2 });  // uncomment me on #Step1
@@ -43,3 +42,4 @@ addRoute({ name: 'step17', path: '/step/17', component: Step17 });
 addRoute({ name: 'step18', path: '/step/18', component: Step18 });
 addRoute({ name: 'step19', path: '/step/19', component: Step19 });
 addRoute({ name: 'step20', path: '/step/20', component: Step20 });
+addRoute({ name: 'step0', path: '/', component: Step0 });
