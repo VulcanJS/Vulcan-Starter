@@ -9,7 +9,7 @@
   white-space: nowrap;
   color: #999;
   a {
-    & {
+    &, &:link {
       font-weight: normal;
     }
     &.active {

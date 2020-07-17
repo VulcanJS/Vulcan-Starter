@@ -80,7 +80,7 @@ const query = gql`
 `;
 
 const StepWrapper = (props) => {
-  const { text, after, children, firstStep = false, currentUser } = props;
+  const { text, after, children, firstStep = false, lastStep = false, currentUser } = props;
   const { loading, data } = useQuery(query);
   const { pathname } = useLocation();
   const step = parseInt(pathname.split('/').reverse()[0]) || 0;
@@ -105,7 +105,7 @@ const StepWrapper = (props) => {
           {step > 0 && `${step}. `}
           {title}
         </h2>
-        <TextBlocks textArray={textArray} currentUser={currentUser} step={step}/>
+        <TextBlocks textArray={textArray} currentUser={currentUser} step={step} />
       </div>
 
       {children && <div className="step-contents">{children}</div>}
@@ -118,11 +118,13 @@ const StepWrapper = (props) => {
             </div>
           )}
 
-          <div className="step-next">
-            <Link className="btn btn-primary" to={`/step/${step + 1}`}>
-              {buttonText}
-            </Link>
-          </div>
+          {!lastStep && (
+            <div className="step-next">
+              <Link className="btn btn-primary" to={`/step/${step + 1}`}>
+                {buttonText}
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </div>
