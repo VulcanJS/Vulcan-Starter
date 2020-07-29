@@ -1,6 +1,6 @@
 .layout {
   display: grid;
-  grid-template-columns: 250px auto minmax(300px, 500px);
+  grid-template-columns: 250px auto 480px;
 }
 .sidebar {
   padding: $spacing;
