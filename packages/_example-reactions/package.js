@@ -1,12 +1,10 @@
 Package.describe({
-  name: 'example-reactions',
+  name: "example-reactions",
 });
 
 Package.onUse(function (api) {
-
   api.use([
-
-    'promise',
+    "promise",
 
     // vulcan core
     'vulcan:core@=1.16.0',
@@ -19,9 +17,8 @@ Package.onUse(function (api) {
 
   ]);
 
-  api.addFiles('lib/stylesheets/style.css');
+  api.addFiles("lib/stylesheets/style.css");
 
-  api.mainModule('lib/server/main.js', 'server');
-  api.mainModule('lib/client/main.js', 'client');
-
+  api.mainModule("lib/server/main.js", "server");
+  api.mainModule("lib/client/main.js", "client");
 });

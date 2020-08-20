@@ -1,1 +1,439 @@
-"\nscalar JSON\nscalar Date\n\n# see https://docs.hasura.io/1.0/graphql/manual/queries/query-filters.html\n\ninput String_Selector {\n  _eq: String\n  #_gt: String\n  #_gte: String\n  #_ilike: String\n  _in: [String!]\n  _is_null: Boolean\n  _like: String\n  #_lt: String\n  #_lte: String\n  #_neq: String\n  #_nilike: String\n  #_nin: [String!]\n  #_nlike: String\n  #_nsimilar: String\n  #_similar: String\n}\n\ninput String_Array_Selector {\n  _in: [String!]\n  _contains: String\n  # _contains_all: [String_Selector]\n}\n\ninput Int_Selector {\n  _eq: Int\n  _gt: Int\n  _gte: Int\n  _in: [Int!]\n  #_is_null: Boolean\n  _lt: Int\n  _lte: Int\n  #_neq: Int\n  #_nin: [Int!]\n}\n\ninput Int_Array_Selector {\n  contains: Int_Selector\n  # contains_all: [Int_Selector]\n}\n\ninput Float_Selector {\n  _eq: Float\n  _gt: Float\n  _gte: Float\n  _in: [Float!]\n  #_is_null: Boolean\n  _lt: Float\n  _lte: Float\n  #_neq: Float\n  #_nin: [Float!]\n}\n\ninput Float_Array_Selector {\n  contains: Float_Selector\n  # contains_all: [Float_Selector]\n}\n\ninput Boolean_Selector {\n  _eq: Boolean\n  #_neq: Boolean\n}\n\ninput Boolean_Array_Selector {\n  contains: Boolean_Selector\n  # contains_all: [Boolean_Selector]\n}\n\ninput Date_Selector {\n  _eq: Date\n  _gt: Date\n  _gte: Date\n  _in: [Date!]\n  #_is_null: Boolean\n  _lt: Date\n  _lte: Date\n  #_neq: Date\n  #_nin: [Date!]\n}\n\ninput Date_Array_Selector {\n  contains: Date_Selector\n  # contains_all: [Date_Selector]\n}\n\n# column ordering options\nenum SortOptions {\n  asc\n  desc\n}\n\ninput OptionsInput {\n  # Whether to enable caching for this query\n  enableCache: Boolean\n  # For single document queries, return null instead of throwing MissingDocumentError\n  allowNull: Boolean\n}\n\ntype Site {\n  title: String\n  url: String\n  logoUrl: String\n  sourceVersion: String\n}\ntype IntlValue {\n  locale: String\n  value: String\n}\ninput IntlValueInput{\n  locale: String\n  value: String\n}\ndirective @intl on FIELD_DEFINITION\n\n  input AuthPasswordInput {\n    email: String\n    password: String\n  }\n  type AuthResult {\n    token: String\n    userId: String\n  }\n  type LogoutResult {\n    userId: String\n  }\n\n  input SignupInput {\n    email: String\n    password: String\n  }\n  type SignupResult {\n    userId: String\n  }\n\n  input SetPasswordInput {\n    newPassword: String\n  }\n\n  #type SetPasswordResult # Will auth user again so we reuse AuthResult atm\n\n  input ResetPasswordInput {\n    token: String\n    newPassword: String\n  }\n  type ResetPasswordResult {\n    userId: String\n  }\n\n  input VerifyEmailInput {\n    token: String\n  }\n  type VerifyEmailResult {\n    userId: String\n  }\n\n  input AuthEmailInput {\n    email: String\n  }\n\n\ntype Step {\n  step: Int\n  completed: Boolean\n  progress: [Boolean]\n  title: String\n}\n\n# A user object\ntype User {\n  _id: String \n  username: String \n  emails: [JSON] \n  createdAt: Date \n  isAdmin: Boolean \n  locale: String \n  profile: JSON \n  services: JSON \n  displayName: String \n  email: String \n  emailHash: String \n  avatarUrl: String \n  slug: String \n  groups: [String] \n  pageUrl: String \n  pagePath: String \n  editUrl: String \n  createdAtFormatted(format: String = \"YYYY/MM/DD\"): String \n}\n\n\ninput DeleteUserInput{\n  filter: UserFilterInput\n  id: String\n  # An identifier to name the mutation's execution context\n  contextName: String\n}\n\ninput SingleUserInput {\n  # filtering\n  filter: UserFilterInput\n  sort: UserSortInput\n  search: String\n  id: String\n\n  # backwards-compatibility\n  \"Deprecated (use 'filter/id' fields instead).\"\n  selector: UserSelectorUniqueInput\n\n  # options (backwards-compatibility)\n  # Whether to enable caching for this query\n  enableCache: Boolean\n  # Return null instead of throwing MissingDocumentError\n  allowNull: Boolean\n  # An identifier to name the query's execution context\n  contextName: String\n}\n\ninput MultiUserInput {\n\n  # filtering\n  filter: UserFilterInput\n  sort: UserSortInput\n  search: String\n  offset: Int\n  limit: Int\n\n  # backwards-compatibility\n  # A JSON object that contains the query terms used to fetch data\n  \"Deprecated (use 'filter/id' fields instead).\"\n  terms: JSON\n\n  # options (backwards-compatibility)\n  # Whether to enable caching for this query\n  enableCache: Boolean\n  # Whether to calculate totalCount for this query\n  enableTotal: Boolean\n  # An identifier to name the query's execution context\n  contextName: String\n  \n}\n\ntype SingleUserOutput{\n  result: User\n}\n\ntype  MultiUserOutput{\n  results: [User]\n  totalCount: Int\n}\n\ntype UserMutationOutput{\n  data: User\n}\n\ninput CreateUserInput {\n  data: CreateUserDataInput!\n  # An identifier to name the mutation's execution context\n  contextName: String\n}\n\ninput CreateUserDataInput {\n  username: String \n  isAdmin: Boolean \n  locale: String \n  profile: JSON \n  displayName: String \n  email: String \n  groups: [String] \n}\n\ninput UpdateUserInput{\n  filter: UserFilterInput\n  id: String\n  data: UpdateUserDataInput!\n  # An identifier to name the mutation's execution context\n  contextName: String\n}\n\ninput UpsertUserInput{\n  filter: UserFilterInput\n  id: String\n  data: UpdateUserDataInput!\n  # An identifier to name the mutation's execution context\n  contextName: String\n}\n\ninput UpdateUserDataInput {\n  username: String \n  isAdmin: Boolean \n  locale: String \n  displayName: String \n  email: String \n  groups: [String] \n}\n\ninput UserFilterInput {\n  _and: [UserFilterInput]\n  _not: UserFilterInput\n  _or: [UserFilterInput]\n\n\n  _id: String_Selector\n  username: String_Selector\n\n  createdAt: Date_Selector\n  isAdmin: Boolean_Selector\n  locale: String_Selector\n\n  displayName: String_Selector\n  email: String_Selector\n  emailHash: String_Selector\n  avatarUrl: String_Selector\n  slug: String_Selector\n  groups: String_Array_Selector\n  pageUrl: String_Selector\n  pagePath: String_Selector\n  editUrl: String_Selector\n}\n\ninput UserSortInput {\n  _id: SortOptions\n  username: SortOptions\n  emails: SortOptions\n  createdAt: SortOptions\n  isAdmin: SortOptions\n  locale: SortOptions\n  services: SortOptions\n  displayName: SortOptions\n  email: SortOptions\n  emailHash: SortOptions\n  avatarUrl: SortOptions\n  slug: SortOptions\n  groups: SortOptions\n  pageUrl: SortOptions\n  pagePath: SortOptions\n  editUrl: SortOptions\n}\n\ninput UserSelectorInput {\n  _and: [UserSelectorInput]\n  _or: [UserSelectorInput]\n\n}\n\ninput UserSelectorUniqueInput {\n  _id: String\n  documentId: String # OpenCRUD backwards compatibility\n  slug: String\n\n}\n\n\n\n\ntype Query {\n  siteData: Site\n  \n  currentUser: User\n  \n  schemaContents: String\n  \n  moviesCount: Int\n  \n  steps: [Step]\n  \n  # A single User document fetched by ID or slug\n  user(input: SingleUserInput!): SingleUserOutput\n  \n  # A list of User documents matching a set of query terms\n  users(input: MultiUserInput):  MultiUserOutput\n  \n}\n  \n\ntype Mutation {\n  authenticateWithPassword(input: AuthPasswordInput): AuthResult\n\n  logout: LogoutResult\n\n  signup(input: SignupInput): SignupResult\n\n  setPassword(input: SetPasswordInput): AuthResult\n\n  sendResetPasswordEmail(input: AuthEmailInput): Boolean\n\n  resetPassword(input: ResetPasswordInput): ResetPasswordResult\n\n  sendVerificationEmail(input: AuthEmailInput): Boolean\n\n  verifyEmail(input: VerifyEmailInput): VerifyEmailResult\n\n  # Mutation for creating new User documents\n  createUser(\n  input: CreateUserInput,\n  \"Deprecated (use 'input' field instead).\"\n  data: CreateUserDataInput\n) : UserMutationOutput\n\n  # Mutation for updating a User document\n  updateUser(\n  input: UpdateUserInput,\n  \"Deprecated (use 'input' field instead).\"\n  selector: UserSelectorUniqueInput,\n  \"Deprecated (use 'input' field instead).\"\n  data: UpdateUserDataInput \n) : UserMutationOutput\n\n  # Mutation for upserting a User document\n  upsertUser(\n  input: UpsertUserInput,\n  \"Deprecated (use 'input' field instead).\"\n  selector: UserSelectorUniqueInput,\n  \"Deprecated (use 'input' field instead).\"\n  data: UpdateUserDataInput\n) : UserMutationOutput\n\n  # Mutation for deleting a User document\n  deleteUser(\n  input: DeleteUserInput,\n  \"Deprecated (use 'input' field instead).\"\n  selector: UserSelectorUniqueInput\n) : UserMutationOutput\n\n}\n\n\n"
+
+scalar JSON
+scalar Date
+
+# see https://docs.hasura.io/1.0/graphql/manual/queries/query-filters.html
+
+input String_Selector {
+  _eq: String
+  #_gt: String
+  #_gte: String
+  #_ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  #_lt: String
+  #_lte: String
+  #_neq: String
+  #_nilike: String
+  #_nin: [String!]
+  #_nlike: String
+  #_nsimilar: String
+  #_similar: String
+}
+
+input String_Array_Selector {
+  _in: [String!]
+  _contains: String
+  # _contains_all: [String_Selector]
+}
+
+input Int_Selector {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  #_is_null: Boolean
+  _lt: Int
+  _lte: Int
+  #_neq: Int
+  #_nin: [Int!]
+}
+
+input Int_Array_Selector {
+  contains: Int_Selector
+  # contains_all: [Int_Selector]
+}
+
+input Float_Selector {
+  _eq: Float
+  _gt: Float
+  _gte: Float
+  _in: [Float!]
+  #_is_null: Boolean
+  _lt: Float
+  _lte: Float
+  #_neq: Float
+  #_nin: [Float!]
+}
+
+input Float_Array_Selector {
+  contains: Float_Selector
+  # contains_all: [Float_Selector]
+}
+
+input Boolean_Selector {
+  _eq: Boolean
+  #_neq: Boolean
+}
+
+input Boolean_Array_Selector {
+  contains: Boolean_Selector
+  # contains_all: [Boolean_Selector]
+}
+
+input Date_Selector {
+  _eq: Date
+  _gt: Date
+  _gte: Date
+  _in: [Date!]
+  #_is_null: Boolean
+  _lt: Date
+  _lte: Date
+  #_neq: Date
+  #_nin: [Date!]
+}
+
+input Date_Array_Selector {
+  contains: Date_Selector
+  # contains_all: [Date_Selector]
+}
+
+# column ordering options
+enum SortOptions {
+  asc
+  desc
+}
+
+input OptionsInput {
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # For single document queries, return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+}
+
+type Site {
+  title: String
+  url: String
+  logoUrl: String
+  sourceVersion: String
+}
+type IntlValue {
+  locale: String
+  value: String
+}
+input IntlValueInput{
+  locale: String
+  value: String
+}
+directive @intl on FIELD_DEFINITION
+
+  input AuthPasswordInput {
+    email: String
+    password: String
+  }
+  type AuthResult {
+    token: String
+    userId: String
+  }
+  type LogoutResult {
+    userId: String
+  }
+
+  input SignupInput {
+    email: String
+    password: String
+  }
+  type SignupResult {
+    userId: String
+  }
+
+  input SetPasswordInput {
+    newPassword: String
+  }
+
+  #type SetPasswordResult # Will auth user again so we reuse AuthResult atm
+
+  input ResetPasswordInput {
+    token: String
+    newPassword: String
+  }
+  type ResetPasswordResult {
+    userId: String
+  }
+
+  input VerifyEmailInput {
+    token: String
+  }
+  type VerifyEmailResult {
+    userId: String
+  }
+
+  input AuthEmailInput {
+    email: String
+  }
+
+type EmailResponse {
+  from: String
+  to: String
+  subject: String
+  success: JSON
+  error: String
+}
+
+type Step {
+  step: Int
+  completed: Boolean
+  progress: [Boolean]
+  title: String
+}
+
+# A user object
+type User {
+  _id: String 
+  username: String 
+  emails: [JSON] 
+  createdAt: Date 
+  isAdmin: Boolean 
+  locale: String 
+  profile: JSON 
+  services: JSON 
+  displayName: String 
+  email: String 
+  emailHash: String 
+  avatarUrl: String 
+  slug: String 
+  groups: [String] 
+  pageUrl: String 
+  pagePath: String 
+  editUrl: String 
+  createdAtFormatted(format: String = "YYYY/MM/DD"): String 
+}
+
+
+input DeleteUserInput{
+  filter: UserFilterInput
+  id: String
+}
+
+input SingleUserInput {
+  # filtering
+  filter: UserFilterInput
+  sort: UserSortInput
+  search: String
+  id: String
+
+  # backwards-compatibility
+  # Deprecated (use 'filter/id' fields instead).
+  selector: UserSelectorUniqueInput
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Return null instead of throwing MissingDocumentError
+  allowNull: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
+}
+
+input MultiUserInput {
+
+  # filtering
+  filter: UserFilterInput
+  sort: UserSortInput
+  search: String
+  offset: Int
+  limit: Int
+
+  # backwards-compatibility
+  # A JSON object that contains the query terms used to fetch data
+  # Deprecated (use 'filter/id' fields instead).
+  terms: JSON
+
+  # options (backwards-compatibility)
+  # Whether to enable caching for this query
+  enableCache: Boolean
+  # Whether to calculate totalCount for this query
+  enableTotal: Boolean
+  # An identifier to name the query's execution context
+  contextName: String
+
+}
+
+type SingleUserOutput{
+  result: User
+}
+
+type  MultiUserOutput{
+  results: [User]
+  totalCount: Int
+}
+
+type UserMutationOutput{
+  data: User
+}
+
+input CreateUserInput {
+  data: CreateUserDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
+}
+
+input CreateUserDataInput {
+  username: String 
+  isAdmin: Boolean 
+  locale: String 
+  profile: JSON 
+  displayName: String 
+  email: String 
+  groups: [String] 
+}
+
+input UpdateUserInput{
+  filter: UserFilterInput
+  id: String
+  data: UpdateUserDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
+}
+
+input UpsertUserInput{
+  filter: UserFilterInput
+  id: String
+  data: UpdateUserDataInput!
+  # An identifier to name the mutation's execution context
+  contextName: String
+}
+
+input UpdateUserDataInput {
+  username: String 
+  isAdmin: Boolean 
+  locale: String 
+  displayName: String 
+  email: String 
+  groups: [String] 
+}
+
+input UserFilterInput {
+  _and: [UserFilterInput]
+  _not: UserFilterInput
+  _or: [UserFilterInput]
+
+
+  _id: String_Selector
+  username: String_Selector
+
+  createdAt: Date_Selector
+  isAdmin: Boolean_Selector
+  locale: String_Selector
+
+  displayName: String_Selector
+  email: String_Selector
+  emailHash: String_Selector
+  avatarUrl: String_Selector
+  slug: String_Selector
+  groups: String_Array_Selector
+  pageUrl: String_Selector
+  pagePath: String_Selector
+  editUrl: String_Selector
+}
+
+input UserSortInput {
+  _id: SortOptions
+  username: SortOptions
+  emails: SortOptions
+  createdAt: SortOptions
+  isAdmin: SortOptions
+  locale: SortOptions
+  services: SortOptions
+  displayName: SortOptions
+  email: SortOptions
+  emailHash: SortOptions
+  avatarUrl: SortOptions
+  slug: SortOptions
+  groups: SortOptions
+  pageUrl: SortOptions
+  pagePath: SortOptions
+  editUrl: SortOptions
+}
+
+input UserSelectorInput {
+  _and: [UserSelectorInput]
+  _or: [UserSelectorInput]
+
+}
+
+input UserSelectorUniqueInput {
+  _id: String
+  documentId: String # OpenCRUD backwards compatibility
+  slug: String
+
+}
+
+
+
+
+type Query {
+  siteData: Site
+  
+  currentUser: User
+  
+  schemaContents: String
+  
+  moviesCount: Int
+  
+  steps: [Step]
+  
+  # A single User document fetched by ID or slug
+  user(input: SingleUserInput!): SingleUserOutput
+  
+  # A list of User documents matching a set of query terms
+  users(input: MultiUserInput):  MultiUserOutput
+  
+}
+  
+
+type Mutation {
+  authenticateWithPassword(input: AuthPasswordInput): AuthResult
+
+  logout: LogoutResult
+
+  signup(input: SignupInput): SignupResult
+
+  setPassword(input: SetPasswordInput): AuthResult
+
+  sendResetPasswordEmail(input: AuthEmailInput): Boolean
+
+  resetPassword(input: ResetPasswordInput): ResetPasswordResult
+
+  sendVerificationEmail(input: AuthEmailInput): Boolean
+
+  verifyEmail(input: VerifyEmailInput): VerifyEmailResult
+
+  testEmail(emailName: String) : EmailResponse
+
+  # Mutation for creating new User documents
+  createUser(
+  input: CreateUserInput,
+  # Deprecated (use 'input' field instead).
+  data: CreateUserDataInput
+) : UserMutationOutput
+
+  # Mutation for updating a User document
+  updateUser(
+  input: UpdateUserInput,
+  # Deprecated (use 'input' field instead).
+  selector: UserSelectorUniqueInput,
+  # Deprecated (use 'input' field instead).
+  data: UpdateUserDataInput
+) : UserMutationOutput
+
+  # Mutation for upserting a User document
+  upsertUser(
+  input: UpsertUserInput,
+  # Deprecated (use 'input' field instead).
+  selector: UserSelectorUniqueInput,
+  # Deprecated (use 'input' field instead).
+  data: UpdateUserDataInput
+) : UserMutationOutput
+
+  # Mutation for deleting a User document
+  deleteUser(
+  input: DeleteUserInput,
+  # Deprecated (use 'input' field instead).
+  selector: UserSelectorUniqueInput
+) : UserMutationOutput
+
+}
+
+
