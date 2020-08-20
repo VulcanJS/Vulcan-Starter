@@ -22,6 +22,7 @@ getting-started
 
 # Uncomment to generate an admin area on /backoffice available to users of role "admin"
 # vulcan:backoffice
+# vulcan:ui-bootstrap # The backoffice interface except an UI package to be included, either ui-bootstrap or ui-material
 
 # Note: the following example apps are not currently up to date
 
