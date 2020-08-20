@@ -1,19 +1,27 @@
 import React from 'react';
-import { Components, replaceComponent } from 'meteor/vulcan:core';
+import { Components } from 'meteor/vulcan:core';
 
 import Movies from '../../modules/collection.js';
+import MoviesUsers from './MoviesUsers.jsx';
+import MoviesMarkAsWatched from './MoviesMarkAsWatched.jsx';
 
 const MoviesApp2 = () => (
   <div className="app-content">
     <div className="movies-app">
-      <Components.MoviesUsers />
-      <Components.Datatable 
-        collection={Movies} 
-        columns={['name', 'review']}
-        // options={{ input: { sort: { name: 'asc' } } }} // uncomment on #Step18
+      <MoviesUsers />
+      <Components.Datatable
+        collection={Movies}
+        columns={[
+          'name',
+          'review',
+          // Uncomment on #Step18
+          // { name: 'isWatched', component: MoviesMarkAsWatched }
+        ]}
+        // uncomment on #Step17
+        // options={{ input: { sort: { name: 'asc' } } }}
       />
     </div>
   </div>
 );
 
-replaceComponent('MoviesApp', MoviesApp2);
+export default MoviesApp2;

@@ -1,43 +1,32 @@
 import React from 'react';
 import { Components, registerComponent } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
-// Permissions
+export const title = 'Sorting & Filtering';
 
-const text = `
-If you're logged in and your account has the proper admin privileges, you should see Edit buttons next to every item in the Datatable. That's by design: in Vulcan, admin accounts automatically pass every permission checks. 
+const text = [
+  `
+By default, our movies data will be sorted in descending chronological order. But what if we wanted to sort our list of movies alphabetically instead? Or generally have more control over what data we show? We can do all of this using [filtering and ordering](http://docs.vulcanjs.org/filtering.html). 
 
-But in a real world app, you'll probably want to handle regular users as well. So let's see how we can assign [permissions](http://docs.vulcanjs.org/groups-permissions.html) to let users edit their own movies. 
 
-Start by signing out and creating a new account, which this time *won't* be an Admin account. Notice the new and edit buttons disappeared? That's because we've yet to tell our back-end who can insert and edit movies. 
+Now let's look at controlling ordering for a *specific* list of items. In \`MoviesApp2\`, uncomment the \`options={{ input: { sort: { name: 'asc' } } }}\` line. 
 
-Find \`lib/modules/collection.js\` and uncomment the \`permissions\` property.`;
+The datatable's \`options\` prop is being passed on to the \`multi2\` query responsible for loading its data. And that \`input\` is the query's single argument, used to control what dataset the server returns. All this means that once you uncomment that line, our list of movies should no longer be sorted in reverse chronological order, but in alphabetical order instead.
+`,
+];
 
-const after = [`
-The “New” button should be back, so try creating a new movie. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
+const after = `
+If you'd like, you can also try **filtering** the list. Replace the \`options\` line by \`options={{ input: { filter: { name: { _in: ['Die Hard', 'Star Wars'] } } } }}\` and see what happens! Just don't forget to change it back after.
 
-So how does this work? Let's review the permissions code we added:
-`,`
-~~~js
-{
-  canRead: ['guests'],
-  canCreate: ['members'],
-  canUpdate: ['owners'],
-  canDelete: ['owners'],
-}
-~~~
-`,`
+Once you get all this working, feel free to move on to the next step.
+`;
 
-First, we've declared that any user belonging to the \`guests\` group (in other words anybody accessing our API, even without being authentified) can read (i.e. access) a movie document. This is actually the default for any new collection, so specifying \`canRead\` is not strictly necessary unless you do want to restrict documents to specific groups. 
+// TODO check
 
-Then, we declare that any \`members\` (in other words any user, as long as they are logged in) can create a new movie. 
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-Finally, for Update and Delete operations, we check if a user belongs to the \`owners\` group, in other words whether the modified document's \`userId\` property is equal to the user's own \`_id\`.
+export const checks = [
+  { file: '/lib/components/movies/MoviesApp2.jsx', string: `options={{ input: { sort: { name: 'asc' } } }}` },
+];
 
-You can consider these three default groups (along with the \`admins\`) like shortcuts to common user roles. But you can also create your own custom groups, or even provide your own permission checks that bypass groups altogether. 
-`];
-
-const Step17 = () => (
-  <Components.Step step={17} text={text} after={after}/>
-);
-
-registerComponent({ name: 'Step17', component: Step17 });
+export default Step;

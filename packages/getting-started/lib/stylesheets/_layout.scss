@@ -1,16 +1,30 @@
-.layout{
+.layout {
   display: grid;
-  grid-template-columns: auto auto 400px;
-  column-gap: $spacing*3;
-  padding: $spacing*1.5;
+  grid-template-columns: 250px auto 480px;
 }
-.sidebar{
+.sidebar {
   padding: $spacing;
   background: #eee;
-
+  min-height: 100vh;
 }
-.main-content{
+.main-content {
+  padding: $spacing * 2;
+  min-height: 100vh;
 }
 
-.app-content{
+.app-content {
+  padding: $spacing;
+  min-height: 100vh;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $spacing;
+  img {
+    display: block;
+    width: 100%;
+    max-width: 80px;
+  }
 }

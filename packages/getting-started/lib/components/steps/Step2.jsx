@@ -1,28 +1,38 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import { Components } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
-// Registering Components
+export const title = 'Core Components';
 
 const text = `
-You've just created your first route. Next up on the menu, let's take a look at [registering components](http://docs.vulcanjs.org/components.html#Registering-Components). 
+Now let's play around with some of Vulcan's premade [core components](http://docs.vulcanjs.org/ui-components.html), such as [the \`ModalTrigger\` component](http://docs.vulcanjs.org/ui-components.html#ModalTrigger), which lets you show info inside a modal window. 
 
-Find the component for Step 3, which you can find in \`lib/components/steps/Step3.jsx\`, and uncomment that last \`registerComponent\` line. This will register the component with Vulcan, and make it available to use inside \`addRoute\`. 
-
-With the \`Step3\` component registered, we can now reference it inside a route. Go back to the routes file, and uncomment the \`Step3\` route. Taking a moment to look at its properties:
-
-- \`name\`: \`step3\`
-- \`path\`: \`/step/3\`
-- \`componentName\`: \`Step3\`
+Find the file for the step 2 component (the one containing the text you're reading right now!) at \`lib/components/steps/Step2.jsx\` and uncomment the middle part (in other words, remove \`{/*\` and \`*/}\`). The results will appear below.
 `;
 
 const after = `
-Nicely done. In Vulcan, components are available globally as \`<Components.Foobar/>\` once registered. 
+The \`ModalTrigger\` component takes a component or HTML snippet as \`component\` prop to serve as the trigger for the modal popup, and displays its children as the modal's contents. Try clicking that link!
 
-Note that the standard \`export\` and \`import\` will also work just fine in this scenario. After all, Vulcan components are just regular React components. But registering components can be useful, especially when building reusable Vulcan components.
-
-You can review them all by accessing the [Components dashboard](/debug/components) (note that most of the components you'll see in there belong to various Vulcan packages, such as \`vulcan:core\`, \`vulcan:forms\`, etc.).
+In Vulcan any registered component can be accessed as \`<Components.ComponentName/>\`. This can include core components, components that are part of a theme or plug-in, as well as components you created yourself.
 `;
 
-const Step2 = () => <Components.Step step={2} text={text} after={after} />;
+// uncomment the component's children on #Step2:
 
-registerComponent({ name: 'Step2', component: Step2 });
+const Step = () => (
+  <StepWrapper title={Step.title} text={text} after={after} check={({ children }) => !!children}>
+    
+    {/* 
+    <Components.ModalTrigger
+      title="Welcome to Vulcan"
+      component={<Components.Button style={{ marginBottom: 20 }}>Click Me!</Components.Button>}
+    >
+      <div>Hello World!</div>
+    </Components.ModalTrigger> 
+    */}
+
+  </StepWrapper>
+);
+
+export const checks = [{ string: 'Components.ModalTrigger' }];
+
+export default Step;

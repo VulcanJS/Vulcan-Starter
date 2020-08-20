@@ -1,32 +1,34 @@
 import React from 'react';
-import { Components, registerComponent, withMulti } from 'meteor/vulcan:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
-import withMutationResolvers from '../../hocs/withMutationResolvers.js';
+export const title = 'Forms';
 
-// Mutations
+const text = [
+  `
+We now have a mutation that creates new movies, so now let's build a form that takes advantage of it. 
 
-const text = `
-We've seen how to load data, and how to create a user account. Now how about using that fresh-out-the-oven user account to *mutate* some data?
+One of Vulcan's great features is that it can generate forms for you from a collection's schema. This means that all we need to do in order to get a "New Movie" form is specify the collection, in this case \`Movies\`. 
 
-Now don't worry, I'm not talking about giving data extra arms and the ability to shoot laser beams out of its eyes. What we mean by “mutation” is simply a function that modifies data on the server (in other words either creates, updates, or deletes a document).
+Additionally, in this case since we want our movie to show up in the same list as all the others once it's inserted, we'll specify a \`mutationFragmentName\` option to make sure the movie we get back from the server after the mutation has the same "shape" as the one already loaded on the client (including our special \`user\` field). 
 
-Just like with resolvers, Vulcan offers some handy [auto-generated mutations](http://docs.vulcanjs.org/mutations.html#Default-Mutations).
-
-Go to \`lib/components/steps/Step14.jsx\` and uncomment the \`<Components.Mutations />\` line. 
-`;
+Find \`MoviesNew.jsx\` and uncomment the following:
+`,
+  `
+~~~js
+<Components.SmartForm collection={Movies} mutationFragmentName="MovieFragment"/>
+~~~
+`,
+];
 
 const after = `
-As you can see, our three \`createMovie\`, \`updateMovie\`, and \`deleteMovie\` mutations are ready to use. In other words, if we send down the proper mutation, our GraphQL endpoint will be able to understand it and create, edit, or delete a document in our database. 
+By the way, you can build forms to edit documents the same way. Just pass an additional \`documentId\` prop to \`Components.SmartForm\` with the \`_id\` of the document you want to edit, and Vulcan will take care of the rest. 
+`;
 
-By the way, we've been talking about auto-generated mutations but you can also [write your own](http://docs.vulcanjs.org/mutations.html#GraphQL-Mutations) Create, Update, and Delete mutations resolvers on the server if you need to (and the same also goes for the Multi, Single, and Total query resolvers). 
-`
+// TODO check
 
-// uncomment the component's child on #Step14
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-const Step14 = () => (
-  <Components.Step step={14} text={text} after={after}>
-    {/* <Components.Mutations /> */}
-  </Components.Step>
-);
+export const checks = [{ file: '/lib/components/movies/MoviesNew.jsx', string: 'SmartForm' }];
 
-registerComponent({ name: 'Step14', component: Step14 });
+export default Step;

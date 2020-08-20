@@ -1,69 +1,26 @@
 import React from 'react';
-import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
-import withMoviesCount from '../../hocs/withMoviesCount.js';
+export const title = 'Loading Data';
 
-// Seeding
+const text = `
+We already know that Vulcan uses hooks to load data. Up to now, we've been using Apollo's regular \`useQuery\` hook as part of this tutorial, but it's now time to look at a couple Vulcan-specific hooks.
 
-const text = [`
-We're well on our way to sending data from the server to the client, but there's just one problem: we don't *have* any data. Let's fix this by inserting a few documents into our \`Movies\` collection. 
+These two hooks, \`useMulti2\` and \`useSingle2\`, can be used to load a list of documents or a single document respectively without having to explicitly write out the contents of their GraphQL query.
 
-We actually already have a \`seedMovies\` function ready, we just need to call it. We can do so using the [Meteor shell](https://docs.meteor.com/commandline.html#meteorshell), a convenient way to access your live Meteor development server.
+From now on, we'll start working on our little app over on the right hand side of the screen.
 
-Open a new Terminal window in your Vulcan application directory, type:
-`,`
-~~~sh
-meteor shell
-~~~
-`,`
-And then:
-`,`
-~~~js
-import { seedMovies } from 'meteor/getting-started'
-~~~
-`,`
-And finally:
-`,`
-~~~js
-seedMovies()
-~~~
-`];
+So this time, instead of modifying this \`Step10.jsx\` component, find the \`MoviesList\` component in \`lib/components/movies/MoviesList.jsx\` and uncomment the \`useMulti2\` group of lines. 
+`;
 
-const after = [`
-Well done! Our secret informant on the server (a.k.a. the \`withMoviesCount\` HoC) has confirmed that there are now 8 movies in our database. 
+const after = `
+Wow, look at that! The \`useMulti2\` hook did its job and loaded a list of movies for us. And all we had to do was to pass it a \`collection\` option to indicate where to load data from.
 
-By the way, a useful companion to the Meteor Shell is Meteor's [database access](https://docs.meteor.com/commandline.html#meteormongo):
-`,`
-~~~sh
-meteor mongo
-~~~
-`,`
-For example, here's how you would display all movies in your database:
-`,`
-~~~js
-db.movies.find()
-~~~
-`,`
-And here's how you would remove them all:
-`,`
-~~~js
-db.movies.remove({})
-~~~
-`,
-{
-  text: `By the way, I know you must be getting hungry so feel free to take a lunch break soon!`,
-  check: () => {
-    const date = new Date();
-    const hours = date.getHours();
-    return hours === 1 || hours === 12;
-  }
-}
-];
+By the way, in case you're wondering the \`2\` in \`useMulti2\` and \`useSingle2\` are a temporary backwards-compatibility measure to indicate that these hooks use the newer version of Vulcan's own internal API. 
+`;
 
-const Step8 = ({ loading, moviesCount }) => (
-  <Components.Step step={8} text={text} after={after} moviesCount={moviesCount}>
-    <div className="movies-count">Current movies count: {moviesCount}</div>
-  </Components.Step>
-);
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-registerComponent({ name: 'Step8', component: Step8, hocs: [withMoviesCount] });
+export const checks = [{file: '/lib/components/movies/MoviesList.jsx', string: 'const useMulti2Object = useMulti2'}];
+
+export default Step;

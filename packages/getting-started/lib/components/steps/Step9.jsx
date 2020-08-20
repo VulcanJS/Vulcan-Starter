@@ -1,44 +1,38 @@
 import React from 'react';
-import { Components, registerComponent, Collections } from 'meteor/vulcan:core';
+import { Components, registerComponent } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
-// Resolvers
+export const title = 'Fragments';
 
-const text = `
-Now that our data exists on the server, let's think about transmitting it to the client. 
+const text = [
+  `
+Our dummy reviews are fairly short, but what if they were each several thousand words long? In that case, we probably wouldn't want to load them all in our list view.
 
-It's important to realize that just because the data is available in our database doesn't mean the client can access it. After all, that wouldn't be very secure!
+Thankfully, one of GraphQL's perks is the ability to specify exactly what data you need, down to the individual field. And Vulcan makes it super-easy through [fragments](http://docs.vulcanjs.org/fragments.html).
 
-On the other hand, we do know that the client can connect to the GraphQL endpoint. In other words, if we can connect the endpoint to our database, we'll have managed to close the loop. And we can do this using a **resolver**. 
+We didn't pass any fragment to our \`useMulti2\` hook so it's just doing its best to guess what we want and ask for any field it can find. But let's specify a fragment to fix this. 
 
-A GraphQL resolver is basically a function that waits for any GraphQL queries mentioning a specific field, and then provides some data in return. In previous steps we actually already used two resolvers in the background, \`SchemaContents\` and \`MoviesCount\`. 
+Find \`fragmentName: 'MovieFragment'\` option of the hook in \`MoviesList.jsx\` and uncomment it. 
 
-These two resolvers were written specifically for this tutorial and are fairly limited, but we'll now look at Vulcan's **collection resolvers**.
-
-Go to \`lib/components/steps/Step9.jsx\` and uncomment the \`<Components.Resolvers />\` line to display a list of available query resolvers. 
-`;
-
-const after = [`
-Nice work! Notice the two \`movies\`, and \`movie\` resolvers in there? Those are our auto-generated query resolvers for the \`Movies\` collection. Behind the scenes, they'll fetch the data we need in the database and pass it on to the API layer. 
-
-By the way, we didn't even have to write a custom resolver to get this list of resolvers. Turns out GraphQL supports **introspection queries**, which let you get metadata about your own schema, in this case using the following GraphQL query (try it now in [GraphiQL](http://localhost:3000/graphiql)!):
-`,`
+That fragment has already been defined, and it looks something like this:
+`,
+  `
 ~~~gq
-query QueryResolvers{
-  __type(name:"Query") {
-    fields {
-      name
-    }
-  }
+fragment MovieFragment on Movie {
+  _id
+  createdAt
+  name
 }
 ~~~
-`]
+`,
+];
 
-// uncomment the component's child on #Step9
+const after = `
+As you can see, since the \`review\` field wasn't included in the fragment, it's no longer being sent to the client.
+`;
 
-const Step9 = () => (
-  <Components.Step step={9} text={text} after={after}>
-    {/* <Components.Resolvers /> */}
-  </Components.Step>
-);
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-registerComponent({ name: 'Step9', component: Step9 });
+export const checks = [{ file: '/lib/components/movies/MoviesList.jsx', string: 'fragmentName' }];
+
+export default Step;

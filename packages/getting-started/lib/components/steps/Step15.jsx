@@ -1,28 +1,43 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
-// Forms
+export const title = 'Datatables';
 
-const text = [`
-We now know that we have a mutation that creates new movies, so now let's build a form that takes advantage of it. 
+const text = [
+  `
+Learning about collections and schemas, seeding data, loading it on the client, inserting new documents… we've come a long way since step 1. 
 
-One of Vulcan's great features is that it can generate forms for you from a collection's schema. This means that all we need to do in order to get a "New Movie" form is specify the collection, in this case \`Movies\`. 
+And now that we've learned about so many concepts, let's take a look at a core component that brings them all together, the mighty [Datatable](http://docs.vulcanjs.org/datatable.html). 
 
-Additionally, in this case since we want our movie to show up in the same list as all the others once it's inserted, we'll specify a \`mutationFragmentName\` option to make sure the movie we get back from the server after the mutation has the same "shape" as the one already loaded on the client (including our special \`user\` field). 
+Datatables are a super-quick way to load and display a bunch of data, without having to worry about hooks or components. Just specify a few options and you're good to go!
 
-Find \`MoviesNew.jsx\` and uncomment the following:
-`,`
+For example, here's how you'd display a basic Datatable for the \`Movies\` collection:
+`,
+  `
 ~~~js
-<Components.SmartForm collection={Movies} mutationFragmentName="MovieFragment"/>
+<Components.Datatable collection={Movies} />
 ~~~
-`];
+`,
+  `
+We already have a Datatable ready to go in a \`MoviesApp2\` component, which we'll use to [replace](http://docs.vulcanjs.org/components.html#Replacing-Components) the existing \`MoviesApp\` component.
+
+To do so find \`lib/components/other/Layout.jsx\` and replace \`<MoviesApp/>\` with \`<MoviesApp2/>\`.
+
+`,
+];
 
 const after = `
-By the way, you can build forms to edit documents the same way. Just pass an additional \`documentId\` prop to \`Components.SmartForm\` with the \`_id\` of the document you want to edit, and Vulcan will take care of the rest. 
+Did you see the \`review\` field is back? That's because we're not using our fragment to load data anymore, instead the Datatable is doing its best to “guess” the appropriate list of fields. That being said, just like with forms if you want to be safe then manually specifying fragments is always a good idea.
+
+Also, as an extra feature, the \`Datatable\` component also includes a search function. The \`name\` and \`review\` fields happen to have the \`searchable: true\` property in our schema, which makes them searchable. Type in “classic” to try it now!
+
+By the way, this is out first time looking at the \`Layout\` component. This is a special default layout component included in every Vulcan app that automatically wraps all your other components. Here, we are *replacing* this default layout with our own three-column component that contains our table of contents, main content area, and Movies app. 
+
+Using \`replaceComponent\` lets us replace and customize any of Vulcan's internal components in this way, from layouts to forms to datatables.
 `;
 
-const Step15 = () => (
-  <Components.Step step={15} text={text} after={after} />
-);
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-registerComponent({ name: 'Step15', component: Step15 });
+export const checks = [{ file: '/lib/components/other/Layout.jsx', string: '<MoviesApp2 />' }];
+
+export default Step;

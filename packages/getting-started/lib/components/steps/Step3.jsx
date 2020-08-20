@@ -1,22 +1,44 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
+import Schema from '../other/Schema.jsx';
 
-// Importing Components
+export const title = 'Schemas';
 
 const text = `
-Registering a component tells Vulcan about it, but it's also important to make sure our component is properly *imported*, otherwise that registration function will never be executed in the first place!
+Now that you have an idea of Vulcan's basic features, let's dive into what *really* makes Vulcan special: how it handles **data**. 
 
-It turns out that's just what happened with \`Step4.jsx\`: the component is registered just fine, but the component's *file* itself is not being imported anywhere in the rest of our codebase. Let's fix this by going into \`lib/modules/components.js\` and uncommenting the \`Step4\` import. 
+In Vulcan, each type of data belongs to its own **collection** (or **model** if you're more familiar with that term). So you could have a \`Posts\` collection, a \`Comments\` collection, a \`Movies\` collection, and so on. And each item of a collection has an associated **type**, such as a \`Post\`, \`Comment\`, or \`Movie\`.
 
-Once we've done this, we can now go ahead and uncomment the **route** for step 4, following the same pattern as in previous steps. 
+Each collection features a [schema](http://docs.vulcanjs.org/schemas.html) that defines what a post, comment, or movie should look like (in other words, what fields it should have).
+
+This package already includes a pre-written schema for a \`Movies\` collection. Just find this component (\`Step3.jsx\`) and uncomment the \`Schema\` component to display its contents below: 
 `;
 
 const after = `
-It's easy to forget to import a file. A good pattern is to have a central \`components.js\` file that imports all of your app's components.
+Before we go to the next step, let's take a second to look at this schema. As you can see, we're defining five fields: \`_id\`, \`createdAt\`, \`userId\`, \`name\`, and \`review\`, which together make up the schema for our upcoming \`Movies\` collection. 
 
-Now let's learn a couple more Vulcan basics before we start building our little app. 
+Note that \`createdAt\` has an \`onCreate\` property, which returns a callback that will set it to the current timestamp whenever a new document is inserted. 
+
+Also of note are the \`canRead\`, \`canCreate\`, and \`canUpdate\` properties that specify which user groups can view, insert, or edit each field. Out of the box, Vulcan has four predefined groups:
+
+- \`guests\`: any user without an account.
+- \`members\`: any user *with* an account.
+- \`owners\`: any user that “owns” the document being operated on (more on that later).
+- \`admins\`: users with special admin privileges. 
+
+A field will only appear in your GraphQL schema if it has at least one of those three special properties. In other words, Vulcan will not expose any of your data unless you explicitly tell it to.
+
+Note that the first account you create in any Vulcan app automatically belongs to the \`admins\` group. But more on that later. For now, onwards to the next step!
 `;
 
-const Step3 = () => <Components.Step step={3} text={text} after={after}/>;
+// uncomment the component's child on #Step3:
 
-// registerComponent({ name: 'Step3', component: Step3 }); // uncomment on #Step2
+const Step = () => (
+  <StepWrapper title={Step.title} text={text} after={after}>
+    {/* <Schema/> */}
+  </StepWrapper>
+);
+
+export const checks = [{ string: '<Schema/>' }];
+
+export default Step;

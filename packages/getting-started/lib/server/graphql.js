@@ -1,4 +1,5 @@
-import { GraphQLSchema, addGraphQLSchema, addGraphQLResolvers, addGraphQLQuery } from 'meteor/vulcan:core';
+import { GraphQLSchema, addGraphQLResolvers, addGraphQLQuery, addGraphQLSchema } from 'meteor/vulcan:core';
+import { getSteps } from './steps.js';
 
 /*
 
@@ -9,14 +10,14 @@ Used to output the GraphQL schema as a string
 */
 const schemaResolvers = {
   Query: {
-    SchemaContents(root, args, context) {
+    schemaContents(root, args, context) {
       return GraphQLSchema.finalSchema[0];
     },
   },
 };
 addGraphQLResolvers(schemaResolvers);
 
-addGraphQLQuery(`SchemaContents: String`);
+addGraphQLQuery(`schemaContents: String`);
 
 /*
 
@@ -29,11 +30,37 @@ import Movies from '../modules/collection.js';
 
 const moviesCountResolvers = {
   Query: {
-    MoviesCount(root, args, context) {
+    moviesCount(root, args, context) {
       return Movies && Movies.find().count();
     },
   },
 };
 addGraphQLResolvers(moviesCountResolvers);
 
-addGraphQLQuery(`MoviesCount: Int`);
+addGraphQLQuery(`moviesCount: Int`);
+
+/*
+
+StepCompletion resolver
+
+Used to display step completion progress
+
+*/
+addGraphQLSchema(`
+type Step {
+  step: Int
+  completed: Boolean
+  progress: [Boolean]
+  title: String
+}`);
+
+const steps = {
+  Query: {
+    async steps() {
+      return await getSteps();
+    },
+  },
+};
+addGraphQLResolvers(steps);
+
+addGraphQLQuery(`steps: [Step]`);

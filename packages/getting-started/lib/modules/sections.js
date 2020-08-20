@@ -2,7 +2,7 @@ const sections = [
   `Welcome to Vulcan!`,
   `Creating a Route`,
   `Registering a Component`,
-  `Importing Components`,
+  `React Hooks`,
   `Core Components`,
   `Schemas`,
   `Collections`,

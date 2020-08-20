@@ -56,3 +56,5 @@ npm-debug.log
 ### Cypress
 tests/cypress/screenshots
 tests/cypress/videos
+
+schema.graphql

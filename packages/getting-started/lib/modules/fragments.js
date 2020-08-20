@@ -5,9 +5,15 @@ registerFragment(/* GraphQL */`
     _id
     createdAt
     name
-    # uncomment on #Step12
+    isWatched
+
+    # uncomment on #Step10
     # user{
     #  displayName
     # }
+
+    # uncomment on #Step11
+    # score
+    
   }
 `);

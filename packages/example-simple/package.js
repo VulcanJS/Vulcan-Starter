@@ -9,13 +9,14 @@ Package.onUse(function (api) {
     // Here are our dependencies:
 
     // vulcan core
-    "promise",
-    "vulcan:core@=1.15.2",
+    'promise',
+    'vulcan:core@=1.16.0',
 
     // vulcan packages
-    "vulcan:forms@=1.15.2",
-    "vulcan:accounts@=1.15.2",
-    "vulcan:ui-bootstrap@=1.15.2",
+    'vulcan:forms@=1.16.0',
+    'vulcan:accounts@=1.16.0',
+    'vulcan:ui-bootstrap@=1.16.0',
+
   ]);
 
   api.addFiles("lib/stylesheets/style.css");

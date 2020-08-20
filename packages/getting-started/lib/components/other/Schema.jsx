@@ -1,12 +1,11 @@
 import React from 'react';
-import { registerComponent } from 'meteor/vulcan:core';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
-import { okaidia } from 'react-syntax-highlighter/styles/prism';
+import { solarizedlight as theme } from 'react-syntax-highlighter/styles/prism';
 
 // import schema from '../../modules/schema.js';
 
 const schema = `
-{
+const schema = {
 
   _id: {
     type: String,
@@ -50,13 +49,28 @@ const schema = `
     searchable: true,
   },
 
-}
+  isWatched: {
+    label: 'Watched?',
+    type: Boolean,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+  },
+
+  imdbId: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+  },
+
+};
 `
 
 const Schema = () => (
   <div className="schema">
-    <SyntaxHighlighter language="javascript" style={okaidia}>{schema}</SyntaxHighlighter>
+    <SyntaxHighlighter language="javascript" style={theme}>{schema}</SyntaxHighlighter>
   </div>
 );
 
-registerComponent({ name: 'Schema', component: Schema });
+export default Schema;

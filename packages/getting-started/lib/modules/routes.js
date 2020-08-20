@@ -1,23 +1,46 @@
 import { addRoute } from 'meteor/vulcan:core';
+import Step0 from '../components/steps/Step0';
+import Step1 from '../components/steps/Step1';
+import Step2 from '../components/steps/Step2';
+import Step3 from '../components/steps/Step3';
+import Step4 from '../components/steps/Step4';
+import Step5 from '../components/steps/Step5';
+import Step6 from '../components/steps/Step6';
+import Step7 from '../components/steps/Step7';
+import Step8 from '../components/steps/Step8';
+import Step9 from '../components/steps/Step9';
+import Step10 from '../components/steps/Step10';
+import Step11 from '../components/steps/Step11';
+import Step12 from '../components/steps/Step12';
+import Step13 from '../components/steps/Step13';
+import Step14 from '../components/steps/Step14';
+import Step15 from '../components/steps/Step15';
+import Step16 from '../components/steps/Step16';
+import Step17 from '../components/steps/Step17';
+import Step18 from '../components/steps/Step18';
+import Step19 from '../components/steps/Step19';
+import Step20 from '../components/steps/Step20';
 
-addRoute({ name: 'step0', path: '/', componentName: 'Step0' });
-addRoute({ name: 'step1', path: '/step/1', componentName: 'Step1' });
-// addRoute({ name: 'step2', path: '/step/2', componentName: 'Step2' });  // uncomment me on #Step1
-// addRoute({ name: 'step3', path: '/step/3', componentName: 'Step3' });  // uncomment me on #Step2
-// addRoute({ name: 'step4', path: '/step/4', componentName: 'Step4' });  // uncomment me on #Step3
-addRoute({ name: 'step5', path: '/step/5', componentName: 'Step5' });
-addRoute({ name: 'step6', path: '/step/6', componentName: 'Step6' });
-addRoute({ name: 'step7', path: '/step/7', componentName: 'Step7' });
-addRoute({ name: 'step8', path: '/step/8', componentName: 'Step8' });
-addRoute({ name: 'step9', path: '/step/9', componentName: 'Step9' });
-addRoute({ name: 'step10', path: '/step/10', componentName: 'Step10' });
-addRoute({ name: 'step11', path: '/step/11', componentName: 'Step11' });
-addRoute({ name: 'step12', path: '/step/12', componentName: 'Step12' });
-addRoute({ name: 'step13', path: '/step/13', componentName: 'Step13' });
-addRoute({ name: 'step14', path: '/step/14', componentName: 'Step14' });
-addRoute({ name: 'step15', path: '/step/15', componentName: 'Step15' });
-addRoute({ name: 'step16', path: '/step/16', componentName: 'Step16' });
-addRoute({ name: 'step17', path: '/step/17', componentName: 'Step17' });
-addRoute({ name: 'step18', path: '/step/18', componentName: 'Step18' });
-addRoute({ name: 'step19', path: '/step/19', componentName: 'Step19' });
-addRoute({ name: 'step20', path: '/step/20', componentName: 'Step20' });
+addRoute({ name: 'step0', path: '/step/0', component: Step0 });
+addRoute({ name: 'step1', path: '/step/1', component: Step1 });
+// uncomment me on #Step1
+// addRoute({ name: 'step2', path: '/step/2', component: Step2 });
+addRoute({ name: 'step3', path: '/step/3', component: Step3 });
+addRoute({ name: 'step4', path: '/step/4', component: Step4 });
+addRoute({ name: 'step5', path: '/step/5', component: Step5 });
+addRoute({ name: 'step6', path: '/step/6', component: Step6 });
+addRoute({ name: 'step7', path: '/step/7', component: Step7 });
+addRoute({ name: 'step8', path: '/step/8', component: Step8 });
+addRoute({ name: 'step9', path: '/step/9', component: Step9 });
+addRoute({ name: 'step10', path: '/step/10', component: Step10 });
+addRoute({ name: 'step11', path: '/step/11', component: Step11 });
+addRoute({ name: 'step12', path: '/step/12', component: Step12 });
+addRoute({ name: 'step13', path: '/step/13', component: Step13 });
+addRoute({ name: 'step14', path: '/step/14', component: Step14 });
+addRoute({ name: 'step15', path: '/step/15', component: Step15 });
+addRoute({ name: 'step16', path: '/step/16', component: Step16 });
+addRoute({ name: 'step17', path: '/step/17', component: Step17 });
+addRoute({ name: 'step18', path: '/step/18', component: Step18 });
+addRoute({ name: 'step19', path: '/step/19', component: Step19 });
+addRoute({ name: 'step20', path: '/step/20', component: Step20 });
+addRoute({ name: 'step0', path: '/', component: Step0 });

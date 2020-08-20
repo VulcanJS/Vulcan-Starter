@@ -1,37 +1,47 @@
 import React from 'react';
-import { Components, registerComponent } from 'meteor/vulcan:core';
+import StepWrapper from './StepWrapper.jsx';
 
-// Datatables
+export const title = 'Permissions';
 
-const text = [`
-Learning about collections and schemas, seeding data, loading it on the client, inserting new documents… we've come a long way since step 1. 
+const text = `
+If you're logged in and your account has the proper admin privileges, you should see Edit buttons next to every item in the Datatable. That's by design: in Vulcan, admin accounts automatically pass every permission checks. 
 
-And now that we've learned about so many concepts, let's take a look at a core component that brings them all together, the mighty [Datatable](http://docs.vulcanjs.org/datatable.html). 
+But in a real world app, you'll probably want to handle regular users as well. So let's see how we can assign [permissions](http://docs.vulcanjs.org/groups-permissions.html) to let users edit their own movies. 
 
-Datatables are a super-quick way to load and display a bunch of data, without having to worry about HoCs or components. Just specify a few options and you're good to go!
+Start by signing out and creating a new account, which this time *won't* be an Admin account. Notice the new and edit buttons disappeared? That's because we've yet to tell our back-end who can insert and edit movies. 
 
-For example, here's how you'd display a basic Datatable for the \`Movies\` collection:
-`,`
+Find \`lib/modules/collection.js\` and uncomment the \`permissions\` property.`;
+
+const after = [
+  `
+The “New” button should be back, so try creating a new movie. Not only should it appear at the top of the list, but it should also have an “Edit” button attached. 
+
+So how does this work? Let's review the permissions code we added:
+`,
+  `
 ~~~js
-<Components.Datatable collection={Movies} />
+{
+  canRead: ['guests'],
+  canCreate: ['members'],
+  canUpdate: ['owners'],
+  canDelete: ['owners'],
+}
 ~~~
-`,`
-We already have a Datatable ready to go in a \`MoviesApp2\` component, which we'll use to [replace](http://docs.vulcanjs.org/components.html#Replacing-Components) the existing \`MoviesApp\` component.
+`,
+  `
 
-To do so find \`lib/modules/components.js\` and uncomment the \`MoviesApp2\` import.
+First, we've declared that any user belonging to the \`guests\` group (in other words anybody accessing our API, even without being authentified) can read (i.e. access) a movie document. This is actually the default for any new collection, so specifying \`canRead\` is not strictly necessary unless you do want to restrict documents to specific groups. 
 
-`];
+Then, we declare that any \`members\` (in other words any user, as long as they are logged in) can create a new movie. 
 
-const after = `
-If you take a closer look at \`MoviesApp2.jsx\`, you'll notice that it uses \`replaceComponent\` to *replace* the existing \`MoviesApp\` component. This explains why our new Datatable-enabled version just pops in at the same spot. This can be very useful when you want to surgically modify a specific component of a theme or package without having to fork its entire codebase. Every component is replaceable in Vulcan, including the parts that make up Datatable itself!
+Finally, for Update and Delete operations, we check if a user belongs to the \`owners\` group, in other words whether the modified document's \`userId\` property is equal to the user's own \`_id\`.
 
-By the way, did you see the \`review\` field is back? That's because we're not using our fragment to load data anymore, instead the Datatable is doing its best to “guess” the appropriate list of fields. That being said, if you want to be safe then manually specifying a fragment is always a good idea.
+You can consider these three default groups (along with the \`admins\` group) like shortcuts to common user roles. But you can also create your own custom groups, or even provide your own permission checks that bypass groups altogether. 
+`,
+];
 
-Also, as an extra feature, the \`Datatable\` component also includes a search function. The \`name\` and \`review\` fields happen to have the \`searchable: true\` property in our schema, which makes them searchable. Type in “classic” to try it now!
-`;
+const Step = () => <StepWrapper title={Step.title} text={text} after={after} />;
 
-const Step16 = () => (
-  <Components.Step step={16} text={text} after={after}/>
-);
+export const checks = [{ file: '/lib/modules/collection.js', string: 'permissions' }];
 
-registerComponent({ name: 'Step16', component: Step16 });
+export default Step;

@@ -7,13 +7,14 @@ Package.onUse(function (api) {
     "promise",
 
     // vulcan core
-    "vulcan:core@=1.15.2",
+    'vulcan:core@=1.16.0',
 
     // vulcan packages
-    "vulcan:voting@=1.15.2",
-    "vulcan:forms@=1.15.2",
-    "vulcan:accounts@=1.15.2",
-    "vulcan:ui-bootstrap@=1.15.2",
+    'vulcan:voting@=1.16.0',
+    'vulcan:forms@=1.16.0',
+    'vulcan:accounts@=1.16.0',
+    'vulcan:ui-bootstrap@=1.16.0',
+
   ]);
 
   api.addFiles("lib/stylesheets/style.css");

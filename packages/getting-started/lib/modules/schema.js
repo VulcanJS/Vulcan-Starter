@@ -19,16 +19,12 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
-    /*
-
-    Uncomment on #Step12:
-
-    */
-    // resolveAs: {
-    //   relation: 'hasOne',
+    // Uncomment on #Step10:
+    // relation: {
     //   fieldName: 'user',
-    //   type: 'User',
-    // },
+    //   typeName: 'User',
+    //   kind: 'hasOne'
+    // }
   },
 
   name: {
@@ -39,7 +35,8 @@ const schema = {
     canCreate: ['members'],
     canUpdate: ['members'],
     searchable: true,
-    // intl: true, // Uncomment on #Step19
+    // Uncomment on #Step19
+    // intl: true, 
   },
 
   review: {
@@ -51,6 +48,21 @@ const schema = {
     canCreate: ['members'],
     canUpdate: ['members'],
     searchable: true,
+  },
+
+  isWatched: {
+    label: 'Watched?',
+    type: Boolean,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+  },
+
+  imdbId: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
   },
 
 };
