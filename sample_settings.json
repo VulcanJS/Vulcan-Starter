@@ -1,15 +1,13 @@
 {
   "public": {
-
     "debug": false,
-    
+
     "title": "Vulcan.js",
-    "tagline":"The React/GraphQL Full-stack Framework",
+    "tagline": "The React/GraphQL Full-stack Framework",
 
     "faviconUrl": "/vulcan-logo-border.svg",
 
     "locale": "en"
-
   },
 
   "defaultEmail": "hello@world.com",
@@ -28,5 +26,10 @@
 
   "omdb": {
     "apiKey": "foobar"
+  },
+
+  "apolloServer": {
+    "corsWhitelist": [],
+    "corsEnableAll": false
   }
 }
