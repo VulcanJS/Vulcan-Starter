@@ -1,7 +1,7 @@
 import React from 'react';
 import { Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core';
 import { NavLink } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 
 import withQueryResolvers from '../../hocs/withQueryResolvers.js';
