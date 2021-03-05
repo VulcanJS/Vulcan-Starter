@@ -2,10 +2,11 @@ import { Components, registerComponent, withMulti, withCurrentUser } from 'meteo
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Categories } from '../../modules/categories/index.js';
-import { withApollo } from 'react-apollo';
+import { withApollo } from '@apollo/client/react/hoc';
+
 import get from 'lodash/get';
 
-const CategoriesMenu = props => {
+const CategoriesMenu = (props) => {
   const { match, results } = props;
 
   let menuItems = [

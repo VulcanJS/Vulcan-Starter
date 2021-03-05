@@ -117,6 +117,12 @@ input IntlValueInput{
   value: String
 }
 directive @intl on FIELD_DEFINITION
+type Locale {
+  id: String,
+  label: String
+  dynamic: Boolean
+  strings: JSON
+}
 
   input AuthPasswordInput {
     email: String
@@ -163,13 +169,6 @@ directive @intl on FIELD_DEFINITION
     email: String
   }
 
-type EmailResponse {
-  from: String
-  to: String
-  subject: String
-  success: JSON
-  error: String
-}
 
 type Step {
   step: Int
@@ -366,6 +365,8 @@ input UserSelectorUniqueInput {
 type Query {
   siteData: Site
   
+  locale(localeId: String): Locale
+  
   currentUser: User
   
   schemaContents: String
@@ -399,8 +400,6 @@ type Mutation {
   sendVerificationEmail(input: AuthEmailInput): Boolean
 
   verifyEmail(input: VerifyEmailInput): VerifyEmailResult
-
-  testEmail(emailName: String) : EmailResponse
 
   # Mutation for creating new User documents
   createUser(

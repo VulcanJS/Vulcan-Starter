@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 // import { docco } from 'react-syntax-highlighter/styles/hljs';
 import { useLocation } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
