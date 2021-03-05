@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.13.8",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.8",
     "@babel/runtime": "^7.9.6",
     "@types/react": "^16.9.5",
     "analytics-node": "^2.1.1",
@@ -135,7 +137,7 @@
     "autosuggest-highlight": "^3.1.1",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^8.0.5",
-    "cypress": "^3.8.0",
+    "cypress": "^4.12.1",
     "eslint": "^3.10.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-config-meteor": "0.0.9",
