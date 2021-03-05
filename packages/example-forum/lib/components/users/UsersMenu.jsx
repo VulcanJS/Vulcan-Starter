@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import Users from 'meteor/vulcan:users';
-import { withApollo } from 'react-apollo';
+import { withApollo } from '@apollo/client/react/hoc';
 import { FormattedMessage } from 'meteor/vulcan:i18n';
 import { STATES } from 'meteor/vulcan:accounts';
 
@@ -28,26 +28,26 @@ const UserLoggedInMenu = ({ currentUser, client }) => {
       labelId: 'users.profile',
     },
     {
-      to: `/account`,
+      to: '/account',
       labelId: 'users.edit_account',
     },
   ];
 
   if (Users.isAdmin(currentUser)) {
     menuItems.push({
-      to: `/admin/users`,
+      to: '/admin/users',
       labelId: 'admin.users',
     });
     menuItems.push({
-      to: `/admin/categories`,
+      to: '/admin/categories',
       labelId: 'admin.categories',
     });
     menuItems.push({
-      to: `/admin/comments`,
+      to: '/admin/comments',
       labelId: 'admin.comments',
     });
     menuItems.push({
-      to: `/admin/posts`,
+      to: '/admin/posts',
       labelId: 'admin.posts',
     });
   }
