@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.use(['vulcan:core@=1.16.1', 'example-forum@=1.16.1', 'fourseven:scss@4.12.0']);
+  api.use(['vulcan:core@=1.16.3', 'example-forum@=1.16.3', 'fourseven:scss@4.12.0']);
 
   api.mainModule('server.js', 'server');
   api.mainModule('client.js', 'client');
