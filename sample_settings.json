@@ -29,7 +29,7 @@
   },
 
   "apolloServer": {
-    "corsWhitelist": [],
+    "corsWhitelist": ["http://localhost:3000"],
     "corsEnableAll": false
   }
 }
