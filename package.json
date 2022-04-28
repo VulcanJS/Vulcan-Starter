@@ -43,7 +43,7 @@
     "combined-stream2": "^1.1.2",
     "compression": "^1.7.2",
     "cookie-parser": "^1.4.3",
-    "cross-fetch": "^0.0.8",
+    "cross-fetch": "^3.1.5",
     "crypto-js": "^3.1.9-1",
     "crypto-random-string": "^3.3.0",
     "css-loader": "^2.1.0",
