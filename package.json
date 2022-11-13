@@ -131,7 +131,7 @@
     "@storybook/addon-knobs": "5.0.8",
     "@storybook/addon-links": "5.0.8",
     "@storybook/addons": "5.0.1",
-    "@storybook/react": "5.0.8",
+    "@storybook/react": "6.5.13",
     "@storybook/theming": "5.0.8",
     "autoprefixer": "^6.3.6",
     "autosuggest-highlight": "^3.1.1",
