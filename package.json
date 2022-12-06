@@ -79,7 +79,7 @@
     "node-cache": "^5.1.2",
     "pluralize": "7.0.0",
     "prop-types": "^15.7.2",
-    "qs": "^6.6.0",
+    "qs": "^6.9.7",
     "react": "^16.13.1",
     "react-addons-pure-render-mixin": "^15.4.1",
     "react-bootstrap": "1.0.1",
