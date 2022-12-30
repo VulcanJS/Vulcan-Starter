@@ -52,7 +52,7 @@
     "dot-object": "^1.7.0",
     "escape-string-regexp": "^1.0.5",
     "express": "^4.16.4",
-    "flat": "^4.0.0",
+    "flat": "^5.0.1",
     "graphql": "14.4.2",
     "graphql-anywhere": "4.1.13",
     "graphql-date": "^1.0.3",
